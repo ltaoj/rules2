@@ -2,10 +2,9 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Account;
 import com.csu.rules.persistence.AccountDAO;
+import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
@@ -16,20 +15,10 @@ import java.util.List;
  */
 @Repository
 public class AccountDAOimpl implements AccountDAO{
-    private SessionFactory sessionFactory;
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        System.out.println(sessionFactory);
-        this.sessionFactory = sessionFactory;
-    }
 
     public Account login(long studentId, String password) throws PersistenceException {
         try {
-            Session session = this.sessionFactory.openSession();
+            Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             String hql = "select account from Account as account,  Signon signon " + "where signon.studentId=" + studentId + " and signon.password=" + password;
             List<Account> list = session.createQuery(hql).list();
