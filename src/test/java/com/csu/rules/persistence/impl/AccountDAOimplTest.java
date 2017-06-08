@@ -2,7 +2,9 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Account;
 import com.csu.rules.persistence.AccountDAO;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
@@ -11,6 +13,7 @@ import static junit.framework.TestCase.assertTrue;
  * Created by ltaoj on 17-5-30.
  */
 public class AccountDAOimplTest {
+
     private AccountDAO accountDAO = new AccountDAOimpl();
     @Test
     public void testLogin() throws Exception {

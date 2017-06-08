@@ -39,15 +39,14 @@ public class AccountActionBean {
             Account account1 = accountService.login(studentId, password);
             return new ResponseEntity<Account>(account1, HttpStatus.OK);
         } catch (AccountServiceException e) {
-            e.printStackTrace();
+            throw new CatchServiceException(e);
         }
-        return null;
     }
 
     @ExceptionHandler(CatchServiceException.class)
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Error serviceError(CatchServiceException e) {
-        Error error = new Error(e.getServiceException().getErrorCode(), e.getServiceException().getMessage());
+        Error error = new Error(e.getServiceException().getErrorCode(), "error");
         return error;
     }
 }
