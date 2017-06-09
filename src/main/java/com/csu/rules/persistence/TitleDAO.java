@@ -2,29 +2,22 @@ package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
-import com.csu.rules.domain.TitleOption;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ltaoj on 17-6-9.
  */
 public interface TitleDAO {
-    /**
-     * @param title
-     * @param optionList
-     * @throws PersistenceException
-     * 添加题目
-     */
-    void addTitle(Title title, List<Option> optionList) throws PersistenceException;
 
     /**
-     * @param titleOption
+     * @param title
      * @throws PersistenceException
      * 添加题目
      */
-    void addTitle(TitleOption titleOption) throws PersistenceException;
+    Integer addTitle(Title title) throws PersistenceException;
 
     /**
      * @param titleId 题目Id
@@ -32,16 +25,24 @@ public interface TitleDAO {
      * @throws PersistenceException
      * 根据题目Id删除题目
      */
-    TitleOption deleteTitle(int titleId) throws PersistenceException;
+    Title deleteTitle(int titleId) throws PersistenceException;
 
     /**
-     * @param titleId 题目Id
+     * @param title
+     * @param option
      * @return
      * @throws PersistenceException
-     * 根据题目Id编辑题目
+     * 修改题目以及选项内容
      */
-    TitleOption editTitle(int titleId) throws PersistenceException;
+    Title editTitle(Title title, Option option) throws PersistenceException;
 
+    /**
+     * @param titleId
+     * @return
+     * @throws PersistenceException
+     * 通过titleId得到TitleOption
+     */
+    Title getTitle(int titleId) throws PersistenceException;
     /**
      * @param offset 题目在数据库中的偏移
      * @param count 返回的题目数量
@@ -49,7 +50,7 @@ public interface TitleDAO {
      * @throws PersistenceException
      * 根据偏移offset返回数据库中offset个位置后的count个题目
      */
-    List<TitleOption> getTitleOptionList(int offset, int count) throws PersistenceException;
+    List<Title> getTitleList(int offset, int count) throws PersistenceException;
 
     /**
      * @param count
@@ -57,7 +58,7 @@ public interface TitleDAO {
      * @throws PersistenceException
      * 随机生成count个题目
      */
-    List<TitleOption> getRandomTitleOptionList(int count) throws PersistenceException;
+    List<Title> getRandomTitleList(int count) throws PersistenceException;
 
     /**
      * @param titleIds
@@ -65,5 +66,12 @@ public interface TitleDAO {
      * @throws PersistenceException
      * 返回titleIds中的所有题目
      */
-    List<TitleOption> getTitleOptionListByTitleId(int[] titleIds) throws PersistenceException;
+    List<Title> getTitleListByTitleIds(Set<Integer> titleIds) throws PersistenceException;
+
+    /**
+     * @return
+     * @throws PersistenceException
+     * 返回题库总题目数
+     */
+    Long getTotalTitleSize() throws PersistenceException;
 }

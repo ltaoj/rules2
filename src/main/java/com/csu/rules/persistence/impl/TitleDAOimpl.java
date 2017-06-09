@@ -2,64 +2,145 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
-import com.csu.rules.domain.TitleOption;
+import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.TitleDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.PersistenceException;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ltaoj on 17-6-9.
  */
 @Repository
 public class TitleDAOimpl implements TitleDAO {
-    public void addTitle(Title title, List<Option> optionList) throws PersistenceException {
+
+    public Integer addTitle(Title title) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             Integer titleId = (Integer) session.save(title);
-            System.out.println(titleId);
             transaction.commit();
             session.close();
-            for (int i = 0;i < optionList.size();i++) {
-                session = HibernateUtil.getSession();
-                transaction = session.beginTransaction();
-                optionList.get(i).setTitleId(titleId);
-                Integer optionId = (Integer) session.save(optionList.get(i));
-                System.out.println(optionId);
-                transaction.commit();
-                session.close();
-            }
+            return titleId;
+        }catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    public Title deleteTitle(int titleId) throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            Title title = session.load(Title.class, titleId);
+            System.out.println(title);
+            session.delete(title);
+            transaction.commit();
+            session.close();
+            return title;
+        } catch (RuntimeException e) {
+             throw new PersistenceException(e);
+        }
+    }
+
+    public Title editTitle(Title title, Option option) throws PersistenceException {
+        return null;
+    }
+
+    public Title getTitle(int titleId) throws javax.persistence.PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            String hql = "from Title as title where title.titleId=" + titleId;
+            List<Title> list = session.createQuery(hql).list();
+            transaction.commit();
+            session.close();
+            return list.size() > 0 ? list.get(0) : null;
         } catch (RuntimeException e) {
             throw new PersistenceException(e);
         }
     }
 
-    public void addTitle(TitleOption titleOption) throws PersistenceException {
-
+    public List<Title> getTitleList(int offset, int count) throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            Query query = session.createQuery("from Title");
+            query.setFirstResult(offset);
+            query.setFetchSize(count);
+            List<Title> titleList = query.list();
+            transaction.commit();
+            session.close();
+            return titleList;
+        } catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
     }
 
-    public TitleOption deleteTitle(int titleId) throws PersistenceException {
-        return null;
+    public List<Title> getRandomTitleList(int count) throws PersistenceException {
+        try {
+            long totalSize = getTotalTitleSize();
+            if (count > totalSize) count = (int) totalSize;
+            Set<Integer> set = randomIntegerList(count, totalSize);
+            return getTitleListByTitleIds(set);
+        } catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
     }
 
-    public TitleOption editTitle(int titleId) throws PersistenceException {
-        return null;
+    public List<Title> getTitleListByTitleIds(Set<Integer> titleIds) throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            String hql = "from Title as title where title.titleId in (" + formatSet(titleIds) + ")";
+            List<Title> list = session.createQuery(hql).list();
+            transaction.commit();
+            session.close();
+            return list;
+        } catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
     }
 
-    public List<TitleOption> getTitleOptionList(int offset, int count) throws PersistenceException {
-        return null;
+    public Long getTotalTitleSize() throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            String hql = "select count(*) from Title as title";
+            Long count = (Long) session.createQuery(hql).uniqueResult();
+            transaction.commit();
+            session.close();
+            return count;
+        } catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
     }
 
-    public List<TitleOption> getRandomTitleOptionList(int count) throws PersistenceException {
-        return null;
+    /**
+     * @param count 要返回的数目
+     * @param max 要返回的最大值
+     * @return
+     * 返回小于max的count个正整数
+     */
+    private Set<Integer> randomIntegerList(int count, long max) {
+        Set<Integer> set = new HashSet<Integer>();
+        while (set.size() < count) {
+            Integer integer = (int)(Math.random() * max);
+            set.add(integer);
+        }
+        return set;
     }
 
-    public List<TitleOption> getTitleOptionListByTitleId(int[] titleIds) throws PersistenceException {
-        return null;
+    private String formatSet(Set set) {
+        StringBuilder sb = new StringBuilder();
+        Iterator values = set.iterator();
+        while (values.hasNext()) {
+            sb.append("," + values.next());
+        }
+        System.out.println(sb.subSequence(1, sb.length()).toString());
+        return sb.subSequence(1, sb.length()).toString();
     }
 }

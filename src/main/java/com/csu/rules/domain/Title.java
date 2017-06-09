@@ -1,6 +1,8 @@
 package com.csu.rules.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by ltaoj on 17-6-9.
@@ -18,6 +20,19 @@ public class Title {
     private int diffId;
     @Column(name = "score")
     private int score;
+
+    @OneToMany(targetEntity = Option.class)
+    @JoinColumn(name = "title_id")
+    private Set<Option> options;
+
+    public Title() {
+    }
+
+    public Title(String name, int diffId, int score) {
+        this.name = name;
+        this.diffId = diffId;
+        this.score = score;
+    }
 
     public int getTitleId() {
         return titleId;
@@ -49,6 +64,14 @@ public class Title {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public Set<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Set<Option> options) {
+        this.options = options;
     }
 
     @Override
