@@ -1,105 +1,54 @@
 package com.csu.rules.domain;
 
-
-
 import javax.persistence.Column;
-
 import javax.persistence.Id;
-
 import java.io.Serializable;
 
-
-
 /**
-
  * Created by ltaoj on 17-6-9.
-
  */
-
-public class ContestregistionPK implements Serializable {
-
-    private long studentId;
-
-    private int testId;
-
-
-
+public class IntegralPK implements Serializable {
     @Id
-
     @Column(name = "student_id")
+    private long studentId;
+    @Id
+    @Column(name = "integral_num")
+    private Integer integralNum;
 
     public long getStudentId() {
-
         return studentId;
-
     }
-
-
 
     public void setStudentId(long studentId) {
-
         this.studentId = studentId;
-
     }
 
-
-
-    @Id
-
-    @Column(name = "test_id")
-
-    public int getTestId() {
-
-        return testId;
-
+    public Integer getIntegralNum() {
+        return integralNum;
     }
 
-
-
-    public void setTestId(int testId) {
-
-        this.testId = testId;
-
+    public void setIntegralNum(Integer integralNum) {
+        this.integralNum = integralNum;
     }
-
-
 
     @Override
-
     public boolean equals(Object o) {
-
         if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) return false;
 
-
-
-        ContestregistionPK that = (ContestregistionPK) o;
-
-
+        IntegralPK that = (IntegralPK) o;
 
         if (studentId != that.studentId) return false;
-
-        if (testId != that.testId) return false;
-
-
+        if (integralNum != null ? !integralNum.equals(that.integralNum) : that.integralNum != null)
+            return false;
 
         return true;
-
     }
-
-
 
     @Override
-
     public int hashCode() {
-
         int result = (int) (studentId ^ (studentId >>> 32));
-
-        result = 31 * result + testId;
-
+        result = 31 * result + (integralNum != null ? integralNum.hashCode() : 0);
         return result;
-
     }
-
 }

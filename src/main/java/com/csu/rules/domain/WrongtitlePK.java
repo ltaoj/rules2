@@ -1,105 +1,53 @@
 package com.csu.rules.domain;
 
-
-
 import javax.persistence.Column;
-
 import javax.persistence.Id;
-
 import java.io.Serializable;
 
-
-
 /**
-
  * Created by ltaoj on 17-6-9.
-
  */
-
-public class ContestregistionPK implements Serializable {
-
+public class WrongtitlePK implements Serializable {
+    @Id
+    @Column(name = "title_id")
+    private Integer titleId;
+    @Id
+    @Column(name = "student_id")
     private long studentId;
 
-    private int testId;
+    public Integer getTitleId() {
+        return titleId;
+    }
 
-
-
-    @Id
-
-    @Column(name = "student_id")
+    public void setTitleId(Integer titleId) {
+        this.titleId = titleId;
+    }
 
     public long getStudentId() {
-
         return studentId;
-
     }
-
-
 
     public void setStudentId(long studentId) {
-
         this.studentId = studentId;
-
     }
-
-
-
-    @Id
-
-    @Column(name = "test_id")
-
-    public int getTestId() {
-
-        return testId;
-
-    }
-
-
-
-    public void setTestId(int testId) {
-
-        this.testId = testId;
-
-    }
-
-
 
     @Override
-
     public boolean equals(Object o) {
-
         if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) return false;
 
-
-
-        ContestregistionPK that = (ContestregistionPK) o;
-
-
+        WrongtitlePK that = (WrongtitlePK) o;
 
         if (studentId != that.studentId) return false;
-
-        if (testId != that.testId) return false;
-
-
+        if (titleId != null ? !titleId.equals(that.titleId) : that.titleId != null) return false;
 
         return true;
-
     }
-
-
 
     @Override
-
     public int hashCode() {
-
-        int result = (int) (studentId ^ (studentId >>> 32));
-
-        result = 31 * result + testId;
-
+        int result = titleId != null ? titleId.hashCode() : 0;
+        result = 31 * result + (int) (studentId ^ (studentId >>> 32));
         return result;
-
     }
-
 }
