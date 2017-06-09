@@ -8,6 +8,7 @@ import javax.persistence.PersistenceException;
 /**
  * Created by ltaoj on 17-5-30.
  */
+
 public interface AccountDAO{
     /**
      * @param studentId

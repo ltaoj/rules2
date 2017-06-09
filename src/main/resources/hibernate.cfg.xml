@@ -5,23 +5,30 @@
 <hibernate-configuration>
     <session-factory>
         <!--配置连接数据库的基本操作-->
-        <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
-        <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/schoolrulessystem</property>-->
-        <!--<property name="hibernate.connection.username">root</property>-->
-        <!--<property name="hibernate.connection.password"></property>-->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/schoolrulessystem</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
         <!--配置基本信息-->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <!--配置连接池-->
-        <!--<property name="hibernate.c3p0.min_size">5</property>-->
-        <!--<property name="hibernate.c3p0.max_size">20</property>-->
-        <!--<property name="hibernate.c3p0.timeout">300</property>-->
-        <!--<property name="hibernate.c3p0.max_statements">50</property>-->
-        <!--<property name="hibernate.c3p0.idle_test_period">3000</property>-->
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
         <!--指定自动生成数据表的策略-->
         <property name="hbm2ddl.auto">update</property>
-        <!--<mapping class="com.csu.rules.domain.Account"/>-->
-        <!--<mapping class="com.csu.rules.domain.Signon"/>-->
+        <property name="connection.url">jdbc:mysql://localhost:3306/schoolrulessystem</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+        <mapping class="com.csu.rules.domain.Contestregistion"/>
+        <mapping class="com.csu.rules.domain.Testinfo"/>
+        <!--<mapping class="com.csu.rules.domain.Userinfo"/>-->
+        <mapping class="com.csu.rules.domain.Account"/>
+        <mapping class="com.csu.rules.domain.Signon"/>
+        <mapping class="com.csu.rules.domain.Testrecord"/>
     </session-factory>
 </hibernate-configuration>
