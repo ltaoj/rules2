@@ -23,5 +23,9 @@
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.csu.rules.domain.Account"/>
         <mapping class="com.csu.rules.domain.Signon"/>
+        <mapping class="com.csu.rules.domain.Wrongtitle"/>
+        <mapping class="com.csu.rules.domain.Integral"/>
+        <mapping class="com.csu.rules.domain.Testrecord"/>
+        <mapping class="com.csu.rules.domain.Clockin"/>
     </session-factory>
 </hibernate-configuration>
