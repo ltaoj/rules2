@@ -11,5 +11,10 @@
       <user-name>root</user-name>
       <introspection-schemas>*:schoolrulessystem</introspection-schemas>
     </data-source>
+    <data-source name="hibernate.cfg.xml/Hibernate" uuid="ede7666b-21a4-4915-9cd9-72e6339e5d0c">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <first-sync>true</first-sync>
+      <user-name>root</user-name>
+    </data-source>
   </component>
 </project>
