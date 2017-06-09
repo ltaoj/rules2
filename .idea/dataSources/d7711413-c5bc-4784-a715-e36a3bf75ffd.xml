@@ -12,11 +12,11 @@
     <schema id="6" parent="1" name="performance_schema"/>
     <schema id="7" parent="1" name="test"/>
     <table id="8" parent="2" name="admin"/>
-    <table id="9" parent="2" name="clockin"/>
-    <table id="10" parent="2" name="contestregistion"/>
-    <table id="11" parent="2" name="integral"/>
-    <table id="12" parent="2" name="notice"/>
-    <table id="13" parent="2" name="option"/>
+    <table id="9" parent="2" name="choice"/>
+    <table id="10" parent="2" name="clockin"/>
+    <table id="11" parent="2" name="contestregistion"/>
+    <table id="12" parent="2" name="integral"/>
+    <table id="13" parent="2" name="notice"/>
     <table id="14" parent="2" name="signon"/>
     <table id="15" parent="2" name="testinfo"/>
     <table id="16" parent="2" name="testrecord"/>
@@ -62,99 +62,98 @@
       <ColNames>account</ColNames>
       <UnderlyingIndexName>uc_account</UnderlyingIndexName>
     </key>
-    <column id="28" parent="9" name="comment">
+    <column id="28" parent="9" name="option_id">
+      <Position>1</Position>
+      <Comment>选项编号</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="29" parent="9" name="title_id">
+      <Position>2</Position>
+      <Comment>题目编号</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="30" parent="9" name="content">
+      <Position>3</Position>
+      <Comment>选项内容</Comment>
+      <DataType>varchar(300)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="9" name="checked">
+      <Position>4</Position>
+      <Comment>是否选择</Comment>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="32" parent="9" name="option_fk_1">
+      <ColNames>title_id</ColNames>
+    </index>
+    <key id="33" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>option_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="34" parent="9" name="option_fk_1">
+      <ColNames>title_id</ColNames>
+      <RefSchemaName>schoolrulessystem</RefSchemaName>
+      <RefTableName>title</RefTableName>
+      <RefColNames>title_id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="35" parent="10" name="comment">
       <Position>6</Position>
       <Comment>评论内容</Comment>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="29" parent="9" name="clock_id">
+    <column id="36" parent="10" name="clock_id">
       <Position>1</Position>
       <Comment>打卡编号</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="30" parent="9" name="student_id">
+    <column id="37" parent="10" name="student_id">
       <Position>2</Position>
       <Comment>学号</Comment>
       <DataType>bigint(20)|0</DataType>
     </column>
-    <column id="31" parent="9" name="clock_day">
+    <column id="38" parent="10" name="clock_day">
       <Position>3</Position>
       <Comment>打卡时间日期</Comment>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0000-00-00 00:00:00&apos;</DefaultExpression>
     </column>
-    <column id="32" parent="9" name="duration">
+    <column id="39" parent="10" name="duration">
       <Position>4</Position>
       <Comment>学习时长</Comment>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="33" parent="9" name="title_num">
+    <column id="40" parent="10" name="title_num">
       <Position>5</Position>
       <Comment>题目数</Comment>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <index id="34" parent="9" name="clock_fk_1">
+    <index id="41" parent="10" name="clock_fk_1">
       <ColNames>student_id</ColNames>
     </index>
-    <key id="35" parent="9" name="PRIMARY">
+    <key id="42" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>clock_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="36" parent="9" name="clock_fk_1">
+    <foreign-key id="43" parent="10" name="clock_fk_1">
       <ColNames>student_id</ColNames>
       <RefSchemaName>schoolrulessystem</RefSchemaName>
       <RefTableName>userinfo</RefTableName>
       <RefColNames>student_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>set-null</OnDelete>
-    </foreign-key>
-    <column id="37" parent="10" name="student_id">
-      <Position>1</Position>
-      <Comment>学号</Comment>
-      <DataType>bigint(20)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="38" parent="10" name="test_id">
-      <Position>2</Position>
-      <Comment>测试编号</Comment>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="39" parent="10" name="status">
-      <Position>3</Position>
-      <Comment>竞赛状态</Comment>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="40" parent="10" name="conreg_fk_2">
-      <ColNames>test_id</ColNames>
-    </index>
-    <key id="41" parent="10" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>student_id
-test_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="42" parent="10" name="conreg_fk_1">
-      <ColNames>student_id</ColNames>
-      <RefSchemaName>schoolrulessystem</RefSchemaName>
-      <RefTableName>userinfo</RefTableName>
-      <RefColNames>student_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="43" parent="10" name="conreg_fk_2">
-      <ColNames>test_id</ColNames>
-      <RefSchemaName>schoolrulessystem</RefSchemaName>
-      <RefTableName>testinfo</RefTableName>
-      <RefColNames>test_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
     </foreign-key>
     <column id="44" parent="11" name="student_id">
       <Position>1</Position>
@@ -162,16 +161,28 @@ test_id</ColNames>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="45" parent="11" name="integral_num">
+    <column id="45" parent="11" name="test_id">
       <Position>2</Position>
-      <Comment>总积分数目</Comment>
+      <Comment>测试编号</Comment>
       <DataType>int(11)|0</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <NotNull>1</NotNull>
     </column>
-    <index id="46" parent="11" name="integral_fk_1">
-      <ColNames>student_id</ColNames>
+    <column id="46" parent="11" name="status">
+      <Position>3</Position>
+      <Comment>竞赛状态</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="47" parent="11" name="conreg_fk_2">
+      <ColNames>test_id</ColNames>
     </index>
-    <foreign-key id="47" parent="11" name="integral_fk_1">
+    <key id="48" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>student_id
+test_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="49" parent="11" name="conreg_fk_1">
       <ColNames>student_id</ColNames>
       <RefSchemaName>schoolrulessystem</RefSchemaName>
       <RefTableName>userinfo</RefTableName>
@@ -179,104 +190,93 @@ test_id</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="48" parent="12" name="notice_id">
+    <foreign-key id="50" parent="11" name="conreg_fk_2">
+      <ColNames>test_id</ColNames>
+      <RefSchemaName>schoolrulessystem</RefSchemaName>
+      <RefTableName>testinfo</RefTableName>
+      <RefColNames>test_id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="51" parent="12" name="student_id">
+      <Position>1</Position>
+      <Comment>学号</Comment>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="12" name="integral_num">
+      <Position>2</Position>
+      <Comment>总积分数目</Comment>
+      <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="53" parent="12" name="integral_fk_1">
+      <ColNames>student_id</ColNames>
+    </index>
+    <foreign-key id="54" parent="12" name="integral_fk_1">
+      <ColNames>student_id</ColNames>
+      <RefSchemaName>schoolrulessystem</RefSchemaName>
+      <RefTableName>userinfo</RefTableName>
+      <RefColNames>student_id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="55" parent="13" name="notice_id">
       <Position>1</Position>
       <Comment>通知编号</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="49" parent="12" name="title">
+    <column id="56" parent="13" name="title">
       <Position>2</Position>
       <Comment>通知标题</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="50" parent="12" name="content">
+    <column id="57" parent="13" name="content">
       <Position>3</Position>
       <Comment>通知文本内容</Comment>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="51" parent="12" name="picture">
+    <column id="58" parent="13" name="picture">
       <Position>4</Position>
       <Comment>图片描述url</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="52" parent="12" name="submit_time">
+    <column id="59" parent="13" name="submit_time">
       <Position>5</Position>
       <Comment>发布时间</Comment>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0000-00-00 00:00:00&apos;</DefaultExpression>
     </column>
-    <column id="53" parent="12" name="source">
+    <column id="60" parent="13" name="source">
       <Position>6</Position>
       <Comment>作者，来源</Comment>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="54" parent="12" name="type">
+    <column id="61" parent="13" name="type">
       <Position>7</Position>
       <Comment>通知类型</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="55" parent="12" name="notice_fk_1">
+    <index id="62" parent="13" name="notice_fk_1">
       <ColNames>source</ColNames>
     </index>
-    <key id="56" parent="12" name="PRIMARY">
+    <key id="63" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>notice_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="57" parent="12" name="notice_fk_1">
+    <foreign-key id="64" parent="13" name="notice_fk_1">
       <ColNames>source</ColNames>
       <RefSchemaName>schoolrulessystem</RefSchemaName>
       <RefTableName>admin</RefTableName>
       <RefColNames>admin_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>set-null</OnDelete>
-    </foreign-key>
-    <column id="58" parent="13" name="option_id">
-      <Position>1</Position>
-      <Comment>选项编号</Comment>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="59" parent="13" name="title_id">
-      <Position>2</Position>
-      <Comment>题目编号</Comment>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="60" parent="13" name="content">
-      <Position>3</Position>
-      <Comment>选项内容</Comment>
-      <DataType>varchar(300)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="61" parent="13" name="checked">
-      <Position>4</Position>
-      <Comment>是否选择</Comment>
-      <DataType>tinyint(1)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="62" parent="13" name="option_fk_1">
-      <ColNames>title_id</ColNames>
-    </index>
-    <key id="63" parent="13" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>option_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="64" parent="13" name="option_fk_1">
-      <ColNames>title_id</ColNames>
-      <RefSchemaName>schoolrulessystem</RefSchemaName>
-      <RefTableName>title</RefTableName>
-      <RefColNames>title_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="65" parent="14" name="password">
       <Position>2</Position>

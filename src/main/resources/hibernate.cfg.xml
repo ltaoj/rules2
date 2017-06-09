@@ -6,7 +6,9 @@
     <session-factory>
         <!--配置连接数据库的基本操作-->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/schoolrulessystem</property>
+        <property name="hibernate.connection.url">
+            <![CDATA[jdbc:mysql://localhost:3306/schoolrulessystem?useUnicode=true&characterEncoding=utf8]]>
+        </property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password"></property>
         <!--配置基本信息-->
@@ -23,5 +25,16 @@
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.csu.rules.domain.Account"/>
         <mapping class="com.csu.rules.domain.Signon"/>
+        <mapping class="com.csu.rules.domain.Integral"/>
+        <mapping class="com.csu.rules.domain.Admin"/>
+        <mapping class="com.csu.rules.domain.Wrongtitle"/>
+        <mapping class="com.csu.rules.domain.Option"/>
+        <mapping class="com.csu.rules.domain.Title"/>
+        <mapping class="com.csu.rules.domain.Titlediff"/>
+        <mapping class="com.csu.rules.domain.Contestregistion"/>
+        <mapping class="com.csu.rules.domain.Testinfo"/>
+        <mapping class="com.csu.rules.domain.Testrecord"/>
+        <mapping class="com.csu.rules.domain.Clockin"/>
+        <mapping class="com.csu.rules.domain.Notice"/>
     </session-factory>
 </hibernate-configuration>
