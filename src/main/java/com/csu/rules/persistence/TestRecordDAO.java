@@ -1,0 +1,45 @@
+package com.csu.rules.persistence;
+
+import com.csu.rules.domain.Account;
+import com.csu.rules.domain.Testinfo;
+import com.csu.rules.domain.Testrecord;
+import com.csu.rules.exception.PersistenceException;
+
+import java.util.List;
+
+
+/**
+ * Created by GF on 2017/6/10.
+ */
+public interface TestRecordDAO {
+    /**
+     * 插入考试成绩
+     * @param testrecord
+     * @throws PersistenceException
+     */
+    void insertTestRecord(Testrecord testrecord) throws PersistenceException;
+
+    /**
+     * 根据学号和考试id修改考试成绩
+     * @param testrecord
+     * @throws PersistenceException
+     */
+    void updateTestRecord(Testrecord testrecord) throws PersistenceException;
+
+    /**
+     * 根据学号和考试id查看成绩
+     * @param testrecord
+     * @return
+     * @throws PersistenceException
+     */
+    Testrecord getTestRecord(Testrecord testrecord) throws PersistenceException;
+
+    /**
+     * 管理员功能：根据考试id查看学生考试成绩,打印成绩表
+     * 用户功能：查看已经参加考试的人数
+     * @param testId
+     * @return
+     * @throws PersistenceException
+     */
+    List<Testrecord> getTestRecordList(int testId) throws PersistenceException;
+}

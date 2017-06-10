@@ -85,12 +85,8 @@ public class ContestServiceimpl implements ContestService{
 
     //获取竞赛相关信息
     public List<Testinfo> getContestInfoList() {
-        List<Testinfo> contestInfoList=contestTestDAO.getContestInfo();
+        List<Testinfo> contestInfoList=contestTestDAO.getContestInfoList();
         return contestInfoList;
     }
 
-    public List<Testinfo> getTestInfoList() {
-        List<Testinfo> testInfoList=contestTestDAO.getTestInfo();
-        return testInfoList;
-    }
 }

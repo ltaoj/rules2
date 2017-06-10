@@ -13,18 +13,52 @@ import java.util.List;
  * Created by GF on 2017/6/8.
  */
 public interface ContestTestDAO {
-    //报名竞赛void
+    /**
+     * 报名竞赛
+     * status 0.未开始 1.开始 2.已结束
+     * @param account
+     * @param testInfo
+     * @throws PersistenceException
+     */
      void registContest(Account account, Testinfo testInfo) throws PersistenceException;
-    //查看是否已经报名
+
+    /**
+     * 判断是否已经报名竞赛
+     * @param account
+     * @param testInfo
+     * @return
+     * @throws PersistenceException
+     */
     Contestregistion isRegistedContest(Account account, Testinfo testInfo)throws PersistenceException;
-    //根据竞赛id获取已经报名的学生
+
+    /**
+     * 根据竞赛id查看已经报名竞赛的人
+     * @param testInfo
+     * @return
+     * @throws PersistenceException
+     */
     List<Contestregistion> getContestRegistionList(Testinfo testInfo)throws PersistenceException;
-    //改变竞赛当前状态status为开始
+
+    /**
+     * 改变竞赛考试的状态status为开始 status:0.未开始 1.开始 2.已结束
+     * @param contestregistion
+     * @return
+     * @throws PersistenceException
+     */
     Contestregistion changeContestStatusBegin(Contestregistion contestregistion)throws PersistenceException;
-    //改变竞赛当前状态status为结束
+
+    /**
+     * 改变竞赛考试的状态status为结束 status:0.未开始 1.开始 2.已结束
+     * @param contestregistion
+     * @return
+     * @throws PersistenceException
+     */
     Contestregistion changeContestStatusEnd(Contestregistion contestregistion)throws PersistenceException;
-    //返回竞赛相关信息
-    List<Testinfo> getContestInfo() throws PersistenceException;
-    //获取考试信息
-    List<Testinfo> getTestInfo() throws PersistenceException;
+
+    /**
+     * 返回多个竞赛相关信息 type:0 考试 1 竞赛
+     * @return
+     * @throws PersistenceException
+     */
+    List<Testinfo> getContestInfoList() throws PersistenceException;
 }

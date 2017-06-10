@@ -39,6 +39,4 @@ public interface ContestService {
 
     List<Testinfo> getContestInfoList();
 
-    List<Testinfo> getTestInfoList();
-
 }
