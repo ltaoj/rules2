@@ -17,23 +17,25 @@ import java.util.List;
  * Created by GF on 2017/6/8.
  */
 public class ContestTestDAOimplTest {
-    private Session session= HibernateUtil.getSession();
+
 
     @Test
     //数据库可查看是否报名
     public void testRegisterContest(){
+        Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
         ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
-        Account account=(Account)session.load(Account.class,new Long(3903150332L));
+        Account account=(Account)session.load(Account.class,new Long(3903150326L));
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
-        Contestregistion contestregistion=contestServiceimpl.registContest(account,testInfo);
+        contestServiceimpl.registContest(account,testInfo);
     }
 
     @Test
     public void testIsRegisted(){
+        Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
         ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
-        Account account=(Account)session.load(Account.class,new Long(3903150332L));
+        Account account=(Account)session.load(Account.class,new Long(3903150326L));
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
         Contestregistion contestregistion=contestServiceimpl.isRegistedContest(account,testInfo);
         System.out.print(contestregistion.getStudentId()+" "+contestregistion.getStatus());
@@ -41,6 +43,7 @@ public class ContestTestDAOimplTest {
 
     @Test
     public void testContestList(){
+        Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
         ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
@@ -52,9 +55,10 @@ public class ContestTestDAOimplTest {
 
     @Test
     public void testChangeStatusBegin(){
+        Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
         ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
-        Account account=(Account)session.load(Account.class,new Long(3903150332L));
+        Account account=(Account)session.load(Account.class,new Long(3903150326L));
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
         Criteria criteria=session.createCriteria(Contestregistion.class);
         criteria.add(Restrictions.eq("studentId",account.getStudentId()));
@@ -69,9 +73,10 @@ public class ContestTestDAOimplTest {
 
     @Test
     public void testChangeStatusEnd(){
+        Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
         ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
-        Account account=(Account)session.load(Account.class,new Long(3903150332L));
+        Account account=(Account)session.load(Account.class,new Long(3903150326L));
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
         Criteria criteria=session.createCriteria(Contestregistion.class);
         criteria.add(Restrictions.eq("studentId",account.getStudentId()));
@@ -86,6 +91,7 @@ public class ContestTestDAOimplTest {
 
     @Test
     public void testContsetInfo(){
+        Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
         ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
         List<Testinfo> contestInfoList=contestServiceimpl.getContestInfoList();

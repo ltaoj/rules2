@@ -13,7 +13,7 @@ public interface ContestService {
     /**
      *报名竞赛 根据竞赛的开始时间判断是否可以报名
      */
-    Contestregistion registContest(Account account, Testinfo testinfo);
+    void registContest(Account account, Testinfo testinfo);
     /**
      *查看是否已经报名竞赛
      * */
@@ -38,4 +38,7 @@ public interface ContestService {
     Contestregistion changeContestStatusEnd(Contestregistion contestregistion,Testinfo testinfo);
 
     List<Testinfo> getContestInfoList();
+
+    List<Testinfo> getTestInfoList();
+
 }

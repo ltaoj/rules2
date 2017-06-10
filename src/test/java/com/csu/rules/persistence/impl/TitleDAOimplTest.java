@@ -37,7 +37,7 @@ public class TitleDAOimplTest {
 
     @Test
     public void testDeleteTitle() throws Exception {
-        assertTrue(titleDAO.deleteTitle(11) != null);
+        assertTrue(titleDAO.deleteTitle(12) != null);
     }
 
     @Test
