@@ -109,15 +109,13 @@ CREATE TABLE `notice` (
 -- ----------------------------
 -- Table structure for `option`
 -- ----------------------------
-DROP TABLE IF EXISTS `option`;
-CREATE TABLE `option` (
+DROP TABLE IF EXISTS `choice`;
+CREATE TABLE `choice` (
   `option_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项编号',
   `title_id` int(11) NOT NULL COMMENT '题目编号',
   `content` varchar(300) NOT NULL COMMENT '选项内容',
   `checked` tinyint(1) NOT NULL COMMENT '是否选择',
   PRIMARY KEY (`option_id`),
-  KEY `option_fk_1` (`title_id`),
-  CONSTRAINT `option_fk_1` FOREIGN KEY (`title_id`) REFERENCES `title` (`title_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

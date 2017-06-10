@@ -19,7 +19,7 @@ public class TitleDAOimplTest {
     private TitleDAO titleDAO = new TitleDAOimpl();
 
     @Test
-    public void testAddTitle2() throws Exception {
+    public void testAddTitle() throws Exception {
         Title title = new Title();
         title.setName("4+4等于多少？");
         title.setScore(5);
@@ -37,12 +37,13 @@ public class TitleDAOimplTest {
 
     @Test
     public void testDeleteTitle() throws Exception {
-        assertTrue(titleDAO.deleteTitle(11) != null);
+        assertTrue(titleDAO.deleteTitle(2) != null);
     }
 
     @Test
     public void testGetTitle() throws Exception {
-        assertTrue(titleDAO.getTitle(3).getOptions() != null);
+        assertTrue(titleDAO.getTitle(2).getOptions() != null);
+        assertTrue(titleDAO.getTitle(2).getOptions().size() == 4);
         assertFalse(titleDAO.getTitle(100) != null);
     }
 
@@ -58,6 +59,6 @@ public class TitleDAOimplTest {
 
     @Test
     public void testGetTotalTitleSize() throws Exception {
-        assertTrue(titleDAO.getTotalTitleSize() == 10);
+        assertFalse(titleDAO.getTotalTitleSize() == 10);
     }
 }
