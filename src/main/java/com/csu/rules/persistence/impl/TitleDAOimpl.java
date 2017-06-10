@@ -35,7 +35,7 @@ public class TitleDAOimpl implements TitleDAO {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            Title title = session.load(Title.class, titleId);
+            Title title = session.get(Title.class, titleId);
             System.out.println(title);
             session.delete(title);
             transaction.commit();
@@ -65,7 +65,7 @@ public class TitleDAOimpl implements TitleDAO {
     }
 
     public List<Title> getTitleList(int offset, int count) throws PersistenceException {
-        try {
+            try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             Query query = session.createQuery("from Title");

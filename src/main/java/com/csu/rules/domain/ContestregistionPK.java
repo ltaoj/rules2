@@ -8,11 +8,13 @@ import java.io.Serializable;
  * Created by ltaoj on 17-6-9.
  */
 public class ContestregistionPK implements Serializable {
-    private long studentId;
-    private int testId;
-
     @Id
     @Column(name = "student_id")
+    private long studentId;
+    @Id
+    @Column(name = "test_id")
+    private int testId;
+
     public long getStudentId() {
         return studentId;
     }
@@ -21,8 +23,6 @@ public class ContestregistionPK implements Serializable {
         this.studentId = studentId;
     }
 
-    @Id
-    @Column(name = "test_id")
     public int getTestId() {
         return testId;
     }

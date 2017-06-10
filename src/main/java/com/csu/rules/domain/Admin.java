@@ -8,13 +8,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "admin", schema = "schoolrulessystem", catalog = "")
 public class Admin {
-    private int adminId;
-    private String account;
-    private String password;
-    private String username;
-
     @Id
     @Column(name = "admin_id")
+    private int adminId;
+    @Column(name = "account")
+    private String account;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "username")
+    private String username;
+
     public int getAdminId() {
         return adminId;
     }
@@ -23,8 +26,6 @@ public class Admin {
         this.adminId = adminId;
     }
 
-    @Basic
-    @Column(name = "account")
     public String getAccount() {
         return account;
     }
@@ -33,8 +34,6 @@ public class Admin {
         this.account = account;
     }
 
-    @Basic
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -43,8 +42,6 @@ public class Admin {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "username")
     public String getUsername() {
         return username;
     }

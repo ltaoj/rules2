@@ -21,7 +21,7 @@ public class Title {
     @Column(name = "score")
     private int score;
 
-    @OneToMany(targetEntity = Option.class)
+    @OneToMany(targetEntity = Option.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "title_id")
     private Set<Option> options;
 
