@@ -47,4 +47,23 @@ public interface NoticeDAO {
      * @throws PersistenceException
      */
     void updateNotice(Notice notice) throws  PersistenceException;
+
+    /**
+     * 分页获取文字通知
+     * @param offset notice在数据库中的偏移
+     * @param count 返回的notice数量
+     * @return
+     * @throws PersistenceException
+     * 根据偏移offset返回数据库中offset个位置后的count个通知
+     */
+    List<Notice> getTextNoticeListByPage(int offset,int count) throws PersistenceException;
+    /**
+     * 分页获取图片通知
+     * @param offset notice在数据库中的偏移
+     * @param count 返回的notice数量
+     * @return
+     * @throws PersistenceException
+     * 根据偏移offset返回数据库中offset个位置后的count个通知
+     */
+    List<Notice> getPicNoticeListByPage(int offset,int count) throws PersistenceException;
 }

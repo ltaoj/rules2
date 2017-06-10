@@ -4,7 +4,7 @@ import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Contestregistion;
 import com.csu.rules.domain.Testinfo;
 import com.csu.rules.persistence.ContestTestDAO;
-import com.csu.rules.service.impl.ContestServiceimpl;
+import com.csu.rules.service.impl.TestServiceimpl;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -24,7 +24,7 @@ public class ContestTestDAOimplTest {
     public void testRegisterContest(){
         Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
-        ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
+        TestServiceimpl contestServiceimpl=new TestServiceimpl(contestRegistionDAO);
         Account account=(Account)session.load(Account.class,new Long(3903150326L));
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
         contestServiceimpl.registContest(account,testInfo);
@@ -34,7 +34,7 @@ public class ContestTestDAOimplTest {
     public void testIsRegisted(){
         Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
-        ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
+        TestServiceimpl contestServiceimpl=new TestServiceimpl(contestRegistionDAO);
         Account account=(Account)session.load(Account.class,new Long(3903150326L));
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
         Contestregistion contestregistion=contestServiceimpl.isRegistedContest(account,testInfo);
@@ -45,7 +45,7 @@ public class ContestTestDAOimplTest {
     public void testContestList(){
         Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
-        ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
+        TestServiceimpl contestServiceimpl=new TestServiceimpl(contestRegistionDAO);
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
         List<Contestregistion> contestregistionList=contestServiceimpl.getContestRegistionList(testInfo);
         for(int i=0;i<contestregistionList.size();i++){
@@ -54,10 +54,10 @@ public class ContestTestDAOimplTest {
     }
 
     @Test
-    public void testChangeStatusBegin(){
+    public void testChangeStatus(){
         Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
-        ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
+        TestServiceimpl contestServiceimpl=new TestServiceimpl(contestRegistionDAO);
         Account account=(Account)session.load(Account.class,new Long(3903150326L));
         Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
         Criteria criteria=session.createCriteria(Contestregistion.class);
@@ -65,25 +65,7 @@ public class ContestTestDAOimplTest {
         criteria.add(Restrictions.eq("testId",testInfo.getTestId()));
         List list=criteria.list();
         Contestregistion contestRegistion=(Contestregistion) list.get(0);
-        Contestregistion contest=contestServiceimpl.changeContestStatusBegin(contestRegistion,testInfo);
-        if(contest!=null){
-            System.out.print("已改变");
-        }
-    }
-
-    @Test
-    public void testChangeStatusEnd(){
-        Session session= HibernateUtil.getSession();
-        ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
-        ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
-        Account account=(Account)session.load(Account.class,new Long(3903150326L));
-        Testinfo testInfo=(Testinfo)session.load(Testinfo.class,new Integer(3));
-        Criteria criteria=session.createCriteria(Contestregistion.class);
-        criteria.add(Restrictions.eq("studentId",account.getStudentId()));
-        criteria.add(Restrictions.eq("testId",testInfo.getTestId()));
-        List list=criteria.list();
-        Contestregistion contestRegistion=(Contestregistion) list.get(0);
-        Contestregistion contest=contestServiceimpl.changeContestStatusEnd(contestRegistion,testInfo);
+        Contestregistion contest=contestServiceimpl.changeContestStatus(contestRegistion,testInfo);
         if(contest!=null){
             System.out.print("已改变");
         }
@@ -93,7 +75,7 @@ public class ContestTestDAOimplTest {
     public void testContsetInfo(){
         Session session= HibernateUtil.getSession();
         ContestTestDAO contestRegistionDAO=new ContestTestDAOimpl();
-        ContestServiceimpl contestServiceimpl=new ContestServiceimpl(contestRegistionDAO);
+        TestServiceimpl contestServiceimpl=new TestServiceimpl(contestRegistionDAO);
         List<Testinfo> contestInfoList=contestServiceimpl.getContestInfoList();
         System.out.print(contestInfoList.get(0).getName());
     }

@@ -69,4 +69,10 @@ public class noticeDAOimplTest {
         notice.setType(1);
         noticeDAO.updateNotice(notice);
     }
+
+    @Test
+    public void testPicNoticeListByPage(){
+        List<Notice> picNoticeList=noticeDAO.getPicNoticeListByPage(0,1);
+        assertTrue(picNoticeList.size()==1);
+    }
 }

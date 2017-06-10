@@ -107,7 +107,7 @@ public class AccountServiceimpl implements AccountService {
     }
 
     public List<Testinfo> getContestInfoList() {
-        List<Testinfo> contestInfoList = contestTestDAO.getContestInfo();
+        List<Testinfo> contestInfoList = contestTestDAO.getContestInfoList();
         return contestInfoList;
     }
 }

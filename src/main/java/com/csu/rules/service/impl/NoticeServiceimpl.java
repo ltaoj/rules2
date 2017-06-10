@@ -109,4 +109,36 @@ public class NoticeServiceimpl implements NoticeService {
             throw ne;
         }
     }
+
+    public List<Notice> getPicListByPage(int offset, int count) throws NoticeServiceException {
+        try {
+            NoticeServiceException ne = new NoticeServiceException();
+            List<Notice> pictureNoticeList=noticeDAO.getPicNoticeListByPage(offset,count);
+            if(pictureNoticeList==null){
+                ne.setErrorCode(106);
+                throw ne;
+            }
+            return pictureNoticeList;
+        } catch (PersistenceException pe) {
+            NoticeServiceException ne = new NoticeServiceException();
+            ne.setErrorCode(100);
+            throw ne;
+        }
+    }
+
+    public List<Notice> getTextListByPage(int offset, int count) throws NoticeServiceException {
+        try {
+            NoticeServiceException ne = new NoticeServiceException();
+            List<Notice> textNoticeList=noticeDAO.getTextNoticeListByPage(offset,count);
+            if(textNoticeList==null){
+                ne.setErrorCode(107);
+                throw ne;
+            }
+            return textNoticeList;
+        } catch (PersistenceException pe) {
+            NoticeServiceException ne = new NoticeServiceException();
+            ne.setErrorCode(100);
+            throw ne;
+        }
+    }
 }
