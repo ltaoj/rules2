@@ -43,6 +43,7 @@ public interface TitleDAO {
      * 通过titleId得到TitleOption
      */
     Title getTitle(int titleId) throws PersistenceException;
+
     /**
      * @param offset 题目在数据库中的偏移
      * @param count 返回的题目数量

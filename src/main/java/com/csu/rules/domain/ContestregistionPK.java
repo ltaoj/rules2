@@ -8,6 +8,7 @@ import java.io.Serializable;
  * Created by ltaoj on 17-6-9.
  */
 public class ContestregistionPK implements Serializable {
+    @Id
     @Column(name = "student_id")
     private long studentId;
     @Id

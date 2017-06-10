@@ -32,15 +32,15 @@ INSERT INTO titlediff VALUES(3, '难');
 INSERT INTO title(name, diff_id, score) VALUES('1+1等于多少？', 1, 5);
 INSERT INTO title(name, diff_id, score) VALUES('2*2等于多少？', 1, 5);
 
-### option ###
-INSERT INTO `option`(title_id, content, checked) VALUES(1, '1', 0);
-INSERT INTO `option`(title_id, content, checked) VALUES(1, '2', 1);
-INSERT INTO `option`(title_id, content, checked) VALUES(1, '3', 0);
-INSERT INTO `option`(title_id, content, checked) VALUES(1, '4', 0);
-INSERT INTO `option`(title_id, content, checked) VALUES(2, '1', 0);
-INSERT INTO `option`(title_id, content, checked) VALUES(2, '2', 0);
-INSERT INTO `option`(title_id, content, checked) VALUES(2, '3', 0);
-INSERT INTO `option`(title_id, content, checked) VALUES(2, '4', 1);
+### choice ###
+INSERT INTO choice(title_id, content, checked) VALUES(1, '1', 0);
+INSERT INTO choice(title_id, content, checked) VALUES(1, '2', 1);
+INSERT INTO choice(title_id, content, checked) VALUES(1, '3', 0);
+INSERT INTO choice(title_id, content, checked) VALUES(1, '4', 0);
+INSERT INTO choice(title_id, content, checked) VALUES(2, '1', 0);
+INSERT INTO choice(title_id, content, checked) VALUES(2, '2', 0);
+INSERT INTO choice(title_id, content, checked) VALUES(2, '3', 0);
+INSERT INTO choice(title_id, content, checked) VALUES(2, '4', 1);
 
 ### wrongtitle ###
 INSERT INTO wrongtitle VALUES(1, 3903150326);
