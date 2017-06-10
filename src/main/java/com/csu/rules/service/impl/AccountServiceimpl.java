@@ -1,20 +1,19 @@
 package com.csu.rules.service.impl;
 
-import com.csu.rules.domain.Account;
-import com.csu.rules.domain.Contestregistion;
-import com.csu.rules.domain.Signon;
-import com.csu.rules.domain.Testinfo;
+import com.csu.rules.domain.*;
 import com.csu.rules.exception.AccountServiceException;
 import com.csu.rules.persistence.AccountDAO;
+import com.csu.rules.persistence.AdminDAO;
 import com.csu.rules.persistence.ContestTestDAO;
 import com.csu.rules.persistence.SignonDAO;
+import com.csu.rules.persistence.impl.AccountDAOimpl;
+import com.csu.rules.persistence.impl.AdminDAOimpl;
+import com.csu.rules.persistence.impl.SignonDAOimpl;
 import com.csu.rules.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * Created by ltaoj on 17-5-30.
@@ -22,13 +21,15 @@ import java.util.List;
 @Service
 public class AccountServiceimpl implements AccountService {
 
+    private AccountDAO accountDAO;
     private SignonDAO signonDAO;
-    private ContestTestDAO contestTestDAO;
+    private AdminDAO adminDAO;
 
     @Autowired
-    public AccountServiceimpl(AccountDAO accountDAO, ContestTestDAO contestTestDAO) {
+    public AccountServiceimpl(AccountDAO accountDAO, SignonDAO signonDAO, AdminDAO adminDAO) {
+        this.accountDAO = accountDAO;
         this.signonDAO = signonDAO;
-        this.contestTestDAO = contestTestDAO;
+        this.adminDAO = adminDAO;
     }
 
     public Account login(long studentId, String password) throws AccountServiceException {
@@ -66,6 +67,23 @@ public class AccountServiceimpl implements AccountService {
         return login(signon.getStudentId(), signon.getPassword());
     }
 
+    public Admin login(Admin admin) throws AccountServiceException {
+        AccountServiceException ae = new AccountServiceException();
+        if (Integer.toString(admin.getAdminId()).length() == 0) {
+            ae.setErrorCode(6);
+            throw ae;
+        } else if (admin.getPassword() == null) {
+            ae.setErrorCode(7);
+            throw ae;
+        }
+        admin = adminDAO.Login(admin);
+        if (admin == null) {
+            ae.setErrorCode(8);
+            throw ae;
+        }
+        return admin;
+    }
+
     public Account getUserInfo(Account account) throws AccountServiceException {
         AccountServiceException ae = new AccountServiceException();
         if (account == null) {
@@ -75,39 +93,11 @@ public class AccountServiceimpl implements AccountService {
         return account;
     }
 
-    public Contestregistion registContest(Account account, Testinfo testinfo) {
-        ContestTestDAO contestTestDAO = null;
-        Contestregistion contestregistion = new Contestregistion();
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        Timestamp startTime = testinfo.getStartTime();
-        if (currentTime.before(startTime)) {
-            contestTestDAO.registContest(account, testinfo);
-        }
-        return contestregistion;
+    public void submitProposals(Long studentId, String mail, String content) throws AccountServiceException {
+
     }
 
-    public Contestregistion isRegistedContest(Account account, Testinfo testInfo) {
-        Contestregistion contestregistion = new Contestregistion();
-        contestregistion = contestTestDAO.isRegistedContest(account, testInfo);
-        return contestregistion;
+    public void exchange(Integral integral) throws AccountServiceException {
     }
 
-    public Contestregistion changeContestStatus(Contestregistion contestregistion, Testinfo testinfo) {
-        Contestregistion contest = new Contestregistion();
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        Timestamp startTime = testinfo.getStartTime();
-        Timestamp endTime = testinfo.getEndTime();
-        if (currentTime.after(endTime)) {
-            contest = contestTestDAO.changeContestStatusEnd(contestregistion);
-        }
-        if (currentTime.before(endTime) && currentTime.after(startTime)) {
-            contest = contestTestDAO.changeContestStatusBegin(contestregistion);
-        }
-        return contest;
-    }
-
-    public List<Testinfo> getContestInfoList() {
-        List<Testinfo> contestInfoList = contestTestDAO.getContestInfoList();
-        return contestInfoList;
-    }
 }

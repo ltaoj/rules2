@@ -6,12 +6,15 @@ import com.csu.rules.persistence.ClockDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
+
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
  * Created by ltaoj on 17-6-10.
  */
+@Repository
 public class ClockDAOimpl implements ClockDAO {
 
     public void insertClock(Clockin clockin) throws PersistenceException {
