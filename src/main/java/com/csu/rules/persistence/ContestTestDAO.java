@@ -13,8 +13,8 @@ import java.util.List;
  * Created by GF on 2017/6/8.
  */
 public interface ContestTestDAO {
-    //报名竞赛
-    Contestregistion registContest(Account account, Testinfo testInfo) throws PersistenceException;
+    //报名竞赛void
+     void registContest(Account account, Testinfo testInfo) throws PersistenceException;
     //查看是否已经报名
     Contestregistion isRegistedContest(Account account, Testinfo testInfo)throws PersistenceException;
     //根据竞赛id获取已经报名的学生

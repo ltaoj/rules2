@@ -81,7 +81,7 @@ public class AccountServiceimpl implements AccountService {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         Timestamp startTime = testinfo.getStartTime();
         if (currentTime.before(startTime)) {
-            contestregistion = contestTestDAO.registContest(account, testinfo);
+            contestTestDAO.registContest(account, testinfo);
         }
         return contestregistion;
     }
