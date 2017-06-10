@@ -52,33 +52,21 @@ public class ContestServiceimpl implements ContestService{
         return contestRegistionList;
     }
     /**
-     * 根据竞赛startTime和endTime，依据当前系统时间改变竞赛的状态为开始
+     * 根据竞赛startTime和endTime，依据当前系统时间改变竞赛的状态
      * status:0.未开始
      * status:1.开始
      * status;2.已结束
      * */
-    public Contestregistion changeContestStatusBegin(Contestregistion contestregistion,Testinfo testinfo) {
+    public Contestregistion changeContestStatus(Contestregistion contestregistion,Testinfo testinfo) {
         Contestregistion contest=new Contestregistion();
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        Timestamp endTime=testinfo.getEndTime();
         Timestamp startTime=testinfo.getStartTime();
-        Timestamp endTime=testinfo.getEndTime();
-        if(currentTime.before(endTime)&&currentTime.after(startTime)){
-            contest=contestTestDAO.changeContestStatusBegin(contestregistion);
-        }
-        return contest;
-    }
-    /**
-     * 根据竞赛startTime和endTime，依据当前系统时间改变竞赛的状态为结束
-     * status:0.未开始
-     * status:1.开始
-     * status;2.已结束
-     * */
-    public Contestregistion changeContestStatusEnd(Contestregistion contestregistion,Testinfo testinfo) {
-        Contestregistion contest=new Contestregistion();
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        Timestamp endTime=testinfo.getEndTime();
         if(currentTime.after(endTime)){
             contest=contestTestDAO.changeContestStatusEnd(contestregistion);
+        }
+        if(currentTime.before(endTime)&&currentTime.after(startTime)){
+            contest=contestTestDAO.changeContestStatusBegin(contestregistion);
         }
         return contest;
     }

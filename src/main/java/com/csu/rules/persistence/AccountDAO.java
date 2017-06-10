@@ -1,10 +1,6 @@
 package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Account;
-import com.csu.rules.domain.Clockin;
-import com.csu.rules.domain.Integral;
-import com.csu.rules.domain.Testrecord;
-
 import javax.persistence.PersistenceException;
 import java.util.List;
 

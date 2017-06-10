@@ -6,10 +6,12 @@ import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by CMM on 2017/6/10.
  */
+@Repository
 public class AdminDAOimpl implements AdminDAO {
 
     public Admin Login(Admin admin) {

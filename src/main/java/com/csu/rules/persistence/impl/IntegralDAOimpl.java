@@ -9,10 +9,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by CMM on 2017/6/10.
  */
+@Repository
 public class IntegralDAOimpl implements IntegralDAO {
 
     public Integral getIntegral(Account account) throws PersistenceException {

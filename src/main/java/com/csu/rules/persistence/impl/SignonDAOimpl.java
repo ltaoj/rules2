@@ -5,6 +5,7 @@ import com.csu.rules.persistence.SignonDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * Created by CMM on 2017/6/10.
  */
+@Repository
 public class SignonDAOimpl implements SignonDAO {
     public Account login(long studentId, String password) throws PersistenceException {
         Session session = HibernateUtil.getSession();

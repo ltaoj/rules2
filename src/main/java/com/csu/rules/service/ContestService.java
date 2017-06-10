@@ -23,19 +23,12 @@ public interface ContestService {
      * */
     List<Contestregistion> getContestRegistionList(Testinfo testInfo);
     /**
-     * 根据竞赛startTime和endTime，依据当前系统时间改变竞赛的状态为开始
+     * 根据竞赛startTime和endTime，依据当前系统时间改变竞赛的状态
      * status:0.未开始
      * status:1.开始
      * status;2.已结束
      * */
-    Contestregistion changeContestStatusBegin(Contestregistion contestregistion,Testinfo testinfo);
-    /**
-     * 根据竞赛startTime和endTime，依据当前系统时间改变竞赛的状态为结束
-     * status:0.未开始
-     * status:1.开始
-     * status;2.已结束
-     * */
-    Contestregistion changeContestStatusEnd(Contestregistion contestregistion,Testinfo testinfo);
+    Contestregistion changeContestStatus(Contestregistion contestregistion,Testinfo testinfo);
 
     List<Testinfo> getContestInfoList();
 

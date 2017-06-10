@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Created by CMM on 2017/6/10.
  */
+@Repository
 public class WrongtitleDAOimpl implements WrongtitleDAO {
     public List<Wrongtitle> getWrongTitleIdList(Account account) throws PersistenceException {
         Session session = HibernateUtil.getSession();
