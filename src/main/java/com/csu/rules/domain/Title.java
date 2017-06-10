@@ -20,7 +20,6 @@ public class Title {
     private int diffId;
     @Column(name = "score")
     private int score;
-
     @OneToMany(targetEntity = Option.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "title_id")
     private Set<Option> options;

@@ -26,14 +26,13 @@ public class ContestServiceimpl implements ContestService{
      *报名竞赛 根据竞赛的开始时间判断是否可以报名
      * 返回对象为空则未报名成功
      */
-    public Contestregistion registContest(Account account, Testinfo testinfo) {
+    public void registContest(Account account, Testinfo testinfo) {
         Contestregistion contestregistion=new Contestregistion();
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         Timestamp startTime=testinfo.getStartTime();
         if(currentTime.before(startTime)){
-            contestregistion=contestTestDAO.registContest(account,testinfo);
+            contestTestDAO.registContest(account,testinfo);
         }
-        return contestregistion;
     }
 
     /**
@@ -88,5 +87,10 @@ public class ContestServiceimpl implements ContestService{
     public List<Testinfo> getContestInfoList() {
         List<Testinfo> contestInfoList=contestTestDAO.getContestInfo();
         return contestInfoList;
+    }
+
+    public List<Testinfo> getTestInfoList() {
+        List<Testinfo> testInfoList=contestTestDAO.getTestInfo();
+        return testInfoList;
     }
 }
