@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Contestregistion;
 import com.csu.rules.domain.Testinfo;
+import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.ContestTestDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
@@ -11,7 +12,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.PersistenceException;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ import java.util.List;
 @Repository
 public class ContestTestDAOimpl implements ContestTestDAO {
 
-    public void registContest(Account account, Testinfo testInfo) throws PersistenceException{
+    public void registContest(Account account, Testinfo testInfo) throws PersistenceException {
         Session session= HibernateUtil.getSession();
         Transaction transaction=session.beginTransaction();
         Contestregistion contestRegistion=new Contestregistion();

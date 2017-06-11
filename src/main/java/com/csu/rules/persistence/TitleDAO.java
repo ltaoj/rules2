@@ -2,8 +2,8 @@ package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
+import com.csu.rules.exception.PersistenceException;
 
-import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.Set;
 
@@ -75,4 +75,11 @@ public interface TitleDAO {
      * 返回题库总题目数
      */
     Long getTotalTitleSize() throws PersistenceException;
+
+//    /**
+//     * @param title
+//     * @return
+//     * @throws PersistenceException
+//     */
+//    boolean isTitleCorrect(Title title) throws PersistenceException;
 }

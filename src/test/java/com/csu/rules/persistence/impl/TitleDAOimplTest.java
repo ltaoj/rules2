@@ -48,7 +48,8 @@ public class TitleDAOimplTest {
 
     @Test
     public void testGetTitleList() throws Exception {
-        assertTrue(titleDAO.getTitleList(0, 10).size() <= 10);
+        assertTrue(titleDAO.getTitleList(0,10).get(0).getTitleId() == 1);
+        assertTrue(titleDAO.getTitleList(1, 10).size() <= 2);
     }
 
     @Test

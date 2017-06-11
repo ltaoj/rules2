@@ -1,8 +1,8 @@
 package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.exception.PersistenceException;
 
-import javax.persistence.PersistenceException;
 
 /**
  * Created by CMM on 2017/6/10.

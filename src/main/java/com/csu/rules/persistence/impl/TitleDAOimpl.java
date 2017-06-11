@@ -118,6 +118,20 @@ public class TitleDAOimpl implements TitleDAO {
         }
     }
 
+//    public boolean isTitleCorrect(Title title) throws PersistenceException {
+//        try {
+//            Session session = HibernateUtil.getSession();
+//            Transaction transaction = session.beginTransaction();
+//            String hql = "from Title as title where title.titleId=" + title.getTitleId();
+//            List<Title> list = session.createQuery(hql).list();
+//            transaction.commit();
+//            session.close();
+//            return list != null && list.size() > 0 ? true : false;
+//        }catch (RuntimeException e) {
+//            throw new PersistenceException(e);
+//        }
+//    }
+
     /**
      * @param count 要返回的数目
      * @param max 要返回的最大值

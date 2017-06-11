@@ -4,8 +4,6 @@ import com.csu.rules.domain.Clockin;
 import com.csu.rules.exception.PersistenceException;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**

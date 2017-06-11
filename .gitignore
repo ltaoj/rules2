@@ -8,3 +8,6 @@ target/
 .idea/dataSources/
 .idea/inspectionProfiles/
 .idea/dataSources.local.xml
+
+# rules.iml
+rules.iml

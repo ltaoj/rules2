@@ -1,7 +1,8 @@
 package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Account;
-import javax.persistence.PersistenceException;
+import com.csu.rules.exception.PersistenceException;
+
 import java.util.List;
 
 /**
