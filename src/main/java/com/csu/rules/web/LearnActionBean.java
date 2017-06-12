@@ -1,5 +1,6 @@
 package com.csu.rules.web;
 
+import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Clockin;
 import com.csu.rules.domain.Result;
 import com.csu.rules.exception.CatchServiceException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by ltaoj on 17-6-12.
@@ -36,29 +38,42 @@ public class LearnActionBean extends AbstractActionBean{
     public ResponseEntity<Result> clock(@RequestBody Clockin clockin) {
         try {
             learnService.insertClock(clockin);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        }catch (LearnServiceException le) {
+            throw new CatchServiceException(le);
+        }
+    }
+
+    @RequestMapping(value = "upClock", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> upClock(@RequestBody Clockin clockin) {
+        try{
+            learnService.updateTodayClock(clockin);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        }catch (LearnServiceException le) {
+            throw new CatchServiceException(le);
+        }
+    }
+
+    @RequestMapping(value = "clockDetail", method = RequestMethod.GET)
+    public ResponseEntity<Result> clockDetail(@RequestParam(value = "studentId") long studentId,
+                                                  @RequestParam(value = "username") String username,
+                                                  @RequestParam(value = "datetime") String datetime) {
+        try {
+            Account account = new Account();
+            account.setStudentId(studentId);
+            account.setUsername(username);
+            Clockin clockin = learnService.getClockDetailByDay(account, Timestamp.valueOf(datetime));
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, clockin), HttpStatus.OK);
         }catch (LearnServiceException le) {
             throw new CatchServiceException(le);
         }
     }
-    // 用于网页测试，
-    @RequestMapping(value = "/clocktest", method = RequestMethod.POST)
-    public ResponseEntity<Result> clocktest(
-            @RequestParam(value = "studentId") long studentId,
-            @RequestParam(value = "duration") int duration,
-            @RequestParam(value = "titleNum") int titleNum,
-            @RequestParam(value = "clockDay") String clockDay,
-            @RequestParam(value = "comment") String comment
-            ) {
+
+    @RequestMapping(value = "clockList", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> clockList(@RequestBody Account account) {
         try {
-            Clockin clockin = new Clockin();
-            clockin.setStudentId(studentId);
-            clockin.setDuration(duration);
-            clockin.setTitleNum(titleNum);
-            clockin.setClockDay(Timestamp.valueOf(clockDay));
-            clockin.setComment(comment);
-            learnService.insertClock(clockin);
-            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+            List<Clockin> clockList = learnService.getAllClocks(account);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, clockList), HttpStatus.OK);
         }catch (LearnServiceException le) {
             throw new CatchServiceException(le);
         }
