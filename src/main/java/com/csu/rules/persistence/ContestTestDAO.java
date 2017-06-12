@@ -16,20 +16,18 @@ public interface ContestTestDAO {
     /**
      * 报名竞赛
      * status 0.未开始 1.开始 2.已结束
-     * @param account
-     * @param testInfo
+     * @param contestregistion
      * @throws PersistenceException
      */
-     void registContest(Account account, Testinfo testInfo) throws PersistenceException;
+     void registContest(Contestregistion contestregistion) throws PersistenceException;
 
     /**
      * 判断是否已经报名竞赛
-     * @param account
-     * @param testInfo
+     * @param contestregistion
      * @return
      * @throws PersistenceException
      */
-    Contestregistion isRegistedContest(Account account, Testinfo testInfo)throws PersistenceException;
+    Contestregistion isRegistedContest(Contestregistion contestregistion)throws PersistenceException;
 
     /**
      * 根据竞赛id查看已经报名竞赛的人
@@ -45,7 +43,7 @@ public interface ContestTestDAO {
      * @return
      * @throws PersistenceException
      */
-    Contestregistion changeContestStatusBegin(Contestregistion contestregistion)throws PersistenceException;
+    void changeContestStatusBegin(Contestregistion contestregistion)throws PersistenceException;
 
     /**
      * 改变竞赛考试的状态status为结束 status:0.未开始 1.开始 2.已结束
@@ -54,6 +52,14 @@ public interface ContestTestDAO {
      * @throws PersistenceException
      */
     Contestregistion changeContestStatusEnd(Contestregistion contestregistion)throws PersistenceException;
+
+    /**
+     * 获取竞赛状态
+     * @param contestregistion
+     * @return
+     * @throws PersistenceException
+     */
+    Contestregistion getContestRegistion(Contestregistion contestregistion) throws PersistenceException;
 
     /**
      * 返回多个竞赛相关信息 type:0 考试 1 竞赛

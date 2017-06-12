@@ -33,12 +33,13 @@ public class TestServiceimpl implements TestService {
         this.testRecordDAO = testRecordDAO;
     }
 
-    public void registContest(Account account, Testinfo testinfo) throws TestServiceException {
+    public void registContest(Contestregistion contestregistion) throws TestServiceException {
         try {
+            Testinfo testinfo=testDAO.getTestInfo(contestregistion.getTestId());
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             Timestamp startTime = testinfo.getStartTime();
             if (currentTime.before(startTime)) {
-                contestTestDAO.registContest(account, testinfo);
+                contestTestDAO.registContest(contestregistion);
             }
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
@@ -47,10 +48,10 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public Contestregistion isRegistedContest(Account account, Testinfo testInfo) throws TestServiceException {
+    public Contestregistion isRegistedContest(Contestregistion contestregistion) throws TestServiceException {
         try {
-            Contestregistion contestregistion = contestTestDAO.isRegistedContest(account, testInfo);
-            return contestregistion;
+            Contestregistion contest = contestTestDAO.isRegistedContest(contestregistion);
+            return contest;
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
             te.setErrorCode(100);
@@ -75,17 +76,20 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public Contestregistion changeContestStatus(Contestregistion contestregistion, Testinfo testinfo) throws TestServiceException {
+    public Contestregistion changeContestStatus(Contestregistion contestregistion) throws TestServiceException {
         try {
+            Testinfo testinfo=testDAO.getTestInfo(contestregistion.getTestId());
             Contestregistion contest = new Contestregistion();
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             Timestamp startTime = testinfo.getStartTime();
             Timestamp endTime = testinfo.getEndTime();
             if (currentTime.before(endTime) && currentTime.after(startTime)) {
-                contest = contestTestDAO.changeContestStatusBegin(contestregistion);
+                contestTestDAO.changeContestStatusBegin(contestregistion);
+                contest=contestTestDAO.getContestRegistion(contestregistion);
             }
             if (currentTime.after(endTime)) {
-                contest = contestTestDAO.changeContestStatusEnd(contestregistion);
+                contestTestDAO.changeContestStatusEnd(contestregistion);
+                contest=contestTestDAO.getContestRegistion(contestregistion);
             }
             return contest;
         } catch (PersistenceException e) {

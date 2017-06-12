@@ -15,18 +15,17 @@ import java.util.List;
 public interface TestService {
     /**
      * 根据竞赛开始的时间判断是否可以报名竞赛
-     * @param account
-     * @param testinfo 异常：100.持久化层失败异常
+     * @param contestregistion 异常：100.持久化层失败异常
      */
-    void registContest(Account account, Testinfo testinfo) throws TestServiceException;
+    void registContest(Contestregistion contestregistion) throws TestServiceException;
 
     /**
      * 查看是否已经报名竞赛
-     * @param account
-     * @param testInfo
-     * @return 异常：100.持久化层失败异常
+     * @param contestregistion
+     * @return
+     * 异常：100.持久化层失败异常
      */
-    Contestregistion isRegistedContest(Account account, Testinfo testInfo) throws TestServiceException;
+    Contestregistion isRegistedContest(Contestregistion contestregistion) throws TestServiceException;
 
     /**
      * 根据竞赛Id查看已经报名竞赛的人
@@ -39,10 +38,9 @@ public interface TestService {
      * 根据竞赛startTime和endTime，依据当前系统时间改变竞赛的状态
      * status:0.未开始 1.开始 2.已结束
      * @param contestregistion
-     * @param testinfo
      * @return 异常：100.持久化层失败异常
      */
-    Contestregistion changeContestStatus(Contestregistion contestregistion, Testinfo testinfo) throws TestServiceException;
+    Contestregistion changeContestStatus(Contestregistion contestregistion) throws TestServiceException;
 
     /**
      * 获取多个竞赛相关信息

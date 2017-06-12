@@ -20,31 +20,31 @@ import java.util.List;
 @Repository
 public class ContestTestDAOimpl implements ContestTestDAO {
 
-    public void registContest(Account account, Testinfo testInfo) throws PersistenceException {
+    public void registContest(Contestregistion contestregistion) throws PersistenceException {
         Session session= HibernateUtil.getSession();
         Transaction transaction=session.beginTransaction();
-        Contestregistion contestRegistion=new Contestregistion();
-        contestRegistion.setStudentId(account.getStudentId());
-        contestRegistion.setTestId(testInfo.getTestId());
-        contestRegistion.setStatus(0);
+        Contestregistion contest=new Contestregistion();
+        contest.setStudentId(contestregistion.getStudentId());
+        contest.setTestId(contestregistion.getTestId());
+        contest.setStatus(0);
         try {
-            session.save(contestRegistion);
+            session.save(contest);
             transaction.commit();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
     }
 
-    public Contestregistion isRegistedContest(Account account, Testinfo testInfo) throws PersistenceException{
+    public Contestregistion isRegistedContest(Contestregistion contestregistion) throws PersistenceException{
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(Contestregistion.class);
-            criteria.add(Restrictions.eq("studentId", account.getStudentId()));
-            criteria.add(Restrictions.eq("testId", testInfo.getTestId()));
+            criteria.add(Restrictions.eq("studentId", contestregistion.getStudentId()));
+            criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
             List list = criteria.list();
-            Contestregistion contestRegistion = (Contestregistion) list.get(0);
-            return contestRegistion;
+            Contestregistion contest = (Contestregistion) list.get(0);
+            return contest;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
@@ -63,14 +63,13 @@ public class ContestTestDAOimpl implements ContestTestDAO {
         }
     }
 
-    public Contestregistion changeContestStatusBegin(Contestregistion contestregistion) throws PersistenceException{
+    public void changeContestStatusBegin(Contestregistion contestregistion) throws PersistenceException{
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             contestregistion.setStatus(1);
             session.update(contestregistion);
             transaction.commit();
-            return contestregistion;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
@@ -87,6 +86,22 @@ public class ContestTestDAOimpl implements ContestTestDAO {
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
+    }
+
+    public Contestregistion getContestRegistion(Contestregistion contestregistion) throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            Criteria criteria = session.createCriteria(Contestregistion.class);
+            criteria.add(Restrictions.eq("studentId", contestregistion.getStudentId()));
+            criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
+            List list = criteria.list();
+            Contestregistion contest = (Contestregistion) list.get(0);
+            return contest;
+        }catch (RuntimeException e){
+            throw new PersistenceException(e);
+        }
+
     }
 
     public List<Testinfo> getContestInfoList() throws PersistenceException {
