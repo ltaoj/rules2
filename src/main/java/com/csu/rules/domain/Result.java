@@ -1,0 +1,36 @@
+package com.csu.rules.domain;
+
+/**
+ * Created by ltaoj on 17-6-12.
+ */
+public class Result {
+
+    private String result;
+    private Object object;
+    public static final String RESULT_SUCCESS = "success";
+    public static final String RESULT_ERROR = "error";
+
+    public Result(String result) {
+        this.result = result;
+        String message = result.equals(RESULT_SUCCESS) ? "操作成功" : "";
+        message = result.equals(RESULT_ERROR) ? "操作失败" : message;
+        this.setObject(message);
+    }
+
+    public Result(String result, Object object) {
+        this.result = result;
+        this.object = object;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+}

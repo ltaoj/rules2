@@ -8,6 +8,7 @@ import com.csu.rules.persistence.impl.ClockDAOimpl;
 import com.csu.rules.persistence.impl.TitleDAOimpl;
 import com.csu.rules.persistence.impl.WrongtitleDAOimpl;
 import com.csu.rules.service.LearnService;
+import com.csu.rules.service.TitleService;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -22,7 +23,8 @@ public class LearnServiceimplTest {
     private TitleDAO titleDAO = new TitleDAOimpl();
     private ClockDAO clockDAO = new ClockDAOimpl();
     private WrongtitleDAO wrongtitleDAO = new WrongtitleDAOimpl();
-    private LearnService learnService = new LearnServiceimpl(titleDAO, clockDAO, wrongtitleDAO);
+    private LearnService learnService = new LearnServiceimpl(clockDAO);
+    private TitleService titleService = new TitleServiceimpl(titleDAO, wrongtitleDAO);
 
     @Test
     public void testNotNULL() throws Exception {
@@ -34,13 +36,13 @@ public class LearnServiceimplTest {
 
     @Test
     public void testGetTitleListByPage() throws Exception {
-        assertTrue(learnService.getTitleListByPage(1, 10).size() == 2);
+        assertTrue(titleService.getTitleListByPage(1, 10).size() == 2);
     }
 
     @Test
     public void testGetTitle() throws Exception {
         Title title = new Title();
         title.setTitleId(1);
-        assertTrue(learnService.getTitle(title) != null);
+        assertTrue(titleService.getTitle(title) != null);
     }
 }

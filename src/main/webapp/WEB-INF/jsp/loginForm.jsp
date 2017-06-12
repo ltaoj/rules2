@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>登录页面</title>
 </head>
 <body>
 <form action="<%=request.getContextPath()%>/account/login" method="post">

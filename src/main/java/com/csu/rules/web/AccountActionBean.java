@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = {"/account"})
-public class AccountActionBean {
+public class AccountActionBean extends AbstractActionBean{
 
     private AccountService accountService;
     @Autowired
@@ -41,12 +41,5 @@ public class AccountActionBean {
         } catch (AccountServiceException e) {
             throw new CatchServiceException(e);
         }
-    }
-
-    @ExceptionHandler(CatchServiceException.class)
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Error serviceError(CatchServiceException e) {
-        Error error = new Error(e.getServiceException().getErrorCode(), "error");
-        return error;
     }
 }
