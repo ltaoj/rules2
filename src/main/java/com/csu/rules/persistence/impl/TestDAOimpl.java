@@ -25,7 +25,6 @@ public class TestDAOimpl implements TestDAO{
     public List<Testinfo> getTestInfoList() throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(Testinfo.class);
             criteria.add(Restrictions.eq("type", new Integer(0).byteValue()));
             List<Testinfo> testinfoList = criteria.list();
@@ -72,7 +71,6 @@ public class TestDAOimpl implements TestDAO{
     public Testinfo getTestInfo(int testId) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Testinfo testinfo=(Testinfo)session.get(Testinfo.class,new Integer(testId));
             return testinfo;
         }catch (RuntimeException e){

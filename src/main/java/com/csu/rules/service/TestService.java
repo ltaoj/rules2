@@ -110,7 +110,7 @@ public interface TestService {
      * @param testrecord
      * @return
      * @throws com.csu.rules.exception.PersistenceException
-     * 异常：100.持久层失败异常 112.所查看的testrecord为空
+     * 异常：100.持久层失败异常
      */
     Testrecord getTestRecord(Testrecord testrecord) throws TestServiceException;
 

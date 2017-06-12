@@ -38,7 +38,6 @@ public class ContestTestDAOimpl implements ContestTestDAO {
     public Contestregistion isRegistedContest(Contestregistion contestregistion) throws PersistenceException{
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("studentId", contestregistion.getStudentId()));
             criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
@@ -53,7 +52,6 @@ public class ContestTestDAOimpl implements ContestTestDAO {
     public List<Contestregistion> getContestRegistionList(Testinfo testInfo) throws PersistenceException{
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("testId", testInfo.getTestId()));
             List<Contestregistion> contsetRegistionList = criteria.list();
@@ -91,7 +89,6 @@ public class ContestTestDAOimpl implements ContestTestDAO {
     public Contestregistion getContestRegistion(Contestregistion contestregistion) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("studentId", contestregistion.getStudentId()));
             criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
@@ -107,7 +104,6 @@ public class ContestTestDAOimpl implements ContestTestDAO {
     public List<Testinfo> getContestInfoList() throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(Testinfo.class);
             criteria.add(Restrictions.eq("type", new Integer(1).byteValue()));
             List<Testinfo> contestinfoList = criteria.list();

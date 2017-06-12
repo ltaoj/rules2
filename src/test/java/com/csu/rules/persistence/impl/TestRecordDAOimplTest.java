@@ -20,7 +20,7 @@ public class TestRecordDAOimplTest {
     public void testInsert(){
         Testrecord testrecord=new Testrecord();
         testrecord.setStudentId(3903150326L);
-        testrecord.setTestId(3);
+        testrecord.setTestId(1);
         testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
         testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
         testrecord.setScore(80);

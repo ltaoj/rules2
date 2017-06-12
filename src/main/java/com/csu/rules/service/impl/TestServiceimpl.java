@@ -201,10 +201,6 @@ public class TestServiceimpl implements TestService {
         try {
             TestServiceException te = new TestServiceException();
             Testrecord testrecord1=testRecordDAO.getTestRecord(testrecord);
-            if (testrecord1 == null) {
-                te.setErrorCode(112);
-                throw te;
-            }
             return testrecord1;
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();

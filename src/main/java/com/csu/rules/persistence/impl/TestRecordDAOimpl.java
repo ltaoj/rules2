@@ -42,13 +42,16 @@ public class TestRecordDAOimpl implements TestRecordDAO {
     public Testrecord getTestRecord(Testrecord testrecord) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("studentId",new Long(testrecord.getStudentId())));
             criteria.add(Restrictions.eq("testId",testrecord.getTestId()));
             List<Testrecord> list=criteria.list();
-            Testrecord testRecord=list.get(0);
-            return testRecord;
+            if (list.size()!=0) {
+                Testrecord testRecord = list.get(0);
+                return testRecord;
+            }else{
+                return null;
+            }
         } catch (RuntimeException e) {
             throw new PersistenceException(e);
         }
@@ -57,7 +60,6 @@ public class TestRecordDAOimpl implements TestRecordDAO {
     public List<Testrecord> getTestRecordList(int testId) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("testId",testId));
             List<Testrecord> testrecordList=criteria.list();

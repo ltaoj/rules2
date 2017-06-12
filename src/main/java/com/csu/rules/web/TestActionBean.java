@@ -7,6 +7,7 @@ import com.csu.rules.exception.TitleServiceException;
 import com.csu.rules.service.LearnService;
 import com.csu.rules.service.TestService;
 import com.csu.rules.service.TitleService;
+import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by GF on 2017/6/12.
@@ -89,9 +91,10 @@ public class TestActionBean extends AbstractActionBean {
 
     //提交考试 获取考试成绩 更新testRecord
     @RequestMapping(value="/submitTest",method = RequestMethod.POST,consumes = "application/json")
-    public ResponseEntity<Testrecord> submitTest(@RequestBody List<Title> titleList,Testrecord testrecord){
+    public ResponseEntity<Testrecord> submitTest(@RequestBody List<Object> list){
         try{
-            int score=titleService.getTitlePageScore(titleList);
+            int score=titleService.getTitlePageScore((List<Title>) (list.get(0)));
+            Testrecord testrecord=(Testrecord)(list.get(1));
             testrecord.setScore(score);
             testService.updateTestRecord(testrecord);
             Testrecord testrecord1=testService.getTestRecord(testrecord);
@@ -205,6 +208,17 @@ public class TestActionBean extends AbstractActionBean {
             List<Testrecord> recordList=testService.getTestRecordList(testId);
             return new ResponseEntity<List<Testrecord>>(recordList,HttpStatus.OK);
         }catch (TestServiceException e){
+            throw new CatchServiceException(e);
+        }
+    }
+
+    //管理员发布竞赛题目
+    @RequestMapping(value="/publishContestTitle",method = RequestMethod.POST,consumes = "application/json")
+    public ResponseEntity<List<Title>> getAllTestRecord(@RequestBody Set<Integer> set){
+        try{
+            List<Title> contestTitleList=titleService.getTitleListByTitleIds(set);
+            return new ResponseEntity<List<Title>>(contestTitleList,HttpStatus.OK);
+        }catch (TitleServiceException e){
             throw new CatchServiceException(e);
         }
     }
