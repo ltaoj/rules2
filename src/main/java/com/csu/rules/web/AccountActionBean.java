@@ -30,8 +30,19 @@ public class AccountActionBean extends AbstractActionBean{
         return "loginForm";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Account> login(@RequestBody Signon signon){
+
+        try {
+            Account account1 = accountService.login(signon);
+            return new ResponseEntity<Account>(account1, HttpStatus.OK);
+        } catch (AccountServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<Account> login(
+    public ResponseEntity<Account> logintest(
             @RequestParam(value = "studentId") long studentId,
             @RequestParam(value = "password") String password){
 
