@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 /**
  * Created by ltaoj on 17-6-12.
  */
-public class AccountActionBeanTest {
+public class  AccountActionBeanTest {
     AccountDAO accountDAO = new AccountDAOimpl();
     SignonDAO signonDAO = new SignonDAOimpl();
     AdminDAO adminDAO = new AdminDAOimpl();

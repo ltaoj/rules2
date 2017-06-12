@@ -17,18 +17,19 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(value = {"/account"})
-public class AccountActionBean extends AbstractActionBean{
+public class AccountActionBean extends AbstractActionBean {
 
     private AccountService accountService;
+
     @Autowired
     public AccountActionBean(AccountService accountService) {
         this.accountService = accountService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLoginForm() {
-        return "loginForm";
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public String showLoginForm() {
+//        return "loginForm";
+//    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Account> login(@RequestBody Signon signon){
@@ -44,8 +45,7 @@ public class AccountActionBean extends AbstractActionBean{
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<Account> logintest(
             @RequestParam(value = "studentId") long studentId,
-            @RequestParam(value = "password") String password){
-
+            @RequestParam(value = "password") String password) {
         try {
             Account account1 = accountService.login(studentId, password);
             return new ResponseEntity<Account>(account1, HttpStatus.OK);
