@@ -6,6 +6,7 @@ package com.csu.rules.domain;
 public class Result {
 
     private String result;
+    private String message;
     private Object object;
     public static final String RESULT_SUCCESS = "success";
     public static final String RESULT_ERROR = "error";
@@ -14,7 +15,7 @@ public class Result {
         this.result = result;
         String message = result.equals(RESULT_SUCCESS) ? "操作成功" : "";
         message = result.equals(RESULT_ERROR) ? "操作失败" : message;
-        this.setObject(message);
+        this.setMessage(message);
     }
 
     public Result(String result, Object object) {
@@ -32,5 +33,13 @@ public class Result {
 
     public void setObject(Object object) {
         this.object = object;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

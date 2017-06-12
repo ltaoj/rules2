@@ -50,6 +50,16 @@ public class NoticeActionBean extends AbstractActionBean {
         }
     }
 
+    @RequestMapping(value = "/getTextNotice", method = RequestMethod.GET)
+    public ResponseEntity<List<Notice>> getTextPictureNotice(@RequestParam int offset, @RequestParam int count) {
+        try {
+            List<Notice> noticeList = noticeService.getTextListByPage(offset, count);
+            return new ResponseEntity<List<Notice>>(noticeList, HttpStatus.OK);
+        } catch (NoticeServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
     @RequestMapping(value = "/getNotice", method = RequestMethod.GET)
     public ResponseEntity<Notice> getNotice(@RequestParam int noticeId) {
         try {
@@ -69,4 +79,5 @@ public class NoticeActionBean extends AbstractActionBean {
             throw new CatchServiceException(e);
         }
     }
+
 }
