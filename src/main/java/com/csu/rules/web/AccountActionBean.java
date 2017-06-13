@@ -26,13 +26,13 @@ public class AccountActionBean extends AbstractActionBean {
         this.accountService = accountService;
     }
 
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String showLoginForm() {
-//        return "loginForm";
-//    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLoginForm() {
+        return "loginForm";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Account> login(@RequestBody Signon signon){
+    public ResponseEntity<Account> login(@RequestBody Signon signon) {
 
         try {
             Account account1 = accountService.login(signon);
