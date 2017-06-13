@@ -195,4 +195,19 @@ public class TestActionBeanTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
     }
+    @Test
+    public void testContestRank() throws Exception {
+        Testrecord testrecord=new Testrecord();
+        testrecord.setTestId(1);
+        testrecord.setScore(99);
+        String requestJson = ow.writeValueAsString(testrecord);
+        MockMvc mockMvc = standaloneSetup(testActionBean).build();
+        mockMvc.perform(post("/test/getContsetRank")
+                .characterEncoding("UTF-8")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson.getBytes()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+    }
 }

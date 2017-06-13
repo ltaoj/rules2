@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import javax.management.Query;
 import java.util.List;
 
 /**
@@ -63,6 +64,19 @@ public class TestRecordDAOimpl implements TestRecordDAO {
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("testId",testId));
             List<Testrecord> testrecordList=criteria.list();
+            return testrecordList;
+        } catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    public List<Testrecord> getTestRecordListByRecord(int testId) throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            String hql="from Testrecord as testrecord where testrecord.testId=? order by score desc";
+            org.hibernate.query.Query query=session.createQuery(hql);
+            query.setInteger(0,testId);
+            List<Testrecord> testrecordList=query.list();
             return testrecordList;
         } catch (RuntimeException e) {
             throw new PersistenceException(e);
