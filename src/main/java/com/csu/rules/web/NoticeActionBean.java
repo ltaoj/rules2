@@ -40,7 +40,7 @@ public class NoticeActionBean extends AbstractActionBean {
         }
     }
 
-    @RequestMapping(value = "/getTextNotice", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllTextNotice", method = RequestMethod.GET)
     public ResponseEntity<List<Notice>> getTextPictureNotice() {
         try {
             List<Notice> noticeList = noticeService.getTextNoticeList();

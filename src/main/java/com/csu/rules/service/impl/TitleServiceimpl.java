@@ -1,6 +1,7 @@
 package com.csu.rules.service.impl;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
 import com.csu.rules.domain.Wrongtitle;
 import com.csu.rules.exception.PersistenceException;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -56,6 +58,13 @@ public class TitleServiceimpl implements TitleService {
                 throw te;
             }
             List<Title> titleList = titleDAO.getRandomTitleList(count);
+            // 将答案选项统一设置为0
+            for(int i = 0;i < titleList.size();i++) {
+                Iterator<Option> iterator = titleList.get(i).getOptions().iterator();
+                while (iterator.hasNext()) {
+                    iterator.next().setChecked((byte)0);
+                }
+            }
             return titleList;
         }catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);
@@ -103,15 +112,16 @@ public class TitleServiceimpl implements TitleService {
                 throw te;
             }
             // 检查答案是否与题库一致
-            boolean flag = true;
-            while (title.getOptions().iterator().hasNext() && title1.getOptions().iterator().hasNext()) {
-                if (title.getOptions().iterator().next() != title1.getOptions().iterator().next()) {
-                    flag = false;
+            Iterator<Option> iterator1 = title.getOptions().iterator();
+            Iterator<Option> iterator2 = title1.getOptions().iterator();
+            while (iterator1.hasNext()) {
+                if (!(iterator1.next().equals(iterator2.next()))) {
+                    System.out.println("*******");
                     title.setOptions(null);
                     break;
                 }
             }
-            return flag ? title : title1;
+            return title;
         } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);
             te.setErrorCode(50);
