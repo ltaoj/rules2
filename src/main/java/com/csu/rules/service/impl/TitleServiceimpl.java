@@ -81,9 +81,9 @@ public class TitleServiceimpl implements TitleService {
                 throw te;
             }
             List<Title> list = new ArrayList<Title>(titleList.size());
-            for (int i = 0;i < list.size();i++) {
+            for (int i = 0;i < titleList.size();i++) {
                 Title title = getCorrectTitle(titleList.get(i));
-                if (title.getOptions() != null) {
+                if (title.getOptions() == null) {
                     Wrongtitle wrongtitle = new Wrongtitle();
                     wrongtitle.setStudentId(account.getStudentId());
                     wrongtitle.setTitleId(titleList.get(i).getTitleId());
@@ -98,7 +98,7 @@ public class TitleServiceimpl implements TitleService {
             throw te;
         }
     }
-
+    // 如果题目本身正确，那么将直接返回题目，如果题目错误，选项设为null后返回
     public Title getCorrectTitle(Title title) throws TitleServiceException {
         try {
             TitleServiceException te = new TitleServiceException();
@@ -114,12 +114,17 @@ public class TitleServiceimpl implements TitleService {
             // 检查答案是否与题库一致
             Iterator<Option> iterator1 = title.getOptions().iterator();
             Iterator<Option> iterator2 = title1.getOptions().iterator();
+            boolean flag = true;
             while (iterator1.hasNext()) {
                 if (!(iterator1.next().equals(iterator2.next()))) {
                     System.out.println("*******");
-                    title.setOptions(null);
+                    flag = false;
                     break;
                 }
+            }
+            // 如果题目错误，则把选项设置为null
+            if(!flag) {
+                title.setOptions(null);
             }
             return title;
         } catch (PersistenceException pe) {
@@ -130,7 +135,7 @@ public class TitleServiceimpl implements TitleService {
     }
 
     public boolean isTitleCorrect(Title title) throws TitleServiceException {
-        return getCorrectTitle(title).getOptions() == null ? true : false;
+        return getCorrectTitle(title).getOptions() == null ? false : true;
     }
 
     public List<Wrongtitle> getWrongTitleListByStudentId(Account account) throws TitleServiceException {

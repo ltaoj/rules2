@@ -90,7 +90,7 @@ public class LearnActionBeanTest {
         MockMvc mockMvc = standaloneSetup(learnActionBean).build();
 
         String requestJson = ow.writeValueAsString(account);
-
+        System.out.println(requestJson);
         mockMvc.perform(post("/learn/clockList")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")

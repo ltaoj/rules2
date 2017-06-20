@@ -103,4 +103,14 @@ public class Account {
     public void setSchool(String school) {
         this.school = school;
     }
+
+    public String toString() {
+        return "studentId:" + this.getStudentId() + "\n" +
+                "username:" + this.getUsername() + "\n" +
+                "sex:" + this.getSex() + "\n" +
+                "clazz:" + this.getClazz() + "\n" +
+                "grade:" + this.getGrade() + "\n" +
+                "college:" + this.getCollege() + "\n" +
+                "school:" + this.getSchool();
+    }
 }
