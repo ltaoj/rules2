@@ -236,4 +236,21 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    public int getContestRank(Testrecord testrecord) throws TestServiceException {
+        try {
+            int count=1;
+            List<Testrecord> testrecordList=testRecordDAO.getTestRecordListByRecord(testrecord.getTestId());
+            for(int i=0;i<testrecordList.size();i++){
+                if (testrecordList.get(i).getScore()>testrecord.getScore()){
+                    count++;
+                }
+            }
+            return count;
+        } catch (PersistenceException e) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
 }

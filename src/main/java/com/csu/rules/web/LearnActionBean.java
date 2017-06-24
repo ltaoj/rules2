@@ -72,6 +72,7 @@ public class LearnActionBean extends AbstractActionBean{
     @RequestMapping(value = "clockList", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> clockList(@RequestBody Account account) {
         try {
+            System.out.println(account.toString());
             List<Clockin> clockList = learnService.getAllClocks(account);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, clockList), HttpStatus.OK);
         }catch (LearnServiceException le) {

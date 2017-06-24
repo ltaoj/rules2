@@ -42,4 +42,13 @@ public interface TestRecordDAO {
      * @throws PersistenceException
      */
     List<Testrecord> getTestRecordList(int testId) throws PersistenceException;
+
+    /**
+     * 根据成绩获取list
+     * @param testId
+     * @return
+     * @throws PersistenceException
+     */
+    List<Testrecord> getTestRecordListByRecord(int testId) throws PersistenceException;
+
 }

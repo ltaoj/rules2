@@ -106,6 +106,16 @@ public class TestActionBean extends AbstractActionBean {
         }
     }
 
+    //获取竞赛排名
+    @RequestMapping(value="/getContsetRank",method = RequestMethod.POST,consumes = "application/json")
+    public ResponseEntity<Integer> getContsetRank(@RequestBody Testrecord testrecord){
+        try{
+            int count=testService.getContestRank(testrecord);
+            return new ResponseEntity<Integer>(count,HttpStatus.OK);
+        } catch (TestServiceException e){
+            throw new CatchServiceException(e);
+        }
+    }
     //是否报名竞赛
     @RequestMapping(value="/isRegisted",method = RequestMethod.POST,consumes = "application/json")
     public ResponseEntity<Contestregistion> isRegisted(@RequestBody Contestregistion contestregistion){

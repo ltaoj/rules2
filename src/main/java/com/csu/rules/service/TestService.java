@@ -131,4 +131,12 @@ public interface TestService {
      * 异常：100.持久层失败异常
      */
     int getTestPersonTotalNum(int testId) throws TestServiceException;
+
+    /**
+     * 获取竞赛排名
+     * @param testrecord
+     * @return
+     * @throws TestServiceException
+     */
+    int getContestRank(Testrecord testrecord)throws TestServiceException;
 }
