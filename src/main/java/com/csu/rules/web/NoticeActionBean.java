@@ -32,6 +32,7 @@ public class NoticeActionBean extends AbstractActionBean {
 
     @RequestMapping(value = "/getPictureNotice", method = RequestMethod.GET)
     public ResponseEntity<List<Notice>> getPictureNotice() {
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         try {
             List<Notice> noticeList = noticeService.getPictrueNoticeList();
             return new ResponseEntity<List<Notice>>(noticeList, HttpStatus.OK);

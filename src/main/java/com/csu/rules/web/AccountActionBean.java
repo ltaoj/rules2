@@ -35,6 +35,7 @@ public class AccountActionBean extends AbstractActionBean {
     public ResponseEntity<Account> login(@RequestBody Signon signon) {
 
         try {
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             Account account1 = accountService.login(signon);
             return new ResponseEntity<Account>(account1, HttpStatus.OK);
         } catch (AccountServiceException e) {
@@ -47,8 +48,8 @@ public class AccountActionBean extends AbstractActionBean {
             @RequestParam(value = "studentId") long studentId,
             @RequestParam(value = "password") String password) {
         try {
-            Account account1 = accountService.login(studentId, password);
-            return new ResponseEntity<Account>(account1, HttpStatus.OK);
+            Account account = accountService.login(studentId, password);
+            return new ResponseEntity<Account>(account, HttpStatus.OK);
         } catch (AccountServiceException e) {
             throw new CatchServiceException(e);
         }
