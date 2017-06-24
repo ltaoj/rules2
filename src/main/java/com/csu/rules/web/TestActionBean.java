@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -59,11 +60,12 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value="/startTest",method=RequestMethod.POST,consumes="application/json")
     public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord){
         try{
+            testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
             Testrecord testrecord1=testService.getTestRecord(testrecord);
             if (testrecord1==null) {
                 testService.insertTestRecord(testrecord);
             }
-            List<Title> testTitleList=titleService.getTitleListByRandom(2);
+            List<Title> testTitleList=titleService.getTitleListByRandom(10);
             return new ResponseEntity<List<Title>>(testTitleList,HttpStatus.OK);
         }catch (TestServiceException te){
             throw new CatchServiceException(te);
@@ -96,6 +98,7 @@ public class TestActionBean extends AbstractActionBean {
             int score=titleService.getTitlePageScore((List<Title>) (list.get(0)));
             Testrecord testrecord=(Testrecord)(list.get(1));
             testrecord.setScore(score);
+            testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             testService.updateTestRecord(testrecord);
             Testrecord testrecord1=testService.getTestRecord(testrecord);
             return new ResponseEntity<Testrecord>(testrecord1,HttpStatus.OK);
