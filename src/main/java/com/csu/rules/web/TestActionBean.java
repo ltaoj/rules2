@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -61,6 +62,7 @@ public class TestActionBean extends AbstractActionBean {
         try{
             Testrecord testrecord1=testService.getTestRecord(testrecord);
             if (testrecord1==null) {
+                testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
             }
             List<Title> testTitleList=titleService.getTitleListByRandom(2);
@@ -95,6 +97,8 @@ public class TestActionBean extends AbstractActionBean {
         try{
             int score=titleService.getTitlePageScore((List<Title>) (list.get(0)));
             Testrecord testrecord=(Testrecord)(list.get(1));
+            testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+
             testrecord.setScore(score);
             testService.updateTestRecord(testrecord);
             Testrecord testrecord1=testService.getTestRecord(testrecord);

@@ -1,3 +1,5 @@
+var student_id='';
+
 function login() {
     var studentId = '';
     var password = '';
@@ -16,6 +18,11 @@ function login() {
             $('#login-li').hide();
             $('#personal-li').show();
             setAccount(data);
+            getTestRecord(data.studentId);
+            setStudentId(data.studentId);
+            isRegisted();
+            changeStatus();
+
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
@@ -31,4 +38,10 @@ function login() {
         // 不管成功或失败都要做的工作
         console.log('complete');
     });
+}
+function setStudentId(student_id) {
+    this.student_id=student_id;
+}
+function getStudentId() {
+    return student_id;
 }
