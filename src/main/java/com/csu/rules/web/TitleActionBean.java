@@ -49,7 +49,7 @@ public class TitleActionBean extends AbstractActionBean{
         }
     }
 
-    @RequestMapping(value = "/wrongList", method = RequestMethod.GET, consumes = "application/json")
+    @RequestMapping(value = "/wrongList", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> wrongList(@RequestBody Account account) {
         try {
             List<Wrongtitle> wrongList = titleService.getWrongTitleListByStudentId(account);

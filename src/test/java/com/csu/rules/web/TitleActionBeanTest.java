@@ -58,19 +58,19 @@ public class TitleActionBeanTest {
         option1.setTitleId(1);
         option1.setChecked((byte)0);
         option1.setContent("1");
-        option1.setOptionId(5);
+        option1.setOptionId(1);
         options.add(option1);
         Option option2 = new Option();
         option2.setTitleId(1);
         option2.setChecked((byte)1);
         option2.setContent("2");
-        option2.setOptionId(6);
+        option2.setOptionId(2);
         options.add(option2);
         Option option3 = new Option();
         option3.setTitleId(1);
         option3.setChecked((byte)0);
         option3.setContent("3");
-        option3.setOptionId(7);
+        option3.setOptionId(3);
         options.add(option3);
         Option option4 = new Option();
         option4.setTitleId(1);
@@ -92,6 +92,7 @@ public class TitleActionBeanTest {
         accountTitles.setAccount(account);
 
         String requestJson = ow.writeValueAsString(accountTitles);
+        System.out.println(requestJson);
         MockMvc mockMvc = standaloneSetup(titleActionBean).build();
 
         mockMvc.perform(post("/title/submit")
@@ -110,7 +111,7 @@ public class TitleActionBeanTest {
         MockMvc mockMvc = standaloneSetup(titleActionBean).build();
 
         String requestJson = ow.writeValueAsString(account);
-        mockMvc.perform(get("/title/wrongList")
+        mockMvc.perform(post("/title/wrongList")
                 .characterEncoding("UTF-8")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))

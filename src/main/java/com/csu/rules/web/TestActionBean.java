@@ -15,11 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -60,17 +57,18 @@ public class TestActionBean extends AbstractActionBean {
     }
 
     //开始考试 插入考试时间信息 判断剩余时间
-    @RequestMapping(value = "/startTest", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord) {
-        try {
-            Testrecord testrecord1 = testService.getTestRecord(testrecord);
-            if (testrecord1 == null) {
-                testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
+
+    @RequestMapping(value="/startTest",method=RequestMethod.POST,consumes="application/json")
+    public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord){
+        try{
+            testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
+            Testrecord testrecord1=testService.getTestRecord(testrecord);
+            if (testrecord1==null) {
                 testService.insertTestRecord(testrecord);
             }
-            List<Title> testTitleList = titleService.getTitleListByRandom(2);
-            return new ResponseEntity<List<Title>>(testTitleList, HttpStatus.OK);
-        } catch (TestServiceException te) {
+            List<Title> testTitleList=titleService.getTitleListByRandom(10);
+            return new ResponseEntity<List<Title>>(testTitleList,HttpStatus.OK);
+        }catch (TestServiceException te){
             throw new CatchServiceException(te);
         } catch (TitleServiceException e) {
             throw new CatchServiceException(e);
