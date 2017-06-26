@@ -1,10 +1,13 @@
 package com.csu.rules.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 
 /**
  * Created by ltaoj on 17-6-9.
  */
+@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
 @Entity
 @Table(name = "choice", schema = "schoolrulessystem", catalog = "")
 public class Option {

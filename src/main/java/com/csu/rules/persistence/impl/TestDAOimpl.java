@@ -72,6 +72,7 @@ public class TestDAOimpl implements TestDAO{
         try {
             Session session = HibernateUtil.getSession();
             Testinfo testinfo=(Testinfo)session.get(Testinfo.class,new Integer(testId));
+            session.close();
             return testinfo;
         }catch (RuntimeException e){
             throw new PersistenceException(e);

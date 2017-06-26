@@ -33,9 +33,7 @@ public class AccountActionBean extends AbstractActionBean {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Account> login(@RequestBody Signon signon) {
-
         try {
-            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             Account account1 = accountService.login(signon);
             return new ResponseEntity<Account>(account1, HttpStatus.OK);
         } catch (AccountServiceException e) {
