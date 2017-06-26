@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import javax.management.Query;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -51,7 +52,8 @@ public class TestRecordDAOimpl implements TestRecordDAO {
                 Testrecord testRecord = list.get(0);
                 return testRecord;
             }else{
-                return null;
+                Testrecord testrecord1=new Testrecord();
+                return testrecord1;
             }
         } catch (RuntimeException e) {
             throw new PersistenceException(e);

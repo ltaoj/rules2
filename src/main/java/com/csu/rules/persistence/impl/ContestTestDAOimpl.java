@@ -42,8 +42,15 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             criteria.add(Restrictions.eq("studentId", contestregistion.getStudentId()));
             criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
             List list = criteria.list();
-            Contestregistion contest = (Contestregistion) list.get(0);
-            return contest;
+            if(list.size()!=0) {
+                Contestregistion contest = (Contestregistion) list.get(0);
+                session.close();
+                return contest;
+            }else{
+                Contestregistion contest=new Contestregistion();
+                session.close();
+                return contest;
+            }
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
@@ -68,19 +75,20 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             contestregistion.setStatus(1);
             session.update(contestregistion);
             transaction.commit();
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
     }
 
-    public Contestregistion changeContestStatusEnd(Contestregistion contestregistion) throws PersistenceException{
+    public void changeContestStatusEnd(Contestregistion contestregistion) throws PersistenceException{
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             contestregistion.setStatus(2);
             session.update(contestregistion);
             transaction.commit();
-            return contestregistion;
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }

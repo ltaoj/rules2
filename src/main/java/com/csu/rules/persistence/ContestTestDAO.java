@@ -51,7 +51,7 @@ public interface ContestTestDAO {
      * @return
      * @throws PersistenceException
      */
-    Contestregistion changeContestStatusEnd(Contestregistion contestregistion)throws PersistenceException;
+    void changeContestStatusEnd(Contestregistion contestregistion)throws PersistenceException;
 
     /**
      * 获取竞赛状态

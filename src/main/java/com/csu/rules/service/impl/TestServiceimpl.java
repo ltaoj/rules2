@@ -35,12 +35,7 @@ public class TestServiceimpl implements TestService {
 
     public void registContest(Contestregistion contestregistion) throws TestServiceException {
         try {
-            Testinfo testinfo=testDAO.getTestInfo(contestregistion.getTestId());
-            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            Timestamp startTime = testinfo.getStartTime();
-            if (currentTime.before(startTime)) {
-                contestTestDAO.registContest(contestregistion);
-            }
+            contestTestDAO.registContest(contestregistion);
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
             te.setErrorCode(100);
@@ -78,20 +73,24 @@ public class TestServiceimpl implements TestService {
 
     public Contestregistion changeContestStatus(Contestregistion contestregistion) throws TestServiceException {
         try {
-            Testinfo testinfo=testDAO.getTestInfo(contestregistion.getTestId());
-            Contestregistion contest = new Contestregistion();
+            Testinfo testinfo = testDAO.getTestInfo(contestregistion.getTestId());
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             Timestamp startTime = testinfo.getStartTime();
             Timestamp endTime = testinfo.getEndTime();
             if (currentTime.before(endTime) && currentTime.after(startTime)) {
+                Contestregistion contest = new Contestregistion();
                 contestTestDAO.changeContestStatusBegin(contestregistion);
-                contest=contestTestDAO.getContestRegistion(contestregistion);
+                contest = contestTestDAO.getContestRegistion(contestregistion);
+                return contest;
             }
-            if (currentTime.after(endTime)) {
+            else if (currentTime.after(endTime)) {
+                Contestregistion contest = new Contestregistion();
                 contestTestDAO.changeContestStatusEnd(contestregistion);
-                contest=contestTestDAO.getContestRegistion(contestregistion);
+                contest = contestTestDAO.getContestRegistion(contestregistion);
+                return contest;
+            }else{
+                return contestTestDAO.getContestRegistion(contestregistion);
             }
-            return contest;
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
             te.setErrorCode(100);
@@ -200,7 +199,7 @@ public class TestServiceimpl implements TestService {
     public Testrecord getTestRecord(Testrecord testrecord) throws TestServiceException {
         try {
             TestServiceException te = new TestServiceException();
-            Testrecord testrecord1=testRecordDAO.getTestRecord(testrecord);
+            Testrecord testrecord1 = testRecordDAO.getTestRecord(testrecord);
             return testrecord1;
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
@@ -227,7 +226,7 @@ public class TestServiceimpl implements TestService {
 
     public int getTestPersonTotalNum(int testId) throws TestServiceException {
         try {
-            int count=testRecordDAO.getTestRecordList(testId).size();
+            int count = testRecordDAO.getTestRecordList(testId).size();
             return count;
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
@@ -238,10 +237,10 @@ public class TestServiceimpl implements TestService {
 
     public int getContestRank(Testrecord testrecord) throws TestServiceException {
         try {
-            int count=1;
-            List<Testrecord> testrecordList=testRecordDAO.getTestRecordListByRecord(testrecord.getTestId());
-            for(int i=0;i<testrecordList.size();i++){
-                if (testrecordList.get(i).getScore()>testrecord.getScore()){
+            int count = 1;
+            List<Testrecord> testrecordList = testRecordDAO.getTestRecordListByRecord(testrecord.getTestId());
+            for (int i = 0; i < testrecordList.size(); i++) {
+                if (testrecordList.get(i).getScore() > testrecord.getScore()) {
                     count++;
                 }
             }
