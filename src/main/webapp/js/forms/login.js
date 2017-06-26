@@ -1,8 +1,8 @@
-var student_id='';
-
+var student_id ;
+var account;
 function login() {
-    var studentId = '';
-    var password = '';
+    var studentId;
+    var password;
     studentId = $('#studentId').val();
     password = $('#password').val();
 
@@ -18,8 +18,8 @@ function login() {
             $('#login-li').hide();
             $('#personal-li').show();
             setAccount(data);
+           student_id=data.studentId;
             getTestRecord(data.studentId);
-            setStudentId(data.studentId);
             isRegisted();
             changeStatus();
 
@@ -39,9 +39,11 @@ function login() {
         console.log('complete');
     });
 }
-function setStudentId(student_id) {
-    this.student_id=student_id;
-}
+
 function getStudentId() {
     return student_id;
+}
+
+function getAccount() {
+    return account;
 }

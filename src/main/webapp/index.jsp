@@ -52,16 +52,17 @@
     <script src="plugins/smoothScroll/jquery.smooth-scroll.js"></script>
     <script src="js/smoothScroll/smoothScroll.js"></script>
     <!-- 平滑滚动结束 -->
-    <!--模态框-->
+    <!--登录-->
     <script src="js/modalBox/loginModal.js"></script>
-    <!--模态框结束-->
+    <!--登录结束-->
     <!-- 弹出框 -->
     <script src="js/popup/personalPopup.js"></script>
     <!-- 弹出框结束 -->
-    <!--获得通知-->
+    <!--通知-->
     <script src="js/notice/getPicture.js"></script>
     <script src="js/notice/getTextNotice.js"></script>
-    <!--获得通知结束-->
+    <script src="js/modalBox/noticeModal.js"></script>
+    <!--通知结束-->
     <!--题库-->
     <script src="js/modalBox/questionBankModal.js"></script>
     <!--题库结束-->
@@ -76,7 +77,7 @@
     <!-- 计时器 -->
     <script>
         var duration = new Date('2017/1/1 02:00:00').getTime(); //持续时间
-        var time = new Date('2017/1/1 00:00:01').getTime();
+        var time = new Date('2017/1/1 01:00:01').getTime();
         var t = duration;
         function getRTime() {
             t = t - time;
@@ -92,44 +93,6 @@
 </head>
 <body class="demo-lightbox-gallery  pace-done" id="body"
       data-target=".one-page-header" data-spy="scroll">
-<!-- 顶栏 -->
-<nav
-        class="one-page-header navbar navbar-default navbar-fixed-top homeapp-header"
-        data-role="navigation">
-    <div class="container">
-        <div class="menu-container page-scroll">
-            <a class="navbar-brand" href="#body"> <img alt="中南大学"
-                                                       src="img/logo.png">
-            </a>
-        </div>
-
-
-        <!-- 导航栏 -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <div class="menu-container">
-                <ul class="nav navbar-nav">
-                    <li class="page-scroll"><a href="#notice">通知公告</a></li>
-                    <li class="page-scroll"><a href="#questionsbank">在线题库</a></li>
-                    <li class="page-scroll"><a href="#examination">报名考试</a></li>
-                    <li class="page-scroll"><a href="#ranking">考试排名</a></li>
-                    <li class="page-scroll"><a href="#integral">积分兑换</a></li>
-                    <li class="page-scroll"><a href="#contact">联系我们</a></li>
-                    <li class="page-scroll"><a href="#help">考试须知</a></li>
-                    <li id="login-li"><a
-                            class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
-                            href="#signup" data-toggle="modal"
-                            data-target="#loginModal">登录</a></li>
-                    <li style="display:none" id="personal-li"><a type="button"
-                                                                 class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
-                                                                 data-toggle="personal" id="personal"
-                                                                 onclick="personalPopover()">个人</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- 导航栏结束 -->
-    </div>
-    <!-- /.container --> </nav>
-
 
 <!-- 登录按钮模态框 -->
 <div class="modal fade" id="loginModal" data-backdrop="static">
@@ -176,7 +139,7 @@
                 <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">x
                 </button>
-                <label class="modal-title" id="subjectTitle">xxxx题目</label>
+                <label class="modal-title" id="subjectTitle"></label>
                 <div id="CountMsg" class="HotDate">
                     <span id="t_h">00时</span> <span id="t_m">00分</span>
                     <span id="t_s">00秒</span>
@@ -187,7 +150,7 @@
                     <div id="title"></div>
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
-                                style="width: 100px; text-align: center">提交
+                                style="width: 100px; text-align: center" onclick="submitTitle()">提交
                         </button>
                     </div>
                 </form>
@@ -218,6 +181,45 @@
     <!-- /.modal-dialog -->
 </div>
 <!--/.modal-->
+
+<!-- 顶栏 -->
+<nav
+        class="one-page-header navbar navbar-default navbar-fixed-top homeapp-header"
+        data-role="navigation">
+    <div class="container">
+        <div class="menu-container page-scroll">
+            <a class="navbar-brand" href="#body"> <img alt="中南大学"
+                                                       src="img/logo.png">
+            </a>
+        </div>
+
+
+        <!-- 导航栏 -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="menu-container">
+                <ul class="nav navbar-nav">
+                    <li class="page-scroll"><a href="#notice">通知公告</a></li>
+                    <li class="page-scroll"><a href="#questionsbank">在线题库</a></li>
+                    <li class="page-scroll"><a href="#examination">报名考试</a></li>
+                    <li class="page-scroll"><a href="#ranking">考试排名</a></li>
+                    <li class="page-scroll"><a href="#integral">积分兑换</a></li>
+                    <li class="page-scroll"><a href="#contact">联系我们</a></li>
+                    <li class="page-scroll"><a href="#help">考试须知</a></li>
+                    <li id="login-li"><a
+                            class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
+                            href="#signup" data-toggle="modal"
+                            data-target="#loginModal">登录</a></li>
+                    <li style="display:none" id="personal-li"><a type="button"
+                                                                 class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
+                                                                 data-toggle="personal" id="personal"
+                                                                 onclick="personalPopover()">个人</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 导航栏结束 -->
+    </div>
+    <!-- /.container --> </nav>
+
 
 <!-- 顶栏结束 -->
 <!-- 公告模块 -->
@@ -419,6 +421,7 @@
                             <li>参考书目：《中南大学本科生手册》</li>
                             <li>注意：使用本人校内门户学号和密码登录</li>
                             <li id="contestStatus"></li>
+                            <li>&nbsp;</li>
                             <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">

@@ -9,12 +9,12 @@ $(function () {
         success: function (data) {
             var textNotice = new Array;
             textNotice = JSON.parse(data);
-            for (var i = textNotice.length-1; i>=0; i--) {
+            for (var i = textNotice.length - 1; i >= 0; i--) {
                 var date = new Date(textNotice[i].submitTime).format("yyyy-MM-dd");
                 $('#textNotice').append("<tr>" +
                     "<td align=\"center\" style=\"width: 5%\"><i class=\"fa fa-hand-o-right\"></i></td>" +
-                    "<td align=\"left\" style=\"width: 75%\"><a style=\"color: #999\" href=\"#\" data-toggle=\"modal\" data-target=\"#noticeModal\">" + textNotice[i].title + "</a></td>" +
-                    "<td align=\"center\" style=\"width: 20%\">"+date+"</td>" +
+                    "<td align=\"left\" style=\"width: 75%\"><a style=\"color: #999\" href=\"#\" data-toggle=\"modal\" data-target=\"#noticeModal\" onclick=\"getNotice(" + textNotice[i].noticeId + ")\">" + textNotice[i].title + "</a></td>" +
+                    "<td align=\"center\" style=\"width: 20%\">" + date + "</td>" +
                     "</tr>");
             }
         },

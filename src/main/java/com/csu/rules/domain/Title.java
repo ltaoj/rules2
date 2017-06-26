@@ -9,7 +9,6 @@ import java.util.Set;
 /**
  * Created by ltaoj on 17-6-9.
  */
-@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
 @Entity
 @Table(name = "title", schema = "schoolrulessystem", catalog = "")
 public class Title {

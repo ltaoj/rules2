@@ -13,7 +13,7 @@ function changeStatus() {
         method: 'post',
         data:contest,
         success: function (data) {
-            var status='';
+            var status;
             if(data.status==0){
                 status="未开始"
             }if(data.status==1){
