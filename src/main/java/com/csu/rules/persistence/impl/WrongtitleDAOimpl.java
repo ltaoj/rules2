@@ -39,4 +39,15 @@ public class WrongtitleDAOimpl implements WrongtitleDAO {
         session.delete(wrongtitle);
         transaction.commit();
     }
+
+    public Wrongtitle getWrongTitle(Wrongtitle wrongtitle) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        String hql = "from Wrongtitle as wrongtitle where studentId=" + wrongtitle.getStudentId() +
+                " and titleId=" + wrongtitle.getTitleId();
+        List<Wrongtitle> list = session.createQuery(hql).list();
+        transaction.commit();
+        session.close();
+        return (list != null && list.size() > 0) ? list.get(0) : null;
+    }
 }

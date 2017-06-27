@@ -123,7 +123,7 @@ public class TitleActionBeanTest {
     public void testItemByGet() throws Exception {
         MockMvc mockMvc = standaloneSetup(titleActionBean).build();
 
-        mockMvc.perform(get("/title/item/2"))
+        mockMvc.perform(get("/title/item/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

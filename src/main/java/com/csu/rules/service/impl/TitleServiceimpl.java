@@ -83,11 +83,17 @@ public class TitleServiceimpl implements TitleService {
             List<Title> list = new ArrayList<Title>(titleList.size());
             for (int i = 0;i < titleList.size();i++) {
                 Title title = getCorrectTitle(titleList.get(i));
+                Wrongtitle wrongtitle = new Wrongtitle();
+                wrongtitle.setStudentId(account.getStudentId());
+                wrongtitle.setTitleId(titleList.get(i).getTitleId());
+                boolean isWrongTitle = wrongtitleDAO.getWrongTitle(wrongtitle) != null;
+                // 如果title的options为空说明为错题，接着判断是否已有记录，没有记录的话插入；
+                // 如果是正确的，那么options自然不为空，那么看如果已有记录，则删除
                 if (title.getOptions() == null) {
-                    Wrongtitle wrongtitle = new Wrongtitle();
-                    wrongtitle.setStudentId(account.getStudentId());
-                    wrongtitle.setTitleId(titleList.get(i).getTitleId());
-                    wrongtitleDAO.insertWrongTitle(wrongtitle);
+                    if(!isWrongTitle)
+                        wrongtitleDAO.insertWrongTitle(wrongtitle);
+                }else if (isWrongTitle) {
+                    wrongtitleDAO.deleteWrongTitle(wrongtitle);
                 }
                 list.add(title);
             }
@@ -98,6 +104,7 @@ public class TitleServiceimpl implements TitleService {
             throw te;
         }
     }
+
     // 如果题目本身正确，那么将直接返回题目，如果题目错误，选项设为null后返回
     public Title getCorrectTitle(Title title) throws TitleServiceException {
         try {
@@ -115,13 +122,18 @@ public class TitleServiceimpl implements TitleService {
             Iterator<Option> iterator1 = title.getOptions().iterator();
             Iterator<Option> iterator2 = title1.getOptions().iterator();
             boolean flag = true;
+            Option option1 = null;
+            Option option2 = null;
             while (iterator1.hasNext()) {
-                if (!(iterator1.next().equals(iterator2.next()))) {
-                    System.out.println("*******");
-                    flag = false;
-                    break;
-                }
+                option1 = iterator1.next();
+                if (option1.getChecked() == 1) break;
             }
+            while (iterator2.hasNext()) {
+                option2 = iterator2.next();
+                if (option2.getChecked() == 1) break;
+            }
+
+            if (option1.getOptionId() != option2.getOptionId()) flag = false;
             // 如果题目错误，则把选项设置为null
             if(!flag) {
                 title.setOptions(null);

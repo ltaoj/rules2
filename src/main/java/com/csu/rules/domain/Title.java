@@ -1,9 +1,6 @@
 package com.csu.rules.domain;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

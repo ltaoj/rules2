@@ -37,4 +37,11 @@ public interface WrongtitleDAO {
      */
     void deleteWrongTitle(Wrongtitle wrongtitle) throws PersistenceException;
 
+    /**
+     * 获取错题
+     * @param wrongtitle
+     * @return
+     * @throws PersistenceException
+     */
+    Wrongtitle getWrongTitle(Wrongtitle wrongtitle) throws PersistenceException;
 }

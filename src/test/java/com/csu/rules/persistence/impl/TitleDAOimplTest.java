@@ -37,12 +37,12 @@ public class TitleDAOimplTest {
 
     @Test
     public void testDeleteTitle() throws Exception {
-        assertTrue(titleDAO.deleteTitle(12) != null);
+        assertTrue(titleDAO.deleteTitle(2) != null);
     }
 
     @Test
     public void testGetTitle() throws Exception {
-        assertTrue(titleDAO.getTitle(3).getOptions() != null);
+        assertTrue(titleDAO.getTitle(2).getOptions() != null);
         assertFalse(titleDAO.getTitle(100) != null);
     }
 
