@@ -18,6 +18,9 @@ import java.util.List;
 public class ClockDAOimpl implements ClockDAO {
 
     public void insertClock(Clockin clockin) throws PersistenceException {
+        // 首先判断是否是同天第二次调用此方法，如果是，则进行更新操作，如果不是，则插入记录
+        Clockin clockin1 = getClockByDay(clockin.getStudentId(),clockin.getClockDay());
+        if (clockin1 != null) { updateClock(clockin); return;}
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         session.save(clockin);
@@ -49,9 +52,6 @@ public class ClockDAOimpl implements ClockDAO {
     }
 
     public void updateClock(Clockin clockin) throws PersistenceException {
-        Clockin clockin1 = getClockByDay(clockin.getStudentId(),clockin.getClockDay());
-        if (clockin1 == null) { insertClock(clockin); return;}
-        clockin.setClockId(clockin1.getClockId());
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         session.update("Clockin", clockin);
