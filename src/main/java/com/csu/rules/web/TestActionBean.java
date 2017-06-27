@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
@@ -64,6 +65,7 @@ public class TestActionBean extends AbstractActionBean {
             testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
             Testrecord testrecord1=testService.getTestRecord(testrecord);
             if (testrecord1==null) {
+                testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
             }
             List<Title> testTitleList=titleService.getTitleListByRandom(10);

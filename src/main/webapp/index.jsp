@@ -52,29 +52,38 @@
     <script src="plugins/smoothScroll/jquery.smooth-scroll.js"></script>
     <script src="js/smoothScroll/smoothScroll.js"></script>
     <!-- 平滑滚动结束 -->
-    <!--模态框-->
+    <!--登录-->
     <script src="js/modalBox/loginModal.js"></script>
-    <!--模态框结束-->
+    <!--登录结束-->
     <!-- 弹出框 -->
     <script src="js/popup/personalPopup.js"></script>
     <!-- 弹出框结束 -->
-    <!--获得通知-->
+    <!--通知-->
     <script src="js/notice/getPicture.js"></script>
-    <!--获得通知结束-->
+    <script src="js/notice/getTextNotice.js"></script>
+    <script src="js/modalBox/noticeModal.js"></script>
+    <!--通知结束-->
     <!--题库-->
     <script src="js/modalBox/questionBankModal.js"></script>
     <!--题库结束-->
+    <!--获取考试信息-->
+    <script src="js/test/getTestInfo.js"></script>
+    <script src="js/test/getTestRecord.js"></script>
+    <script src="js/test/startTest.js"></script>
+    <script src="js/test/getContestInfo.js"></script>
+    <script src="js/test/isRegistedContest.js"></script>
+    <script src="js/test/changeContestStatus.js"></script>
+    <!--获取考试信息结束-->
     <!-- 计时器 -->
     <script>
+        var duration = new Date('2017/1/1 02:00:00').getTime(); //持续时间
+        var time = new Date('2017/1/1 01:00:01').getTime();
+        var t = duration;
         function getRTime() {
-            var EndTime = new Date('2017/6/13 15:00:00'); //截止时间
-            var NowTime = new Date();
-            var t = EndTime.getTime() - NowTime.getTime();
+            t = t - time;
             var h = Math.floor(t / 1000 / 60 / 60 % 24);
             var m = Math.floor(t / 1000 / 60 % 60);
             var s = Math.floor(t / 1000 % 60);
-
-//document.getElementById("t_d").innerHTML = d + "天"; 
             document.getElementById("t_h").innerHTML = h + "时";
             document.getElementById("t_m").innerHTML = m + "分";
             document.getElementById("t_s").innerHTML = s + "秒";
@@ -84,44 +93,6 @@
 </head>
 <body class="demo-lightbox-gallery  pace-done" id="body"
       data-target=".one-page-header" data-spy="scroll">
-<!-- 顶栏 -->
-<nav
-        class="one-page-header navbar navbar-default navbar-fixed-top homeapp-header"
-        data-role="navigation">
-    <div class="container">
-        <div class="menu-container page-scroll">
-            <a class="navbar-brand" href="#body"> <img alt="中南大学"
-                                                       src="img/logo.png">
-            </a>
-        </div>
-
-
-        <!-- 导航栏 -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <div class="menu-container">
-                <ul class="nav navbar-nav">
-                    <li class="page-scroll"><a href="#notice">通知公告</a></li>
-                    <li class="page-scroll"><a href="#questionsbank">在线题库</a></li>
-                    <li class="page-scroll"><a href="#examination">报名考试</a></li>
-                    <li class="page-scroll"><a href="#ranking">考试排名</a></li>
-                    <li class="page-scroll"><a href="#integral">积分兑换</a></li>
-                    <li class="page-scroll"><a href="#contact">联系我们</a></li>
-                    <li class="page-scroll"><a href="#help">考试须知</a></li>
-                    <li id="login-li"><a
-                            class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
-                            href="#signup" target="_blank" data-toggle="modal"
-                            data-target="#loginModal">登录</a></li>
-                    <li style="display:none" id="personal-li"><a type="button"
-                                                                 class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
-                                                                 data-toggle="personal" id="personal"
-                                                                 onclick="personalPopover()">个人</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- 导航栏结束 -->
-    </div>
-    <!-- /.container --> </nav>
-
 
 <!-- 登录按钮模态框 -->
 <div class="modal fade" id="loginModal" data-backdrop="static">
@@ -168,7 +139,7 @@
                 <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">x
                 </button>
-                <label class="modal-title" id="subjectTitle">xxxx题目</label>
+                <label class="modal-title" id="subjectTitle"></label>
                 <div id="CountMsg" class="HotDate">
                     <span id="t_h">00时</span> <span id="t_m">00分</span>
                     <span id="t_s">00秒</span>
@@ -179,7 +150,7 @@
                     <div id="title"></div>
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
-                                style="width: 100px; text-align: center">提交
+                                style="width: 100px; text-align: center" onclick="submitTitle()">提交
                         </button>
                     </div>
                 </form>
@@ -190,6 +161,66 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<!--通知模态框-->
+<div class="modal fade" id="noticeModal" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">x
+                </button>
+                <label class="modal-title" id="noticeTitle"></label>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; height: 400px;">
+                <div id="noticeContent"></div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--/.modal-->
+
+<!-- 顶栏 -->
+<nav
+        class="one-page-header navbar navbar-default navbar-fixed-top homeapp-header"
+        data-role="navigation">
+    <div class="container">
+        <div class="menu-container page-scroll">
+            <a class="navbar-brand" href="#body"> <img alt="中南大学"
+                                                       src="img/logo.png">
+            </a>
+        </div>
+
+
+        <!-- 导航栏 -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="menu-container">
+                <ul class="nav navbar-nav">
+                    <li class="page-scroll"><a href="#notice">通知公告</a></li>
+                    <li class="page-scroll"><a href="#questionsbank">在线题库</a></li>
+                    <li class="page-scroll"><a href="#examination">报名考试</a></li>
+                    <li class="page-scroll"><a href="#ranking">考试排名</a></li>
+                    <li class="page-scroll"><a href="#integral">积分兑换</a></li>
+                    <li class="page-scroll"><a href="#contact">联系我们</a></li>
+                    <li class="page-scroll"><a href="#help">考试须知</a></li>
+                    <li id="login-li"><a
+                            class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
+                            href="#signup" data-toggle="modal"
+                            data-target="#loginModal">登录</a></li>
+                    <li style="display:none" id="personal-li"><a type="button"
+                                                                 class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
+                                                                 data-toggle="personal" id="personal"
+                                                                 onclick="personalPopover()">个人</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 导航栏结束 -->
+    </div>
+    <!-- /.container --> </nav>
+
+
 <!-- 顶栏结束 -->
 <!-- 公告模块 -->
 <section class="promo-section" id="intro">
@@ -261,57 +292,8 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    <table style="font-size: 14px">
-                        <tbody>
-                        <tr>
-                            <td align="center" style="width: 5%"><i
-                                    class="fa fa-hand-o-right"></i></td>
-                            <td align="left" style="width: 80%"><a style="color: #999"
-                                                                   href="#">【类型一】内容1.....</a></td>
-                            <td align="center" style="width: 15%">2017-5-27</td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 5%"><i
-                                    class="fa fa-hand-o-right"></i></td>
-                            <td align="left" style="width: 80%"><a style="color: #999"
-                                                                   href="#">【类型二】内容2.....</a></td>
-                            <td align="center" style="width: 15%">2017-5-27</td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 5%"><i
-                                    class="fa fa-hand-o-right"></i></td>
-                            <td align="left" style="width: 80%"><a style="color: #999"
-                                                                   href="#">【类型三】内容3.....</a></td>
-                            <td align="center" style="width: 15%">2017-5-27</td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 5%"><i
-                                    class="fa fa-hand-o-right"></i></td>
-                            <td align="left" style="width: 80%"><a style="color: #999"
-                                                                   href="#">【类型四】内容4.....</a></td>
-                            <td align="center" style="width: 15%">2017-5-27</td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 5%"><i
-                                    class="fa fa-hand-o-right"></i></td>
-                            <td align="left" style="width: 80%"><a style="color: #999"
-                                                                   href="#">【类型一】内容.....</a></td>
-                            <td align="center" style="width: 15%">2017-5-27</td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 5%"><i
-                                    class="fa fa-hand-o-right"></i></td>
-                            <td align="left" style="width: 80%"><a style="color: #999"
-                                                                   href="#">【类型一】内容.....</a></td>
-                            <td align="center" style="width: 15%">2017-5-27</td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 5%"><i
-                                    class="fa fa-hand-o-right"></i></td>
-                            <td align="left" style="width: 80%"><a style="color: #999"
-                                                                   href="#">【类型一】内容.....</a></td>
-                            <td align="center" style="width: 15%">2017-5-27</td>
-                        </tr>
+                    <table style="font-size: 16px">
+                        <tbody id="textNotice">
                         </tbody>
                     </table>
                 </div>
@@ -343,7 +325,8 @@
                         <div class="pricing-v9-footer">
                             <a type="button"
                                class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
-                               data-toggle="modal" data-target="#titleModal" onclick="createQuestionBank('校规校纪模拟考试')">进入</a>
+                               data-toggle="modal" data-target="#titleModal"
+                               onclick="createQuestionBank('校规校纪模拟考试')">进入</a>
                         </div>
                     </div>
                 </div>
@@ -394,23 +377,28 @@
                             </h3>
                         </div>
                         <ul class="list-unstyled">
-                            <li>考试时间：2017/9/10-2017/9/20</li>
-                            <li>考试要求：所有2017级本科生</li>
+                            <li id="test_name"></li>
+                            <li id="testTime"></li>
+                            <li id="testGrade"></li>
+                            <li id="testDuration"></li>
                             <li>参考书目：《中南大学本科生手册》</li>
-                            <li>答题网址：www.csu.edu.cn</li>
                             <li>注意：使用本人校内门户学号和密码登录</li>
-                            <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
-                            是否考试：<span class="g-color-default">未考试</span>
+                            是否考试：<span class="g-color-default" id="isTested">未登录</span>
                         </div>
-                        <div class="pricing-v9-footer">
+                        <div class="pricing-v9-footer" id="yesToTest">
                             <a
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
                                     data-toggle="modal" data-target="#titleModal"
-                                    onclick="getRTime()">进入</a>
+                                    onclick="startTest()">进入</a>
+                        </div>
+                        <div class="pricing-v9-footer" id="noToTest" style="display: none;">
+                            <a
+                                    class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                            >已考试</a>
                         </div>
                     </div>
                 </div>
@@ -426,23 +414,30 @@
                             </h3>
                         </div>
                         <ul class="list-unstyled">
-                            <li>考试时间：2017/9/10-2017/9/20</li>
-                            <li>考试要求：所有2017级本科生</li>
+                            <li id="contest_name"></li>
+                            <li id="contestTime"></li>
+                            <li id="contestGrade"></li>
+                            <li id="contestDuration"></li>
                             <li>参考书目：《中南大学本科生手册》</li>
-                            <li>答题网址：www.csu.edu.cn</li>
                             <li>注意：使用本人校内门户学号和密码登录</li>
-                            <li>&nbsp;</li>
+                            <li id="contestStatus"></li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
-                            是否报名：<span class="g-color-default">未报名</span>
+                            是否报名：<span class="g-color-default" id="isRegisted">未登录</span>
                         </div>
-                        <div class="pricing-v9-footer">
+                        <div class="pricing-v9-footer" id="regist">
                             <a
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
                                     href="#">报名</a>
                         </div>
+                        <div class="pricing-v9-footer" id="enter" style="display:none">
+                            <a
+                                    class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                                    href="#">进入</a>
+                        </div>
+
                     </div>
                 </div>
 
@@ -474,9 +469,9 @@
                             </h3>
                         </div>
                         <ul class="list-unstyled">
+                            <li id="testName"></li>
                             <li>参赛总人数：100</li>
-                            <li>考试开始时间：2017-06-13</li>
-                            <li>考试结束时间：2017-07-12</li>
+                            <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
@@ -484,7 +479,7 @@
                             <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
-                            你的成绩：<span class="g-color-default">91</span>
+                            你的成绩：<span class="g-color-default" id="testRecord">--</span>
                         </div>
                     </div>
                 </div>
@@ -498,10 +493,10 @@
                             </h3>
                         </div>
                         <ul class="list-unstyled">
+                            <li id="contestName"></li>
                             <li>参赛总人数：100</li>
-                            <li>考试开始时间：2017-06-13</li>
-                            <li>考试结束时间：2017-07-12</li>
-                            <li>你的排名:100</li>
+                            <li>排名</li>
+                            <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
@@ -518,6 +513,8 @@
     </div>
 </section>
 <!-- 考试排名结束 -->
+
+
 <!-- 积分兑换 -->
 <section id="integral">
     <div class="container">
