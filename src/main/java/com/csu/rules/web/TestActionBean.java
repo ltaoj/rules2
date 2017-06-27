@@ -87,6 +87,9 @@ public class TestActionBean extends AbstractActionBean {
     public ResponseEntity<Testrecord> getTestRecord(@RequestBody Testrecord testrecord) {
         try {
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
+            if (testrecord1 == null) {
+                return new ResponseEntity<Testrecord>(new Testrecord(), HttpStatus.OK);
+            }
             return new ResponseEntity<Testrecord>(testrecord1, HttpStatus.OK);
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);

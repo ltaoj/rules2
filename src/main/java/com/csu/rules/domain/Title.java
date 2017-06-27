@@ -9,7 +9,6 @@ import java.util.Set;
 /**
  * Created by ltaoj on 17-6-9.
  */
-@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
 @Entity
 @Table(name = "title", schema = "schoolrulessystem", catalog = "")
 public class Title {
@@ -25,6 +24,7 @@ public class Title {
     private int score;
     @OneToMany(targetEntity = Option.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "title_id")
+    @OrderBy("optionId ASC")
     private Set<Option> options;
 
     public Title() {

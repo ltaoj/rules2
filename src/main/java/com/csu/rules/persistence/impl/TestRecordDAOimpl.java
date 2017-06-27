@@ -48,13 +48,7 @@ public class TestRecordDAOimpl implements TestRecordDAO {
             criteria.add(Restrictions.eq("studentId",new Long(testrecord.getStudentId())));
             criteria.add(Restrictions.eq("testId",testrecord.getTestId()));
             List<Testrecord> list=criteria.list();
-            if (list.size()!=0) {
-                Testrecord testRecord = list.get(0);
-                return testRecord;
-            }else{
-                Testrecord testrecord1=new Testrecord();
-                return testrecord1;
-            }
+            return list.size() > 0 ? list.get(0) : null;
         } catch (RuntimeException e) {
             throw new PersistenceException(e);
         }
