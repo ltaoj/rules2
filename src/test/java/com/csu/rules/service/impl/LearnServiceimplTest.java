@@ -45,4 +45,9 @@ public class LearnServiceimplTest {
         title.setTitleId(1);
         assertTrue(titleService.getTitle(title) != null);
     }
+
+    @Test
+    public void testGetTitleListByRandom() throws Exception {
+        assertTrue(titleService.getTitleListByRandom(2).size() == 2);
+    }
 }

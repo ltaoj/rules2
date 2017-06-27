@@ -81,8 +81,8 @@ public class TitleDAOimpl implements TitleDAO {
 
     public List<Title> getRandomTitleList(int count) throws PersistenceException {
         try {
-            long totalSize = getTotalTitleSize();
-            if (count > totalSize) count = (int) totalSize;
+            int totalSize = Integer.parseInt(getTotalTitleSize().toString());
+            if (count > totalSize) count = totalSize;
             Set<Integer> set = randomIntegerList(count, totalSize);
             return getTitleListByTitleIds(set);
         } catch (RuntimeException e) {
@@ -141,7 +141,7 @@ public class TitleDAOimpl implements TitleDAO {
     private Set<Integer> randomIntegerList(int count, long max) {
         Set<Integer> set = new HashSet<Integer>();
         while (set.size() < count) {
-            Integer integer = (int)(Math.random() * max);
+            Integer integer = (int)(Math.random() * max + 1);
             set.add(integer);
         }
         return set;
@@ -153,7 +153,6 @@ public class TitleDAOimpl implements TitleDAO {
         while (values.hasNext()) {
             sb.append("," + values.next());
         }
-        System.out.println(sb.subSequence(1, sb.length()).toString());
         return sb.subSequence(1, sb.length()).toString();
     }
 }

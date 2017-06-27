@@ -42,6 +42,13 @@ public class TitleServiceimpl implements TitleService {
                 throw te;
             }
             List<Title> titleList = titleDAO.getTitleList((page - 1) * count, count);
+            // 将答案选项统一设置为0
+            for(int i = 0;i < titleList.size();i++) {
+                Iterator<Option> iterator = titleList.get(i).getOptions().iterator();
+                while (iterator.hasNext()) {
+                    iterator.next().setChecked((byte)0);
+                }
+            }
             return titleList;
         } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);
