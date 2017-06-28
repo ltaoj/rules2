@@ -1,7 +1,8 @@
 /**
  * Created by GF on 2017/6/24.
  */
-var start_time='';
+var start_time;
+var submit_time;
 function getTestRecord(studentId) {
     var testId=getTestId();
     var testRecordString = {studentId: studentId, testId: testId};
@@ -16,6 +17,7 @@ function getTestRecord(studentId) {
             if(data.score==null) {
                 $('#isTested').html("未考试");
                 start_time=data.startTime;
+                submit_time=data.submitTime;
             }else{
                 $('#isTested').html("已考试");
                 $('#testRecord').html(data.score);
@@ -40,4 +42,7 @@ function getTestRecord(studentId) {
 }
 function getStartTime() {
     return start_time;
+}
+function getSubmitTime() {
+    return submit_time;
 }

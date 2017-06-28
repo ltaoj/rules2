@@ -3,25 +3,32 @@
  */
 function changeStatus() {
     var testId=getContestId();
-    var studentId=getStudentId();
-    var contestString = {studentId: studentId, testId: testId};
-    var contest = $.toJSON(contestString);
+    var student_Id=getStudentId();
+    var contestString = {studentId: student_Id, testId: testId};
+    var contestregistion = $.toJSON(contestString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'test/getContestStatus',
         dataType: 'json',
         method: 'post',
-        data:contest,
+        data:contestregistion,
         success: function (data) {
-            var status;
-            if(data.status==0){
-                status="未开始"
-            }if(data.status==1){
-                status="进行中"
-            }if(data.status==2){
-                status="已结束"
+            if(data.studentId!=student_Id){
+
+            }else {
+                if (data.status == 0) {
+                    $('#regist').hide();
+                    $('#notBegin').show();
+                }
+                if (data.status == 1) {
+                    $('#regist').hide();
+                    $('#enter').show();
+                }
+                if (data.status == 2) {
+                    $('#regist').hide();
+                    $('#isEnd').show();
+                }
             }
-            $('#contestStatus').append("竞赛状态:"+status);
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究

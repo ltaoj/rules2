@@ -20,7 +20,12 @@ function login() {
             setAccount(data);
            student_id=data.studentId;
             getTestRecord(data.studentId);
+            getContestRecord(data.studentId);
             isRegisted();
+            $("#isSimulationLogin").html("&nbsp;");
+            $("#isWrongTitleLogin").html("&nbsp;");
+            $("#isLogin").html("&nbsp;");
+            $("#isContestLogin").html("&nbsp;");
             changeStatus();
 
         },

@@ -73,23 +73,9 @@
     <script src="js/test/getContestInfo.js"></script>
     <script src="js/test/isRegistedContest.js"></script>
     <script src="js/test/changeContestStatus.js"></script>
+    <script src="js/test/getContestRecord.js"></script>
+    <script src="js/test/registContest.js"></script>
     <!--获取考试信息结束-->
-    <!-- 计时器 -->
-    <script>
-        var duration = new Date('2017/1/1 02:00:00').getTime(); //持续时间
-        var time = new Date('2017/1/1 01:00:01').getTime();
-        var t = duration;
-        function getRTime() {
-            t = t - time;
-            var h = Math.floor(t / 1000 / 60 / 60 % 24);
-            var m = Math.floor(t / 1000 / 60 % 60);
-            var s = Math.floor(t / 1000 % 60);
-            document.getElementById("t_h").innerHTML = h + "时";
-            document.getElementById("t_m").innerHTML = m + "分";
-            document.getElementById("t_s").innerHTML = s + "秒";
-        }
-        setInterval(getRTime, 1000);
-    </script>
 </head>
 <body class="demo-lightbox-gallery  pace-done" id="body"
       data-target=".one-page-header" data-spy="scroll">
@@ -140,10 +126,6 @@
                         aria-hidden="true">x
                 </button>
                 <label class="modal-title" id="subjectTitle"></label>
-                <div id="CountMsg" class="HotDate">
-                    <span id="t_h">00时</span> <span id="t_m">00分</span>
-                    <span id="t_s">00秒</span>
-                </div>
             </div>
             <div class="modal-body" style="overflow-y: scroll; height: 800px;">
                 <form class="bs-example bs-example-form" method="post">
@@ -151,6 +133,36 @@
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
                                 style="width: 100px; text-align: center" onclick="submitTitle()">提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- 考试模态框 -->
+<div class="modal fade" id="testModal" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true" onclick="exitAll()">x
+                </button>
+                <label class="modal-title" id="testId" style="display: none"></label>
+                <div id="testCountMsg" class="HotDate">
+                    <span id="test_t_h">00时</span> <span id="test_t_m">00分</span>
+                    <span id="test_t_s">00秒</span>
+                </div>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; height: 800px;">
+                <form class="bs-example bs-example-form" method="post">
+                    <div id="testTitle"></div>
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-primary"
+                                style="width: 100px; text-align: center" onclick="submitAll()">提交
                         </button>
                     </div>
                 </form>
@@ -321,12 +333,16 @@
                          style="height: 300px; width: 310px;">
                         <i class="fa  fa-database fa-3x"></i>
                         <h3>校规校纪模拟考试</h3>
-                        <br><br>
+                        <br>
+                        <ul class="list-unstyled">
+                        <li id="isSimulationLogin" class="g-color-red">&nbsp;</li></ul>
                         <div class="pricing-v9-footer">
                             <a type="button"
                                class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
-                               data-toggle="modal" data-target="#titleModal"
-                               onclick="createQuestionBank('校规校纪模拟考试')">进入</a>
+                               data-toggle="" data-target=""
+                               id="enterSimulation"
+                               onclick="enterTitle()"
+                            >进入</a>
                         </div>
                     </div>
                 </div>
@@ -337,11 +353,15 @@
                          style="height: 300px; width: 310px;">
                         <i class="fa  fa-database fa-3x"></i>
                         <h3>错题重做</h3>
-                        <br><br>
+                        <br>
+                        <ul class="list-unstyled">
+                            <li id="isWrongTitleLogin" class="g-color-red">&nbsp;</li></ul>
                         <div class="pricing-v9-footer">
                             <a
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
-                                    data-toggle="modal" data-target="#titleModal" onclick="createQuestionBank('错题重做')">进入</a>
+                                    id="enterWrongTitle"
+                                    data-toggle="" data-target="" onclick="enterWrongTitle()"
+                            >进入</a>
                         </div>
                     </div>
                 </div>
@@ -373,17 +393,17 @@
                     <div class="pricing-v9 rounded-2x hover-effect">
                         <div class="pricing-v9-head">
                             <h3 class="h3">
-                                <span class="g-color-default">校规校纪第一次考试</span>
+                                <span class="g-color-default" id="testInfo">校规校纪考试</span>
                             </h3>
                         </div>
                         <ul class="list-unstyled">
-                            <li id="test_name"></li>
-                            <li id="testTime"></li>
-                            <li id="testGrade"></li>
-                            <li id="testDuration"></li>
+                            <li id="test_name">&nbsp;</li>
+                            <li id="testTime">&nbsp;</li>
+                            <li id="testGrade">&nbsp;</li>
+                            <li id="testDuration">&nbsp;</li>
                             <li>参考书目：《中南大学本科生手册》</li>
                             <li>注意：使用本人校内门户学号和密码登录</li>
-                            <li>&nbsp;</li>
+                            <li class="g-color-red" id="isLogin">&nbsp;</li>
                             <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
@@ -392,8 +412,8 @@
                         <div class="pricing-v9-footer" id="yesToTest">
                             <a
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
-                                    data-toggle="modal" data-target="#titleModal"
-                                    onclick="startTest()">进入</a>
+                                    data-toggle="" data-target="" id="startTestModal"
+                                    onclick="enterTest()">进入</a>
                         </div>
                         <div class="pricing-v9-footer" id="noToTest" style="display: none;">
                             <a
@@ -410,19 +430,18 @@
                     <div class="pricing-v9 rounded-2x hover-effect">
                         <div class="pricing-v9-head">
                             <h3 class="h3">
-                                <span class="g-color-default">校规校纪竞赛</span>
+                                <span class="g-color-default" id="contestInfo">校规校纪竞赛</span>
                             </h3>
                         </div>
                         <ul class="list-unstyled">
-                            <li id="contest_name"></li>
-                            <li id="contestTime"></li>
-                            <li id="contestGrade"></li>
-                            <li id="contestDuration"></li>
+                            <li id="contest_name">&nbsp;</li>
+                            <li id="contestTime">&nbsp;</li>
+                            <li id="contestGrade">&nbsp;</li>
+                            <li id="contestDuration">&nbsp;</li>
                             <li>参考书目：《中南大学本科生手册》</li>
                             <li>注意：使用本人校内门户学号和密码登录</li>
-                            <li id="contestStatus"></li>
-                            <li>&nbsp;</li>
-                            <li>&nbsp;</li>
+                            <li id="isContestLogin" class="g-color-red">&nbsp;</li>
+                            <li id="isContested" class="g-color-red">&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
                             是否报名：<span class="g-color-default" id="isRegisted">未登录</span>
@@ -430,17 +449,27 @@
                         <div class="pricing-v9-footer" id="regist">
                             <a
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
-                                    href="#">报名</a>
+                                    onclick="regist()">报名</a>
                         </div>
                         <div class="pricing-v9-footer" id="enter" style="display:none">
                             <a
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
-                                    href="#">进入</a>
+                                    id="startContestModal"
+                                    data-toggle="" data-target=""
+                                    disabled="true" onclick="enterContest()">进入</a>
                         </div>
-
+                        <div class="pricing-v9-footer" id="notBegin" style="display:none">
+                            <a
+                                    class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                                    disabled="true">未开始</a>
+                        </div>
+                        <div class="pricing-v9-footer" id="isEnd" style="display:none">
+                            <a      type="button"
+                                    class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                            >已结束</a>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -470,7 +499,7 @@
                         </div>
                         <ul class="list-unstyled">
                             <li id="testName"></li>
-                            <li>参赛总人数：100</li>
+                            <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
@@ -494,8 +523,8 @@
                         </div>
                         <ul class="list-unstyled">
                             <li id="contestName"></li>
-                            <li>参赛总人数：100</li>
-                            <li>排名</li>
+                            <li id="rank">排名:</li>
+                            <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
@@ -503,7 +532,7 @@
                             <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
-                            你的成绩：<span class="g-color-default">91</span>
+                            你的成绩：<span class="g-color-default" id="contestRecord">--</span>
                         </div>
                     </div>
                 </div>
@@ -511,8 +540,9 @@
             </div>
         </div>
     </div>
-</section>
-<!-- 考试排名结束 -->
+    </section>
+        <!-- 考试排名结束 -->
+
 
 
 <!-- 积分兑换 -->

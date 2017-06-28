@@ -29,23 +29,29 @@ Date.prototype.format = function(format) {
     return format;
 };
 var testId='';
-var duration_time='';
+var duration_time;
 $(function () {
     $.ajax({
         url: 'test/getTestInfo',
         dataType: 'text',
         method: 'GET',
         success: function (data) {
-            var testInfo=JSON.parse(data);
-            var startTime = (new Date(testInfo.startTime)).format("yyyy-MM-dd hh:mm:ss");
-            var endTime=(new Date(testInfo.endTime)).format("yyyy-MM-dd hh:mm:ss");
-            $('#testTime').append("考试时间:"+startTime+"--"+endTime);
-            $('#testGrade').append("考试要求:"+testInfo.grade+"级全体学生");
-            $('#testDuration').append("考试时间:"+testInfo.duration+"分钟");
-            $('#testName').append("考试名称:"+testInfo.name);
-            $('#test_name').append("考试名称:"+testInfo.name);
-            setTestId(testInfo.testId);
-            duration_time=data.duration;
+            var testInfo = JSON.parse(data);
+            if(testInfo.name!=null) {
+                var startTime = (new Date(testInfo.startTime)).format("yyyy-MM-dd hh:mm:ss");
+                var endTime = (new Date(testInfo.endTime)).format("yyyy-MM-dd hh:mm:ss");
+                $('#testTime').append("考试时间:" + startTime + "--" + endTime);
+                $('#testGrade').append("考试要求:" + testInfo.grade + "级全体学生");
+                $('#testDuration').append("考试时间:" + testInfo.duration + "分钟");
+                $('#testName').append("考试名称:" + testInfo.name);
+                $('#test_name').append("考试名称:" + testInfo.name);
+
+                setTestId(testInfo.testId);
+                duration_time = testInfo.duration;
+            }else{
+                $('#testInfo').html("暂无考试");
+                $('#yesToTest').hide();
+            }
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究

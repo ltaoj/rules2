@@ -29,21 +29,28 @@ Date.prototype.format = function(format) {
     return format;
 };
 var contestId='';
+var contestDuration;
 $(function () {
     $.ajax({
         url: 'test/getContestInfo',
         dataType: 'text',
         method: 'GET',
         success: function (data) {
-            var contestInfo=JSON.parse(data);
-            var startTime = (new Date(contestInfo.startTime)).format("yyyy-MM-dd hh:mm:ss");
-            var endTime=(new Date(contestInfo.endTime)).format("yyyy-MM-dd hh:mm:ss");
-            $('#contestTime').append("考试时间:"+startTime+"--"+endTime);
-            $('#contestGrade').append("考试要求:"+contestInfo.grade+"级全体学生");
-            $('#contestDuration').append("考试时间:"+contestInfo.duration+"分钟");
-            $('#contestName').append("考试名称:"+contestInfo.name);
-            $('#contest_name').append("考试名称:"+contestInfo.name);
-            contestId=contestInfo.testId;
+            var contestInfo = JSON.parse(data);
+            if(contestInfo.name!=null) {
+                var startTime = (new Date(contestInfo.startTime)).format("yyyy-MM-dd hh:mm:ss");
+                var endTime = (new Date(contestInfo.endTime)).format("yyyy-MM-dd hh:mm:ss");
+                $('#contestTime').append("考试时间:" + startTime + "--" + endTime);
+                $('#contestGrade').append("考试要求:" + contestInfo.grade + "级全体学生");
+                $('#contestDuration').append("考试时间:" + contestInfo.duration + "分钟");
+                $('#contestName').append("考试名称:" + contestInfo.name);
+                $('#contest_name').append("考试名称:" + contestInfo.name);
+                contestId = contestInfo.testId;
+                contestDuration=contestInfo.duration;
+            }else{
+                $('#contestInfo').html("暂无竞赛");
+                $('#regist').hide();
+            }
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
@@ -62,4 +69,7 @@ $(function () {
 })
 function getContestId() {
     return contestId;
+}
+function getContestDuration() {
+    return contestDuration;
 }

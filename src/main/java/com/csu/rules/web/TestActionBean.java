@@ -59,18 +59,18 @@ public class TestActionBean extends AbstractActionBean {
 
     //开始考试 插入考试时间信息 判断剩余时间
 
-    @RequestMapping(value="/startTest",method=RequestMethod.POST,consumes="application/json")
-    public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord){
-        try{
+    @RequestMapping(value = "/startTest", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord) {
+        try {
             testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
-            Testrecord testrecord1=testService.getTestRecord(testrecord);
-            if (testrecord1==null) {
+            Testrecord testrecord1 = testService.getTestRecord(testrecord);
+            if (testrecord1 == null) {
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
             }
-            List<Title> testTitleList=titleService.getTitleListByRandom(10);
-            return new ResponseEntity<List<Title>>(testTitleList,HttpStatus.OK);
-        }catch (TestServiceException te){
+            List<Title> testTitleList = titleService.getTitleListByRandom(10);
+            return new ResponseEntity<List<Title>>(testTitleList, HttpStatus.OK);
+        } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         } catch (TitleServiceException e) {
             throw new CatchServiceException(e);
@@ -98,17 +98,29 @@ public class TestActionBean extends AbstractActionBean {
         }
     }
 
+    //插入考试成绩的submitTime 判断考试剩余时间
+    @RequestMapping(value = "/insertSubmitTime", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> insertSubmitTime(@RequestBody Testrecord testrecord) {
+        try {
+            Testrecord testrecord1 = testService.getTestRecord(testrecord);
+            testrecord1.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+            testService.updateTestRecord(testrecord1);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (TestServiceException te) {
+            throw new CatchServiceException(te);
+        }
+    }
+
     //提交考试 获取考试成绩 更新testRecord
     @RequestMapping(value = "/submitTest", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Testrecord> submitTest(@RequestBody RecordTitles recordTitles) {
         try {
+            Testrecord testrecord=testService.getTestRecord(recordTitles.getTestrecord());
             int score = titleService.getTitlePageScore(recordTitles.getTitleList());
-            Testrecord testrecord = recordTitles.getTestrecord();
             testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             testrecord.setScore(score);
             testService.updateTestRecord(testrecord);
-            Testrecord testrecord1 = testService.getTestRecord(testrecord);
-            return new ResponseEntity<Testrecord>(testrecord1, HttpStatus.OK);
+            return new ResponseEntity<Testrecord>(testrecord, HttpStatus.OK);
         } catch (TitleServiceException te) {
             throw new CatchServiceException(te);
         } catch (TestServiceException e) {
@@ -154,11 +166,11 @@ public class TestActionBean extends AbstractActionBean {
     public ResponseEntity<Contestregistion> getContestStatus(@RequestBody Contestregistion contestregistion) {
         try {
             Contestregistion contestregistion2 = testService.isRegistedContest(contestregistion);
-            if(contestregistion2.getStudentId()==contestregistion.getStudentId()) {
+            if (contestregistion2.getStudentId() == contestregistion.getStudentId()) {
                 Contestregistion contestregistion1 = testService.changeContestStatus(contestregistion);
                 return new ResponseEntity<Contestregistion>(contestregistion1, HttpStatus.OK);
-            }else{
-                Contestregistion contestregistion1=new Contestregistion();
+            } else {
+                Contestregistion contestregistion1 = new Contestregistion();
                 return new ResponseEntity<Contestregistion>(contestregistion1, HttpStatus.OK);
             }
         } catch (TestServiceException e) {

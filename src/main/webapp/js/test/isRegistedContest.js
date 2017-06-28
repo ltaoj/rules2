@@ -2,21 +2,19 @@
  * Created by GF on 2017/6/24.
  */
 function isRegisted() {
-    var testId=getContestId();
-    var studentId=getStudentId();
-    var contestString = {studentId: studentId, testId: testId};
-    var contest = $.toJSON(contestString);
+    var test_Id=getContestId();
+    var student_Id=getStudentId();
+    var contestString = {studentId: student_Id, testId: test_Id};
+    var contestregistion = $.toJSON(contestString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'test/isRegisted',
         dataType: 'json',
         method: 'post',
-        data:contest,
+        data:contestregistion,
         success: function (data) {
-            if(data!=null) {
+            if(data.studentId==student_Id) {
                 $('#isRegisted').html("已报名");
-                $('#regist').hide();
-                $('#enter').show();
             }else{
                 $('#isRegisted').html("未报名");
             }

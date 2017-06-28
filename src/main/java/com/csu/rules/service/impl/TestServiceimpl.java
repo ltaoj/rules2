@@ -239,8 +239,9 @@ public class TestServiceimpl implements TestService {
         try {
             int count = 1;
             List<Testrecord> testrecordList = testRecordDAO.getTestRecordListByRecord(testrecord.getTestId());
+            Testrecord testrecord1=testRecordDAO.getTestRecord(testrecord);
             for (int i = 0; i < testrecordList.size(); i++) {
-                if (testrecordList.get(i).getScore() > testrecord.getScore()) {
+                if (testrecordList.get(i).getScore() > testrecord1.getScore()) {
                     count++;
                 }
             }

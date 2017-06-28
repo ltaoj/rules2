@@ -2,6 +2,24 @@
  * Created by CMM on 2017/6/22.
  */
 var practiceTitle;
+function enterTitle() {
+    if (getStudentId() != null) {
+        $('#enterSimulation').attr("data-toggle", 'modal');
+        $('#enterSimulation').attr("data-target", '#titleModal');
+        createQuestionBank('校规校纪模拟考试');
+    } else {
+        $("#isSimulationLogin").html("请先登录");
+    }
+}
+function enterWrongTitle() {
+    if (getStudentId() != null) {
+        $('#enterWrongTitle').attr("data-toggle", 'modal');
+        $('#enterWrongTitle').attr("data-target", '#titleModal');
+        createQuestionBank('错题重做');
+    } else {
+        $("#isWrongTitleLogin").html("请先登录");
+    }
+}
 function createQuestionBank(subjectTitle) {
     if (this.subjectTitle !== subjectTitle) {
         this.subjectTitle = subjectTitle;
