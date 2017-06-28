@@ -116,7 +116,6 @@ function setTime() {
         var endTime = new Date((new Date(getSubmitTime())).format("yyyy/MM/dd hh:mm:ss"));
         var duration = (endTime.getTime() - startTime.getTime()) / 1000;
         time = getDuration() * 60 - duration;
-        alert(time);
     }
     function getRTime() {
         time--;
@@ -145,7 +144,6 @@ function setContestTime() {
         var endTime = new Date((new Date(getContestEnd())).format("yyyy/MM/dd hh:mm:ss"));
         var duration = (endTime.getTime() - startTime.getTime()) / 1000;
         time = getDuration() * 60 - duration;
-        alert(time);
     }
     function getRTime() {
         time--;

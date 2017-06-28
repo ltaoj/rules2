@@ -2,6 +2,7 @@
  * Created by CMM on 2017/6/22.
  */
 var practiceTitle;
+var wrongTitle;
 function enterTitle() {
     if (getStudentId() != null) {
         $('#enterSimulation').attr("data-toggle", 'modal');
@@ -64,7 +65,6 @@ function createQuestionBank(subjectTitle) {
             });
         }
         else {
-            alert("ok");
             $.ajaxSetup({contentType: 'application/json'});
             $.ajax({
                 url: 'title/wrongList',
@@ -72,17 +72,17 @@ function createQuestionBank(subjectTitle) {
                 method: 'POST',
                 data: $.toJSON(getAccount()),
                 success: function (data) {
-                    wrongTitle = data.object;
-                    for (var i = 0; i < wrongTitle.length; i++) {
+                    practiceTitle = data.object;
+                    for (var i = 0; i < practiceTitle.length; i++) {
                         $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                             "<tr>" +
-                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + wrongTitle[i].name + "</th>" +
+                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceTitle[i].name + "</th>" +
                             "</tr>" +
                             "<br>");
                         for (var j = 0; j < 4; j++) {
                             var str = "A";
-                            wrongTitle[i].options[j].checked = 0;
-                            $('#title').append("<tr><td><input name=\"" + wrongTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + wrongTitle[i].options[j].content + "&nbsp;</td></tr>"
+                            practiceTitle[i].options[j].checked = 0;
+                            $('#title').append("<tr><td><input name=\"" + practiceTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + practiceTitle[i].options[j].content + "&nbsp;</td></tr>"
                             );
                         }
                         $('#title').append("</table>");
@@ -143,4 +143,5 @@ function submitTitle() {
         // 不管成功或失败都要做的工作
         console.log('complete');
     });
+    practiceTitle = null;
 }
