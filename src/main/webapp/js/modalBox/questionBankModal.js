@@ -7,42 +7,85 @@ function createQuestionBank(subjectTitle) {
         this.subjectTitle = subjectTitle;
         $('#subjectTitle').html(subjectTitle);
         $('#title').html("");
-        $.ajax({
-            url: 'title/practice',
-            dataType: 'text',
-            method: 'GET',
-            success: function (data) {
-                var Result = JSON.parse(data);
-                practiceTitle = Result.object;
-                for (var i = 0; i < practiceTitle.length; i++) {
-                    $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                        "<tr>" +
-                        "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceTitle[i].name + "</th>" +
-                        "</tr>" +
-                        "<br>");
-                    for (var j = 0; j < 4; j++) {
-                        var str = "A";
-                        practiceTitle[i].options[j].checked = 0;
-                        $('#title').append("<tr><td><input name=\"" + practiceTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + practiceTitle[i].options[j].content + "&nbsp;</td></tr>"
-                        );
+        if (subjectTitle == '校规校纪模拟考试') {
+            $.ajax({
+                url: 'title/practice',
+                dataType: 'text',
+                method: 'GET',
+                success: function (data) {
+                    var Result = JSON.parse(data);
+                    practiceTitle = Result.object;
+                    for (var i = 0; i < practiceTitle.length; i++) {
+                        $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                            "<tr>" +
+                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceTitle[i].name + "</th>" +
+                            "</tr>" +
+                            "<br>");
+                        for (var j = 0; j < 4; j++) {
+                            var str = "A";
+                            practiceTitle[i].options[j].checked = 0;
+                            $('#title').append("<tr><td><input name=\"" + practiceTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + practiceTitle[i].options[j].content + "&nbsp;</td></tr>"
+                            );
+                        }
+                        $('#title').append("</table>");
                     }
-                    $('#title').append("</table>");
+                },
+                error: function (xhr) {
+                    // 导致出错的原因较多，以后再研究
+                    alert('error:' + JSON.stringify(xhr));
                 }
-            },
-            error: function (xhr) {
-                // 导致出错的原因较多，以后再研究
-                alert('error:' + JSON.stringify(xhr));
-            }
-        }).done(function (data) {
-            // 请求成功后要做的工作
-            console.log('success');
-        }).fail(function () {
-            // 请求失败后要做的工作
-            console.log('error');
-        }).always(function () {
-            // 不管成功或失败都要做的工作
-            console.log('complete');
-        });
+            }).done(function (data) {
+                // 请求成功后要做的工作
+                console.log('success');
+            }).fail(function () {
+                // 请求失败后要做的工作
+                console.log('error');
+            }).always(function () {
+                // 不管成功或失败都要做的工作
+                console.log('complete');
+            });
+        }
+        else {
+            alert("ok");
+            $.ajaxSetup({contentType: 'application/json'});
+            $.ajax({
+                url: 'title/wrongList',
+                dataType: 'json',
+                method: 'POST',
+                data: $.toJSON(getAccount()),
+                success: function (data) {
+                    wrongTitle = data.object;
+                    for (var i = 0; i < wrongTitle.length; i++) {
+                        $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                            "<tr>" +
+                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + wrongTitle[i].name + "</th>" +
+                            "</tr>" +
+                            "<br>");
+                        for (var j = 0; j < 4; j++) {
+                            var str = "A";
+                            wrongTitle[i].options[j].checked = 0;
+                            $('#title').append("<tr><td><input name=\"" + wrongTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + wrongTitle[i].options[j].content + "&nbsp;</td></tr>"
+                            );
+                        }
+                        $('#title').append("</table>");
+                    }
+                }
+                ,
+                error: function (xhr) {
+                    // 导致出错的原因较多，以后再研究
+                    alert('error:' + JSON.stringify(xhr));
+                }
+            }).done(function (data) {
+                // 请求成功后要做的工作
+                console.log('success');
+            }).fail(function () {
+                // 请求失败后要做的工作
+                console.log('error');
+            }).always(function () {
+                // 不管成功或失败都要做的工作
+                console.log('complete');
+            });
+        }
     }
 }
 
