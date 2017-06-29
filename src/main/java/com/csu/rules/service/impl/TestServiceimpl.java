@@ -253,4 +253,15 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    public void deleteTestRecord(Testrecord testrecord) throws TestServiceException {
+        try {
+            Testrecord testrecord1=testRecordDAO.getTestRecord(testrecord);
+            testRecordDAO.deleteTestRecord(testrecord1);
+        } catch (PersistenceException e) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
 }

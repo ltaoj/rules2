@@ -96,6 +96,7 @@
                         <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-user-o"></i>
 								</span> <input type="text" class="form-control" placeholder="学号" id="studentId">
+
                         </div>
                         <br>
                         <div class="input-group input-group">
@@ -103,8 +104,10 @@
 								</span> <input type="password" class="form-control" placeholder="密码" id="password">
                         </div>
                         <br>
-                        <button type="button" class="btn btn-primary " data-dismiss="modal"
-                                style="width: 250px" id="loginBT" onclick="login()" aria-hidden="true">登录
+                        <span id="loginMessage" class="g-color-red"></span>
+                        <br>
+                        <button type="button" class="btn btn-primary "
+                                style="width: 250px" id="loginBT" onclick="login()">登录
                         </button>
                     </div>
                     <hr>
@@ -456,7 +459,7 @@
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
                                     id="startContestModal"
                                     data-toggle="" data-target=""
-                                    disabled="true" onclick="enterContest()">进入</a>
+                                    onclick="enterContest()">进入</a>
                         </div>
                         <div class="pricing-v9-footer" id="notBegin" style="display:none">
                             <a
@@ -523,7 +526,7 @@
                         </div>
                         <ul class="list-unstyled">
                             <li id="contestName"></li>
-                            <li id="rank">排名:</li>
+                            <li id="rank">排名:--</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>

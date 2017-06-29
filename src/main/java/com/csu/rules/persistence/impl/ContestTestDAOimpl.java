@@ -115,6 +115,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             Criteria criteria = session.createCriteria(Testinfo.class);
             criteria.add(Restrictions.eq("type", new Integer(1).byteValue()));
             List<Testinfo> contestinfoList = criteria.list();
+            session.close();
             return contestinfoList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);

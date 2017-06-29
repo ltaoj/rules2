@@ -178,6 +178,31 @@ public class TestActionBean extends AbstractActionBean {
         }
     }
 
+    //判断竞赛时间
+    @RequestMapping(value = "/getContestTime", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> getContestTime(@RequestBody Testinfo testinfo) {
+        try {
+                Testinfo testinfo1=testService.getTestInfo(testinfo.getTestId());
+                if(testinfo1.getEndTime().before(new Timestamp(System.currentTimeMillis()))){
+                    return new ResponseEntity<Result>(new Result(Result.RESULT_ERROR), HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+                }
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
+    //点击X 删除考试成绩信息
+    @RequestMapping(value = "/deleteTestRecord", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> deleteTestRecord(@RequestBody Testrecord testrecord) {
+        try {
+           testService.deleteTestRecord(testrecord);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
     //开始竞赛 插入时间信息 判断剩余时间(有问题)
 //    @RequestMapping(value="/startContest",method=RequestMethod.POST,consumes="application/json")
 //    public ResponseEntity<List<Title>> getContestTitle(@RequestBody Testrecord testrecord){

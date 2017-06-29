@@ -78,4 +78,16 @@ public class TestRecordDAOimpl implements TestRecordDAO {
             throw new PersistenceException(e);
         }
     }
+
+    public void deleteTestRecord(Testrecord testrecord) throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction=session.beginTransaction();
+            session.delete(testrecord);
+            transaction.commit();
+            session.close();
+        } catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
+    }
 }

@@ -139,4 +139,11 @@ public interface TestService {
      * @throws TestServiceException
      */
     int getContestRank(Testrecord testrecord)throws TestServiceException;
+
+    /**
+     * 删除考试成绩
+     * @param testrecord
+     * @throws TestServiceException
+     */
+    void deleteTestRecord(Testrecord testrecord) throws TestServiceException;
 }

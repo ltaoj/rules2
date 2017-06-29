@@ -51,4 +51,10 @@ public interface TestRecordDAO {
      */
     List<Testrecord> getTestRecordListByRecord(int testId) throws PersistenceException;
 
+    /**
+     * 删除考试成绩
+     * @param testrecord
+     * @throws PersistenceException
+     */
+    void deleteTestRecord(Testrecord testrecord) throws PersistenceException;
 }

@@ -66,6 +66,7 @@ function enterContest() {
         $('#isContested').html("已考试");
     }
 }
+
 function exitAll() {
     var id=document.getElementById("testId").innerText;
     if(id==getTestId()){
@@ -74,13 +75,14 @@ function exitAll() {
         exitByX(getContestId());
     }
 }
+
 function exitByX(testId) {
     var studentId = getStudentId();
     var testRecordString = {studentId: studentId, testId: testId};
     var testRecord = $.toJSON(testRecordString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/insertSubmitTime',
+        url: 'test/deleteTestRecord',
         dataType: 'json',
         method: 'post',
         data: testRecord,
@@ -159,7 +161,7 @@ function setContestTime() {
         document.getElementById("test_t_s").innerHTML = s + "秒";
     }
 
-    int = setInterval(getRTime, 1000);
+    int1 = setInterval(getRTime, 1000);
 }
 
 
