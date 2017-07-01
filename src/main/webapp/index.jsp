@@ -75,6 +75,7 @@
     <script src="js/test/changeContestStatus.js"></script>
     <script src="js/test/getContestRecord.js"></script>
     <script src="js/test/registContest.js"></script>
+    <script src="js/test/eventOnCloseWeb.js"></script>
     <!--获取考试信息结束-->
     <!--Cookie-->
     <script src="js/cookie/cookie.js"></script>
@@ -155,8 +156,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true" onclick="exitAll()">x
+                <button type="button" class="close"
+                         data-toggle="modal" data-target="#exitModal" onclick="exitModal()">x
                 </button>
                 <label class="modal-title" id="testId" style="display: none"></label>
                 <div id="testCountMsg" class="HotDate">
@@ -180,7 +181,35 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
+<!-- 退出按钮模态框 -->
+<div class="modal fade" id="exitModal" data-backdrop="static">
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="">
+                    退出
+                </h4>
+            </div>
+            <div class="modal-body">
+                确认退出本次考试?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal" onclick="exitAll()" aria-hidden="true">退出
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+                    取消
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!--通知模态框-->
 <div class="modal fade" id="noticeModal" data-backdrop="static">
     <div class="modal-dialog">
@@ -226,7 +255,7 @@
                     <li class="page-scroll"><a href="#help">考试须知</a></li>
                     <li id="login-li"><a
                             class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
-                            href="#signup" data-toggle="modal"
+                            data-toggle="modal"
                             data-target="#loginModal">登录</a></li>
                     <li style="display:none" id="personal-li"><a type="button"
                                                                  class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
