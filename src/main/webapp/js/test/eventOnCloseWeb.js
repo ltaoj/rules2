@@ -1,7 +1,7 @@
 /**
  * Created by GF on 2017/6/29.
  */
-$(window).unload(function () {
+$(window).beforeunload(function () {
     var studentId = getStudentId();
     var testId=getTestId();
     var testRecordString = {studentId: studentId, testId: testId};

@@ -8,6 +8,8 @@ function enterTitle() {
         $('#enterSimulation').attr("data-target", '#titleModal');
         createQuestionBank('校规校纪模拟考试');
     } else {
+        $('#enterSimulation').attr("data-toggle", '');
+        $('#enterSimulation').attr("data-target", '');
         $("#isSimulationLogin").html("请先登录");
     }
 }
@@ -17,6 +19,8 @@ function enterWrongTitle() {
         $('#enterWrongTitle').attr("data-target", '#titleModal');
         createQuestionBank('错题重做');
     } else {
+        $('#enterWrongTitle').attr("data-toggle", '');
+        $('#enterWrongTitle').attr("data-target", '');
         $("#isWrongTitleLogin").html("请先登录");
     }
 }

@@ -16,6 +16,14 @@ $(function () {
             'margin': m_top + 'px auto'
         });
     });
+
+    $('#loginModal').on('shown.bs.modal', function () {
+        $('#loginModal').bind('keydown', function (event) {
+            if (event.keyCode == "13")
+                $('#loginBT').click();
+        });
+    });
+
 });
 function exitModal() {
     $('#exitModal').on('show.bs.modal', function () {
@@ -26,6 +34,6 @@ function exitModal() {
             'margin': m_top + 'px auto'
         });
     });
-    }
+}
 
 <!-- 模态框居中结束 -->
