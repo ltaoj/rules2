@@ -1,6 +1,7 @@
 var student_id;
 var account;
 function login() {
+    alert("11");
     var studentId;
     var password;
     studentId = $('#studentId').val();
@@ -8,9 +9,9 @@ function login() {
 
     var signonString = {studentId: studentId, password: password};
     var signonJson = $.toJSON(signonString);
-    login(signonJson);
+    loginForJson(signonJson);
 }
-function login(signonJson) {
+function loginForJson(signonJson) {
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'account/login',
