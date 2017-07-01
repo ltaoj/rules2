@@ -114,35 +114,41 @@ function addTitleToList(title, choice) {
     practiceTitle[title].options[choice].checked = 1;
 }
 function submitTitle() {
-    this.account = getAccount();
-    var accountTitles = {account: this.account, titleList: practiceTitle};
-    var accountTitlesJson = $.toJSON(accountTitles);
-    $.ajaxSetup({contentType: 'application/json'});
-    $.ajax({
-        url: 'title/submit',
-        dataType: 'json',
-        method: 'POST',
-        data: accountTitlesJson,
-        success: function (data) {
-            var checkedTitleList = data.object;
-            //看要不要返回错题  还是在重做中出现
-            alert(JSON.stringify(checkedTitleList));
-        },
-        error: function (xhr) {
-            // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
-        }
-    }).done(function (data) {
-        // 请求成功后要做的工作
-        console.log('success');
-    }).fail(function () {
-        // 请求失败后要做的工作
-        console.log('error');
-    }).always(function () {
-        // 不管成功或失败都要做的工作
-        console.log('complete');
-    });
-    practiceTitle = null;
+    if ($('#submitTitleBT').html() == '提交') {
+        this.account = getAccount();
+        var accountTitles = {account: this.account, titleList: practiceTitle};
+        var accountTitlesJson = $.toJSON(accountTitles);
+        $.ajaxSetup({contentType: 'application/json'});
+        $.ajax({
+            url: 'title/submit',
+            dataType: 'json',
+            method: 'POST',
+            data: accountTitlesJson,
+            success: function (data) {
+                alert(JSON.stringify(data));
+                $('#submitTitleBT').attr("class", "btn btn-success")
+                $('#submitTitleBT').html("下一组");
+                practiceTitle = null;
+            },
+            error: function (xhr) {
+                // 导致出错的原因较多，以后再研究
+                alert('error:' + JSON.stringify(xhr));
+            }
+        }).done(function (data) {
+            // 请求成功后要做的工作
+            console.log('success');
+        }).fail(function () {
+            // 请求失败后要做的工作
+            console.log('error');
+        }).always(function () {
+            // 不管成功或失败都要做的工作
+            console.log('complete');
+        });
+    } else {
+        createQuestionBank(this.subjectTitle);
+        $('#submitTitleBT').attr("class", "btn btn-primary")
+        $('#submitTitleBT').html("提交");
+    }
 }
 
 for (var j = 0; j < 4; j++) {

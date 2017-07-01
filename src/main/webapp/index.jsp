@@ -76,6 +76,10 @@
     <script src="js/test/getContestRecord.js"></script>
     <script src="js/test/registContest.js"></script>
     <!--获取考试信息结束-->
+    <!--Cookie-->
+    <script src="js/cookie/cookie.js"></script>
+    <script src="js/init/init.js"></script>
+    <!--Cookie结束-->
 </head>
 <body class="demo-lightbox-gallery  pace-done" id="body"
       data-target=".one-page-header" data-spy="scroll">
@@ -135,7 +139,7 @@
                     <div id="title"></div>
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
-                                style="width: 100px; text-align: center" onclick="submitTitle()">提交
+                                style="width: 100px; text-align: center" onclick="submitTitle()" id="submitTitleBT">提交
                         </button>
                     </div>
                 </form>
@@ -338,7 +342,8 @@
                         <h3>校规校纪模拟考试</h3>
                         <br>
                         <ul class="list-unstyled">
-                        <li id="isSimulationLogin" class="g-color-red">&nbsp;</li></ul>
+                            <li id="isSimulationLogin" class="g-color-red">&nbsp;</li>
+                        </ul>
                         <div class="pricing-v9-footer">
                             <a type="button"
                                class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
@@ -358,7 +363,8 @@
                         <h3>错题重做</h3>
                         <br>
                         <ul class="list-unstyled">
-                            <li id="isWrongTitleLogin" class="g-color-red">&nbsp;</li></ul>
+                            <li id="isWrongTitleLogin" class="g-color-red">&nbsp;</li>
+                        </ul>
                         <div class="pricing-v9-footer">
                             <a
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
@@ -467,8 +473,8 @@
                                     disabled="true">未开始</a>
                         </div>
                         <div class="pricing-v9-footer" id="isEnd" style="display:none">
-                            <a      type="button"
-                                    class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                            <a type="button"
+                               class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
                             >已结束</a>
                         </div>
                     </div>
@@ -543,9 +549,8 @@
             </div>
         </div>
     </div>
-    </section>
-        <!-- 考试排名结束 -->
-
+</section>
+<!-- 考试排名结束 -->
 
 
 <!-- 积分兑换 -->

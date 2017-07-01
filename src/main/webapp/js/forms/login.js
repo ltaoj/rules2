@@ -1,4 +1,4 @@
-var student_id ;
+var student_id;
 var account;
 function login() {
     var studentId;
@@ -8,6 +8,9 @@ function login() {
 
     var signonString = {studentId: studentId, password: password};
     var signonJson = $.toJSON(signonString);
+    login(signonJson);
+}
+function login(signonJson) {
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'account/login',
@@ -15,7 +18,8 @@ function login() {
         method: 'POST',
         data: signonJson,
         success: function (data) {
-            if(data.code==undefined) {
+            if (data.code == undefined) {
+                setCookie('signon', signonJson);
                 $('#loginModal').modal('hide');
                 $('#login-li').hide();
                 $('#personal-li').show();
@@ -29,7 +33,7 @@ function login() {
                 $("#isLogin").html("&nbsp;");
                 $("#isContestLogin").html("&nbsp;");
                 changeStatus();
-            }else{
+            } else {
                 $('#loginMessage').html("用户名或密码错误");
             }
         },
@@ -48,7 +52,6 @@ function login() {
         console.log('complete');
     });
 }
-
 function getStudentId() {
     return student_id;
 }
