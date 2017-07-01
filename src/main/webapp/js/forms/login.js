@@ -3,7 +3,6 @@ var account;
 
 
 function login() {
-    alert("11");
     var studentId;
     var password;
     studentId = $('#studentId').val();

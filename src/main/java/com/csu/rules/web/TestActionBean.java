@@ -103,9 +103,13 @@ public class TestActionBean extends AbstractActionBean {
     public ResponseEntity<Result> insertSubmitTime(@RequestBody Testrecord testrecord) {
         try {
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
-            testrecord1.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-            testService.updateTestRecord(testrecord1);
-            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+            if(testrecord1==null){
+                return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+            }else {
+                testrecord1.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+                testService.updateTestRecord(testrecord1);
+                return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+            }
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         }
