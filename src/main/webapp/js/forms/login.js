@@ -1,12 +1,13 @@
 var student_id;
 var account;
+
+
 function login() {
     alert("11");
     var studentId;
     var password;
     studentId = $('#studentId').val();
     password = $('#password').val();
-
     var signonString = {studentId: studentId, password: password};
     var signonJson = $.toJSON(signonString);
     loginForJson(signonJson);
@@ -24,7 +25,7 @@ function loginForJson(signonJson) {
                 $('#loginModal').modal('hide');
                 $('#login-li').hide();
                 $('#personal-li').show();
-                setAccount(data);
+                account = data;
                 student_id = data.studentId;
                 getTestRecord(data.studentId);
                 getContestRecord(data.studentId);
@@ -56,7 +57,13 @@ function loginForJson(signonJson) {
 function getStudentId() {
     return student_id;
 }
-
+function setStundentId(attr) {
+    student_id = attr;
+}
 function getAccount() {
     return account;
+}
+
+function setAccount(attr) {
+    account = attr;
 }

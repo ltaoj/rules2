@@ -51,6 +51,8 @@ function enterTest() {
         $('#startTestModal').attr("data-target", '#testModal');
         startTest(getTestId());
     } else {
+        $('#startTestModal').attr("data-toggle", '');
+        $('#startTestModal').attr("data-target", '');
         $("#isLogin").html("请先登录");
     }
 }

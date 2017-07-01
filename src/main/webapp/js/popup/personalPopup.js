@@ -3,11 +3,9 @@
  */
 var account = null;
 var personalPopFlag = false;
-function setAccount(account) {
-    this.account = account;
-}
 
 function personalPopover() {
+    getAccount();
     $("[data-toggle='personal']")
         .popover(
             {
@@ -20,12 +18,28 @@ function personalPopover() {
         var btn = document.getElementById("personal");
         btn.click();
     }
-    personalPopFlag=true;
+    personalPopFlag = true;
 }
 
 function exit() {
     var btn = document.getElementById("personal");
     btn.click();
     $("[data-toggle='personal']").popover('hide');
+    deleteCookie('signon');
+    setAccount(null);
+    setStundentId(null);
+    $('#isTested').html("未登录");
+    $('#isRegisted').html("未登录");
+    $('#noToTest').hide();
+    $('#yesToTest').show();
+    $('#isEnd').hide();
+    $('#notbegin').hide();
+    $('#enter').hide();
+    $('#regist').show();
 
+    $('#rank').html('--');
+    $('#testRecord').html('--');
+    $('#contestrecord').html('--');
+    $('#login-li').show();
+    $('#personal-li').hide();
 }
