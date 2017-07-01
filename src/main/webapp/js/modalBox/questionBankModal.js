@@ -2,7 +2,6 @@
  * Created by CMM on 2017/6/22.
  */
 var practiceTitle;
-var wrongTitle;
 function enterTitle() {
     if (getStudentId() != null) {
         $('#enterSimulation').attr("data-toggle", 'modal');
@@ -144,4 +143,9 @@ function submitTitle() {
         console.log('complete');
     });
     practiceTitle = null;
+}
+
+for (var j = 0; j < 4; j++) {
+    var str = "A";
+    document.writeln(String.fromCharCode(str.charCodeAt() + j));
 }

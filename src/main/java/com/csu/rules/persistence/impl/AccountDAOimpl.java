@@ -33,5 +33,4 @@ public class AccountDAOimpl implements AccountDAO {
         transaction.commit();
     }
 
-
 }
