@@ -70,8 +70,10 @@ function enterContest() {
 function exitAll() {
     var id=document.getElementById("testId").innerText;
     if(id==getTestId()){
+        $('#testModal').modal('hide');
         exitByX(getTestId());
     }if(id==getContestId()){
+        $('#testModal').modal('hide');
         exitByX(getContestId());
     }
 }
