@@ -173,4 +173,56 @@ public interface TestService {
      * @throws TestServiceException
      */
     void deleteTestTitle(Testrecord testrecord) throws TestServiceException;
+
+    /**
+     * 插入竞赛相关试题
+     * @param contesttitle
+     * @throws TestServiceException
+     */
+    void insertContesttitle(Contesttitle contesttitle)throws TestServiceException;
+
+    /**
+     * 根据竞赛id查找关联题目
+     * @param testId
+     * @return
+     * @throws TestServiceException
+     */
+    Contesttitle getContesttitle (int testId) throws TestServiceException;
+
+    /**
+     * 根据竞赛信息查找关联题目
+     * @param testinfo
+     * @return
+     * @throws TestServiceException
+     */
+    Contesttitle getContesttitle (Testinfo testinfo) throws TestServiceException;
+
+    /**
+     * 根据Contesttitle查找关联题目
+     * @param contesttitle
+     * @return
+     * @throws TestServiceException
+     */
+    Contesttitle getContesttitle (Contesttitle contesttitle) throws TestServiceException;
+
+    /**
+     * 根据竞赛id删除关联题目
+     * @param testId
+     * @throws TestServiceException
+     */
+    void deleteContesttitle (int testId) throws TestServiceException;
+
+    /**
+     * 根据竞赛信息删除关联题目
+     * @param testinfo
+     * @throws TestServiceException
+     */
+    void deleteContesttitle (Testinfo testinfo) throws TestServiceException;
+
+    /**
+     * 删除竞赛关联题目
+     * @param contesttitle
+     * @throws TestServiceException
+     */
+    void deleteContesttitle (Contesttitle contesttitle) throws TestServiceException;
 }

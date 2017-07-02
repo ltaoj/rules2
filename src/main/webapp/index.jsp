@@ -76,6 +76,7 @@
     <script src="js/test/getContestRecord.js"></script>
     <script src="js/test/registContest.js"></script>
     <script src="js/test/eventOnCloseWeb.js"></script>
+    <script src="js/test/startContest.js"></script>
     <!--获取考试信息结束-->
     <!--Cookie-->
     <script src="js/cookie/cookie.js"></script>

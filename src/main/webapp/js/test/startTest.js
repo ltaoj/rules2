@@ -2,9 +2,10 @@
  * Created by GF on 2017/6/24.
  */
 var testTitleList;
-function startTest(testId) {
+function startTest() {
     $('#testTitle').html("");
     var studentId = getStudentId();
+    var tsetId=getTestId();
     var testRecordString = {studentId: studentId, testId: testId};
     var testRecord = $.toJSON(testRecordString);
     $.ajaxSetup({contentType: 'application/json'});
@@ -49,26 +50,13 @@ function enterTest() {
         setTime();
         $('#startTestModal').attr("data-toggle", 'modal');
         $('#startTestModal').attr("data-target", '#testModal');
-        startTest(getTestId());
+        startTest();
     } else {
         $('#startTestModal').attr("data-toggle", '');
         $('#startTestModal').attr("data-target", '');
         $("#isLogin").html("请先登录");
     }
 }
-function enterContest() {
-    if(getScore()==null) {
-        setContestTime();
-        $('#startContestModal').attr("data-toggle", 'modal');
-        $('#startContestModal').attr("data-target", '#testModal');
-        startTest(getContestId());
-    }else{
-        $('#startContestModal').attr("data-toggle", '');
-        $('#startContestModal').attr("data-target", '');
-        $('#isContested').html("已考试");
-    }
-}
-
 function exitAll() {
     var id=document.getElementById("testId").innerText;
     if(id==getTestId()){
@@ -79,7 +67,6 @@ function exitAll() {
         exitByX(getContestId());
     }
 }
-
 function exitByX(testId) {
     var studentId = getStudentId();
     var testRecordString = {studentId: studentId, testId: testId};
@@ -139,36 +126,6 @@ function setTime() {
 
     int = setInterval(getRTime, 1000);
 }
-var int1;
-function setContestTime() {
-    var time;
-    getContestRecord(getStudentId());
-    if(getContestEnd()==null){
-        time=getDuration()*60;
-    }else {
-        var startTime = new Date((new Date(getContestStart())).format("yyyy/MM/dd hh:mm:ss"));
-        var endTime = new Date((new Date(getContestEnd())).format("yyyy/MM/dd hh:mm:ss"));
-        var duration = (endTime.getTime() - startTime.getTime()) / 1000;
-        time = getDuration() * 60 - duration;
-    }
-    function getRTime() {
-        time--;
-        if(time==0){
-            submitTestTitle(getContestId());
-            clearInterval(int1);
-        }
-        var h = Math.floor(time / 60 / 60);
-        var m = Math.floor(time / 60 % 60);
-        var s = Math.floor(time % 60);
-        document.getElementById("test_t_h").innerHTML = h + "时";
-        document.getElementById("test_t_m").innerHTML = m + "分";
-        document.getElementById("test_t_s").innerHTML = s + "秒";
-    }
-
-    int1 = setInterval(getRTime, 1000);
-}
-
-
 
 function addTitleToTestList(title, choice) {
     for (var i = 0; i < 4; i++) {
@@ -180,15 +137,16 @@ function addTitleToTestList(title, choice) {
 function submitAll() {
     var id=document.getElementById("testId").innerText;
     if(id==getTestId()){
-        submitTestTitle(getTestId());
+        submitTestTitle(getTestId(),testTitleList);
     }if(id==getContestId()){
-        submitTestTitle(getContestId());
+        submitTestTitle(getContestId(),contestTitleList);
     }
 }
-function submitTestTitle(testId) {
+
+function submitTestTitle(testId,list) {
     var studentId=getStudentId();
     var testrecord={studentId:studentId,testId:testId};
-    var recordTitles = {testrecord: testrecord, titleList: testTitleList};
+    var recordTitles = {testrecord: testrecord, titleList: list};
     var recordTitlesJson = $.toJSON(recordTitles);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({

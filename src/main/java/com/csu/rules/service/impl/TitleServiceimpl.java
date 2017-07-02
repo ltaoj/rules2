@@ -1,9 +1,6 @@
 package com.csu.rules.service.impl;
 
-import com.csu.rules.domain.Account;
-import com.csu.rules.domain.Option;
-import com.csu.rules.domain.Title;
-import com.csu.rules.domain.Wrongtitle;
+import com.csu.rules.domain.*;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.exception.TitleServiceException;
 import com.csu.rules.persistence.ContestTitleDAO;
@@ -33,22 +30,23 @@ public class TitleServiceimpl implements TitleService {
         this.titleDAO = titleDAO;
         this.wrongtitleDAO = wrongtitleDAO;
     }
+
     public List<Title> getTitleListByPage(int page, int count) throws TitleServiceException {
         try {
             TitleServiceException te = new TitleServiceException();
-            if(page < 0 ) {
+            if (page < 0) {
                 te.setErrorCode(51);
                 throw te;
-            }else if (count < 0) {
+            } else if (count < 0) {
                 te.setErrorCode(52);
                 throw te;
             }
             List<Title> titleList = titleDAO.getTitleList((page - 1) * count, count);
             // 将答案选项统一设置为0
-            for(int i = 0;i < titleList.size();i++) {
+            for (int i = 0; i < titleList.size(); i++) {
                 Iterator<Option> iterator = titleList.get(i).getOptions().iterator();
                 while (iterator.hasNext()) {
-                    iterator.next().setChecked((byte)0);
+                    iterator.next().setChecked((byte) 0);
                 }
             }
             return titleList;
@@ -68,14 +66,14 @@ public class TitleServiceimpl implements TitleService {
             }
             List<Title> titleList = titleDAO.getRandomTitleList(count);
             // 将答案选项统一设置为0
-            for(int i = 0;i < titleList.size();i++) {
+            for (int i = 0; i < titleList.size(); i++) {
                 Iterator<Option> iterator = titleList.get(i).getOptions().iterator();
                 while (iterator.hasNext()) {
-                    iterator.next().setChecked((byte)0);
+                    iterator.next().setChecked((byte) 0);
                 }
             }
             return titleList;
-        }catch (PersistenceException pe) {
+        } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);
             te.setErrorCode(50);
             throw te;
@@ -90,7 +88,7 @@ public class TitleServiceimpl implements TitleService {
                 throw te;
             }
             List<Title> list = new ArrayList<Title>(titleList.size());
-            for (int i = 0;i < titleList.size();i++) {
+            for (int i = 0; i < titleList.size(); i++) {
                 Title title = getCorrectTitle(titleList.get(i));
                 Wrongtitle wrongtitle = new Wrongtitle();
                 wrongtitle.setStudentId(account.getStudentId());
@@ -99,15 +97,15 @@ public class TitleServiceimpl implements TitleService {
                 // 如果title的options为空说明为错题，接着判断是否已有记录，没有记录的话插入；
                 // 如果是正确的，那么options自然不为空，那么看如果已有记录，则删除
                 if (title.getOptions() == null) {
-                    if(!isWrongTitle)
+                    if (!isWrongTitle)
                         wrongtitleDAO.insertWrongTitle(wrongtitle);
-                }else if (isWrongTitle) {
+                } else if (isWrongTitle) {
                     wrongtitleDAO.deleteWrongTitle(wrongtitle);
                 }
                 list.add(title);
             }
             return list;
-        }catch (PersistenceException pe) {
+        } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);
             te.setErrorCode(50);
             throw te;
@@ -144,7 +142,7 @@ public class TitleServiceimpl implements TitleService {
 
             if (option1.getOptionId() != option2.getOptionId()) flag = false;
             // 如果题目错误，则把选项设置为null
-            if(!flag) {
+            if (!flag) {
                 title.setOptions(null);
             }
             return title;
@@ -219,13 +217,13 @@ public class TitleServiceimpl implements TitleService {
                 throw te;
             }
             int score = 0;
-            for (int i = 0;i < titleList.size();i++) {
+            for (int i = 0; i < titleList.size(); i++) {
                 if (isTitleCorrect(titleList.get(i))) {
                     score += titleList.get(i).getScore();
                 }
             }
             return score;
-        }catch (PersistenceException pe) {
+        } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);
             te.setErrorCode(50);
             throw te;
@@ -244,7 +242,7 @@ public class TitleServiceimpl implements TitleService {
                 throw te;
             }
             return titleDAO.getTitleListByTitleIds(titleDAO.parseString(formatString));
-        }catch (PersistenceException pe) {
+        } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException();
             te.setErrorCode(50);
             throw te;
