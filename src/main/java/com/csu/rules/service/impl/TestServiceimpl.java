@@ -1,9 +1,6 @@
 package com.csu.rules.service.impl;
 
-import com.csu.rules.domain.Contestregistion;
-import com.csu.rules.domain.Testinfo;
-import com.csu.rules.domain.Testrecord;
-import com.csu.rules.domain.Testtitle;
+import com.csu.rules.domain.*;
 import com.csu.rules.exception.TestServiceException;
 import com.csu.rules.persistence.*;
 import com.csu.rules.service.TestService;
@@ -297,6 +294,79 @@ public class TestServiceimpl implements TestService {
     public void deleteTestTitle(Testrecord testrecord) throws TestServiceException {
         try {
             testtitleDAO.deleteTesttitle(testrecord.getStudentId(), testrecord.getTestId());
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void insertContesttitle(Contesttitle contesttitle) throws TestServiceException {
+        try {
+            contestTitleDAO.insertContesttitle(contesttitle);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public Contesttitle getContesttitle(int testId) throws TestServiceException {
+        try {
+            Contesttitle contesttitle=contestTitleDAO.getContesttitle(testId);
+            return contesttitle;
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public Contesttitle getContesttitle(Testinfo testinfo) throws TestServiceException {
+        try {
+            Contesttitle contesttitle=contestTitleDAO.getContesttitle(testinfo);
+            return contesttitle;
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public Contesttitle getContesttitle(Contesttitle contesttitle) throws TestServiceException {
+        try {
+            Contesttitle contesttitle1=contestTitleDAO.getContesttitle(contesttitle);
+            return contesttitle1;
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deleteContesttitle(int testId) throws TestServiceException {
+        try {
+            contestTitleDAO.deleteContesttitle(testId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deleteContesttitle(Testinfo testinfo) throws TestServiceException {
+        try {
+            contestTitleDAO.deleteContesttitle(testinfo);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deleteContesttitle(Contesttitle contesttitle) throws TestServiceException {
+        try {
+            contestTitleDAO.deleteContesttitle(contesttitle);
         }catch (PersistenceException pe) {
             TestServiceException te = new TestServiceException();
             te.setErrorCode(100);

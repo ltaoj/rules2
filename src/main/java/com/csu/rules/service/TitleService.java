@@ -1,6 +1,7 @@
 package com.csu.rules.service;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.domain.Contesttitle;
 import com.csu.rules.domain.Title;
 import com.csu.rules.domain.Wrongtitle;
 import com.csu.rules.exception.LearnServiceException;
@@ -123,4 +124,5 @@ public interface TitleService {
      * 50.数据持久化异常
      */
     List<Title> getTitleListByFormatString(String formatString) throws TitleServiceException;
+
 }

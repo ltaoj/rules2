@@ -72,14 +72,12 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/startTest", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord) {
         try {
-            testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
             if (testrecord1 == null) {
                 String formatRandomIds = titleService.getRandomIntegerList(10);
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
                 testService.insertTesttitle(testrecord, formatRandomIds);
-
             }
             Testtitle testtitle = testService.getTesttitleByTestrecord(testrecord);
             List<Title> testTitleList = titleService.getTitleListByFormatString(testtitle.getTitleIds());
@@ -222,22 +220,25 @@ public class TestActionBean extends AbstractActionBean {
             throw new CatchServiceException(e);
         }
     }
-    //开始竞赛 插入时间信息 判断剩余时间(有问题)
-//    @RequestMapping(value="/startContest",method=RequestMethod.POST,consumes="application/json")
-//    public ResponseEntity<List<Title>> getContestTitle(@RequestBody Testrecord testrecord){
-//        try{
-//            Testrecord testrecord1=testService.getTestRecord(testrecord);
-//            if (testrecord1==null) {
-//                testService.insertTestRecord(testrecord);
-//            }
-//            List<Title> contestTitleList=titleService.getTitleListByRandom(2);
-//            return new ResponseEntity<List<Title>>(contestTitleList,HttpStatus.OK);
-//        }catch (TestServiceException te){
-//            throw new CatchServiceException(te);
-//        }catch (TitleServiceException e){
-//            throw new CatchServiceException(e);
-//        }
-//    }
+
+    //开始竞赛 插入时间信息 返回确定竞赛试题
+    @RequestMapping(value="/startContest",method=RequestMethod.POST,consumes="application/json")
+    public ResponseEntity<List<Title>> getContestTitle(@RequestBody Testrecord testrecord){
+        try {
+            Testrecord testrecord1 = testService.getTestRecord(testrecord);
+            if (testrecord1 == null) {
+                testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
+                testService.insertTestRecord(testrecord);
+            }
+            Contesttitle contesttitle=testService.getContesttitle(testrecord.getTestId());
+            List<Title> contestTitleList = titleService.getTitleListByFormatString(contesttitle.getTitleIds());
+            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
+        } catch (TestServiceException te) {
+            throw new CatchServiceException(te);
+        } catch (TitleServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
 
     /**************************************************管理员****************************************************/
     //插入考试信息
@@ -295,13 +296,53 @@ public class TestActionBean extends AbstractActionBean {
         }
     }
 
-    //管理员发布竞赛题目
-    @RequestMapping(value = "/publishContestTitle", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<List<Title>> getAllTestRecord(@RequestBody Set<Integer> set) {
+
+    //管理员发布竞赛题目(自己挑选试题)
+    @RequestMapping(value = "/insertContestTitle", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> insertContestTitle(@RequestBody Contesttitle contesttitle) {
         try {
-            List<Title> contestTitleList = titleService.getTitleListByTitleIds(set);
-            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
+            testService.insertContesttitle(contesttitle);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
+    //管理员查看系统提供的随机竞赛试题
+    @RequestMapping(value = "/getContestRandomTitle", method = RequestMethod.GET)
+    public ResponseEntity<List<Title>> getContestRandomTitle() {
+        try {
+            List<Title> titleList=titleService.getTitleListByRandom(10);
+            return new ResponseEntity<List<Title>>(titleList, HttpStatus.OK);
         } catch (TitleServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
+    //管理员删除竞赛试题
+    @RequestMapping(value = "/deleteContestTitle", method = RequestMethod.POST,consumes = "application/json")
+    public ResponseEntity<Result> deleteContestTitle(@RequestBody Testinfo testinfo) {
+        try {
+            Contesttitle contesttitle=testService.getContesttitle(testinfo);
+            if(contesttitle!=null) {
+                testService.deleteContesttitle(testinfo);
+            }
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
+    //管理员查看竞赛试题
+    @RequestMapping(value = "/getContestListTitle", method = RequestMethod.POST,consumes = "application/json")
+    public ResponseEntity<List<Title>> getContestListTitle(@RequestBody Testinfo testinfo) {
+        try {
+            Contesttitle contesttitle=testService.getContesttitle(testinfo);
+            List<Title> contestTitleList = titleService.getTitleListByFormatString(contesttitle.getTitleIds());
+            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }catch (TitleServiceException e){
             throw new CatchServiceException(e);
         }
     }
