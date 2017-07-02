@@ -37,5 +37,8 @@
         <mapping class="com.csu.rules.domain.Testrecord"/>
         <mapping class="com.csu.rules.domain.Clockin"/>
         <mapping class="com.csu.rules.domain.Notice"/>
+        <mapping class="com.csu.rules.domain.Contesttitle"/>
+        <mapping class="com.csu.rules.domain.Testtitle"/>
+        <mapping class="com.csu.rules.domain.Feedback"/>
     </session-factory>
 </hibernate-configuration>

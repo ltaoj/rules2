@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-06-08 10:16:17
+Date: 2017-07-01 22:22:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,6 +71,38 @@ CREATE TABLE `contestregistion` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `contesttitle`
+-- ----------------------------
+DROP TABLE IF EXISTS `contesttitle`;
+CREATE TABLE `contesttitle` (
+  `test_id` int(11) NOT NULL,
+  `title_ids` varchar(300) NOT NULL,
+  PRIMARY KEY (`test_id`),
+  CONSTRAINT `contesttitle_fk_1` FOREIGN KEY (`test_id`) REFERENCES `testinfo` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of contesttitle
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `feedback`
+-- ----------------------------
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE `feedback` (
+  `feedback_id` int(11) NOT NULL COMMENT '反馈编号',
+  `content` varchar(255) DEFAULT NULL COMMENT '反馈内容',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `name` varchar(255) DEFAULT NULL COMMENT '反馈人姓名',
+  `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
+  PRIMARY KEY (`feedback_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of feedback
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `integral`
 -- ----------------------------
 DROP TABLE IF EXISTS `integral`;
@@ -107,7 +139,7 @@ CREATE TABLE `notice` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `option`
+-- Table structure for `choice  `
 -- ----------------------------
 DROP TABLE IF EXISTS `choice`;
 CREATE TABLE `choice` (
@@ -115,7 +147,7 @@ CREATE TABLE `choice` (
   `title_id` int(11) NOT NULL COMMENT '题目编号',
   `content` varchar(300) NOT NULL COMMENT '选项内容',
   `checked` tinyint(1) NOT NULL COMMENT '是否选择',
-  PRIMARY KEY (`option_id`),
+  PRIMARY KEY (`option_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -176,6 +208,24 @@ CREATE TABLE `testrecord` (
 
 -- ----------------------------
 -- Records of testrecord
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `testtitle`
+-- ----------------------------
+DROP TABLE IF EXISTS `testtitle`;
+CREATE TABLE `testtitle` (
+  `student_id` bigint(20) NOT NULL DEFAULT '0',
+  `test_id` int(11) NOT NULL,
+  `title_ids` varchar(300) NOT NULL,
+  PRIMARY KEY (`student_id`,`test_id`),
+  KEY `testtitle_fk_2` (`test_id`),
+  CONSTRAINT `testtitle_fk_1` FOREIGN KEY (`student_id`) REFERENCES `testrecord` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `testtitle_fk_2` FOREIGN KEY (`test_id`) REFERENCES `testrecord` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of testtitle
 -- ----------------------------
 
 -- ----------------------------

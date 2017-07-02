@@ -12,4 +12,6 @@ DROP TABLE IF EXISTS `title`;
 DROP TABLE IF EXISTS `titlediff`;
 DROP TABLE IF EXISTS `userinfo`;
 DROP TABLE IF EXISTS `wrongtitle`;
-
+DROP TABLE IF EXISTS `contesttitle`;
+DROP TABLE IF EXISTS `feedback`;
+DROP TABLE IF EXISTS `testtitle`;
