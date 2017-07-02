@@ -1,6 +1,7 @@
-li{
-    list-style:none;
+li {
+    list-style: none;
 }
+
 .col_side {
     border-right: 1px solid #e7e7eb;
     margin-right: -1px;
@@ -35,18 +36,24 @@ li{
 .main_bd {
     padding: 20px 0;
 }
+
 .box {
     margin-bottom: 30px;
     background-color: #f5f5f5;
     border-radius: 4px;
-    box-shadow: 0 1px 2px rgba(150,150,150,0.3);
+    box-shadow: 0 1px 2px rgba(150, 150, 150, 0.3);
     padding: 20px 30px 30px;
-    line-height:initial;
+    line-height: initial;
 }
+
 .hide {
     display: none;
 }
 
 .to_red {
     color: #e0080b;
+}
+
+.btn-u.btn-u-primary.btn-u-green.btn-u-upper.rounded-2x {
+    background: #41b5a7;
 }

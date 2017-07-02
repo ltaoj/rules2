@@ -106,7 +106,6 @@
                         <li><i class="fa fa-file-o"></i>&nbsp;&nbsp;考试竞赛</li>
                         <li><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
                         <li><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
-                        <li><i class="fa fa-book"></i>&nbsp;&nbsp;打卡学习</li>
                         <li><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
                     </ul>
                 </div>
@@ -137,8 +136,16 @@
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">
-                                <h3>添加考试竞赛信息</h3>
+                                <h3>考试竞赛信息</h3>
                                 <div style="width:30%">
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary">添加</a>
+                                        <a class="btn btn-default">修改</a>
+                                        <a class="btn btn-default">删除</a>
+                                        <a class="btn btn-default">查询</a>
+                                    </div>
+                                    <br>
+                                    <br>
                                     <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-edit"></i>
 								</span> <input type="text" class="form-control" placeholder="竞赛名称"
@@ -161,26 +168,10 @@
                                     </div>
                                 </div>
                                 <br>
-
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">操作</button>
                             </div>
                             <div class="box">
                                 <h3>指定竞赛题目</h3>
-                                <br>
-                            </div>
-                            <div class="box">
-                                <h3>指定竞赛题目</h3>
-                                <br>
-                            </div>
-                            <div class="box">
-                                <h3>修改竞赛信息</h3>
-                                <br>
-                            </div>
-                            <div class="box">
-                                <h3>删除竞赛信息</h3>
-                                <br>
-                            </div>
-                            <div class="box">
-                                <h3>查询竞赛信息</h3>
                                 <br>
                             </div>
                             <div class="box">
@@ -192,11 +183,47 @@
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">
-                                <h3>添加管理员</h3>
+                                <h3>查询个人成绩</h3>
                                 <br>
+                                <div style="width:30%">
+                                    <div class="input-group input-group">
+                                        <span class="input-group-addon"><i class="fa fa-address-card-o"></i></span>
+                                        <input type="password" class="form-control" placeholder="学号"
+                                               id="search_one_record"/>
+                                    </div>
+
+                                    <label style="font-size: medium;margin-top: 15px">考试成绩: </label> &nbsp;<i
+                                        class="fa fa-refresh fa-spin fa-2x" style="margin-top: 10px"></i>
+                                    <label></label>
+                                    <br>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>查询年纪,学院，学校成绩(判断权限，改变内容)</h3>
+                                <br>
+                                <div style="width:30%">
+                                    <div class="input-group input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="form-control" placeholder="年级(判断权限，改变内容)"
+                                               id="search_record"/>
+                                    </div>
+                                    <br>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>
+
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                            style="margin-left: 20px">导出
+                                    </button>
+                                </div>
+
                             </div>
                         </div>
                     </li>
+
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">
@@ -230,18 +257,6 @@
 
                             <div class="box">
                                 <h3>修改通知</h3>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="hide">
-                        <div class="main_bd">
-                            <div class="box">
-                                <h3>查询打卡情况</h3>
-                                <br>
-                            </div>
-                            <div class="box">
-                                <h3>查询积分</h3>
-                                <br>
                             </div>
                         </div>
                     </li>
