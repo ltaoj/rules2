@@ -40,7 +40,7 @@
     <!-- 平滑滚动结束 -->
     <script>
         window.onload = function () {
-            tab("tab_t", "li", "tab_c", "div", "onmouseover")
+            tab("tab_t", "li", "tab_c", "li", "onmouseover")
             function tab(tab_t, tab_t_tag, tab_c, tag_c_tag, evt) {
                 var tab_t = document.getElementById(tab_t);
                 var tab_t_li = tab_t.getElementsByTagName(tab_t_tag);
@@ -114,15 +114,73 @@
             <div class="col_main">
                 <div class="col_main_inner" id="tab_c">
                     <h1 id="main_title"><i class="fa fa-user-circle "></i>&nbsp;&nbsp;学生用户</h1>
-                    <div><input type="file" name="file1" size="30"/>
-                        <input type="submit" name="submit" value="提交">
-                        <input type="reset" name="reset" value="重置"></div>
-                    <div class="hide">2</div>
-                    <div class="hide">3</div>
-                    <div class="hide">4</div>
-                    <div class="hide">5</div>
-                    <div class="hide">6</div>
-                    <div class="hide">7</div>
+                    <li>
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>添加学生信息</h3>
+                                <input type="file" name="file1" size="30"/>
+                                <br>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">上传</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="hide">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>导入试题</h3>
+                                <input type="file" name="file1" size="30"/>
+                                <br>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">上传</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="hide">3</li>
+                    <li class="hide">4</li>
+                    <li class="hide">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>发布图片通知</h3>
+                                <input type="file" name="file1" size="50"/>
+                                <br>
+                                <div style="width:30%">
+                                    <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-themeisle"></i>
+								</span> <input type="text" class="form-control" placeholder="主题"
+                                               id="publish_notice_title">
+                                    </div>
+                                    <br>
+                                    <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-tripadvisor"></i>
+								</span> <input type="text" class="form-control" placeholder="来源（WHO）"
+                                               id="publish_notice_source">
+                                    </div>
+                                </div>
+                                <br>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">发布</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="hide">6</li>
+                    <li class="hide">
+                        <div class="box">
+                            <h3>添加管理员</h3>
+                            <br>
+                            <div style="width: 40%">
+                                <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-user-o"></i>
+								</span> <input type="text" class="form-control" placeholder="用户名"
+                                               id="admin_username">
+                                </div>
+                                <br>
+                                <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-key"></i>
+								</span> <input type="text" class="form-control" placeholder="密码" id="admin_password">
+                                </div>
+                                <br>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">添加</button>
+                            </div>
+                        </div>
+                    </li>
                 </div>
             </div>
         </div>
