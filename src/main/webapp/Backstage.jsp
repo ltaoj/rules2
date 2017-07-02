@@ -40,7 +40,7 @@
     <!-- 平滑滚动结束 -->
     <script>
         window.onload = function () {
-            tab("tab_t", "li", "tab_c", "li", "onmouseover")
+            tab("tab_t", "li", "tab_c", "li", "onmousedown")
             function tab(tab_t, tab_t_tag, tab_c, tag_c_tag, evt) {
                 var tab_t = document.getElementById(tab_t);
                 var tab_t_li = tab_t.getElementsByTagName(tab_t_tag);
@@ -134,8 +134,69 @@
                             </div>
                         </div>
                     </li>
-                    <li class="hide">3</li>
-                    <li class="hide">4</li>
+                    <li class="hide">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>添加考试竞赛信息</h3>
+                                <div style="width:30%">
+                                    <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-edit"></i>
+								</span> <input type="text" class="form-control" placeholder="竞赛名称"
+                                               id="contest_info_name">
+                                    </div>
+                                    <br>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-addon">年</span>
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-addon">月</span>
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-addon">日</span>
+                                    </div>
+                                    <br>
+                                    <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-tripadvisor"></i>
+								</span> <input type="text" class="form-control" placeholder="竞赛时长"
+                                               id="contest_info_time">
+                                    </div>
+                                </div>
+                                <br>
+
+                            </div>
+                            <div class="box">
+                                <h3>指定竞赛题目</h3>
+                                <br>
+                            </div>
+                            <div class="box">
+                                <h3>指定竞赛题目</h3>
+                                <br>
+                            </div>
+                            <div class="box">
+                                <h3>修改竞赛信息</h3>
+                                <br>
+                            </div>
+                            <div class="box">
+                                <h3>删除竞赛信息</h3>
+                                <br>
+                            </div>
+                            <div class="box">
+                                <h3>查询竞赛信息</h3>
+                                <br>
+                            </div>
+                            <div class="box">
+                                <h3>查看竞赛报名学生</h3>
+                                <br>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="hide">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>添加管理员</h3>
+                                <br>
+                            </div>
+                        </div>
+                    </li>
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">
@@ -158,26 +219,51 @@
                                 <br>
                                 <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">发布</button>
                             </div>
+
+                            <div class="box">
+                                <h3>发布文字通知</h3>
+                            </div>
+
+                            <div class="box">
+                                <h3>删除通知</h3>
+                            </div>
+
+                            <div class="box">
+                                <h3>修改通知</h3>
+                            </div>
                         </div>
                     </li>
-                    <li class="hide">6</li>
                     <li class="hide">
-                        <div class="box">
-                            <h3>添加管理员</h3>
-                            <br>
-                            <div style="width: 40%">
-                                <div class="input-group input-group">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>查询打卡情况</h3>
+                                <br>
+                            </div>
+                            <div class="box">
+                                <h3>查询积分</h3>
+                                <br>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="hide">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>添加管理员</h3>
+                                <br>
+                                <div style="width: 40%">
+                                    <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-user-o"></i>
 								</span> <input type="text" class="form-control" placeholder="用户名"
                                                id="admin_username">
-                                </div>
-                                <br>
-                                <div class="input-group input-group">
+                                    </div>
+                                    <br>
+                                    <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-key"></i>
 								</span> <input type="text" class="form-control" placeholder="密码" id="admin_password">
+                                    </div>
+                                    <br>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">添加</button>
                                 </div>
-                                <br>
-                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">添加</button>
                             </div>
                         </div>
                     </li>
