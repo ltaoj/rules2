@@ -106,4 +106,21 @@ public interface TitleService {
      * 50.数据持久化异常
      */
     int getTitlePageScore(List<Title> titleList) throws TitleServiceException;
+
+    /**
+     * @param count
+     * @return
+     * @throws TitleServiceException
+     */
+    String getRandomIntegerList(int count) throws TitleServiceException;
+
+    /**
+     * @param formatString
+     * @return
+     * @throws TitleServiceException
+     * 通过格式化的试题id字符串找到对应的试题列表
+     * 61.formatString为空或者为空字符
+     * 50.数据持久化异常
+     */
+    List<Title> getTitleListByFormatString(String formatString) throws TitleServiceException;
 }

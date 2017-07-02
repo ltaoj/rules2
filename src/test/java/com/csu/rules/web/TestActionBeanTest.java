@@ -31,7 +31,10 @@ public class TestActionBeanTest {
     private TestRecordDAO testRecordDAO = new TestRecordDAOimpl();
     private TitleDAO titleDAO = new TitleDAOimpl();
     private WrongtitleDAO wrongtitleDAO = new WrongtitleDAOimpl();
-    TestService testService = new TestServiceimpl(contestTestDAO, testDAO, testRecordDAO);
+    private TesttitleDAO testtitleDAO = new TesttitleDAOimpl();
+    private ContestTitleDAO contestTitleDAO = new ContestTitleDAOimpl();
+
+    TestService testService = new TestServiceimpl(contestTestDAO, testDAO, testRecordDAO, testtitleDAO, contestTitleDAO);
     TitleService titleService = new TitleServiceimpl(titleDAO, wrongtitleDAO);
     TestActionBean testActionBean = new TestActionBean(testService, titleService);
     ObjectMapper mapper = new ObjectMapper();

@@ -8,12 +8,14 @@ import com.csu.rules.persistence.TesttitleDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ltaoj on 17-7-2.
  */
+@Repository
 public class TesttitleDAOimpl implements TesttitleDAO {
     public void insertTesttitle(Testtitle testtitle) throws PersistenceException {
         try {

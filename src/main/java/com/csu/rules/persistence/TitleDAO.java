@@ -76,6 +76,30 @@ public interface TitleDAO {
      */
     Long getTotalTitleSize() throws PersistenceException;
 
+    /**
+     * @param count
+     * @return
+     * @throws PersistenceException
+     * 生成试题id列表
+     */
+    public Set<Integer> randomIntegerList(int count) throws PersistenceException;
+
+    /**
+     * @param set
+     * @return
+     * @throws PersistenceException
+     * 将试题列表格式化为字符串
+     */
+    public String formatSet(Set set) throws PersistenceException;
+
+    /**
+     * @param formatString
+     * @return
+     * @throws PersistenceException
+     * 将格式化的试题id字符串解析成Set
+     */
+    public Set parseString(String formatString) throws PersistenceException;
+
 //    /**
 //     * @param title
 //     * @return

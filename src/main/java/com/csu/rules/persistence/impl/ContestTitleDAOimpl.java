@@ -7,11 +7,12 @@ import com.csu.rules.persistence.ContestTitleDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.omg.SendingContext.RunTime;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by ltaoj on 17-7-2.
  */
+@Repository
 public class ContestTitleDAOimpl implements ContestTitleDAO {
 
     public void insertContesttitle(Contesttitle contesttitle) throws PersistenceException {
