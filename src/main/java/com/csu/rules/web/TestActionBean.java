@@ -39,8 +39,13 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/getTestInfo", method = RequestMethod.GET)
     public ResponseEntity<Testinfo> getTestInfo() {
         try {
-            Testinfo testinfo = testService.getTestInfoList().get(0);
-            return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            List<Testinfo> testinfoList=testService.getTestInfoList();
+            if(testinfoList.size()!=0) {
+                Testinfo testinfo = testService.getTestInfoList().get(0);
+                return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<Testinfo>(new Testinfo(), HttpStatus.OK);
+            }
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         }
@@ -50,8 +55,13 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/getContestInfo", method = RequestMethod.GET)
     public ResponseEntity<Testinfo> getContestInfo() {
         try {
-            Testinfo testinfo = testService.getContestInfoList().get(0);
-            return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            List<Testinfo> contestinfoList=testService.getContestInfoList();
+            if(contestinfoList.size()!=0) {
+                Testinfo testinfo = contestinfoList.get(0);
+                return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            }else {
+                return new ResponseEntity<Testinfo>(new Testinfo(), HttpStatus.OK);
+            }
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         }
