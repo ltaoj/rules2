@@ -10,7 +10,6 @@ function login() {
     var signonString = {studentId: studentId, password: password};
     var signonJson = $.toJSON(signonString);
     loginForJson(signonJson);
-
 }
 function loginForJson(signonJson) {
     $.ajaxSetup({contentType: 'application/json'});

@@ -3,6 +3,7 @@
  */
 $(function () {
     var signon = getCookie('signon');
-    if (signon != undefined)
+    if(signon!=undefined) {
         loginForJson(signon);
+    }
 })

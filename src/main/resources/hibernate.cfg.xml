@@ -22,7 +22,7 @@
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.idle_test_period">3000</property>
         <!--指定自动生成数据表的策略-->
-        <property name="hbm2ddl.auto">update</property>
+        <!--<property name="hbm2ddl.auto">update</property>-->
 
         <mapping class="com.csu.rules.domain.Account"/>
         <mapping class="com.csu.rules.domain.Signon"/>
@@ -37,5 +37,8 @@
         <mapping class="com.csu.rules.domain.Testrecord"/>
         <mapping class="com.csu.rules.domain.Clockin"/>
         <mapping class="com.csu.rules.domain.Notice"/>
+        <mapping class="com.csu.rules.domain.Contesttitle"/>
+        <mapping class="com.csu.rules.domain.Testtitle"/>
+        <mapping class="com.csu.rules.domain.Feedback"/>
     </session-factory>
 </hibernate-configuration>

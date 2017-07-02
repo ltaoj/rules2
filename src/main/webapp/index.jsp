@@ -6,7 +6,7 @@
         lang="en" style="height: auto;">
 <!--<![endif]-->
 <head>
-    <title>中南大学-校规校纪系统</title>
+    中南大学-校规校纪系统
     <!-- Meta -->
     <meta charset="utf-8">
     <%--<!-- Web Fonts -->--%>
@@ -25,7 +25,6 @@
     <link href="plugins/line-icons/line-icons.css" rel="stylesheet">
     <link href="plugins/font-awesome/css/font-awesome.min.css"
           rel="stylesheet">
-    <link href="plugins/pace/pace-flash.css" rel="stylesheet">
     <link href="plugins/owl-carousel2/owl-carousel.css" rel="stylesheet">
     <link
             href="plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css"
@@ -34,16 +33,12 @@
             href="plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css"
             rel="stylesheet">
     <link href="plugins/shhos/shhos.css" rel="stylesheet">
-    <link href="plugins/image-hover/css/img-hover.css" rel="stylesheet">
-    <link href="plugins/login-signup-modal-window/css/style.css"
-          rel="stylesheet">
     <!-- CSS Theme -->
     <link href="css/app.style.css" rel="stylesheet">
     <!-- CSS Customization -->
     <link href="css/custom.css" rel="stylesheet">
     <!-- 全局JS -->
     <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/angular/angular.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/forms/login.js"></script>
     <script src="plugins/json/jquery.json.min.js"></script>
@@ -252,7 +247,8 @@
                     <li class="page-scroll"><a href="#ranking">考试排名</a></li>
                     <li class="page-scroll"><a href="#integral">积分兑换</a></li>
                     <li class="page-scroll"><a href="#contact">联系我们</a></li>
-                    <li class="page-scroll"><a href="#help">考试须知</a></li>
+                    <li ><a href="#help">考试须知</a></li>
+                    <li ><a href="Backstage.jsp" target="_blank">后台管理</a></li>
                     <li id="login-li"><a
                             class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
                             data-toggle="modal"
