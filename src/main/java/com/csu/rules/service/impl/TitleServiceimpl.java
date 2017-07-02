@@ -6,6 +6,8 @@ import com.csu.rules.domain.Title;
 import com.csu.rules.domain.Wrongtitle;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.exception.TitleServiceException;
+import com.csu.rules.persistence.ContestTitleDAO;
+import com.csu.rules.persistence.TesttitleDAO;
 import com.csu.rules.persistence.TitleDAO;
 import com.csu.rules.persistence.WrongtitleDAO;
 import com.csu.rules.service.TitleService;
@@ -225,6 +227,25 @@ public class TitleServiceimpl implements TitleService {
             return score;
         }catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);
+            te.setErrorCode(50);
+            throw te;
+        }
+    }
+
+    public String getRandomIntegerList(int count) throws TitleServiceException {
+        return titleDAO.formatSet(titleDAO.randomIntegerList(count));
+    }
+
+    public List<Title> getTitleListByFormatString(String formatString) throws TitleServiceException {
+        try {
+            TitleServiceException te = new TitleServiceException();
+            if (formatString == null || formatString.trim().equals("")) {
+                te.setErrorCode(61);
+                throw te;
+            }
+            return titleDAO.getTitleListByTitleIds(titleDAO.parseString(formatString));
+        }catch (PersistenceException pe) {
+            TitleServiceException te = new TitleServiceException();
             te.setErrorCode(50);
             throw te;
         }

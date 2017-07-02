@@ -39,8 +39,13 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/getTestInfo", method = RequestMethod.GET)
     public ResponseEntity<Testinfo> getTestInfo() {
         try {
-            Testinfo testinfo = testService.getTestInfoList().get(0);
-            return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            List<Testinfo> testinfoList=testService.getTestInfoList();
+            if(testinfoList.size()!=0) {
+                Testinfo testinfo = testService.getTestInfoList().get(0);
+                return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<Testinfo>(new Testinfo(), HttpStatus.OK);
+            }
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         }
@@ -50,8 +55,13 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/getContestInfo", method = RequestMethod.GET)
     public ResponseEntity<Testinfo> getContestInfo() {
         try {
-            Testinfo testinfo = testService.getContestInfoList().get(0);
-            return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            List<Testinfo> contestinfoList=testService.getContestInfoList();
+            if(contestinfoList.size()!=0) {
+                Testinfo testinfo = contestinfoList.get(0);
+                return new ResponseEntity<Testinfo>(testinfo, HttpStatus.OK);
+            }else {
+                return new ResponseEntity<Testinfo>(new Testinfo(), HttpStatus.OK);
+            }
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         }
@@ -65,10 +75,14 @@ public class TestActionBean extends AbstractActionBean {
             testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
             if (testrecord1 == null) {
+                String formatRandomIds = titleService.getRandomIntegerList(10);
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
+                testService.insertTesttitle(testrecord, formatRandomIds);
+
             }
-            List<Title> testTitleList = titleService.getTitleListByRandom(10);
+            Testtitle testtitle = testService.getTesttitleByTestrecord(testrecord);
+            List<Title> testTitleList = titleService.getTitleListByFormatString(testtitle.getTitleIds());
             return new ResponseEntity<List<Title>>(testTitleList, HttpStatus.OK);
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
@@ -201,7 +215,8 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/deleteTestRecord", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> deleteTestRecord(@RequestBody Testrecord testrecord) {
         try {
-           testService.deleteTestRecord(testrecord);
+            testService.deleteTestRecord(testrecord);
+            testService.deleteTestTitle(testrecord);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (TestServiceException e) {
             throw new CatchServiceException(e);

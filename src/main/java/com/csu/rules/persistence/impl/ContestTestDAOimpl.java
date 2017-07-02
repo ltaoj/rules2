@@ -112,9 +112,10 @@ public class ContestTestDAOimpl implements ContestTestDAO {
     public List<Testinfo> getContestInfoList() throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Criteria criteria = session.createCriteria(Testinfo.class);
-            criteria.add(Restrictions.eq("type", new Integer(1).byteValue()));
-            List<Testinfo> contestinfoList = criteria.list();
+            String hql="from Testinfo as testinfo where testinfo.type=? order by testId desc";
+            org.hibernate.query.Query query=session.createQuery(hql);
+            query.setInteger(0,new Integer(1).byteValue());
+            List<Testinfo> contestinfoList=query.list();
             session.close();
             return contestinfoList;
         }catch (RuntimeException e){

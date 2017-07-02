@@ -25,10 +25,12 @@ public class TestDAOimpl implements TestDAO{
     public List<Testinfo> getTestInfoList() throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
-            Criteria criteria = session.createCriteria(Testinfo.class);
-            criteria.add(Restrictions.eq("type", new Integer(0).byteValue()));
-            List<Testinfo> testinfoList = criteria.list();
-            return testinfoList;
+            String hql="from Testinfo as testinfo where testinfo.type=? order by testId desc";
+            org.hibernate.query.Query query=session.createQuery(hql);
+            query.setInteger(0,new Integer(0).byteValue());
+            List<Testinfo> tsetinfoList=query.list();
+            session.close();
+            return tsetinfoList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }

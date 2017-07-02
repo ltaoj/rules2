@@ -147,12 +147,32 @@ public class TitleDAOimpl implements TitleDAO {
         return set;
     }
 
-    private String formatSet(Set set) {
+    public Set<Integer> randomIntegerList(int count) throws PersistenceException{
+        int totalSize = Integer.parseInt(getTotalTitleSize().toString());
+        if (count > totalSize) count = totalSize;
+        Set<Integer> set = new HashSet<Integer>();
+        while (set.size() < count) {
+            Integer integer = (int)(Math.random() * totalSize + 1);
+            set.add(integer);
+        }
+        return set;
+    }
+    public String formatSet(Set set) throws PersistenceException{
         StringBuilder sb = new StringBuilder();
         Iterator values = set.iterator();
         while (values.hasNext()) {
             sb.append("," + values.next());
         }
         return sb.subSequence(1, sb.length()).toString();
+    }
+
+    public Set parseString(String formatString) throws PersistenceException{
+        String[] strIds = formatString.split(",");
+        if (strIds == null || strIds.length == 0) throw new PersistenceException();
+        Set<Integer> integerIds = new HashSet<Integer>();
+        for (int i = 0;i < strIds.length;i++) {
+            integerIds.add(Integer.parseInt(strIds[i]));
+        }
+        return integerIds;
     }
 }

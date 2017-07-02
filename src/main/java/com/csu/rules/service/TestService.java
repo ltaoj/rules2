@@ -1,9 +1,6 @@
 package com.csu.rules.service;
 
-import com.csu.rules.domain.Account;
-import com.csu.rules.domain.Contestregistion;
-import com.csu.rules.domain.Testinfo;
-import com.csu.rules.domain.Testrecord;
+import com.csu.rules.domain.*;
 import com.csu.rules.exception.TestServiceException;
 
 import javax.persistence.PersistenceException;
@@ -146,4 +143,34 @@ public interface TestService {
      * @throws TestServiceException
      */
     void deleteTestRecord(Testrecord testrecord) throws TestServiceException;
+
+    /**
+     * 添加测试题目
+     * @param testtitle
+     * @throws TestServiceException
+     */
+    void insertTesttitle(Testtitle testtitle) throws TestServiceException;
+
+    /**
+     * 添加测试题目
+     * @param testrecord
+     * @param formatString
+     * @throws TestServiceException
+     */
+    void insertTesttitle(Testrecord testrecord, String formatString) throws TestServiceException;
+
+    /**
+     * 通过考试记录获取关联试题
+     * @param testrecord
+     * @return
+     * @throws TestServiceException
+     */
+    Testtitle getTesttitleByTestrecord(Testrecord testrecord) throws TestServiceException;
+
+    /**
+     * 删除考试记录关联试题
+     * @param testrecord
+     * @throws TestServiceException
+     */
+    void deleteTestTitle(Testrecord testrecord) throws TestServiceException;
 }

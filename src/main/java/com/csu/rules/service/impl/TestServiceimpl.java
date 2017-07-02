@@ -1,14 +1,11 @@
 package com.csu.rules.service.impl;
 
-import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Contestregistion;
 import com.csu.rules.domain.Testinfo;
 import com.csu.rules.domain.Testrecord;
-import com.csu.rules.exception.NoticeServiceException;
+import com.csu.rules.domain.Testtitle;
 import com.csu.rules.exception.TestServiceException;
-import com.csu.rules.persistence.ContestTestDAO;
-import com.csu.rules.persistence.TestDAO;
-import com.csu.rules.persistence.TestRecordDAO;
+import com.csu.rules.persistence.*;
 import com.csu.rules.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +22,17 @@ public class TestServiceimpl implements TestService {
     private ContestTestDAO contestTestDAO;
     private TestDAO testDAO;
     private TestRecordDAO testRecordDAO;
+    private TesttitleDAO testtitleDAO;
+    private ContestTitleDAO contestTitleDAO;
 
     @Autowired
-    public TestServiceimpl(ContestTestDAO contestTestDAO, TestDAO testDAO, TestRecordDAO testRecordDAO) {
+    public TestServiceimpl(ContestTestDAO contestTestDAO, TestDAO testDAO, TestRecordDAO testRecordDAO,
+                           TesttitleDAO testtitleDAO, ContestTitleDAO contestTitleDAO) {
         this.contestTestDAO = contestTestDAO;
         this.testDAO = testDAO;
         this.testRecordDAO = testRecordDAO;
+        this.testtitleDAO = testtitleDAO;
+        this.contestTitleDAO = contestTitleDAO;
     }
 
     public void registContest(Contestregistion contestregistion) throws TestServiceException {
@@ -264,4 +266,41 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    public void insertTesttitle(Testtitle testtitle) throws TestServiceException {
+        try {
+            testtitleDAO.insertTesttitle(testtitle);
+        } catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void insertTesttitle(Testrecord testrecord, String formatString) throws TestServiceException {
+        Testtitle testtitle = new Testtitle();
+        testtitle.setStudentId(testrecord.getStudentId());
+        testtitle.setTestId(testrecord.getTestId());
+        testtitle.setTitleIds(formatString);
+        insertTesttitle(testtitle);
+    }
+
+    public Testtitle getTesttitleByTestrecord(Testrecord testrecord) throws TestServiceException {
+        try {
+            return testtitleDAO.getTesttitle(testrecord.getStudentId(), testrecord.getTestId());
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deleteTestTitle(Testrecord testrecord) throws TestServiceException {
+        try {
+            testtitleDAO.deleteTesttitle(testrecord.getStudentId(), testrecord.getTestId());
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
 }
