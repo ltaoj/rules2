@@ -1,6 +1,7 @@
 package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Testinfo;
+import com.csu.rules.persistence.ContestTestDAO;
 import com.csu.rules.persistence.TestDAO;
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestDAOimplTest {
     private TestDAO testDAO=new TestDAOimpl();
+    private ContestTestDAO contestTestDAO=new ContestTestDAOimpl();
 
     @Test
     public void testGetTestList(){
@@ -54,4 +56,9 @@ public class TestDAOimplTest {
         assertTrue(testinfo!=null);
     }
 
+    @Test
+    public void getContsetinfoList(){
+       List<Testinfo> list=contestTestDAO.getContestInfoList();
+        assertTrue(list.get(0).getTestId()==4);
+    }
 }
