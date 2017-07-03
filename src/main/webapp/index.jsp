@@ -676,7 +676,7 @@
                             </fieldset>
                             <div class="message">
                                 <i class="rounded-x fa fa-check"></i>
-                                <p>Your message was successfully sent!</p>
+                                <p>提交成功</p>
                             </div>
                         </div>
                     </div>

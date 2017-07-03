@@ -38,6 +38,10 @@
     <script src="plugins/smoothScroll/jquery.smooth-scroll.js"></script>
     <script src="js/smoothScroll/smoothScroll.js"></script>
     <!-- 平滑滚动结束 -->
+    <!--Excel导入导出-->
+    <script src="plugins/js-xls/shim.js"></script>
+    <script src="plugins/js-xls/xls.js"></script>
+    <!--Excel导入导出结束-->
     <script>
         window.onload = function () {
             tab("tab_t", "li", "tab_c", "li", "onmousedown")
