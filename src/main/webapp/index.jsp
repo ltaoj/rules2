@@ -77,6 +77,9 @@
     <script src="js/cookie/cookie.js"></script>
     <script src="js/init/init.js"></script>
     <!--Cookie结束-->
+    <!--feedback-->
+    <script src="js/feedback/feedback.js"></script>
+    <!--feedback结束-->
 </head>
 <body class="demo-lightbox-gallery  pace-done" id="body"
       data-target=".one-page-header" data-spy="scroll">
@@ -643,9 +646,8 @@
                         </div>
                     </div>
                     <div class="col-md-7">
-                        <form class="sky-form contact-style" id="sky-form3" action=""
-                              method="post" novalidate="novalidate">
-                            <fieldset>
+                        <div class="sky-form contact-style" id="sky-form3">
+                            <fieldset id="feedback">
                                 <div class="row">
                                     <div class="col-md-6 col-md-offset-0">
                                         <div class="margin-bottom-30">
@@ -663,9 +665,10 @@
                                                       class="form-control g-textarea-noresize" id="message"
                                                       placeholder="消息内容" rows="4"></textarea>
                                         </div>
+                                        <label id="submitMessage"></label>
                                         <p>
                                             <button class="btn-u btn-u-lg btn-u-upper rounded-2x"
-                                                    type="submit">提交
+                                                     onclick="feedbackClick()">提交
                                             </button>
                                         </p>
                                     </div>
@@ -675,7 +678,7 @@
                                 <i class="rounded-x fa fa-check"></i>
                                 <p>Your message was successfully sent!</p>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
