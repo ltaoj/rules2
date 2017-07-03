@@ -38,6 +38,10 @@
     <script src="plugins/smoothScroll/jquery.smooth-scroll.js"></script>
     <script src="js/smoothScroll/smoothScroll.js"></script>
     <!-- 平滑滚动结束 -->
+    <!-- 后台管理js -->
+    <script src="js/backstage/initBackstage.js"></script>
+
+    <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
             tab("tab_t", "li", "tab_c", "li", "onmousedown")
@@ -57,7 +61,9 @@
                         }
                         tab_c_li[this.index].className = '';
                         tab_t_li[this.index].className = 'to_red';
+                        initBackstage(tab_t_li[this.index].id);
                         $('#main_title').html(tab_t_li[this.index].innerHTML);
+
                     }
                 }
             }
@@ -101,12 +107,12 @@
             <div class="col_side">
                 <div class="menu_box" id="menuBar">
                     <ul style="list-style:none;" id="tab_t">
-                        <li class="to_red"><i class="fa fa-user-circle "></i>&nbsp;&nbsp;学生用户</li>
-                        <li><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;考试试题</li>
-                        <li><i class="fa fa-file-o"></i>&nbsp;&nbsp;考试竞赛</li>
-                        <li><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
-                        <li><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
-                        <li><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
+                        <li class="to_red" id="0"><i class="fa fa-user-circle "></i>&nbsp;&nbsp;学生用户</li>
+                        <li id="1"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;考试试题</li>
+                        <li id="2"><i class="fa fa-file-o"></i>&nbsp;&nbsp;考试竞赛</li>
+                        <li id="3"><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
+                        <li id="4"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
+                        <li id="5"><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
                     </ul>
                 </div>
             </div>
@@ -142,10 +148,10 @@
                                         <div style="width:80%">
                                             <h3>竞赛信息</h3>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary">添加</a>
+                                                <a class="btn btn-primary">查询</a>
                                                 <a class="btn btn-default">修改</a>
                                                 <a class="btn btn-default">删除</a>
-                                                <a class="btn btn-default">查询</a>
+                                                <a class="btn btn-default">添加</a>
                                             </div>
                                             <br>
                                             <br>
@@ -158,20 +164,20 @@
                                             <label>开始时间：</label>
                                             <br>
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_start_year">
                                                 <span class="input-group-addon">年</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_start_month">
                                                 <span class="input-group-addon">月</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_start_day">
                                                 <span class="input-group-addon">日</span>
                                             </div>
                                             <br>
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_start_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_start_minute">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_start_seconds">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
@@ -184,20 +190,20 @@
                                             <label>结束时间：</label>
                                             <br>
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_end_year">
                                                 <span class="input-group-addon">年</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_end_month">
                                                 <span class="input-group-addon">月</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_end_day">
                                                 <span class="input-group-addon">日</span>
                                             </div>
                                             <br>
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_end_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_end_minute">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="contest_end_seconds">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
