@@ -10,7 +10,7 @@ function operate() {
 function deleteContest() {
     var testId = getContest_id();
     var testInfoString = {testId: testId};
-    var testinfo = $.toJSON(testInfoString);
+    var testinfo = JSON.stringify(testInfoString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'test/deleteTest',
@@ -19,7 +19,6 @@ function deleteContest() {
         data: testinfo,
         success: function (data) {
             if (data.result == "success") {
-                $('#contest_id').html("");
                 $('#contest_info_name').val("");
                 $('#contest_start_year').val("");
                 $('#contest_start_month').val("");

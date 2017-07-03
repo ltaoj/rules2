@@ -54,6 +54,7 @@ public class TestDAOimpl implements TestDAO{
             Testinfo testinfo=(Testinfo)session.get(Testinfo.class,new Integer(testId));
             session.delete(testinfo);
             transaction.commit();
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }

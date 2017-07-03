@@ -1,5 +1,5 @@
 ### userinfo ###
-INSERT INTO userinfo VALUES(3903150328, '葛凡', 1, '工程试验班1503', 2015, '软件工程', '中南大学');
+INSERT INTO userinfo VALUES(3903150332, '葛凡', 1, '工程试验班1503', 2015, '软件工程', '中南大学');
 INSERT INTO userinfo VALUES(3903150326, '李涛江', 1, '工程试验班1503', 2015, '软件工程', '中南大学');
 INSERT INTO userinfo VALUES(3903150327, '陈铭明', 1,'工程试验班1503', 2015, '软件工程', '中南大学');
 

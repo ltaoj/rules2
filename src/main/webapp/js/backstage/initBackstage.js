@@ -38,6 +38,20 @@ function getContestInfo() {
                 $('#contest_end_minute').val(new Date(contestInfo.startTime).format("mm"));
                 $('#contest_end_seconds').val(new Date(contestInfo.startTime).format("ss"));
             } else {
+                $('#contest_info_name').val("");
+                $('#contest_start_year').val("");
+                $('#contest_start_month').val("");
+                $('#contest_start_day').val("");
+                $('#contest_start_hour').val("");
+                $('#contest_start_minute').val("");
+                $('#contest_start_seconds').val("");
+                $('#contest_info_time').val("");
+                $('#contest_end_year').val("");
+                $('#contest_end_month').val("");
+                $('#contest_end_day').val("");
+                $('#contest_end_hour').val("");
+                $('#contest_end_minute').val("");
+                $('#contest_end_seconds').val("");
             }
         },
         error: function (xhr) {
