@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -344,6 +345,22 @@ public class TestActionBean extends AbstractActionBean {
             throw new CatchServiceException(e);
         }catch (TitleServiceException e){
             throw new CatchServiceException(e);
+        }
+    }
+
+    @RequestMapping(value = "/recordListByCondition", method = RequestMethod.GET)
+    public ResponseEntity<List<Testrecord>> getTestRecordByCondition(
+            @RequestParam(value = "clazz", defaultValue = "") String clazz,
+            @RequestParam(value = "grade", defaultValue = "0") int grade,
+            @RequestParam(value = "major", defaultValue = "") String major,
+            @RequestParam(value = "college", defaultValue = "") String college,
+            @RequestParam(value = "level", defaultValue = "0") int level) {
+
+        try {
+            List<Testrecord> testrecordList = testService.getTestRecordByCondition(clazz, grade, major, college, level);
+            return new ResponseEntity<List<Testrecord>>(testrecordList, HttpStatus.OK);
+        }catch (TestServiceException te) {
+            throw new CatchServiceException(te);
         }
     }
 }
