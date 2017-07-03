@@ -3,9 +3,11 @@ package com.csu.rules.web;
 import com.csu.rules.domain.Signon;
 import com.csu.rules.persistence.AccountDAO;
 import com.csu.rules.persistence.AdminDAO;
+import com.csu.rules.persistence.FeedbackDAO;
 import com.csu.rules.persistence.SignonDAO;
 import com.csu.rules.persistence.impl.AccountDAOimpl;
 import com.csu.rules.persistence.impl.AdminDAOimpl;
+import com.csu.rules.persistence.impl.FeedbackDAOimpl;
 import com.csu.rules.persistence.impl.SignonDAOimpl;
 import com.csu.rules.service.AccountService;
 import com.csu.rules.service.impl.AccountServiceimpl;
@@ -27,15 +29,17 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 /**
  * Created by ltaoj on 17-6-12.
  */
-public class  AccountActionBeanTest {
+public class AccountActionBeanTest {
     AccountDAO accountDAO = new AccountDAOimpl();
     SignonDAO signonDAO = new SignonDAOimpl();
     AdminDAO adminDAO = new AdminDAOimpl();
-    AccountService accountService = new AccountServiceimpl(accountDAO, signonDAO, adminDAO);
+    FeedbackDAO feedbackDAO = new FeedbackDAOimpl();
+    AccountService accountService = new AccountServiceimpl(accountDAO, signonDAO, adminDAO, feedbackDAO);
     AccountActionBean accountActionBean = new AccountActionBean(accountService);
 
     ObjectMapper mapper = new ObjectMapper();
     ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+
     @Test
     public void testShowLoginForm() throws Exception {
         AccountService accountService = mock(AccountServiceimpl.class);
@@ -48,6 +52,7 @@ public class  AccountActionBeanTest {
         mockMvc.perform(get("/account/login"))
                 .andExpect(view().name("loginForm"));
     }
+
     @Test
     public void testLogin() throws Exception {
         Signon signon = new Signon();

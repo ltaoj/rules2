@@ -153,7 +153,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"
-                         data-toggle="modal" data-target="#exitModal" onclick="exitModal()">x
+                        data-toggle="modal" data-target="#exitModal" onclick="exitModal()">x
                 </button>
                 <label class="modal-title" id="testId" style="display: none"></label>
                 <div id="testCountMsg" class="HotDate">
@@ -248,8 +248,8 @@
                     <li class="page-scroll"><a href="#ranking">考试排名</a></li>
                     <li class="page-scroll"><a href="#integral">积分兑换</a></li>
                     <li class="page-scroll"><a href="#contact">联系我们</a></li>
-                    <li ><a href="#help">考试须知</a></li>
-                    <li ><a href="Backstage.jsp" target="_blank">后台管理</a></li>
+                    <li><a href="#help">考试须知</a></li>
+                    <li><a href="Backstage.jsp" target="_blank">后台管理</a></li>
                     <li id="login-li"><a
                             class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
                             data-toggle="modal"
