@@ -64,7 +64,7 @@ CREATE TABLE `contestregistion` (
   PRIMARY KEY (`student_id`,`test_id`),
   KEY `conreg_fk_2` (`test_id`),
   CONSTRAINT `conreg_fk_1` FOREIGN KEY (`student_id`) REFERENCES `userinfo` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `conreg_fk_2` FOREIGN KEY (`test_id`) REFERENCES `testinfo` (`test_id`) ON UPDATE CASCADE
+  CONSTRAINT `conreg_fk_2` FOREIGN KEY (`test_id`) REFERENCES `testinfo` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -91,7 +91,7 @@ CREATE TABLE `contesttitle` (
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
-  `feedback_id` int(11) NOT NULL COMMENT '反馈编号',
+  `feedback_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '反馈编号',
   `content` varchar(255) DEFAULT NULL COMMENT '反馈内容',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `name` varchar(255) DEFAULT NULL COMMENT '反馈人姓名',
