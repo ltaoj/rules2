@@ -20,21 +20,12 @@ public interface TitleDAO {
     Integer addTitle(Title title) throws PersistenceException;
 
     /**
-     * @param titleId 题目Id
+     * @param titleList
      * @return
      * @throws PersistenceException
-     * 根据题目Id删除题目
+     * 添加试题列表
      */
-    Title deleteTitle(int titleId) throws PersistenceException;
-
-    /**
-     * @param title
-     * @param option
-     * @return
-     * @throws PersistenceException
-     * 修改题目以及选项内容
-     */
-    Title editTitle(Title title, Option option) throws PersistenceException;
+    void addTitleList(List<Title> titleList) throws PersistenceException;
 
     /**
      * @param titleId

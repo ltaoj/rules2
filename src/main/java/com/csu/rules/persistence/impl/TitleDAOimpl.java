@@ -31,22 +31,18 @@ public class TitleDAOimpl implements TitleDAO {
         }
     }
 
-    public Title deleteTitle(int titleId) throws PersistenceException {
+    public void addTitleList(List<Title> titleList) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            Title title = session.get(Title.class, titleId);
-            session.delete(title);
+            for(int i = 0;i < titleList.size();i++) {
+                session.save(titleList.get(i));
+            }
             transaction.commit();
             session.close();
-            return title;
-        } catch (RuntimeException e) {
-             throw new PersistenceException(e);
+        }catch (RuntimeException e) {
+            throw new PersistenceException(e);
         }
-    }
-
-    public Title editTitle(Title title, Option option) throws PersistenceException {
-        return null;
     }
 
     public Title getTitle(int titleId) throws PersistenceException {
