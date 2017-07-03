@@ -30,6 +30,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
         try {
             session.save(contest);
             transaction.commit();
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
@@ -62,6 +63,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("testId", testInfo.getTestId()));
             List<Contestregistion> contsetRegistionList = criteria.list();
+            session.close();
             return contsetRegistionList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);

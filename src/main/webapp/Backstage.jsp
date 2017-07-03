@@ -40,7 +40,7 @@
     <!-- 平滑滚动结束 -->
     <!-- 后台管理js -->
     <script src="js/backstage/initBackstage.js"></script>
-
+    <script src="js/backstage/contestAndTest.js"></script>
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -150,7 +150,7 @@
                                             <div class="btn-group">
                                                 <a class="btn btn-primary">查询</a>
                                                 <a class="btn btn-default">修改</a>
-                                                <a class="btn btn-default">删除</a>
+                                                <a class="btn btn-default" id="isClick">删除</a>
                                                 <a class="btn btn-default">添加</a>
                                             </div>
                                             <br>
@@ -207,7 +207,7 @@
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
-                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">操作
+                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="operate()">操作
                                             </button>
                                         </div>
                                     </div>
@@ -215,10 +215,10 @@
                                         <div style="width:80%">
                                             <h3>考试信息</h3>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary">添加</a>
+                                                <a class="btn btn-primary">查询</a>
                                                 <a class="btn btn-default">修改</a>
                                                 <a class="btn btn-default">删除</a>
-                                                <a class="btn btn-default">查询</a>
+                                                <a class="btn btn-default">添加</a>
                                             </div>
                                             <br>
                                             <br>
@@ -232,20 +232,20 @@
                                             <br>
 
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_start_year">
                                                 <span class="input-group-addon">年</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_start_month">
                                                 <span class="input-group-addon">月</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_start_day">
                                                 <span class="input-group-addon">日</span>
                                             </div>
                                             <br>
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_start_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_start_minute">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_start_seconds">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
@@ -258,24 +258,24 @@
                                             <label>结束时间：</label>
                                             <br>
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_end_year">
                                                 <span class="input-group-addon">年</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_end_month">
                                                 <span class="input-group-addon">月</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_end_day">
                                                 <span class="input-group-addon">日</span>
                                             </div>
                                             <br>
                                             <div class="input-group">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_end_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_end_minute">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="test_end_seconds">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
-                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">操作
+                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="operate()">操作
                                             </button>
                                         </div>
                                     </div>
@@ -299,7 +299,7 @@
                             <div class="box">
                                 <h3>查看竞赛报名学生</h3>
                                 <br>
-                                <span>当前报名学生为：</span><label>1000</label><span>人</span>
+                                <span>当前报名学生人数为：</span><label id="contestregistionNum">1000</label><span>人</span>
                             </div>
                         </div>
                     </li>
