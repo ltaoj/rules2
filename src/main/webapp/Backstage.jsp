@@ -135,7 +135,46 @@
                         </div>
                     </li>
                     <li class="hide">3</li>
-                    <li class="hide">4</li>
+                    <li class="hide">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>查询个人成绩</h3>
+                                <br>
+                                <div style="width:30%">
+                                    <div class="input-group input-group">
+                                        <span class="input-group-addon"><i class="fa fa-address-card-o"></i></span>
+								 <input type="password" class="form-control" placeholder="学号"
+                                               id="search_one_record"/>
+                                    </div>
+
+                                    <label style="font-size: medium;margin-top: 15px" >考试成绩: </label> &nbsp;<i class="fa fa-refresh fa-spin fa-2x"></i>
+                                    <label></label>
+                                    <br>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>查询年纪,学院，学校成绩(判断权限，改变内容)</h3>
+                                <br>
+                                <div style="width:30%">
+                                    <div class="input-group input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="form-control" placeholder="年级(判断权限，改变内容)"
+                                               id="search_record"/>
+                                    </div>
+
+                                    <br>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>
+
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" style="margin-left: 20px">导出</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">

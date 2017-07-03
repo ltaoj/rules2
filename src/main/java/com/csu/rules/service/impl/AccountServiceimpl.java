@@ -2,10 +2,7 @@ package com.csu.rules.service.impl;
 
 import com.csu.rules.domain.*;
 import com.csu.rules.exception.AccountServiceException;
-import com.csu.rules.persistence.AccountDAO;
-import com.csu.rules.persistence.AdminDAO;
-import com.csu.rules.persistence.ContestTestDAO;
-import com.csu.rules.persistence.SignonDAO;
+import com.csu.rules.persistence.*;
 import com.csu.rules.persistence.impl.AccountDAOimpl;
 import com.csu.rules.persistence.impl.AdminDAOimpl;
 import com.csu.rules.persistence.impl.SignonDAOimpl;
@@ -14,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
+import java.util.List;
 
 /**
  * Created by ltaoj on 17-5-30.
@@ -24,12 +22,14 @@ public class AccountServiceimpl implements AccountService {
     private AccountDAO accountDAO;
     private SignonDAO signonDAO;
     private AdminDAO adminDAO;
+    private FeedbackDAO feedbackDAO;
 
     @Autowired
-    public AccountServiceimpl(AccountDAO accountDAO, SignonDAO signonDAO, AdminDAO adminDAO) {
+    public AccountServiceimpl(AccountDAO accountDAO, SignonDAO signonDAO, AdminDAO adminDAO,FeedbackDAO feedbackDAO) {
         this.accountDAO = accountDAO;
         this.signonDAO = signonDAO;
         this.adminDAO = adminDAO;
+        this.feedbackDAO=feedbackDAO;
     }
 
     public Account login(long studentId, String password) throws AccountServiceException {
@@ -98,6 +98,37 @@ public class AccountServiceimpl implements AccountService {
     }
 
     public void exchange(Integral integral) throws AccountServiceException {
+    }
+
+    public void insertAdmin(Admin admin) throws AccountServiceException {
+        try {
+            adminDAO.insertAdmin(admin);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public void insertFeedback(Feedback feedback) throws AccountServiceException {
+        try {
+            feedbackDAO.insertFeedback(feedback);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public List<Feedback> getFeedbackList() throws AccountServiceException {
+        try {
+            List<Feedback> list=feedbackDAO.getFeedbackList();
+            return list;
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
     }
 
 }

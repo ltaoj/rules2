@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -73,6 +74,7 @@ public class NoticeActionBean extends AbstractActionBean {
     @RequestMapping(value = "/publishNotice", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> publishNotice(@RequestBody Notice notice) {
         try {
+            notice.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             noticeService.publishNotice(notice);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (NoticeServiceException e) {
@@ -80,4 +82,23 @@ public class NoticeActionBean extends AbstractActionBean {
         }
     }
 
+    @RequestMapping(value = "/deleteNotice", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> deleteNotice(@RequestBody Notice notice) {
+        try {
+            noticeService.deleteNotice(notice.getNoticeId());
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (NoticeServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
+    @RequestMapping(value = "/updateNotice", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> updateNotice(@RequestBody Notice notice) {
+        try {
+            noticeService.updateNotice(notice);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (NoticeServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
 }

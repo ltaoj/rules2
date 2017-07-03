@@ -33,6 +33,7 @@ public class NoticeDAOimpl implements NoticeDAO{
         try {
             Session session = HibernateUtil.getSession();
             Notice notice = (Notice) session.get(Notice.class, new Integer(noticeId));
+            session.close();
             return notice;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -70,6 +71,7 @@ public class NoticeDAOimpl implements NoticeDAO{
             Notice notice=(Notice)session.get(Notice.class,new Integer(noticeId));
             session.delete(notice);
             transaction.commit();
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
@@ -81,6 +83,7 @@ public class NoticeDAOimpl implements NoticeDAO{
             Transaction transaction = session.beginTransaction();
             session.update(notice);
             transaction.commit();
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }

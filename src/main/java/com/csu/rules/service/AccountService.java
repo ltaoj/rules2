@@ -1,7 +1,9 @@
 package com.csu.rules.service;
 
 import com.csu.rules.domain.*;
+import com.csu.rules.domain.Feedback;
 import com.csu.rules.exception.AccountServiceException;
+import com.csu.rules.persistence.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -69,4 +71,25 @@ public interface AccountService {
      * @throws AccountServiceException
      */
     void exchange(Integral integral) throws AccountServiceException;
+
+    /**
+     * 添加管理员
+     * @param admin
+     * @throws AccountServiceException
+     */
+    void insertAdmin(Admin admin) throws AccountServiceException;
+
+    /**
+     * 添加反馈信息
+     * @param feedback
+     * @throws AccountServiceException
+     */
+    void insertFeedback(Feedback feedback) throws AccountServiceException;
+
+    /**
+     * 返回所有反馈信息
+     * @return
+     * @throws AccountServiceException
+     */
+    List<Feedback> getFeedbackList() throws AccountServiceException;
 }
