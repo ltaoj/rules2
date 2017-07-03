@@ -22,10 +22,10 @@ public class Account {
     private String clazz;
     @Column(name = "grade")
     private int grade;
+    @Column(name = "major")
+    private String major;
     @Column(name = "college")
     private String college;
-    @Column(name = "school")
-    private String school;
 
     public Account() {}
 
@@ -38,14 +38,14 @@ public class Account {
         this.college = college;
     }
 
-    public Account(long studentId, String username, byte sex, String clazz, int grade, String college, String school) {
+    public Account(long studentId, String username, byte sex, String clazz, int grade, String major, String college) {
         this.studentId = studentId;
         this.username = username;
         this.sex = sex;
         this.clazz = clazz;
         this.grade = grade;
+        this.major = major;
         this.college = college;
-        this.school = school;
     }
 
     public long getStudentId() {
@@ -96,12 +96,12 @@ public class Account {
         this.college = college;
     }
 
-    public String getSchool() {
-        return school;
+    public String getMajor() {
+        return major;
     }
 
-    public void setSchool(String school) {
-        this.school = school;
+    public void setMajor(String major) {
+        this.major = major;
     }
 
     public String toString() {
@@ -111,6 +111,6 @@ public class Account {
                 "clazz:" + this.getClazz() + "\n" +
                 "grade:" + this.getGrade() + "\n" +
                 "college:" + this.getCollege() + "\n" +
-                "school:" + this.getSchool();
+                "school:" + this.getMajor();
     }
 }
