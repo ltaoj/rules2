@@ -309,10 +309,10 @@ public class TestActionBean extends AbstractActionBean {
     }
 
     //管理员查看系统提供的随机竞赛试题
-    @RequestMapping(value = "/getContestRandomTitle", method = RequestMethod.GET)
-    public ResponseEntity<List<Title>> getContestRandomTitle() {
+    @RequestMapping(value = "/getContestRandomTitle", method = RequestMethod.POST,consumes = "application/json")
+    public ResponseEntity<List<Title>> getContestRandomTitle(@RequestBody Integer count) {
         try {
-            List<Title> titleList=titleService.getTitleListByRandom(10);
+            List<Title> titleList=titleService.getTitleListByRandom(count);
             return new ResponseEntity<List<Title>>(titleList, HttpStatus.OK);
         } catch (TitleServiceException e) {
             throw new CatchServiceException(e);
@@ -343,6 +343,21 @@ public class TestActionBean extends AbstractActionBean {
         } catch (TestServiceException e) {
             throw new CatchServiceException(e);
         }catch (TitleServiceException e){
+            throw new CatchServiceException(e);
+        }
+    }
+
+    //管理员查看竞赛报名人数
+    @RequestMapping(value = "/getContestregistionCount", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getContestregistionCount() {
+        try {
+            int count=0;
+            List<Testinfo> contestInfoList=testService.getContestInfoList();
+            if(contestInfoList.size()!=0) {
+                count = testService.getContestRegistionList(contestInfoList.get(0)).size();
+            }
+            return new ResponseEntity<Integer>(count, HttpStatus.OK);
+        } catch (TestServiceException e) {
             throw new CatchServiceException(e);
         }
     }
