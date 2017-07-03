@@ -125,4 +125,20 @@ public interface TitleService {
      */
     List<Title> getTitleListByFormatString(String formatString) throws TitleServiceException;
 
+    /**
+     * @param title
+     * @throws TitleServiceException
+     * 添加题目
+     * 62.title字段不合法
+     * 50.数据持久化异常
+     */
+    void insertTitle(Title title) throws TitleServiceException;
+
+    /**
+     * @param titleList
+     * @throws TitleServiceException
+     * 63.titleList字段异常
+     * 50.数据持久化异常
+     */
+    void insertTitleList(List<Title> titleList) throws TitleServiceException;
 }

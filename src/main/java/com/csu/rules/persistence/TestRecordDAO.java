@@ -57,4 +57,15 @@ public interface TestRecordDAO {
      * @throws PersistenceException
      */
     void deleteTestRecord(Testrecord testrecord) throws PersistenceException;
+
+    /**
+     * 按字段条件组合查询
+     * @param clazz
+     * @param grade
+     * @param major
+     * @param college
+     * @return
+     * @throws PersistenceException
+     */
+    List<Testrecord> getTestrecordByCondition(String clazz, int grade, String major, String college, int level) throws PersistenceException;
 }

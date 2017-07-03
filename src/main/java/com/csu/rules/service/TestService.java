@@ -225,4 +225,16 @@ public interface TestService {
      * @throws TestServiceException
      */
     void deleteContesttitle (Contesttitle contesttitle) throws TestServiceException;
+
+    /**
+     * 根据条件组合查询考试记录
+     * @param clazz
+     * @param grade
+     * @param major
+     * @param college
+     * @param level
+     * @return
+     * @throws TestServiceException
+     */
+    List<Testrecord> getTestRecordByCondition(String clazz, int grade, String major, String college, int level) throws TestServiceException;
 }

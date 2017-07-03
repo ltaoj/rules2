@@ -82,6 +82,26 @@ public class TitleActionBean extends AbstractActionBean{
         }
     }
 
+    @RequestMapping(value = "addTitle", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> addTitle(@RequestBody Title title) {
+        try {
+            titleService.insertTitle(title);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (TitleServiceException te) {
+            throw new CatchServiceException(te);
+        }
+    }
+
+    @RequestMapping(value = "addTitles", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> addTitles(@RequestBody List<Title> titleList) {
+        try {
+            titleService.insertTitleList(titleList);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        }catch (TitleServiceException te) {
+            throw new CatchServiceException(te);
+        }
+    }
+
     private Set<Integer> idListFromWrongtitles(List<Wrongtitle> wrongList) {
         Set<Integer> idList = new HashSet<Integer>();
         for (int i = 0;i < wrongList.size();i++) {

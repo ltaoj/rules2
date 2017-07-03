@@ -248,4 +248,45 @@ public class TitleServiceimpl implements TitleService {
             throw te;
         }
     }
+
+    public void insertTitle(Title title) throws TitleServiceException {
+        try {
+            TitleServiceException te = new TitleServiceException();
+            if (title == null || title.getOptions() == null) {
+                te.setErrorCode(62);
+                throw te;
+            }
+            titleDAO.addTitle(title);
+        } catch (PersistenceException pe) {
+            TitleServiceException te = new TitleServiceException();
+            te.setErrorCode(50);
+            throw te;
+        }
+    }
+
+    public void insertTitleList(List<Title> titleList) throws TitleServiceException {
+        try {
+            TitleServiceException te = new TitleServiceException();
+            if (titleList == null || titleList.size() == 0) {
+                te.setErrorCode(63);
+                throw te;
+            }
+            int partSize = 10;
+            List<Title> partList = new ArrayList<Title>(partSize);
+            for (int i = 0;i < titleList.size();i++) {
+                partList.add(titleList.get(i));
+                if ((i + 1) % partSize == 0) {
+                    titleDAO.addTitleList(partList);
+                    partList.clear();
+                }
+            }
+            if (partList.size() > 0) {
+                titleDAO.addTitleList(partList);
+            }
+        } catch (PersistenceException pe) {
+            TitleServiceException te = new TitleServiceException();
+            te.setErrorCode(63);
+            throw te;
+        }
+    }
 }
