@@ -125,7 +125,7 @@ CREATE TABLE `notice` (
   `notice_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '通知编号',
   `title` varchar(50) NOT NULL COMMENT '通知标题',
   `content` text NOT NULL COMMENT '通知文本内容',
-  `picture` varchar(50) DEFAULT NULL COMMENT '图片描述url',
+  `picture` varchar(150) DEFAULT NULL COMMENT '图片描述url',
   `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
   `source` int(11) DEFAULT NULL COMMENT '作者，来源',
   `type` int(11) NOT NULL COMMENT '通知类型',
@@ -270,8 +270,8 @@ CREATE TABLE `userinfo` (
   `sex` tinyint(1) NOT NULL COMMENT '性别',
   `class` varchar(20) NOT NULL COMMENT '专业班级，如工程试验班1503',
   `grade` int(11) NOT NULL COMMENT '年级，如2015',
+  `major` varchar(20) NOT NULL COMMENT '专业，如软件工程',
   `college` varchar(20) NOT NULL COMMENT '学院名称，如软件学院',
-  `school` varchar(20) NOT NULL DEFAULT '中南大学' COMMENT '学校名称，如中南大学',
   PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
