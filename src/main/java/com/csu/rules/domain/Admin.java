@@ -17,6 +17,8 @@ public class Admin {
     private String password;
     @Column(name = "username")
     private String username;
+    @Column(name = "role")
+    private int role;
 
     public int getAdminId() {
         return adminId;
@@ -50,6 +52,14 @@ public class Admin {
         this.username = username;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,7 +71,7 @@ public class Admin {
         if (account != null ? !account.equals(admin.account) : admin.account != null) return false;
         if (password != null ? !password.equals(admin.password) : admin.password != null) return false;
         if (username != null ? !username.equals(admin.username) : admin.username != null) return false;
-
+        if (role != admin.role) return false;
         return true;
     }
 
@@ -71,6 +81,7 @@ public class Admin {
         result = 31 * result + (account != null ? account.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + role;
         return result;
     }
 }
