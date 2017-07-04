@@ -62,12 +62,14 @@ function setContestTime() {
     var time;
     getContestRecord(getStudentId());
     if(getContestEnd()==null){
-        time=getDuration()*60;
+        var startTime = new Date((new Date(getContestStart())).format("yyyy/MM/dd hh:mm:ss"));
+        var endTime = new Date((new Date(getContestEndTime())).format("yyyy/MM/dd hh:mm:ss"));
+        time = (endTime.getTime() - startTime.getTime()) / 1000;
     }else {
         var startTime = new Date((new Date(getContestStart())).format("yyyy/MM/dd hh:mm:ss"));
         var endTime = new Date((new Date(getContestEnd())).format("yyyy/MM/dd hh:mm:ss"));
         var duration = (endTime.getTime() - startTime.getTime()) / 1000;
-        time = getDuration() * 60 - duration;
+        time = getContestDuration() * 60 - duration;
     }
     function getRTime() {
         time--;

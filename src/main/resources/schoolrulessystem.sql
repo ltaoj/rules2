@@ -24,7 +24,7 @@ CREATE TABLE `admin` (
   `account` varchar(20) NOT NULL COMMENT '账号',
   `password` varchar(20) NOT NULL COMMENT '密码',
   `username` varchar(20) NOT NULL COMMENT '姓名',
-  `role` int(11) NOT NULL DEFAULT 0 COMMENT '管理员角色'，
+  `role` int(11) NOT NULL DEFAULT 0 COMMENT '管理员角色',
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `uc_account` (`account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -34,13 +34,28 @@ CREATE TABLE `admin` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `clazz`
+-- ----------------------------
+DROP TABLE IF EXISTS `clazz`;
+CREATE TABLE `clazz` (
+  `clazz_id` int(11) NOT NULL,
+  `major_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`clazz_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of clazz
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `clockin`
 -- ----------------------------
 DROP TABLE IF EXISTS `clockin`;
 CREATE TABLE `clockin` (
   `clock_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '打卡编号',
   `student_id` bigint(20) DEFAULT NULL COMMENT '学号',
-  `clock_day` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '打卡时间日期',
+  `clock_day` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '打卡时间日期',
   `duration` int(11) DEFAULT '0' COMMENT '学习时长',
   `title_num` int(11) DEFAULT '0' COMMENT '题目数',
   `comment` varchar(255) DEFAULT NULL COMMENT '评论内容',
@@ -54,6 +69,20 @@ CREATE TABLE `clockin` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `college`
+-- ----------------------------
+DROP TABLE IF EXISTS `college`;
+CREATE TABLE `college` (
+  `college_id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`college_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of college
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `contestregistion`
 -- ----------------------------
 DROP TABLE IF EXISTS `contestregistion`;
@@ -64,7 +93,7 @@ CREATE TABLE `contestregistion` (
   PRIMARY KEY (`student_id`,`test_id`),
   KEY `conreg_fk_2` (`test_id`),
   CONSTRAINT `conreg_fk_1` FOREIGN KEY (`student_id`) REFERENCES `userinfo` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `conreg_fk_2` FOREIGN KEY (`test_id`) REFERENCES `testinfo` (`test_id`) ON UPDATE CASCADE
+  CONSTRAINT `conreg_fk_2` FOREIGN KEY (`test_id`) REFERENCES `testinfo` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -91,11 +120,11 @@ CREATE TABLE `contesttitle` (
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
-  `feedback_id` int(11) NOT NULL COMMENT '反馈编号',
+  `feedback_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '反馈编号',
   `content` varchar(255) DEFAULT NULL COMMENT '反馈内容',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `name` varchar(255) DEFAULT NULL COMMENT '反馈人姓名',
-  `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
+  `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '发布时间',
   PRIMARY KEY (`feedback_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -119,6 +148,21 @@ CREATE TABLE `integral` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `major`
+-- ----------------------------
+DROP TABLE IF EXISTS `major`;
+CREATE TABLE `major` (
+  `major_id` int(11) NOT NULL,
+  `college_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`major_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of major
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `notice`
 -- ----------------------------
 DROP TABLE IF EXISTS `notice`;
@@ -127,7 +171,7 @@ CREATE TABLE `notice` (
   `title` varchar(50) NOT NULL COMMENT '通知标题',
   `content` text NOT NULL COMMENT '通知文本内容',
   `picture` varchar(150) DEFAULT NULL COMMENT '图片描述url',
-  `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
+  `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '发布时间',
   `source` int(11) DEFAULT NULL COMMENT '作者，来源',
   `type` int(11) NOT NULL COMMENT '通知类型',
   PRIMARY KEY (`notice_id`),
@@ -179,8 +223,8 @@ CREATE TABLE `testinfo` (
   `name` varchar(50) NOT NULL COMMENT '考试名称',
   `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '考试类型',
   `grade` int(11) NOT NULL COMMENT '年级，如2015',
-  `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '考试开始时间',
-  `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '考试截止时间',
+  `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '考试开始时间',
+  `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '考试截止时间',
   `duration` int(11) NOT NULL COMMENT '考试时长',
   PRIMARY KEY (`test_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -197,8 +241,8 @@ CREATE TABLE `testrecord` (
   `record_id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` bigint(20) NOT NULL,
   `test_id` int(11) NOT NULL,
-  `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `submit_time` timestamp NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `submit_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `score` int(11) DEFAULT NULL,
   PRIMARY KEY (`record_id`),
   KEY `testrecord_fk_1` (`student_id`),

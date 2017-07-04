@@ -210,12 +210,15 @@ public class TestActionBean extends AbstractActionBean {
         }
     }
 
-    //点击X 删除考试成绩信息
+    //点击X 删除考试成绩信息 if判断是为了防止删除竞赛信息
     @RequestMapping(value = "/deleteTestRecord", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> deleteTestRecord(@RequestBody Testrecord testrecord) {
         try {
             testService.deleteTestRecord(testrecord);
-            testService.deleteTestTitle(testrecord);
+            Testtitle testtitle=testService.getTesttitleByTestrecord(testrecord);
+            if(testtitle!=null) {
+                testService.deleteTestTitle(testrecord);
+            }
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (TestServiceException e) {
             throw new CatchServiceException(e);
@@ -255,10 +258,10 @@ public class TestActionBean extends AbstractActionBean {
 
     //删除考试信息
     @RequestMapping(value = "/deleteTest", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Result> deleteTest(@RequestBody Integer testId) {
+    public ResponseEntity<Result> deleteTest(@RequestBody Testinfo testinfo) {
         try {
-            testService.deleteTestInfo(testId);
-            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, testId), HttpStatus.OK);
+            testService.deleteTestInfo(testinfo.getTestId());
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (TestServiceException e) {
             throw new CatchServiceException(e);
         }

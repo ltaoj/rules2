@@ -30,6 +30,7 @@ Date.prototype.format = function(format) {
 };
 var contestId='';
 var contestDuration;
+var contestEndTime;
 $(function () {
     $.ajax({
         url: 'test/getContestInfo',
@@ -47,6 +48,7 @@ $(function () {
                 $('#contest_name').append("考试名称:" + contestInfo.name);
                 contestId = contestInfo.testId;
                 contestDuration=contestInfo.duration;
+                contestEndTime=contestInfo.endTime;
             }else{
                 $('#contestInfo').html("暂无竞赛");
                 $('#regist').hide();
@@ -72,4 +74,7 @@ function getContestId() {
 }
 function getContestDuration() {
     return contestDuration;
+}
+function getContestEndTime() {
+    return contestEndTime;
 }
