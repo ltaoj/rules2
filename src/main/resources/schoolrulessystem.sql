@@ -34,6 +34,21 @@ CREATE TABLE `admin` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `clazz`
+-- ----------------------------
+DROP TABLE IF EXISTS `clazz`;
+CREATE TABLE `clazz` (
+  `clazz_id` int(11) NOT NULL,
+  `major_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`clazz_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of clazz
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `clockin`
 -- ----------------------------
 DROP TABLE IF EXISTS `clockin`;
@@ -51,6 +66,20 @@ CREATE TABLE `clockin` (
 
 -- ----------------------------
 -- Records of clockin
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `college`
+-- ----------------------------
+DROP TABLE IF EXISTS `college`;
+CREATE TABLE `college` (
+  `college_id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`college_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of college
 -- ----------------------------
 
 -- ----------------------------
@@ -116,6 +145,21 @@ CREATE TABLE `integral` (
 
 -- ----------------------------
 -- Records of integral
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `major`
+-- ----------------------------
+DROP TABLE IF EXISTS `major`;
+CREATE TABLE `major` (
+  `major_id` int(11) NOT NULL,
+  `college_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`major_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of major
 -- ----------------------------
 
 -- ----------------------------

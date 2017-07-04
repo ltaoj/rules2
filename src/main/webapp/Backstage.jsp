@@ -329,15 +329,19 @@
                                 <br>
                                 <div style="width:50%;font-size: 15px;">
                                     <span>学院:</span>
-                                    <select>
+                                    <select id="college">
                                         <option>软件学院</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select>
+                                    <select id="major">
                                         <option>软件工程</option>
                                     </select>
+                                    <span>年级:</span>
+                                    <select id="grade">
+                                        <option>2015</option>
+                                    </select>
                                     <span>班级:</span>
-                                    <select>
+                                    <select id="clazz">
                                         <option>工程实验班1503</option>
                                     </select>
                                 </div>

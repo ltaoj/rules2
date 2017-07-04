@@ -40,5 +40,8 @@
         <mapping class="com.csu.rules.domain.Contesttitle"/>
         <mapping class="com.csu.rules.domain.Testtitle"/>
         <mapping class="com.csu.rules.domain.Feedback"/>
+        <mapping class="com.csu.rules.domain.College"/>
+        <mapping class="com.csu.rules.domain.Major"/>
+        <mapping class="com.csu.rules.domain.Clazz"/>
     </session-factory>
 </hibernate-configuration>
