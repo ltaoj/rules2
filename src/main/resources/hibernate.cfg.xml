@@ -24,6 +24,7 @@
         <!--指定自动生成数据表的策略-->
         <!--<property name="hbm2ddl.auto">update</property>-->
 
+
         <mapping class="com.csu.rules.domain.Account"/>
         <mapping class="com.csu.rules.domain.Signon"/>
         <mapping class="com.csu.rules.domain.Integral"/>
@@ -40,5 +41,8 @@
         <mapping class="com.csu.rules.domain.Contesttitle"/>
         <mapping class="com.csu.rules.domain.Testtitle"/>
         <mapping class="com.csu.rules.domain.Feedback"/>
+        <mapping class="com.csu.rules.domain.College"/>
+        <mapping class="com.csu.rules.domain.Major"/>
+        <mapping class="com.csu.rules.domain.Clazz"/>
     </session-factory>
 </hibernate-configuration>

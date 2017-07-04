@@ -2,26 +2,27 @@
  * Created by GF on 2017/7/3.
  */
 function feedbackClick() {
-    var name=$('#name').val();
-    var email=$('#email').val();
-    var content=$('#message').val();
-    if(name==""||email==""||content==""){
-       $('#submitMessage').html("姓名、邮箱或内容不能为空");
-    }else{
-        feedback(name,email,content);
+    var name = $('#name').val();
+    var email = $('#email').val();
+    var content = $('#message').val();
+    if (name == "" || email == "" || content == "") {
+        $('#submitMessage').html("姓名、邮箱或内容不能为空");
+    } else {
+        $('.message').attr("class","submitedmessage");
+        feedback(name, email, content);
     }
 }
-function feedback(name,email,content) {
-    var feedbackString = {name: name, email: email, content:content};
+function feedback(name, email, content) {
+    var feedbackString = {name: name, email: email, content: content};
     var feedback = $.toJSON(feedbackString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'account/insertFeedback',
         dataType: 'json',
         method: 'post',
-        data:feedback,
+        data: feedback,
         success: function (data) {
-            if(data.result == "success"){
+            if (data.result == "success") {
                 $('#feedback').hide();
                 $('.message').show();
                 $('#submitMessage').html("");

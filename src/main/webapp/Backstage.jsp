@@ -38,6 +38,11 @@
     <script src="plugins/smoothScroll/jquery.smooth-scroll.js"></script>
     <script src="js/smoothScroll/smoothScroll.js"></script>
     <!-- 平滑滚动结束 -->
+    <!--Excel导入导出-->
+    <script src="plugins/js-xlsx/shim.js"></script>
+    <script src="plugins/js-xlsx/xlsx.full.min.js"></script>
+    <script src="js/backstage/readExcel.js"></script>
+    <!--Excel导入导出结束-->
     <!-- 后台管理js -->
     <script src="js/backstage/initBackstage.js"></script>
     <script src="js/backstage/contestAndTest.js"></script>
@@ -63,7 +68,6 @@
                         tab_t_li[this.index].className = 'to_red';
                         initBackstage(tab_t_li[this.index].id);
                         $('#main_title').html(tab_t_li[this.index].innerHTML);
-
                     }
                 }
             }
@@ -208,9 +212,12 @@
                         <div class="main_bd">
                             <div class="box">
                                 <h3>添加学生信息</h3>
-                                <input type="file" name="file1" size="30"/>
+                                <input type="file" name="file1" size="30" onchange="setObj(this)"/>
                                 <br>
-                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">上传</button>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                        onclick="importf(1)">上传
+                                </button>
+                                <div id="demo"></div>
                             </div>
                         </div>
                     </li>
@@ -218,16 +225,15 @@
                         <div class="main_bd">
                             <div class="box">
                                 <h3>导入试题</h3>
-                                <input type="file" name="file1" size="30"/>
+                                <input type="file" name="file1" size="30" onchange="setObj(this)"/>
                                 <br>
-                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">上传</button>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="importf(0)">上传</button>
                             </div>
                         </div>
                     </li>
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">
-
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div style="width:80%">
@@ -433,15 +439,19 @@
                                 <br>
                                 <div style="width:50%;font-size: 15px;">
                                     <span>学院:</span>
-                                    <select>
+                                    <select id="college">
                                         <option>软件学院</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select>
+                                    <select id="major">
                                         <option>软件工程</option>
                                     </select>
+                                    <span>年级:</span>
+                                    <select id="grade">
+                                        <option>2015</option>
+                                    </select>
                                     <span>班级:</span>
-                                    <select>
+                                    <select id="clazz">
                                         <option>工程实验班1503</option>
                                     </select>
                                 </div>
