@@ -44,3 +44,21 @@ INSERT INTO choice(title_id, content, checked) VALUES(2, '4', 1);
 
 ### wrongtitle ###
 INSERT INTO wrongtitle VALUES(1, 3903150326);
+
+### college ###
+INSERT INTO college VALUES(1, '软件学院');
+INSERT INTO college VALUES(2, '信息与工程学院');
+
+### major ###
+INSERT INTO major VALUES(100, 1, '软件工程');
+INSERT INTO major VALUES(101, 2,'电气工程');
+INSERT INTO major VALUES(102, 2,'计算机科学与技术');
+INSERT INTO major VALUES(103, 2,'网络工程');
+
+### clazz ###
+INSERT INTO clazz VALUES(200, 100, '工程试验班1501');
+INSERT INTO clazz VALUES(201, 100, '工程试验班1502');
+INSERT INTO clazz VALUES(202, 100, '工程试验班1503');
+INSERT INTO clazz VALUES(203, 101, '电气1501');
+INSERT INTO clazz VALUES(204, 102, '计科1501');
+INSERT INTO clazz VALUES(205, 103, '网络1501');
