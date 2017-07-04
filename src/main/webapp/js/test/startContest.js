@@ -5,7 +5,7 @@ var contestTitleList;
 function startContest() {
     $('#testTitle').html("");
     var studentId = getStudentId();
-    var tsetId=getContestId();
+    var testId=getContestId();
     var testRecordString = {studentId: studentId, testId: testId};
     var testRecord = $.toJSON(testRecordString);
     $.ajaxSetup({contentType: 'application/json'});
@@ -13,6 +13,7 @@ function startContest() {
         url: 'test/startContest',
         dataType: 'json',
         method: 'post',
+        async: false,
         data: testRecord,
         success: function (data) {
             contestTitleList=data;
@@ -29,6 +30,7 @@ function startContest() {
                 }
                 $('#testTitle').append("</table>");
             }
+            getContestRecord(getStudentId());
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
@@ -47,10 +49,11 @@ function startContest() {
 }
 function enterContest() {
     if(getScore()==null) {
+        startContest();
         setContestTime();
         $('#startContestModal').attr("data-toggle", 'modal');
         $('#startContestModal').attr("data-target", '#testModal');
-        startContest();
+
     }else{
         $('#startContestModal').attr("data-toggle", '');
         $('#startContestModal').attr("data-target", '');
@@ -60,11 +63,11 @@ function enterContest() {
 var int1;
 function setContestTime() {
     var time;
-    getContestRecord(getStudentId());
     if(getContestEnd()==null){
         var startTime = new Date((new Date(getContestStart())).format("yyyy/MM/dd hh:mm:ss"));
         var endTime = new Date((new Date(getContestEndTime())).format("yyyy/MM/dd hh:mm:ss"));
         time = (endTime.getTime() - startTime.getTime()) / 1000;
+        alert(getContestStart());
     }else {
         var startTime = new Date((new Date(getContestStart())).format("yyyy/MM/dd hh:mm:ss"));
         var endTime = new Date((new Date(getContestEnd())).format("yyyy/MM/dd hh:mm:ss"));

@@ -24,6 +24,7 @@ $(function () {
         });
     });
 
+
 });
 function exitModal() {
     $('#exitModal').on('show.bs.modal', function () {
@@ -35,5 +36,6 @@ function exitModal() {
         });
     });
 }
+
 
 <!-- 模态框居中结束 -->

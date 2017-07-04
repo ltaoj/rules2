@@ -271,7 +271,10 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/updateTest", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> updateTest(@RequestBody Testinfo testinfo) {
         try {
-            testService.updateTestInfo(testinfo);
+            Testinfo testinfo1=testService.getTestInfo(testinfo.getTestId());
+            if(testinfo1!=null) {
+                testService.updateTestInfo(testinfo);
+            }
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, testinfo), HttpStatus.OK);
         } catch (TestServiceException e) {
             throw new CatchServiceException(e);
@@ -302,24 +305,32 @@ public class TestActionBean extends AbstractActionBean {
 
 
     //管理员发布竞赛题目(自己挑选试题)
-    @RequestMapping(value = "/insertContestTitle", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Result> insertContestTitle(@RequestBody Contesttitle contesttitle) {
-        try {
-            testService.insertContesttitle(contesttitle);
-            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
-        } catch (TestServiceException e) {
-            throw new CatchServiceException(e);
-        }
-    }
+//    @RequestMapping(value = "/insertContestTitle", method = RequestMethod.POST, consumes = "application/json")
+//    public ResponseEntity<Result> insertContestTitle(@RequestBody Contesttitle contesttitle) {
+//        try {
+//            testService.insertContesttitle(contesttitle);
+//            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+//        } catch (TestServiceException e) {
+//            throw new CatchServiceException(e);
+//        }
+//    }
 
     //管理员查看系统提供的随机竞赛试题
     @RequestMapping(value = "/getContestRandomTitle", method = RequestMethod.POST,consumes = "application/json")
     public ResponseEntity<List<Title>> getContestRandomTitle(@RequestBody Integer count) {
         try {
-            List<Title> titleList=titleService.getTitleListByRandom(count);
-            return new ResponseEntity<List<Title>>(titleList, HttpStatus.OK);
+            Testinfo contestInfo=testService.getContestInfoList().get(0);
+            String formatRandomIds = titleService.getRandomIntegerList(count);
+            Contesttitle contesttitle=new Contesttitle();
+            contesttitle.setTestId(contestInfo.getTestId());
+            contesttitle.setTitleIds(formatRandomIds);
+            testService.insertContesttitle(contesttitle);
+            List<Title> contestTitleList = titleService.getTitleListByFormatString(formatRandomIds);
+            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
         } catch (TitleServiceException e) {
             throw new CatchServiceException(e);
+        }catch (TestServiceException te){
+            throw new CatchServiceException(te);
         }
     }
 
@@ -338,15 +349,16 @@ public class TestActionBean extends AbstractActionBean {
     }
 
     //管理员查看竞赛试题
-    @RequestMapping(value = "/getContestListTitle", method = RequestMethod.POST,consumes = "application/json")
-    public ResponseEntity<List<Title>> getContestListTitle(@RequestBody Testinfo testinfo) {
+    @RequestMapping(value = "/getContesttitle", method = RequestMethod.POST,consumes = "application/json")
+    public ResponseEntity<Result> getContesttitle(@RequestBody Testinfo testinfo) {
         try {
             Contesttitle contesttitle=testService.getContesttitle(testinfo);
-            List<Title> contestTitleList = titleService.getTitleListByFormatString(contesttitle.getTitleIds());
-            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
+            if(contesttitle==null){
+                return new ResponseEntity<Result>(new Result(Result.RESULT_ERROR), HttpStatus.OK);
+            }else {
+                return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+            }
         } catch (TestServiceException e) {
-            throw new CatchServiceException(e);
-        }catch (TitleServiceException e){
             throw new CatchServiceException(e);
         }
     }

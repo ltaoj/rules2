@@ -13,6 +13,7 @@ function startTest() {
         url: 'test/startTest',
         dataType: 'json',
         method: 'post',
+        async: false,
         data: testRecord,
         success: function (data) {
             testTitleList=data;
@@ -47,10 +48,10 @@ function startTest() {
 }
 function enterTest() {
     if (getStudentId() != null) {
+        startTest();
         setTime();
         $('#startTestModal').attr("data-toggle", 'modal');
         $('#startTestModal').attr("data-target", '#testModal');
-        startTest();
     } else {
         $('#startTestModal').attr("data-toggle", '');
         $('#startTestModal').attr("data-target", '');

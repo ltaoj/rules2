@@ -12,6 +12,7 @@ function getTestRecord(studentId) {
         url: 'test/testRecordInfo',
         dataType: 'json',
         method: 'post',
+        async: false,
         data:testRecord,
         success: function (data) {
             if(data.score==null) {

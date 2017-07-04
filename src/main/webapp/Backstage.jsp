@@ -70,6 +70,91 @@
         }
     </script>
 </head>
+<!-- 竞赛试题模态框 -->
+<div class="modal fade" id="contestTitleModal" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal"
+                        aria-hidden="true" onclick="exitRandomGenerate()">X
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; height: 800px;">
+                <form class="bs-example bs-example-form" method="post">
+                    <div id="contest_title"></div>
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-primary"
+                                style="width: 100px; text-align: center" onclick="" data-dismiss="modal"
+                                aria-hidden="true">确认
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- 竞赛操作按钮模态框 -->
+<div class="modal fade" id="contestOperateModal" data-backdrop="static">
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="contest_operate_header">
+
+                </h4>
+            </div>
+            <div class="modal-body" id="contest_operate_message">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal" onclick="operateContest()" aria-hidden="true">确定
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+                    取消
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- 考试操作按钮模态框 -->
+<div class="modal fade" id="testOperateModal" data-backdrop="static">
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="test_operate_header">
+
+                </h4>
+            </div>
+            <div class="modal-body" id="test_operate_message">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal" onclick="operateTest()" aria-hidden="true">确定
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+                    取消
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <body>
 <!-- 顶栏 -->
 <nav
@@ -148,10 +233,10 @@
                                         <div style="width:80%">
                                             <h3>竞赛信息</h3>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary">查询</a>
-                                                <a class="btn btn-default">修改</a>
-                                                <a class="btn btn-default" id="isClick">删除</a>
-                                                <a class="btn btn-default">添加</a>
+                                                <a class="btn btn-primary" >查询</a>
+                                                <a class="btn btn-default" >修改</a>
+                                                <a class="btn btn-default" >删除</a>
+                                                <a class="btn btn-default" id="contest_isClick">添加</a>
                                             </div>
                                             <br>
                                             <br>
@@ -159,6 +244,13 @@
 								        <span class="input-group-addon"><i class="fa fa-edit"></i>
 								        </span> <input type="text" class="form-control" placeholder="竞赛名称"
                                                        id="contest_info_name">
+                                            </div>
+                                            <br>
+                                            <label>考试年级：</label>
+                                            <br>
+                                            <div class="input-group">
+                                            <input type="text" class="form-control" id="contest_grade" value="">
+                                            <span class="input-group-addon">级</span>
                                             </div>
                                             <br>
                                             <label>开始时间：</label>
@@ -175,15 +267,15 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="contest_start_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control" id="contest_start_minute">
+                                                <input type="text" class="form-control" id="contest_start_minute" value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="contest_start_seconds">
+                                                <input type="text" class="form-control" id="contest_start_seconds" value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
                                             <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-tripadvisor"></i>
-								</span> <input type="text" class="form-control" placeholder="竞赛时长"
+								</span> <input type="text" class="form-control" placeholder="竞赛时长(分钟)"
                                                id="contest_info_time">
                                             </div>
                                             <br>
@@ -201,13 +293,15 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="contest_end_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control" id="contest_end_minute">
+                                                <input type="text" class="form-control" id="contest_end_minute" value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="contest_end_seconds">
+                                                <input type="text" class="form-control" id="contest_end_seconds" value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
-                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="operate()">操作
+                                            <span id="operate_all_message"></span>
+                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" data-toggle="" data-target=""
+                                                    id="contest_operateBT" onclick="operateContestMessageBox()">操作
                                             </button>
                                         </div>
                                     </div>
@@ -216,7 +310,7 @@
                                             <h3>考试信息</h3>
                                             <div class="btn-group">
                                                 <a class="btn btn-primary">查询</a>
-                                                <a class="btn btn-default">修改</a>
+                                                <a class="btn btn-default"  id="test_isClick">修改</a>
                                                 <a class="btn btn-default">删除</a>
                                                 <a class="btn btn-default">添加</a>
                                             </div>
@@ -226,6 +320,13 @@
 								        <span class="input-group-addon"><i class="fa fa-edit"></i>
 								        </span> <input type="text" class="form-control" placeholder="考试名称"
                                                        id="test_info_name">
+                                            </div>
+                                            <br>
+                                            <label>考试年级：</label>
+                                            <br>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="test_grade" value="">
+                                                <span class="input-group-addon">级</span>
                                             </div>
                                             <br>
                                             <label>开始时间：</label>
@@ -243,15 +344,15 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="test_start_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control" id="test_start_minute">
+                                                <input type="text" class="form-control" id="test_start_minute" value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="test_start_seconds">
+                                                <input type="text" class="form-control" id="test_start_seconds" value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
                                             <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-tripadvisor"></i>
-								</span> <input type="text" class="form-control" placeholder="考试时长"
+								</span> <input type="text" class="form-control" placeholder="考试时长(分钟)"
                                                id="test_info_time">
                                             </div>
                                             <br>
@@ -269,13 +370,15 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="test_end_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control" id="test_end_minute">
+                                                <input type="text" class="form-control" id="test_end_minute" value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="test_end_seconds">
+                                                <input type="text" class="form-control" id="test_end_seconds" value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
-                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="operate()">操作
+                                            <span id="test_operate_all_message"></span>
+                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" data-toggle="" data-target=""
+                                                    id="test_operateBT" onclick="operateTestMessageBox()">操作
                                             </button>
                                         </div>
                                     </div>
@@ -285,9 +388,10 @@
                                 <h3>指定竞赛题目</h3>
                                 <br>
                                 <span>题库中含有：</span><label>1000</label><span>道题</span>&nbsp;<button
-                                    class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">随机生成
+                                    class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" id="random_generate_title" data-toggle="" data-target=""
+                                    onclick="getContesttitle()">随机生成
                             </button>
-                                <select>
+                                <select id="contest_title_num">
                                     <option value="0">10</option>
                                     <option value="1">20</option>
                                     <option value="2" selected>50</option>

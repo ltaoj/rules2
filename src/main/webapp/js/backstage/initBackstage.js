@@ -4,8 +4,8 @@
 function initBackstage(name) {
     switch (name) {
         case "2":
-            getContestInfo();
-            getTestInfo();
+            getBackContestInfo();
+            getBackTestInfo();
             getContestregistionNum();
             break;
         default:
@@ -14,7 +14,7 @@ function initBackstage(name) {
 }
 //查询竞赛信息
 var contest_Id;
-function getContestInfo() {
+function getBackContestInfo() {
     $.ajax({
         url: 'test/getContestInfo',
         dataType: 'text',
@@ -24,34 +24,27 @@ function getContestInfo() {
             if (contestInfo.name != null) {
                 contest_Id=contestInfo.testId;
                 $('#contest_info_name').val(contestInfo.name);
+                $('#contest_grade').val(contestInfo.grade);
                 $('#contest_start_year').val(new Date(contestInfo.startTime).format("yyyy"));
                 $('#contest_start_month').val(new Date(contestInfo.startTime).format("MM"));
                 $('#contest_start_day').val(new Date(contestInfo.startTime).format("dd"));
                 $('#contest_start_hour').val(new Date(contestInfo.startTime).format("hh"));
-                $('#contest_start_minute').val(new Date(contestInfo.startTime).format("mm"));
-                $('#contest_start_seconds').val(new Date(contestInfo.startTime).format("ss"));
-                $('#contest_info_time').val(contestInfo.duration + "分钟");
-                $('#contest_end_year').val(new Date(contestInfo.startTime).format("yyyy"));
-                $('#contest_end_month').val(new Date(contestInfo.startTime).format("MM"));
-                $('#contest_end_day').val(new Date(contestInfo.startTime).format("dd"));
-                $('#contest_end_hour').val(new Date(contestInfo.startTime).format("hh"));
-                $('#contest_end_minute').val(new Date(contestInfo.startTime).format("mm"));
-                $('#contest_end_seconds').val(new Date(contestInfo.startTime).format("ss"));
+                $('#contest_info_time').val(contestInfo.duration );
+                $('#contest_end_year').val(new Date(contestInfo.endTime).format("yyyy"));
+                $('#contest_end_month').val(new Date(contestInfo.endTime).format("MM"));
+                $('#contest_end_day').val(new Date(contestInfo.endTime).format("dd"));
+                $('#contest_end_hour').val(new Date(contestInfo.endTime).format("hh"));
             } else {
                 $('#contest_info_name').val("");
                 $('#contest_start_year').val("");
                 $('#contest_start_month').val("");
                 $('#contest_start_day').val("");
                 $('#contest_start_hour').val("");
-                $('#contest_start_minute').val("");
-                $('#contest_start_seconds').val("");
                 $('#contest_info_time').val("");
                 $('#contest_end_year').val("");
                 $('#contest_end_month').val("");
                 $('#contest_end_day').val("");
                 $('#contest_end_hour').val("");
-                $('#contest_end_minute').val("");
-                $('#contest_end_seconds').val("");
             }
         },
         error: function (xhr) {
@@ -73,7 +66,7 @@ function getContest_id() {
     return contest_Id;
 }
 var test_id;
-function getTestInfo() {
+function getBackTestInfo() {
     $.ajax({
         url: 'test/getTestInfo',
         dataType: 'text',
@@ -82,21 +75,29 @@ function getTestInfo() {
             var testInfo = JSON.parse(data);
             if (testInfo.name != null) {
                 test_id=testInfo.testId;
-                $('#test_info_name').val(testInfo.name);
+                $('#test_info_name').val(testInfo.name)
+                $('#test_grade').val(testInfo.grade);
                 $('#test_start_year').val(new Date(testInfo.startTime).format("yyyy"));
                 $('#test_start_month').val(new Date(testInfo.startTime).format("MM"));
                 $('#test_start_day').val(new Date(testInfo.startTime).format("dd"));
                 $('#test_start_hour').val(new Date(testInfo.startTime).format("hh"));
-                $('#test_start_minute').val(new Date(testInfo.startTime).format("mm"));
-                $('#test_start_seconds').val(new Date(testInfo.startTime).format("ss"));
-                $('#test_info_time').val(testInfo.duration + "分钟");
-                $('#test_end_year').val(new Date(testInfo.startTime).format("yyyy"));
-                $('#test_end_month').val(new Date(testInfo.startTime).format("MM"));
-                $('#test_end_day').val(new Date(testInfo.startTime).format("dd"));
-                $('#test_end_hour').val(new Date(testInfo.startTime).format("hh"));
-                $('#test_end_minute').val(new Date(testInfo.startTime).format("mm"));
-                $('#test_end_seconds').val(new Date(testInfo.startTime).format("ss"));
+                $('#test_info_time').val(testInfo.duration );
+                $('#test_end_year').val(new Date(testInfo.endTime).format("yyyy"));
+                $('#test_end_month').val(new Date(testInfo.endTime).format("MM"));
+                $('#test_end_day').val(new Date(testInfo.endTime).format("dd"));
+                $('#test_end_hour').val(new Date(testInfo.endTime).format("hh"));
             } else {
+                alert("暂无竞赛信息");
+                $('#test_info_name').val("");
+                $('#test_start_year').val("");
+                $('#test_start_month').val("");
+                $('#test_start_day').val("");
+                $('#test_start_hour').val("");
+                $('#test_info_time').val("");
+                $('#test_end_year').val("");
+                $('#test_end_month').val("");
+                $('#test_end_day').val("");
+                $('#test_end_hour').val("");
             }
         },
         error: function (xhr) {
@@ -140,6 +141,10 @@ function getContestregistionNum() {
         // 不管成功或失败都要做的工作
         console.log('complete');
     });
+}
+function getCunrrentYear() {
+    $('#contest_grade').val(new Date().format("yyyy"));
+    $('#test_grade').val(new Date().format("yyyy"));
 }
 //时间格式化
 Date.prototype.format = function (format) {
