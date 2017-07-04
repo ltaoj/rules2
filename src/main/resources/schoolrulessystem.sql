@@ -24,7 +24,7 @@ CREATE TABLE `admin` (
   `account` varchar(20) NOT NULL COMMENT '账号',
   `password` varchar(20) NOT NULL COMMENT '密码',
   `username` varchar(20) NOT NULL COMMENT '姓名',
-  `role` int(11) NOT NULL DEFAULT 0 COMMENT '管理员角色'
+  `role` int(11) NOT NULL DEFAULT 0 COMMENT '管理员角色'，
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `uc_account` (`account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
