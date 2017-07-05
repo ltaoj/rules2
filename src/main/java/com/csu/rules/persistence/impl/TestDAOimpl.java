@@ -4,6 +4,7 @@ import com.csu.rules.domain.Testinfo;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.TestDAO;
 import com.csu.rules.utils.HibernateUtil;
+import org.hibernate.CacheMode;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -42,6 +43,7 @@ public class TestDAOimpl implements TestDAO{
             Transaction transaction = session.beginTransaction();
             session.save(testinfo);
             transaction.commit();
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }
@@ -54,6 +56,7 @@ public class TestDAOimpl implements TestDAO{
             Testinfo testinfo=(Testinfo)session.get(Testinfo.class,new Integer(testId));
             session.delete(testinfo);
             transaction.commit();
+            session.clear();
             session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -66,6 +69,7 @@ public class TestDAOimpl implements TestDAO{
             Transaction transaction = session.beginTransaction();
             session.update(testinfo);
             transaction.commit();
+            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }

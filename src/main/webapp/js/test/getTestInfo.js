@@ -30,6 +30,7 @@ Date.prototype.format = function(format) {
 };
 var testId='';
 var duration_time;
+var test_endTime;
 $(function () {
     $.ajax({
         url: 'test/getTestInfo',
@@ -45,9 +46,9 @@ $(function () {
                 $('#testDuration').append("考试时间:" + testInfo.duration + "分钟");
                 $('#testName').append("考试名称:" + testInfo.name);
                 $('#test_name').append("考试名称:" + testInfo.name);
-
                 setTestId(testInfo.testId);
                 duration_time = testInfo.duration;
+                test_endTime=testInfo.endTime;
             }else{
                 $('#testInfo').html("暂无考试");
                 $('#yesToTest').hide();
@@ -74,6 +75,49 @@ function setTestId(testId) {
 function getTestId() {
     return testId;
 }
+function getTestEndTime() {
+    return test_endTime;
+}
 function getDuration() {
     return duration_time;
 }
+//判断考试时间未开始还是已结束
+$(function () {
+    $.ajax({
+        url: 'test/testTimeStatus',
+        dataType: 'text',
+        method: 'GET',
+        success: function (data) {
+            var status=JSON.parse(data);
+            switch (status.result){
+                case "未开始":
+                    $('#yesToTest').hide();
+                    $('#tested').html("未开始");
+                    $('#noToTest').show();
+                    break;
+                case "已结束":
+                    $('#yesToTest').hide();
+                    $('#tested').html("已结束");
+                    $('#noToTest').show();
+                    break;
+                case "error":
+                    break;
+                case "success":
+                    break;
+            }
+        },
+        error: function (xhr) {
+            // 导致出错的原因较多，以后再研究
+            alert('error:' + JSON.stringify(xhr));
+        }
+    }).done(function (data) {
+        // 请求成功后要做的工作
+        console.log('success');
+    }).fail(function () {
+        // 请求失败后要做的工作
+        console.log('error');
+    }).always(function () {
+        // 不管成功或失败都要做的工作
+        console.log('complete');
+    });
+})

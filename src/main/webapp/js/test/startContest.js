@@ -67,12 +67,16 @@ function setContestTime() {
         var startTime = new Date((new Date(getContestStart())).format("yyyy/MM/dd hh:mm:ss"));
         var endTime = new Date((new Date(getContestEndTime())).format("yyyy/MM/dd hh:mm:ss"));
         time = (endTime.getTime() - startTime.getTime()) / 1000;
-        alert(getContestStart());
     }else {
+        var contestEndTime = new Date((new Date(getContestEndTime())).format("yyyy/MM/dd hh:mm:ss"));
         var startTime = new Date((new Date(getContestStart())).format("yyyy/MM/dd hh:mm:ss"));
-        var endTime = new Date((new Date(getContestEnd())).format("yyyy/MM/dd hh:mm:ss"));
-        var duration = (endTime.getTime() - startTime.getTime()) / 1000;
-        time = getContestDuration() * 60 - duration;
+        if((contestEndTime.getTime()-startTime.getTime())<(getContestDuration()*60*1000)){
+            time = (contestEndTime.getTime() - startTime.getTime()) / 1000;
+        }else {
+            var endTime = new Date((new Date(getContestEnd())).format("yyyy/MM/dd hh:mm:ss"));
+            var duration = (endTime.getTime() - startTime.getTime()) / 1000;
+            time = getContestDuration() * 60 - duration;
+        }
     }
     function getRTime() {
         time--;

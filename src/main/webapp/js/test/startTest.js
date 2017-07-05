@@ -30,6 +30,7 @@ function startTest() {
                 }
                 $('#testTitle').append("</table>");
             }
+            getTestRecord(getStudentId());
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
@@ -102,14 +103,25 @@ function exitByX(testId) {
 var int;
 function setTime() {
     var time;
-    getTestRecord(getStudentId());
     if(getSubmitTime()==null){
-        time=getDuration()*60;
+        var endTime=new Date((new Date(getTestEndTime())).format("yyyy/MM/dd hh:mm:ss"));
+        var startTime=new Date((new Date(getStartTime())).format("yyyy/MM/dd hh:mm:ss"));
+        if((endTime.getTime()-startTime.getTime())<(getDuration()*60*1000)){
+            time = (endTime.getTime() - startTime.getTime()) / 1000;
+        }else {
+            time = getDuration() * 60;
+        }
     }else {
-        var startTime = new Date((new Date(getStartTime())).format("yyyy/MM/dd hh:mm:ss"));
-        var endTime = new Date((new Date(getSubmitTime())).format("yyyy/MM/dd hh:mm:ss"));
-        var duration = (endTime.getTime() - startTime.getTime()) / 1000;
-        time = getDuration() * 60 - duration;
+        var testEndTime=new Date((new Date(getTestEndTime())).format("yyyy/MM/dd hh:mm:ss"));
+        var startTime=new Date((new Date(getStartTime())).format("yyyy/MM/dd hh:mm:ss"));
+        if((testEndTime.getTime()-startTime.getTime())<(getDuration()*60*1000)){
+            time = (testEndTime.getTime() - startTime.getTime()) / 1000;
+        }else {
+            // var startTime = new Date((new Date(getStartTime())).format("yyyy/MM/dd hh:mm:ss"));
+            var endTime = new Date((new Date(getSubmitTime())).format("yyyy/MM/dd hh:mm:ss"));
+            var duration = (endTime.getTime() - startTime.getTime()) / 1000;
+            time = getDuration() * 60 - duration;
+        }
     }
     function getRTime() {
         time--;

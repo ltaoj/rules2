@@ -454,7 +454,7 @@
                                     onclick="enterTest()">进入</a>
                         </div>
                         <div class="pricing-v9-footer" id="noToTest" style="display: none;">
-                            <a
+                            <a      id="tested"
                                     class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
                             >已考试</a>
                         </div>
