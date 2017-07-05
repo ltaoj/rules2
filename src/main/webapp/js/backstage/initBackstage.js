@@ -21,6 +21,7 @@ function getBackContestInfo() {
         method: 'GET',
         success: function (data) {
             var contestInfo = JSON.parse(data);
+            alert(contestInfo.name);
             if (contestInfo.name != null) {
                 contest_Id=contestInfo.testId;
                 $('#contest_info_name').val(contestInfo.name);

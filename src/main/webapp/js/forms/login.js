@@ -8,7 +8,6 @@ function login() {
     studentId = $('#studentId').val();
     password = $('#password').val();
     var signonString = {studentId: studentId, password: password};
-    alert(signonString);
     var signonJson = $.toJSON(signonString);
     loginForJson(signonJson);
 }

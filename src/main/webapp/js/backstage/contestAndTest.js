@@ -22,8 +22,52 @@ function testOperateModal() {
         });
     });
 }
+var contestOperateInfo;
+function onContestSearchBT(obj) {
+    document.getElementById("contest_update").className='btn btn-default';
+    document.getElementById("contest_add").className='btn btn-default';
+    document.getElementById("contest_search").className='btn btn-primary';
+    document.getElementById("contest_delete").className='btn btn-default';
+    getBackContestInfo();
+    contestOperateInfo=obj.innerHTML;
+}
+function onContestDeleteBT(obj) {
+    document.getElementById("contest_update").className='btn btn-default';
+    document.getElementById("contest_add").className='btn btn-default';
+    document.getElementById("contest_search").className='btn btn-default';
+    document.getElementById("contest_delete").className='btn btn-primary';
+    getBackContestInfo();
+    contestOperateInfo=obj.innerHTML;
+}
+function onContestAddBT(obj) {
+    document.getElementById("contest_update").className='btn btn-default';
+    document.getElementById("contest_add").className='btn btn-primary';
+    document.getElementById("contest_search").className='btn btn-default';
+    document.getElementById("contest_delete").className='btn btn-default';
+    $('#contest_info_name').val("");
+    $('#contest_grade').val(new Date().format("yyyy"));
+    $('#contest_start_year').val("");
+    $('#contest_start_month').val("");
+    $('#contest_start_day').val("");
+    $('#contest_start_hour').val("");
+    $('#contest_info_time').val("");
+    $('#contest_end_year').val("");
+    $('#contest_end_month').val("");
+    $('#contest_end_day').val("");
+    $('#contest_end_hour').val("");
+    contestOperateInfo=obj.innerHTML;
+}
+function onContestUpdateBT(obj) {
+    document.getElementById("contest_update").className='btn btn-primary';
+    document.getElementById("contest_add").className='btn btn-default';
+    document.getElementById("contest_search").className='btn btn-default';
+    document.getElementById("contest_delete").className='btn btn-default';
+    getBackContestInfo();
+    contestOperateInfo=obj.innerHTML;
+}
+//点击操作 弹出模态框
 function operateContestMessageBox() {
-    if ($('#contest_isClick').html() == "删除") {
+    if (contestOperateInfo == "删除") {
         if( $('#contest_info_name').val()==""||$('#contest_grade').val()==""||$('#contest_start_year').val()==""||$('#contest_start_month').val()==""||
             $('#contest_start_day').val()==""||$('#contest_start_hour').val()==""||$('#contest_info_time').val()==""||$('#contest_end_year').val()==""||
             $('#contest_end_month').val()==""||$('#contest_end_day').val()==""||$('#contest_end_hour').val()==""){
@@ -38,9 +82,8 @@ function operateContestMessageBox() {
             $('#contest_operateBT').attr("data-target", '#contestOperateModal');
             contestOperateModal();
         }
-    }if($('#contest_isClick').html() == "查询"){
-        getBackContestInfo();
-    }if($('#contest_isClick').html() == "添加"){
+    }if(contestOperateInfo == "查询"){
+    }if(contestOperateInfo == "添加"){
         if( $('#contest_info_name').val()==""||$('#contest_grade').val()==""||$('#contest_start_year').val()==""||$('#contest_start_month').val()==""||
             $('#contest_start_day').val()==""||$('#contest_start_hour').val()==""||$('#contest_info_time').val()==""||$('#contest_end_year').val()==""||
             $('#contest_end_month').val()==""||$('#contest_end_day').val()==""||$('#contest_end_hour').val()==""){
@@ -55,7 +98,7 @@ function operateContestMessageBox() {
             $('#contest_operateBT').attr("data-target", '#contestOperateModal');
             contestOperateModal();
         }
-    }if($('#contest_isClick').html() == "修改"){
+    }if(contestOperateInfo == "修改"){
         if( $('#contest_info_name').val()==""||$('#contest_grade').val()==""||$('#contest_start_year').val()==""||$('#contest_start_month').val()==""||
             $('#contest_start_day').val()==""||$('#contest_start_hour').val()==""||$('#contest_info_time').val()==""||$('#contest_end_year').val()==""||
             $('#contest_end_month').val()==""||$('#contest_end_day').val()==""||$('#contest_end_hour').val()==""){
@@ -73,18 +116,61 @@ function operateContestMessageBox() {
     }
 }
 function operateContest() {
-    if ($('#contest_isClick').html() == "删除") {
+    if (contestOperateInfo == "删除") {
         deleteContest();
-    }if($('#contest_isClick').html() == "查询"){
+    }if(contestOperateInfo == "查询"){
         getBackContestInfo();
-    }if($('#contest_isClick').html() == "添加"){
+    }if(contestOperateInfo == "添加"){
         insertContest();
-    }if($('#contest_isClick').html() == "修改"){
+    }if(contestOperateInfo == "修改"){
         updateContest();
     }
 }
+var testOperateInfo;
+function onTestSearchBT(obj) {
+    document.getElementById("test_update").className='btn btn-default';
+    document.getElementById("test_add").className='btn btn-default';
+    document.getElementById("test_search").className='btn btn-primary';
+    document.getElementById("test_delete").className='btn btn-default';
+    getBackTestInfo();
+    testOperateInfo=obj.innerHTML;
+}
+function onTestDeleteBT(obj) {
+    document.getElementById("test_update").className='btn btn-default';
+    document.getElementById("test_add").className='btn btn-default';
+    document.getElementById("test_search").className='btn btn-default';
+    document.getElementById("test_delete").className='btn btn-primary';
+    getBackTestInfo();
+    testOperateInfo=obj.innerHTML;
+}
+function onTestAddBT(obj) {
+    document.getElementById("test_update").className='btn btn-default';
+    document.getElementById("test_add").className='btn btn-primary';
+    document.getElementById("test_search").className='btn btn-default';
+    document.getElementById("test_delete").className='btn btn-default';
+    $('#test_info_name').val("");
+    $('#test_grade').val(new Date().format("yyyy"));
+    $('#test_start_year').val("");
+    $('#test_start_month').val("");
+    $('#test_start_day').val("");
+    $('#test_start_hour').val("");
+    $('#test_info_time').val("");
+    $('#test_end_year').val("");
+    $('#test_end_month').val("");
+    $('#test_end_day').val("");
+    $('#test_end_hour').val("");
+    testOperateInfo=obj.innerHTML;
+}
+function onTestUpdateBT(obj) {
+    document.getElementById("test_update").className='btn btn-primary';
+    document.getElementById("test_add").className='btn btn-default';
+    document.getElementById("test_search").className='btn btn-default';
+    document.getElementById("test_delete").className='btn btn-default';
+    getBackTestInfo();
+    testOperateInfo=obj.innerHTML;
+}
 function operateTestMessageBox() {
-    if ($('#test_isClick').html() == "删除") {
+    if (testOperateInfo == "删除") {
         if( $('#test_info_name').val()==""||$('#test_grade').val()==""||$('#test_start_year').val()==""||$('#test_start_month').val()==""||
             $('#test_start_day').val()==""||$('#test_start_hour').val()==""||$('#test_info_time').val()==""||$('#test_end_year').val()==""||
             $('#test_end_month').val()==""||$('#test_end_day').val()==""||$('#test_end_hour').val()==""){
@@ -99,9 +185,8 @@ function operateTestMessageBox() {
             $('#test_operateBT').attr("data-target", '#testOperateModal');
             testOperateModal();
         }
-    }if($('#test_isClick').html() == "查询"){
-        getBackContestInfo();
-    }if($('#test_isClick').html() == "添加"){
+    }if(testOperateInfo == "查询"){
+    }if(testOperateInfo == "添加"){
         if( $('#test_info_name').val()==""||$('#test_grade').val()==""||$('#test_start_year').val()==""||$('#test_start_month').val()==""||
             $('#test_start_day').val()==""||$('#test_start_hour').val()==""||$('#test_info_time').val()==""||$('#test_end_year').val()==""||
             $('#test_end_month').val()==""||$('#test_end_day').val()==""||$('#test_end_hour').val()==""){
@@ -116,7 +201,7 @@ function operateTestMessageBox() {
             $('#test_operateBT').attr("data-target", '#testOperateModal');
             testOperateModal();
         }
-    }if($('#test_isClick').html() == "修改"){
+    }if(testOperateInfo == "修改"){
         if( $('#test_info_name').val()==""||$('#test_grade').val()==""||$('#test_start_year').val()==""||$('#test_start_month').val()==""||
             $('#test_start_day').val()==""||$('#test_start_hour').val()==""||$('#test_info_time').val()==""||$('#test_end_year').val()==""||
             $('#test_end_month').val()==""||$('#test_end_day').val()==""||$('#test_end_hour').val()==""){
@@ -134,13 +219,13 @@ function operateTestMessageBox() {
     }
 }
 function operateTest() {
-    if ($('#test_isClick').html() == "删除") {
+    if (testOperateInfo == "删除") {
         deleteTest();
-    }if($('#test_isClick').html() == "查询"){
+    }if(testOperateInfo == "查询"){
         getBackTestInfo();
-    }if($('#test_isClick').html() == "添加"){
+    }if(testOperateInfo == "添加"){
         insertTest();
-    }if($('#test_isClick').html() == "修改"){
+    }if(testOperateInfo == "修改"){
         updateTest();
     }
 }
@@ -504,6 +589,8 @@ function getContesttitle() {
         success: function (data) {
             if(data.result=="success"){
                 alert("已有竞赛试题");
+                $('#random_generate_title').attr("data-toggle",'');
+                $('#random_generate_title').attr("data-target",'');
             }else{
                 getContestRandomTitle();
                 $('#random_generate_title').attr("data-toggle",'modal');

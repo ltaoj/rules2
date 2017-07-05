@@ -239,10 +239,10 @@
                                         <div style="width:80%">
                                             <h3>竞赛信息</h3>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary" >查询</a>
-                                                <a class="btn btn-default" >修改</a>
-                                                <a class="btn btn-default" >删除</a>
-                                                <a class="btn btn-default" id="contest_isClick">添加</a>
+                                                <a class="btn btn-primary" onclick="onContestSearchBT(this)" id="contest_search">查询</a>
+                                                <a class="btn btn-default" onclick="onContestUpdateBT(this)" id="contest_update">修改</a>
+                                                <a class="btn btn-default" onclick="onContestDeleteBT(this)" id="contest_delete">删除</a>
+                                                <a class="btn btn-default" onclick="onContestAddBT(this)" id="contest_add">添加</a>
                                             </div>
                                             <br>
                                             <br>
@@ -315,10 +315,10 @@
                                         <div style="width:80%">
                                             <h3>考试信息</h3>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary">查询</a>
-                                                <a class="btn btn-default"  id="test_isClick">修改</a>
-                                                <a class="btn btn-default">删除</a>
-                                                <a class="btn btn-default">添加</a>
+                                                <a class="btn btn-primary" onclick="onTestSearchBT(this)" id="test_search">查询</a>
+                                                <a class="btn btn-default" onclick="onTestUpdateBT(this)" id="test_update">修改</a>
+                                                <a class="btn btn-default" onclick="onTestDeleteBT(this)" id="test_delete">删除</a>
+                                                <a class="btn btn-default" onclick="onTestAddBT(this)" id="test_add">添加</a>
                                             </div>
                                             <br>
                                             <br>

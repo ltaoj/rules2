@@ -6,6 +6,7 @@ import com.csu.rules.domain.Testinfo;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.ContestTestDAO;
 import com.csu.rules.utils.HibernateUtil;
+import org.hibernate.CacheMode;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -104,6 +105,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
             List list = criteria.list();
             Contestregistion contest = (Contestregistion) list.get(0);
+            session.close();
             return contest;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -118,6 +120,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             org.hibernate.query.Query query=session.createQuery(hql);
             query.setInteger(0,new Integer(1).byteValue());
             List<Testinfo> contestinfoList=query.list();
+            session.clear();
             session.close();
             return contestinfoList;
         }catch (RuntimeException e){

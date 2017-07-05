@@ -244,6 +244,27 @@ public class TestActionBean extends AbstractActionBean {
         }
     }
 
+    //判断考试时间未开始还是已结束
+    @RequestMapping(value = "/testTimeStatus", method = RequestMethod.GET)
+    public ResponseEntity<Result> testTimeStatus() {
+        try {
+            List<Testinfo> list=testService.getTestInfoList();
+            if(list.size()!=0){
+                Testinfo testinfo=list.get(0);
+                if(new Timestamp(System.currentTimeMillis()).before(testinfo.getStartTime())){
+                    return new ResponseEntity<Result>(new Result("未开始"), HttpStatus.OK);
+                }else if(new Timestamp(System.currentTimeMillis()).after(testinfo.getEndTime())){
+                    return new ResponseEntity<Result>(new Result("已结束"), HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+                }
+            }else{
+                return new ResponseEntity<Result>(new Result(Result.RESULT_ERROR), HttpStatus.OK);
+            }
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
     /**************************************************管理员****************************************************/
     //插入考试信息
     @RequestMapping(value = "/insertTest", method = RequestMethod.POST, consumes = "application/json")
@@ -260,7 +281,8 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/deleteTest", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> deleteTest(@RequestBody Testinfo testinfo) {
         try {
-            testService.deleteTestInfo(testinfo.getTestId());
+            Testinfo testinfo1=testService.getTestInfo(testinfo.getTestId());
+            testService.deleteTestInfo(testinfo1.getTestId());
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (TestServiceException e) {
             throw new CatchServiceException(e);
