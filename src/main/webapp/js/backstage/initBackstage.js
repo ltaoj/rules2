@@ -8,6 +8,9 @@ function initBackstage(name) {
             getBackTestInfo();
             getContestregistionNum();
             break;
+        case "3":
+            getColleges();
+            break;
         default:
             break;
     }

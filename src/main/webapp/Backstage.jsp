@@ -46,6 +46,7 @@
     <!-- 后台管理js -->
     <script src="js/backstage/initBackstage.js"></script>
     <script src="js/backstage/contestAndTest.js"></script>
+    <script src="js/backstage/achievement.js"></script>
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -439,20 +440,22 @@
                                 <br>
                                 <div style="width:50%;font-size: 15px;">
                                     <span>学院:</span>
-                                    <select id="college">
-                                        <option>软件学院</option>
+                                    <select id="college" onchange="getMajor(this.value)">
+                                        <option value=""></option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="major">
-                                        <option>软件工程</option>
+                                    <select id="major" onchange="getClazz(this.value)">
+                                        <option value=""></option>
                                     </select>
                                     <span>年级:</span>
                                     <select id="grade">
-                                        <option>2015</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
                                     </select>
                                     <span>班级:</span>
                                     <select id="clazz">
-                                        <option>工程实验班1503</option>
+                                        <option value=""></option>
                                     </select>
                                 </div>
                                 <br>
