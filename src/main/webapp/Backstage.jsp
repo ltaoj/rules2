@@ -34,6 +34,7 @@
     <link href="css/backstage.css" rel="stylesheet">
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/json/jquery.json.min.js"></script>
     <!-- 平滑滚动 -->
     <script src="plugins/smoothScroll/jquery.smooth-scroll.js"></script>
     <script src="js/smoothScroll/smoothScroll.js"></script>
@@ -47,6 +48,7 @@
     <script src="js/backstage/initBackstage.js"></script>
     <script src="js/backstage/contestAndTest.js"></script>
     <script src="js/backstage/achievement.js"></script>
+    <script src="js/backstage/notice.js"></script>
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -228,7 +230,9 @@
                                 <h3>导入试题</h3>
                                 <input type="file" name="file1" size="30" onchange="setObj(this)"/>
                                 <br>
-                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="importf(0)">上传</button>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                        onclick="importf(0)">上传
+                                </button>
                             </div>
                         </div>
                     </li>
@@ -256,8 +260,8 @@
                                             <label>考试年级：</label>
                                             <br>
                                             <div class="input-group">
-                                            <input type="text" class="form-control" id="contest_grade" value="">
-                                            <span class="input-group-addon">级</span>
+                                                <input type="text" class="form-control" id="contest_grade" value="">
+                                                <span class="input-group-addon">级</span>
                                             </div>
                                             <br>
                                             <label>开始时间：</label>
@@ -274,9 +278,11 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="contest_start_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control" id="contest_start_minute" value="00">
+                                                <input type="text" class="form-control" id="contest_start_minute"
+                                                       value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="contest_start_seconds" value="00">
+                                                <input type="text" class="form-control" id="contest_start_seconds"
+                                                       value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
@@ -300,14 +306,17 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="contest_end_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control" id="contest_end_minute" value="00">
+                                                <input type="text" class="form-control" id="contest_end_minute"
+                                                       value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="contest_end_seconds" value="00">
+                                                <input type="text" class="form-control" id="contest_end_seconds"
+                                                       value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
                                             <span id="operate_all_message"></span>
-                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" data-toggle="" data-target=""
+                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                                    data-toggle="" data-target=""
                                                     id="contest_operateBT" onclick="operateContestMessageBox()">操作
                                             </button>
                                         </div>
@@ -316,10 +325,17 @@
                                         <div style="width:80%">
                                             <h3>考试信息</h3>
                                             <div class="btn-group">
+<<<<<<< HEAD
+                                                <a class="btn btn-primary">查询</a>
+                                                <a class="btn btn-default" id="test_isClick">修改</a>
+                                                <a class="btn btn-default">删除</a>
+                                                <a class="btn btn-default">添加</a>
+=======
                                                 <a class="btn btn-primary" onclick="onTestSearchBT(this)" id="test_search">查询</a>
                                                 <a class="btn btn-default" onclick="onTestUpdateBT(this)" id="test_update">修改</a>
                                                 <a class="btn btn-default" onclick="onTestDeleteBT(this)" id="test_delete">删除</a>
                                                 <a class="btn btn-default" onclick="onTestAddBT(this)" id="test_add">添加</a>
+>>>>>>> 4151c46851f967f9c5f5d85d5dbd50d354341350
                                             </div>
                                             <br>
                                             <br>
@@ -351,9 +367,11 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="test_start_hour">
                                                 <span class="input-group-addon">时</span>
-                                                <input type="text" class="form-control" id="test_start_minute" value="00">
+                                                <input type="text" class="form-control" id="test_start_minute"
+                                                       value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="test_start_seconds" value="00">
+                                                <input type="text" class="form-control" id="test_start_seconds"
+                                                       value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
@@ -379,12 +397,14 @@
                                                 <span class="input-group-addon">时</span>
                                                 <input type="text" class="form-control" id="test_end_minute" value="00">
                                                 <span class="input-group-addon">分</span>
-                                                <input type="text" class="form-control" id="test_end_seconds" value="00">
+                                                <input type="text" class="form-control" id="test_end_seconds"
+                                                       value="00">
                                                 <span class="input-group-addon">秒</span>
                                             </div>
                                             <br>
                                             <span id="test_operate_all_message"></span>
-                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" data-toggle="" data-target=""
+                                            <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                                    data-toggle="" data-target=""
                                                     id="test_operateBT" onclick="operateTestMessageBox()">操作
                                             </button>
                                         </div>
@@ -395,7 +415,8 @@
                                 <h3>指定竞赛题目</h3>
                                 <br>
                                 <span>题库中含有：</span><label>1000</label><span>道题</span>&nbsp;<button
-                                    class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" id="random_generate_title" data-toggle="" data-target=""
+                                    class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                    id="random_generate_title" data-toggle="" data-target=""
                                     onclick="getContesttitle()">随机生成
                             </button>
                                 <select id="contest_title_num">
@@ -501,6 +522,13 @@
                             </div>
                             <div class="box">
                                 <h3>修改/删除通知</h3>
+                                <span style="font-size: 20px;">图片通知：</span>
+
+                                <div id="backstage_notice_picture" style="width:40%;line-height:2.0;font-size:18px">
+                                </div>
+                                <span style="font-size: 20px;"
+                                      >文字通知：</span>
+                                <div style="width:40%;line-height:2.0;font-size:18px" id="backstage_notice_text"></div>
                             </div>
                         </div>
                     </li>
