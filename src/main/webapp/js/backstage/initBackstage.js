@@ -11,6 +11,10 @@ function initBackstage(name) {
         case "3":
             getColleges();
             break;
+        case "4":
+            getNoticeForPicture();
+            getNoticeForText();
+            break;
         default:
             break;
     }
@@ -25,14 +29,14 @@ function getBackContestInfo() {
         success: function (data) {
             var contestInfo = JSON.parse(data);
             if (contestInfo.name != null) {
-                contest_Id=contestInfo.testId;
+                contest_Id = contestInfo.testId;
                 $('#contest_info_name').val(contestInfo.name);
                 $('#contest_grade').val(contestInfo.grade);
                 $('#contest_start_year').val(new Date(contestInfo.startTime).format("yyyy"));
                 $('#contest_start_month').val(new Date(contestInfo.startTime).format("MM"));
                 $('#contest_start_day').val(new Date(contestInfo.startTime).format("dd"));
                 $('#contest_start_hour').val(new Date(contestInfo.startTime).format("hh"));
-                $('#contest_info_time').val(contestInfo.duration );
+                $('#contest_info_time').val(contestInfo.duration);
                 $('#contest_end_year').val(new Date(contestInfo.endTime).format("yyyy"));
                 $('#contest_end_month').val(new Date(contestInfo.endTime).format("MM"));
                 $('#contest_end_day').val(new Date(contestInfo.endTime).format("dd"));
@@ -77,14 +81,14 @@ function getBackTestInfo() {
         success: function (data) {
             var testInfo = JSON.parse(data);
             if (testInfo.name != null) {
-                test_id=testInfo.testId;
+                test_id = testInfo.testId;
                 $('#test_info_name').val(testInfo.name)
                 $('#test_grade').val(testInfo.grade);
                 $('#test_start_year').val(new Date(testInfo.startTime).format("yyyy"));
                 $('#test_start_month').val(new Date(testInfo.startTime).format("MM"));
                 $('#test_start_day').val(new Date(testInfo.startTime).format("dd"));
                 $('#test_start_hour').val(new Date(testInfo.startTime).format("hh"));
-                $('#test_info_time').val(testInfo.duration );
+                $('#test_info_time').val(testInfo.duration);
                 $('#test_end_year').val(new Date(testInfo.endTime).format("yyyy"));
                 $('#test_end_month').val(new Date(testInfo.endTime).format("MM"));
                 $('#test_end_day').val(new Date(testInfo.endTime).format("dd"));
@@ -128,7 +132,7 @@ function getContestregistionNum() {
         dataType: 'text',
         method: 'GET',
         success: function (data) {
-           $('#contestregistionNum').html(data);
+            $('#contestregistionNum').html(data);
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
