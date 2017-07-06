@@ -374,7 +374,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public List<Testrecord> getTestRecordByCondition(String clazz, int grade, String major, String college, int level) throws TestServiceException{
+    public List<AccountTestRecord> getTestRecordByCondition(String clazz, int grade, String major, String college, int level) throws TestServiceException{
         try {
             return testRecordDAO.getTestrecordByCondition(clazz, grade, major, college, level);
         }catch (PersistenceException pe) {

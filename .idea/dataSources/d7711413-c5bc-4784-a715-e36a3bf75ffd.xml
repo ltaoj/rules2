@@ -623,39 +623,39 @@ test_id</ColNames>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="132" parent="25" name="class">
-      <Position>4</Position>
-      <Comment>专业班级，如工程试验班1503</Comment>
-      <DataType>varchar(20)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="133" parent="25" name="college">
+    <column id="132" parent="25" name="college">
       <Position>7</Position>
       <Comment>学院名称，如软件学院</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="134" parent="25" name="grade">
+    <column id="133" parent="25" name="grade">
       <Position>5</Position>
       <Comment>年级，如2015</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="135" parent="25" name="major">
+    <column id="134" parent="25" name="major">
       <Position>6</Position>
       <Comment>专业，如软件工程</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="136" parent="25" name="sex">
+    <column id="135" parent="25" name="sex">
       <Position>3</Position>
       <Comment>性别</Comment>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="137" parent="25" name="username">
+    <column id="136" parent="25" name="username">
       <Position>2</Position>
       <Comment>姓名</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="137" parent="25" name="clazz">
+      <Position>4</Position>
+      <Comment>专业班级，如工程试验班1503</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>

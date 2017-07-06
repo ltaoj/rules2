@@ -1,6 +1,7 @@
 package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.domain.AccountTestRecord;
 import com.csu.rules.domain.Testinfo;
 import com.csu.rules.domain.Testrecord;
 import com.csu.rules.exception.PersistenceException;
@@ -67,5 +68,5 @@ public interface TestRecordDAO {
      * @return
      * @throws PersistenceException
      */
-    List<Testrecord> getTestrecordByCondition(String clazz, int grade, String major, String college, int level) throws PersistenceException;
+    List<AccountTestRecord> getTestrecordByCondition(String clazz, int grade, String major, String college, int level) throws PersistenceException;
 }

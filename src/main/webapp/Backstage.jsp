@@ -481,7 +481,7 @@
                                 </div>
                                 <br>
                                 <div style="width:50%">
-                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="query()">查询</button>
                                     <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                             style="margin-left: 20px">导出
                                     </button>

@@ -1,5 +1,6 @@
 package com.csu.rules.persistence.impl;
 
+import com.csu.rules.domain.AccountTestRecord;
 import com.csu.rules.domain.Testrecord;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.TestRecordDAO;
@@ -91,12 +92,12 @@ public class TestRecordDAOimpl implements TestRecordDAO {
         }
     }
 
-    public List<Testrecord> getTestrecordByCondition(String clazz, int grade, String major, String college, int level) throws PersistenceException {
+    public List<AccountTestRecord> getTestrecordByCondition(String clazz, int grade, String major, String college, int level) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             String hql = formatHql(clazz, grade, major, college, level);
-            List<Testrecord> list = session.createQuery(hql).list();
+            List<AccountTestRecord> list = session.createQuery(hql).list();
             transaction.commit();
             session.close();
             return list;
@@ -106,19 +107,23 @@ public class TestRecordDAOimpl implements TestRecordDAO {
     }
 
     private String formatHql(String clazz, int grade, String major, String college, int level) {
-        String hql =  "from Testrecord as testrecord where ";
+        String hql =  "select new com.csu.rules.domain.AccountTestRecord(a.studentId, a.username, a.clazz, a.grade, a.major, a.college, t.score) " +
+                "from Testrecord as t, Account as a where ";
         int initSize = hql.length();
-        hql += (clazz != null && !clazz.equals("") ? "clazz=" + clazz + " and " : "");
-        hql += (grade != 0 ? "grade=" + grade + " and "  : "");
-        hql += (major != null && !major.equals("") ? "major=" + major + " and " : "");
-        hql += (college != null && !college.equals("") ? "college=" + college + " and " : "");
-        hql += (level != 0 ? "score=" + level + " and " : "");
+        hql += (clazz != null && !clazz.equals("") ? "a.clazz=\'" + clazz + "\' and " : "");
+        hql += (grade != 0 ? "a.grade=" + grade + " and "  : "");
+        hql += (major != null && !major.equals("") ? "a.major=\'" + major + "\' and " : "");
+        hql += (college != null && !college.equals("") ? "a.college=\'" + college + "\' and " : "");
+        hql += (level != 0 ? "t.score>=" + level + " and " : "");
         // 如果四个字段全没有，即字符串为null或者空字符，数字为0, 此时查询全校记录
         if (hql.length() == initSize) {
-            hql = "from Testrecord";
+            hql = "select new com.csu.rules.domain.AccountTestRecord(a.studentId, a.username, a.clazz, a.grade, a.major, a.college, t.score) " +
+                    "from Testrecord as t, Account as a where a.studentId=t.studentId";
         } else {
             hql = hql.substring(0, hql.length() - 5);
+            hql += " and a.studentId=t.studentId";
         }
+        System.out.println(hql);
         return hql;
     }
 }

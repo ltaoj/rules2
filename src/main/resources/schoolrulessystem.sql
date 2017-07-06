@@ -313,7 +313,7 @@ CREATE TABLE `userinfo` (
   `student_id` bigint(20) NOT NULL COMMENT '学号',
   `username` varchar(20) NOT NULL COMMENT '姓名',
   `sex` tinyint(1) NOT NULL COMMENT '性别',
-  `class` varchar(20) NOT NULL COMMENT '专业班级，如工程试验班1503',
+  `clazz` varchar(20) NOT NULL COMMENT '专业班级，如工程试验班1503',
   `grade` int(11) NOT NULL COMMENT '年级，如2015',
   `major` varchar(20) NOT NULL COMMENT '专业，如软件工程',
   `college` varchar(20) NOT NULL COMMENT '学院名称，如软件学院',
