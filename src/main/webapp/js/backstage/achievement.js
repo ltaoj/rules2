@@ -27,6 +27,53 @@ function addOption(select, data, type) {
 }
 
 /**
+ * 表头
+ * @type {[*]}
+ */
+var pNames = ["studentId", "username", "college", "major", "grade", "clazz", "score"];
+/**
+ * 将item对象变成一个tr对象
+ * @param item
+ * @returns {Element}
+ */
+function getRow(item) {
+    var tr = document.createElement("tr");
+    for (var i = 0;i < pNames.length;i++) {
+        var td = document.createElement("td");
+        td.innerHTML = item[pNames[i]];
+        tr.appendChild(td);
+    }
+    return tr;
+}
+
+/**
+ * 将请求到的成绩data显示
+ * @param data
+ */
+function showAchieve(data) {
+    var colNum = 7;
+    var achieveBody = $('#achieve_tbody')[0];
+    var achieveNum = $('#achieve_num')[0];
+    var achieveTbody = $('#achieve_tbody')[0];
+    removeAllChild(achieveTbody);
+    achieveNum.innerHTML = data.length;
+    for  (var i = 0;i < data.length;i++) {
+        var tr = getRow(data[i]);
+        achieveBody.appendChild(tr);
+    }
+}
+
+/**
+ * 移除element下的所有节点
+ * @param parentNode
+ */
+function removeAllChild(parentNode) {
+    while (parentNode.hasChildNodes()){
+        parentNode.removeChild(parentNode.firstChild);
+    }
+}
+
+/**
  * 清除select下的option
  * @param select
  */
@@ -142,6 +189,7 @@ function query() {
         data: json,
         success: function (data) {
             console.log(data);
+            showAchieve(data);
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));

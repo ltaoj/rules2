@@ -459,10 +459,10 @@
                             <div class="box">
                                 <h3>查询年纪,学院，学校成绩(判断权限，改变内容)</h3>
                                 <br>
-                                <div style="width:50%;font-size: 15px;">
+                                <div style="width:100%;font-size: 15px;">
                                     <span>学院:</span>
                                     <select id="college" onchange="getMajor(this.value)">
-                                        <option value=""></option>
+                                        <option value="">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
                                     <select id="major" onchange="getClazz(this.value)">
@@ -480,13 +480,28 @@
                                     </select>
                                 </div>
                                 <br>
-                                <div style="width:50%">
+                                <div style="width:100%">
                                     <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="query()">查询</button>
                                     <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                             style="margin-left: 20px">导出
                                     </button>
                                 </div>
 
+                                <div id="achieve_result" style="width:100%">
+                                    <span>共查询出记录数目<span id="achieve_num"></span>个</span>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th>学号</th>
+                                            <th>姓名</th>
+                                            <th>学院</th>
+                                            <th>专业</th>
+                                            <th>年级</th>
+                                            <th>班级</th>
+                                            <th>分数</th>
+                                        </thead>
+                                        <tbody id="achieve_tbody"></tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </li>
