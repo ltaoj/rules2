@@ -436,25 +436,25 @@
                         </div>
                     </li>
                     <li class="hide">
-                        <div class="main_bd">
-                            <div class="box">
-                                <h3>查询个人成绩</h3>
-                                <br>
-                                <div style="width:30%">
-                                    <div class="input-group input-group">
-                                        <span class="input-group-addon"><i class="fa fa-address-card-o"></i></span>
-                                        <input type="password" class="form-control" placeholder="学号"
-                                               id="search_one_record"/>
-                                    </div>
+                        <%--<div class="main_bd">--%>
+                            <%--<div class="box">--%>
+                                <%--<h3>查询个人成绩</h3>--%>
+                                <%--<br>--%>
+                                <%--<div style="width:30%">--%>
+                                    <%--<div class="input-group input-group">--%>
+                                        <%--<span class="input-group-addon"><i class="fa fa-address-card-o"></i></span>--%>
+                                        <%--<input type="password" class="form-control" placeholder="学号"--%>
+                                               <%--id="search_one_record"/>--%>
+                                    <%--</div>--%>
 
-                                    <label style="font-size: medium;margin-top: 15px">考试成绩: </label> &nbsp;<i
-                                        class="fa fa-refresh fa-spin fa-2x"></i>
-                                    <label></label>
-                                    <br>
-                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>
-                                </div>
-                            </div>
-                        </div>
+                                    <%--<label style="font-size: medium;margin-top: 15px">考试成绩: </label> &nbsp;<i--%>
+                                        <%--class="fa fa-refresh fa-spin fa-2x"></i>--%>
+                                    <%--<label></label>--%>
+                                    <%--<br>--%>
+                                    <%--<button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
                         <div class="main_bd">
                             <div class="box">
                                 <h3>查询年纪,学院，学校成绩(判断权限，改变内容)</h3>
@@ -478,6 +478,9 @@
                                     <select id="clazz">
                                         <option value=""></option>
                                     </select>
+                                    <span>分数线</span>
+                                    <select id="score">
+                                    </select>
                                 </div>
                                 <br>
                                 <div style="width:100%">
@@ -488,7 +491,7 @@
                                 </div>
 
                                 <div id="achieve_result" style="width:100%">
-                                    <span>共查询出记录数目<span id="achieve_num"></span>个</span>
+                                    <span id="achieve_msg"></span>
                                     <table class="table table-hover">
                                         <thead>
                                             <th>学号</th>
