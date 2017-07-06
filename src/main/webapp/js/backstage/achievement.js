@@ -1,7 +1,12 @@
 /**
  * Created by ltaoj on 17-7-4.
  */
-
+/**
+ * 像select组件添加option
+ * @param select dom对象
+ * @param data 要添加的数据
+ * @param type
+ */
 function addOption(select, data, type) {
     for (var i = 0;i < data.length;i++) {
         var option = document.createElement("option");
@@ -21,6 +26,10 @@ function addOption(select, data, type) {
     }
 }
 
+/**
+ * 清除select下的option
+ * @param select
+ */
 function clearOptions(select) {
     select.options.length = 0;
     var option = document.createElement("option");
@@ -29,10 +38,18 @@ function clearOptions(select) {
     select.append(option);
 }
 
+/**
+ * 设置select组件的可点击状态
+ * @param select
+ * @param flag
+ */
 function setDisabled(select, flag) {
     select.disabled = flag;
 }
 
+/**
+ * 请求学院信息
+ */
 function getColleges() {
     $.ajax({
         url: 'school/collegeList',
@@ -44,6 +61,10 @@ function getColleges() {
     })
 }
 
+/**
+ * 请求某个学院的专业信息
+ * @param collegeId 学院编号
+ */
 function getMajor(collegeId) {
     clearOptions($('#major')[0]);
     clearOptions($('#clazz')[0]);
@@ -73,6 +94,10 @@ function getMajor(collegeId) {
     })
 }
 
+/**
+ * 请求某个专业的班级信息
+ * @param majorId 专业编号
+ */
 function getClazz(majorId) {
     clearOptions($('#clazz')[0]);
     majorId == "" ? setDisabled($('#clazz')[0], true) : setDisabled($('#clazz')[0], false);
@@ -97,4 +122,38 @@ function getClazz(majorId) {
     }).always(function () {
         console.log('complete');
     })
+}
+
+function query() {
+    var collegeSelect = $('#college')[0];
+    var majorSelect = $('#major')[0];
+    var clazzSelect = $('#clazz')[0];
+    var gradeSelect = $('#grade')[0];
+    var json = {};
+    json.college = collegeSelect.options.selectedIndex == 0 ? "" : collegeSelect.options[collegeSelect.options.selectedIndex].text;
+    json.major = majorSelect.options.selectedIndex == 0 ? "" : majorSelect.options[majorSelect.options.selectedIndex].text;
+    json.grade = gradeSelect.options.selectedIndex == 0 ? 0 : gradeSelect.options[gradeSelect.options.selectedIndex].text;
+    json.clazz = clazzSelect.options.selectedIndex == 0 ? "" : clazzSelect.options[clazzSelect.options.selectedIndex].text;
+
+    $.ajax({
+        url: 'test/recordListByCondition',
+        dataType: 'json',
+        method: 'GET',
+        data: json,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (xhr) {
+            console.log('error:' + JSON.stringify(xhr));
+        }
+
+    }).done(function (data) {
+        console.log('success');
+    }).fail(function () {
+        console.log('error');
+    }).always(function () {
+        console.log('complete');
+    })
+    console.log('college:' + collegeSelect.length + 'major:' + majorSelect.length + 'clazz:' + clazzSelect.length);
+    console.log(JSON.stringify(collegeSelect.options[1].text))
 }

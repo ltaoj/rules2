@@ -236,5 +236,5 @@ public interface TestService {
      * @return
      * @throws TestServiceException
      */
-    List<Testrecord> getTestRecordByCondition(String clazz, int grade, String major, String college, int level) throws TestServiceException;
+    List<AccountTestRecord> getTestRecordByCondition(String clazz, int grade, String major, String college, int level) throws TestServiceException;
 }

@@ -386,7 +386,7 @@ public class TestActionBean extends AbstractActionBean {
     }
 
     @RequestMapping(value = "/recordListByCondition", method = RequestMethod.GET)
-    public ResponseEntity<List<Testrecord>> getTestRecordByCondition(
+    public ResponseEntity<List<AccountTestRecord>> getTestRecordByCondition(
             @RequestParam(value = "clazz", defaultValue = "") String clazz,
             @RequestParam(value = "grade", defaultValue = "0") int grade,
             @RequestParam(value = "major", defaultValue = "") String major,
@@ -394,8 +394,8 @@ public class TestActionBean extends AbstractActionBean {
             @RequestParam(value = "level", defaultValue = "0") int level) {
 
         try {
-            List<Testrecord> testrecordList = testService.getTestRecordByCondition(clazz, grade, major, college, level);
-            return new ResponseEntity<List<Testrecord>>(testrecordList, HttpStatus.OK);
+            List<AccountTestRecord> testrecordList = testService.getTestRecordByCondition(clazz, grade, major, college, level);
+            return new ResponseEntity<List<AccountTestRecord>>(testrecordList, HttpStatus.OK);
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         }
