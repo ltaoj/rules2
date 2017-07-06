@@ -18,7 +18,7 @@ public class Account {
     private String username;
     @Column(name = "sex")
     private byte sex;
-    @Column(name = "class")
+    @Column(name = "clazz")
     private String clazz;
     @Column(name = "grade")
     private int grade;
