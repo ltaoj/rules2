@@ -10,10 +10,27 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-07-01 22:22:33
+Date: 2017-07-17 10:15:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `additiontitle`
+-- ----------------------------
+DROP TABLE IF EXISTS `additiontitle`;
+CREATE TABLE `additiontitle` (
+  `title_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '题目编号',
+  `name` varchar(500) NOT NULL COMMENT '题目名称',
+  `type` int(4) NOT NULL COMMENT '题目类型',
+  `answer` varchar(2000) DEFAULT NULL COMMENT '题目答案',
+  `score` int(11) DEFAULT NULL COMMENT '题目分数',
+  PRIMARY KEY (`title_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of additiontitle
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `admin`
@@ -24,7 +41,7 @@ CREATE TABLE `admin` (
   `account` varchar(20) NOT NULL COMMENT '账号',
   `password` varchar(20) NOT NULL COMMENT '密码',
   `username` varchar(20) NOT NULL COMMENT '姓名',
-  `role` int(11) NOT NULL DEFAULT 0 COMMENT '管理员角色',
+  `role` int(11) NOT NULL DEFAULT '0' COMMENT '角色权限',
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `uc_account` (`account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -105,8 +122,13 @@ CREATE TABLE `contestregistion` (
 -- ----------------------------
 DROP TABLE IF EXISTS `contesttitle`;
 CREATE TABLE `contesttitle` (
-  `test_id` int(11) NOT NULL,
-  `title_ids` varchar(300) NOT NULL,
+  `test_id` int(11) NOT NULL COMMENT '竞赛编号',
+  `title_ids` varchar(300) DEFAULT NULL COMMENT '选择题编号',
+  `blank_ids` varchar(300) DEFAULT NULL COMMENT '填空题编号',
+  `judge_ids` varchar(300) DEFAULT NULL COMMENT '判断题编号',
+  `short_ids` varchar(300) DEFAULT NULL COMMENT '简答题编号',
+  `case_ids` varchar(300) DEFAULT NULL COMMENT '案例分析题编号',
+  `discuss_ids` varchar(300) DEFAULT NULL COMMENT '论述题编号',
   PRIMARY KEY (`test_id`),
   CONSTRAINT `contesttitle_fk_1` FOREIGN KEY (`test_id`) REFERENCES `testinfo` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -184,7 +206,7 @@ CREATE TABLE `notice` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `choice  `
+-- Table structure for `choice`
 -- ----------------------------
 DROP TABLE IF EXISTS `choice`;
 CREATE TABLE `choice` (
@@ -196,7 +218,29 @@ CREATE TABLE `choice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of option
+-- Records of choice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `paperrecord`
+-- ----------------------------
+DROP TABLE IF EXISTS `paperrecord`;
+CREATE TABLE `paperrecord` (
+  `paper_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '学生提交试卷答案编号',
+  `student_id` bigint(20) NOT NULL COMMENT '学号',
+  `test_id` int(11) NOT NULL COMMENT '测试编号',
+  `submit_time` timestamp NULL DEFAULT NULL COMMENT '提交时间',
+  `choice_score` int(11) DEFAULT '0' COMMENT '选择题分数',
+  `blank_score` int(11) DEFAULT '0' COMMENT '填空题分数',
+  `judge_score` int(11) DEFAULT '0' COMMENT '判断题分数',
+  `short_answer` varchar(2000) DEFAULT NULL COMMENT '简单题答案',
+  `case_answer` varchar(2000) DEFAULT NULL COMMENT '案例分析题答案',
+  `discuss_answer` varchar(2000) DEFAULT NULL COMMENT '论述题答案',
+  PRIMARY KEY (`paper_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of paperrecord
 -- ----------------------------
 
 -- ----------------------------
@@ -260,9 +304,14 @@ CREATE TABLE `testrecord` (
 -- ----------------------------
 DROP TABLE IF EXISTS `testtitle`;
 CREATE TABLE `testtitle` (
-  `student_id` bigint(20) NOT NULL DEFAULT '0',
-  `test_id` int(11) NOT NULL,
-  `title_ids` varchar(300) NOT NULL,
+  `student_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '学号',
+  `test_id` int(11) NOT NULL COMMENT '测试编号',
+  `title_ids` varchar(300) DEFAULT NULL COMMENT '选择题编号',
+  `blank_ids` varchar(300) DEFAULT NULL COMMENT '填空题编号',
+  `judge_ids` varchar(300) DEFAULT NULL COMMENT '判断题编号',
+  `short_ids` varchar(300) DEFAULT NULL COMMENT '简答题编号',
+  `case_ids` varchar(300) DEFAULT NULL COMMENT '案例分析题编号',
+  `discuss_ids` varchar(300) DEFAULT NULL COMMENT '论述题编号',
   PRIMARY KEY (`student_id`,`test_id`),
   KEY `testtitle_fk_2` (`test_id`),
   CONSTRAINT `testtitle_fk_1` FOREIGN KEY (`student_id`) REFERENCES `testrecord` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,

@@ -44,5 +44,7 @@
         <mapping class="com.csu.rules.domain.College"/>
         <mapping class="com.csu.rules.domain.Major"/>
         <mapping class="com.csu.rules.domain.Clazz"/>
+        <mapping class="com.csu.rules.domain.Additiontitle"/>
+        <mapping class="com.csu.rules.domain.Paperrecord"/>
     </session-factory>
 </hibernate-configuration>
