@@ -27,6 +27,52 @@ function addOption(select, data, type) {
 }
 
 /**
+ * 表头
+ * @type {[*]}
+ */
+var pNames = ["studentId", "username", "college", "major", "grade", "clazz", "score"];
+/**
+ * 将item对象变成一个tr对象
+ * @param item
+ * @returns {Element}
+ */
+function getRow(item) {
+    var tr = document.createElement("tr");
+    for (var i = 0;i < pNames.length;i++) {
+        var td = document.createElement("td");
+        td.innerHTML = item[pNames[i]];
+        tr.appendChild(td);
+    }
+    return tr;
+}
+
+/**
+ * 将请求到的成绩data显示
+ * @param data
+ */
+function showAchieve(data, conditionMsg) {
+    var achieveBody = $('#achieve_tbody')[0];
+    var achieveMsg = $('#achieve_msg')[0];
+    var achieveTbody = $('#achieve_tbody')[0];
+    removeAllChild(achieveTbody);
+    achieveMsg.innerHTML = conditionMsg + '共查询出记录数目' + data.length + '个';
+    for  (var i = 0;i < data.length;i++) {
+        var tr = getRow(data[i]);
+        achieveBody.appendChild(tr);
+    }
+}
+
+/**
+ * 移除element下的所有节点
+ * @param parentNode
+ */
+function removeAllChild(parentNode) {
+    while (parentNode.hasChildNodes()){
+        parentNode.removeChild(parentNode.firstChild);
+    }
+}
+
+/**
  * 清除select下的option
  * @param select
  */
@@ -48,9 +94,40 @@ function setDisabled(select, flag) {
 }
 
 /**
+ * 初始化方法
+ */
+function init(select, num) {
+    for (var i = 0; i <= num;i++) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        select.append(option);
+    }
+}
+
+/**
+ * 根据选择的条件格式化一条语句
+ * @returns {string}
+ */
+function formatCondition() {
+    var collegeSelect = $('#college')[0];
+    var majorSelect = $('#major')[0];
+    var clazzSelect = $('#clazz')[0];
+    var gradeSelect = $('#grade')[0];
+    var scoreSelect = $('#score')[0];
+    var conditionMsg = '';
+    collegeSelect.options.selectedIndex == 0 ? conditionMsg += "中南大学所有学院" : conditionMsg += ('中南大学' + collegeSelect.options[collegeSelect.options.selectedIndex].text);
+    majorSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += (majorSelect.options[majorSelect.options.selectedIndex].text + '专业');
+    conditionMsg += (gradeSelect.options[gradeSelect.options.selectedIndex].text + '级');
+    clazzSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += (clazzSelect.options[clazzSelect.options.selectedIndex].text);
+    scoreSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += ('分数在' + scoreSelect.options[scoreSelect.options.selectedIndex].text + '分以上');
+    return conditionMsg;
+}
+/**
  * 请求学院信息
  */
 function getColleges() {
+    if ($('#college')[0].options.length > 1) return;
     $.ajax({
         url: 'school/collegeList',
         method: 'GET',
@@ -59,6 +136,7 @@ function getColleges() {
         }
         
     })
+    init($('#score'), 100);
 }
 
 /**
@@ -129,11 +207,13 @@ function query() {
     var majorSelect = $('#major')[0];
     var clazzSelect = $('#clazz')[0];
     var gradeSelect = $('#grade')[0];
+    var scoreSelect = $('#score')[0];
     var json = {};
     json.college = collegeSelect.options.selectedIndex == 0 ? "" : collegeSelect.options[collegeSelect.options.selectedIndex].text;
     json.major = majorSelect.options.selectedIndex == 0 ? "" : majorSelect.options[majorSelect.options.selectedIndex].text;
     json.grade = gradeSelect.options.selectedIndex == 0 ? 0 : gradeSelect.options[gradeSelect.options.selectedIndex].text;
     json.clazz = clazzSelect.options.selectedIndex == 0 ? "" : clazzSelect.options[clazzSelect.options.selectedIndex].text;
+    json.level = scoreSelect.options.selectedIndex == 0 ? 0 : scoreSelect.options[scoreSelect.options.selectedIndex].text;
 
     $.ajax({
         url: 'test/recordListByCondition',
@@ -141,7 +221,7 @@ function query() {
         method: 'GET',
         data: json,
         success: function (data) {
-            console.log(data);
+            showAchieve(data, formatCondition());
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));
@@ -154,6 +234,4 @@ function query() {
     }).always(function () {
         console.log('complete');
     })
-    console.log('college:' + collegeSelect.length + 'major:' + majorSelect.length + 'clazz:' + clazzSelect.length);
-    console.log(JSON.stringify(collegeSelect.options[1].text))
 }

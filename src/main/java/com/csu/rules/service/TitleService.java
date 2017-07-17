@@ -1,10 +1,8 @@
 package com.csu.rules.service;
 
 import com.csu.rules.domain.Account;
-import com.csu.rules.domain.Contesttitle;
 import com.csu.rules.domain.Title;
 import com.csu.rules.domain.Wrongtitle;
-import com.csu.rules.exception.LearnServiceException;
 import com.csu.rules.exception.TitleServiceException;
 
 import java.util.List;
