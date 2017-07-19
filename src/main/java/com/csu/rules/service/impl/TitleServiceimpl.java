@@ -24,12 +24,6 @@ public class TitleServiceimpl implements TitleService {
     private AdditiontitleDAO additiontitleDAO;
 
     @Autowired
-    public TitleServiceimpl(TitleDAO titleDAO, WrongtitleDAO wrongtitleDAO) {
-        this.titleDAO = titleDAO;
-        this.wrongtitleDAO = wrongtitleDAO;
-    }
-
-    @Autowired
     public TitleServiceimpl(TitleDAO titleDAO, WrongtitleDAO wrongtitleDAO, AdditiontitleDAO additiontitleDAO) {
         this.titleDAO = titleDAO;
         this.wrongtitleDAO = wrongtitleDAO;

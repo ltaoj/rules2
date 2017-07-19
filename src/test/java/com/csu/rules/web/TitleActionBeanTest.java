@@ -4,8 +4,10 @@ import com.csu.rules.domain.Account;
 import com.csu.rules.domain.AccountTitles;
 import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
+import com.csu.rules.persistence.AdditiontitleDAO;
 import com.csu.rules.persistence.TitleDAO;
 import com.csu.rules.persistence.WrongtitleDAO;
+import com.csu.rules.persistence.impl.AdditiontitleDAOimpl;
 import com.csu.rules.persistence.impl.TitleDAOimpl;
 import com.csu.rules.persistence.impl.WrongtitleDAOimpl;
 import com.csu.rules.service.TitleService;
@@ -34,7 +36,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 public class TitleActionBeanTest {
     private TitleDAO titleDAO = new TitleDAOimpl();
     private WrongtitleDAO wrongtitleDAO = new WrongtitleDAOimpl();
-    private TitleService titleService = new TitleServiceimpl(titleDAO, wrongtitleDAO);
+    private AdditiontitleDAO additiontitleDAO = new AdditiontitleDAOimpl();
+    private TitleService titleService = new TitleServiceimpl(titleDAO, wrongtitleDAO, additiontitleDAO);
     private TitleActionBean titleActionBean = new TitleActionBean(titleService);
 
     ObjectMapper mapper = new ObjectMapper();
