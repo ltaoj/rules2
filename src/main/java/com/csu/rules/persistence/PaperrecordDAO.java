@@ -3,6 +3,8 @@ package com.csu.rules.persistence;
 import com.csu.rules.domain.Paperrecord;
 import com.csu.rules.exception.PersistenceException;
 
+import java.util.List;
+
 /**
  * Created by ltaoj on 17-7-17.
  */
@@ -14,7 +16,7 @@ public interface PaperrecordDAO {
      * @return
      * @throws PersistenceException
      */
-    Integer insertPaperrecord(Paperrecord paperrecord) throws PersistenceException;
+    void insertPaperrecord(Paperrecord paperrecord) throws PersistenceException;
 
     /**
      * 通过试卷编号删除提交的试卷
@@ -68,15 +70,14 @@ public interface PaperrecordDAO {
      * @return
      * @throws PersistenceException
      */
-    Paperrecord getPaperrecordByStudentId(int studentId) throws PersistenceException;
+    List<Paperrecord> getPaperrecordByStudentId(int studentId) throws PersistenceException;
 
     /**
      * 通过试卷编号更新提交的试卷
-     * @param paperId
      * @param paperrecord
      * @throws PersistenceException
      */
-    void updatePaperrecord(int paperId, Paperrecord paperrecord) throws PersistenceException;
+    void updatePaperrecord(int paperId,Paperrecord paperrecord) throws PersistenceException;
 
     /**
      * 通过学号和测试编号更新试卷
