@@ -47,11 +47,11 @@ public interface PaperrecordDAO {
 
     /**
      * 通过试卷编号获取试卷
-     * @param paper_id
+     * @param paperId
      * @return
      * @throws PersistenceException
      */
-    Paperrecord getPaperrecord(int paper_id) throws PersistenceException;
+    Paperrecord getPaperrecord(int paperId) throws PersistenceException;
 
     /**
      * 通过学号和测试编号获取试卷

@@ -1,6 +1,7 @@
 package com.csu.rules.service;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.domain.Additiontitle;
 import com.csu.rules.domain.Title;
 import com.csu.rules.domain.Wrongtitle;
 import com.csu.rules.exception.TitleServiceException;
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 public interface TitleService {
     /**
-     * 试题练习获取试题
+     * 试题练习获取试题,选择题
      * @param page
      * @param count
      * @return
@@ -23,6 +24,20 @@ public interface TitleService {
      * 50.数据持久化异常
      */
     List<Title> getTitleListByPage(int page, int count) throws TitleServiceException;
+
+    /**
+     * 试题练习获取不同类型题目，非选择题
+     * @param page
+     * @param count
+     * @param type
+     * @return
+     * @throws TitleServiceException
+     * 51.page字段不合法
+     * 52.count字段不合法
+     * 64.type字段不合法
+     * 50.数据持久化异常
+     */
+    List<Additiontitle> getTitleListByTypeAndPage(int page, int count, int type) throws TitleServiceException;
 
     /**
      * 考试模块随机试题
@@ -35,7 +50,19 @@ public interface TitleService {
     List<Title> getTitleListByRandom(int count) throws TitleServiceException;
 
     /**
-     * 试题练习模块提交试题
+     * 考试模块随机生成count个类型为type的试题
+     * @param count
+     * @param type
+     * @return
+     * @throws TitleServiceException
+     * 52.count字段不合法
+     * 64.type字段不合法
+     * 50.数据持久化异常
+     */
+    List<Additiontitle> getRandomTitleListByType(int count, int type) throws TitleServiceException;
+
+    /**
+     * 试题练习模块提交选择试题
      * @param titleList
      * @return
      * @throws TitleServiceException
@@ -44,6 +71,17 @@ public interface TitleService {
      *
      */
     List<Title> submitTitleList(Account account, List<Title> titleList) throws TitleServiceException;
+
+    /**
+     * 试题练习模块提交非选择题目
+     * @param account
+     * @param titleList
+     * @return
+     * @throws TitleServiceException
+     * 53.titleList字段不合法
+     * 50.数据持久化异常
+     */
+    List<Additiontitle> submitAdditionList(Account account, List<Additiontitle> titleList) throws TitleServiceException;
 
     /**
      * 题目是否正确,正确时将options设为null，错误返回正确题目
@@ -57,6 +95,18 @@ public interface TitleService {
     Title getCorrectTitle(Title title) throws TitleServiceException;
 
     /**
+     * 题目是否正确，正确时将答案设为null,错误时返回正确题目
+     * @param title
+     * @return
+     * @throws TitleServiceException
+     * 54.title字段合法性
+     * 55.题目正确性检查异常
+     * 65.答案格式化错误，大小不一致
+     * 50.数据持久化异常
+     */
+    Additiontitle getCorrectTitle(Additiontitle title) throws TitleServiceException;
+
+    /**
      * @param title
      * @return
      * @throws TitleServiceException
@@ -65,6 +115,7 @@ public interface TitleService {
      * 50.数据持久化异常
      */
     boolean isTitleCorrect(Title title) throws TitleServiceException;
+
     /**
      * 得到用户错题列表
      * @param account
@@ -87,7 +138,17 @@ public interface TitleService {
     List<Title> getTitleListByTitleIds(Set<Integer> integers) throws TitleServiceException;
 
     /**
-     * 获取单个试题
+     * 竞赛获取非选择试题
+     * @param integers
+     * @return
+     * @throws TitleServiceException
+     * 57.integers字段不合法
+     * 50.数据持久化异常
+     */
+    List<Additiontitle> getAdditiontitleListByTitleIds(Set<Integer> integers) throws TitleServiceException;
+
+    /**
+     * 获取单个选择试题
      * @param title
      * @return
      * @throws TitleServiceException
@@ -96,6 +157,17 @@ public interface TitleService {
      * 50.数据持久化异常
      */
     Title getTitle(Title title) throws TitleServiceException;
+
+    /**
+     * 获取单个非选择试题
+     * @param title
+     * @return
+     * @throws TitleServiceException
+     * 58.title字段不合法
+     * 59.没有title返回
+     * 50.数据持久化异常
+     */
+    Additiontitle getTitle(Additiontitle title) throws TitleServiceException;
 
     /**
      * @param titleList
@@ -107,11 +179,35 @@ public interface TitleService {
     int getTitlePageScore(List<Title> titleList) throws TitleServiceException;
 
     /**
+     * @param titleList
+     * @return
+     * @throws TitleServiceException
+     * 60.titleList字段不合法
+     * 50.数据持久化异常
+     */
+    int getAdditiontitlePageScore(List<Additiontitle> titleList) throws TitleServiceException;
+
+    /**
+     * 获取count个选择题编号集
      * @param count
      * @return
      * @throws TitleServiceException
+     * 52.count字段不合法
+     * 50.数据持久化异常
      */
     String getRandomIntegerList(int count) throws TitleServiceException;
+
+    /**
+     * 获取count个类型为type的题目编号集
+     * @param count
+     * @param type
+     * @return
+     * @throws TitleServiceException
+     * 52.count字段异常
+     * 64.type字段异常
+     * 50.数据持久化异常
+     */
+    String getRandomIntegerListByType(int count, int type) throws TitleServiceException;
 
     /**
      * @param formatString
@@ -124,6 +220,16 @@ public interface TitleService {
     List<Title> getTitleListByFormatString(String formatString) throws TitleServiceException;
 
     /**
+     * 通过格式化的非选择题试题id字符串找到对应的试题列表
+     * @param formatString
+     * @return
+     * @throws TitleServiceException
+     * 61.formatString为空或者为空字符
+     * 50.数据持久化异常
+     */
+    List<Additiontitle> getAdditiontitleListByFormatString(String formatString) throws TitleServiceException;
+
+    /**
      * @param title
      * @throws TitleServiceException
      * 添加题目
@@ -133,10 +239,28 @@ public interface TitleService {
     void insertTitle(Title title) throws TitleServiceException;
 
     /**
+     * 添加题目
+     * @param title
+     * @throws TitleServiceException
+     * 62.title字段不合法
+     * 50.数据持久化异常
+     */
+    void insertTitle(Additiontitle title) throws TitleServiceException;
+
+    /**
      * @param titleList
      * @throws TitleServiceException
      * 63.titleList字段异常
      * 50.数据持久化异常
      */
     void insertTitleList(List<Title> titleList) throws TitleServiceException;
+
+    /**
+     * 添加试题列表
+     * @param titleList
+     * @throws TitleServiceException
+     * 63.titleList字段异常
+     * 50.数据持久化异常
+     */
+    void insertAdditionTitleList(List<Additiontitle> titleList) throws TitleServiceException;
 }

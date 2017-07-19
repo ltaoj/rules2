@@ -7,6 +7,7 @@ import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import java.util.Set;
 /**
  * Created by ltaoj on 17-7-17.
  */
+@Repository
 public class AdditiontitleDAOimpl implements AdditiontitleDAO {
     public Integer addTitle(Additiontitle title) throws PersistenceException {
         try {
