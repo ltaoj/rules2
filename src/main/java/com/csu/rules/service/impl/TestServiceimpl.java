@@ -21,15 +21,17 @@ public class TestServiceimpl implements TestService {
     private TestRecordDAO testRecordDAO;
     private TesttitleDAO testtitleDAO;
     private ContestTitleDAO contestTitleDAO;
+    private PaperrecordDAO paperrecordDAO;
 
     @Autowired
     public TestServiceimpl(ContestTestDAO contestTestDAO, TestDAO testDAO, TestRecordDAO testRecordDAO,
-                           TesttitleDAO testtitleDAO, ContestTitleDAO contestTitleDAO) {
+                           TesttitleDAO testtitleDAO, ContestTitleDAO contestTitleDAO,PaperrecordDAO paperrecordDAO) {
         this.contestTestDAO = contestTestDAO;
         this.testDAO = testDAO;
         this.testRecordDAO = testRecordDAO;
         this.testtitleDAO = testtitleDAO;
         this.contestTitleDAO = contestTitleDAO;
+        this.paperrecordDAO=paperrecordDAO;
     }
 
     public void registContest(Contestregistion contestregistion) throws TestServiceException {
@@ -377,6 +379,106 @@ public class TestServiceimpl implements TestService {
     public List<AccountTestRecord> getTestRecordByCondition(String clazz, int grade, String major, String college, int level) throws TestServiceException{
         try {
             return testRecordDAO.getTestrecordByCondition(clazz, grade, major, college, level);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void insertPaperrecord(Paperrecord paperrecord) throws TestServiceException {
+        try {
+            paperrecordDAO.insertPaperrecord(paperrecord);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deletePaperrecord(int paperId) throws TestServiceException {
+        try {
+            paperrecordDAO.deletePaperrecord(paperId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deletePaperrecordByStudentId(int studentId) throws TestServiceException {
+        try {
+            paperrecordDAO.deletePaperrecordByStudentId(studentId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deletePaperrecordByTestId(int testId) throws TestServiceException {
+        try {
+            paperrecordDAO.deletePaperrecordByTestId(testId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void deletePaperrecordByStudentIdAndTestId(int studentId, int testId) throws TestServiceException {
+        try {
+            paperrecordDAO.deletePaperrecordByStudentIdAndTestId(studentId, testId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public Paperrecord getPaperrecord(int paper_id) throws TestServiceException {
+        try {
+            return paperrecordDAO.getPaperrecord(paper_id);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public Paperrecord getPaperrecordByStudentIdAndTestId(int studentId, int testId) throws TestServiceException {
+        try {
+            return paperrecordDAO.getPaperrecordByStudentIdAndTestId(studentId, testId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public List<Paperrecord> getPaperrecordByStudentId(int studentId) throws TestServiceException {
+        try {
+            return paperrecordDAO.getPaperrecordByStudentId(studentId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void updatePaperrecord(int paperId, Paperrecord paperrecord) throws TestServiceException {
+        try {
+           paperrecordDAO.updatePaperrecord(paperId, paperrecord);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
+
+    public void updatePaperrecordBy(int studentId, int testId, Paperrecord paperrecord) throws TestServiceException {
+        try {
+            paperrecordDAO.updatePaperrecordBy(studentId,testId, paperrecord);
         }catch (PersistenceException pe) {
             TestServiceException te = new TestServiceException();
             te.setErrorCode(100);

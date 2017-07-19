@@ -237,4 +237,82 @@ public interface TestService {
      * @throws TestServiceException
      */
     List<AccountTestRecord> getTestRecordByCondition(String clazz, int grade, String major, String college, int level) throws TestServiceException;
+
+    /**
+     * 插入paperrecord
+     * @param paperrecord
+     * @throws TestServiceException
+     */
+    void insertPaperrecord(Paperrecord paperrecord) throws TestServiceException;
+
+    /**
+     * 删除paperrecord
+     * @param paperId
+     * @throws TestServiceException
+     */
+    void deletePaperrecord(int paperId) throws TestServiceException;
+
+    /**
+     * 通过学号删除所有试卷
+     * @param studentId
+     * @throws TestServiceException
+     */
+    void deletePaperrecordByStudentId(int studentId) throws TestServiceException;
+
+    /**
+     * 通过考试编号删除所有试卷
+     * @param testId
+     * @throws TestServiceException
+     */
+    void deletePaperrecordByTestId(int testId) throws TestServiceException;
+
+    /**
+     * 通过学号和考试编号删除试卷
+     * @param studentId
+     * @param testId
+     * @throws TestServiceException
+     */
+    void deletePaperrecordByStudentIdAndTestId(int studentId, int testId) throws TestServiceException;
+
+    /**
+     * 通过试卷编号获取试卷
+     * @param paper_id
+     * @return
+     * @throws TestServiceException
+     */
+    Paperrecord getPaperrecord(int paper_id) throws TestServiceException;
+
+    /**
+     * 通过学号和考试编号获取试卷
+     * @param studentId
+     * @param testId
+     * @return
+     * @throws TestServiceException
+     */
+    Paperrecord getPaperrecordByStudentIdAndTestId(int studentId, int testId) throws TestServiceException;
+
+    /**
+     * 通过学号获取所有试卷
+     * @param studentId
+     * @return
+     * @throws TestServiceException
+     */
+    List<Paperrecord> getPaperrecordByStudentId(int studentId) throws TestServiceException;
+
+    /**
+     * 通过试卷编号更新提交的试卷
+     * @param paperId
+     * @param paperrecord
+     * @throws TestServiceException
+     */
+    void updatePaperrecord(int paperId,Paperrecord paperrecord) throws TestServiceException;
+
+    /**
+     * 通过学号和考试编号更新试卷
+     * @param studentId
+     * @param testId
+     * @param paperrecord
+     * @throws TestServiceException
+     */
+    void updatePaperrecordBy(int studentId, int testId, Paperrecord paperrecord) throws TestServiceException;
 }
