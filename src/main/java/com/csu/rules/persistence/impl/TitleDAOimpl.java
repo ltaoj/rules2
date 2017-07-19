@@ -153,6 +153,7 @@ public class TitleDAOimpl implements TitleDAO {
         }
         return set;
     }
+
     public String formatSet(Set set) throws PersistenceException{
         StringBuilder sb = new StringBuilder();
         Iterator values = set.iterator();
