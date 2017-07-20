@@ -275,16 +275,17 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public void insertTesttitle(Testrecord testrecord, String formatString, String blankIds, String judgeIds, String shortIds, String caseIds, String discussIds) throws TestServiceException {
+    public void insertTesttitle(Testrecord testrecord, String formatString, String blankIds, String judgeIds,
+                                String shortIds, String caseIds, String discussIds) throws TestServiceException {
         Testtitle testtitle = new Testtitle();
         testtitle.setStudentId(testrecord.getStudentId());
         testtitle.setTestId(testrecord.getTestId());
         testtitle.setTitleIds(formatString);
-	testtitle.setBlankIds(blankIds);
-	testtitle.setJudgeIds(judgeIds);
-	testtitle.setShortIds(shortIds);
-	testtitle.setCaseIds(caseIds);
-	testtitle.setDiscussIds(discussIds);
+        testtitle.setBlankIds(blankIds);
+        testtitle.setJudgeIds(judgeIds);
+        testtitle.setShortIds(shortIds);
+        testtitle.setCaseIds(caseIds);
+        testtitle.setDiscussIds(discussIds);
         insertTesttitle(testtitle);
     }
 

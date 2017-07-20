@@ -151,13 +151,19 @@ public interface TestService {
      */
     void insertTesttitle(Testtitle testtitle) throws TestServiceException;
 
-    /**
+     /**
      * 添加测试题目
      * @param testrecord
      * @param formatString
+     * @param blankIds
+     * @param judgeIds
+     * @param shortIds
+     * @param caseIds
+     * @param discussIds
      * @throws TestServiceException
      */
-    void insertTesttitle(Testrecord testrecord, String formatString) throws TestServiceException;
+    void insertTesttitle(Testrecord testrecord, String formatString, String blankIds,
+                    String judgeIds, String shortIds, String caseIds, String discussIds) throws TestServiceException;
 
     /**
      * 通过考试记录获取关联试题
