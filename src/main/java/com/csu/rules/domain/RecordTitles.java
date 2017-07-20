@@ -1,13 +1,11 @@
 package com.csu.rules.domain;
 
-import java.util.List;
-
 /**
  * Created by GF on 2017/6/25.
  */
 public class RecordTitles {
     private Testrecord testrecord;
-    private submitPaper submitPaper;
+    private SubmitPaper submitPaper;
 
     public Testrecord getTestrecord() {
         return testrecord;
@@ -17,11 +15,11 @@ public class RecordTitles {
         this.testrecord = testrecord;
     }
 
-    public com.csu.rules.domain.submitPaper getSubmitPaper() {
+    public SubmitPaper getSubmitPaper() {
         return submitPaper;
     }
 
-    public void setSubmitPaper(com.csu.rules.domain.submitPaper submitPaper) {
+    public void setSubmitPaper(SubmitPaper submitPaper) {
         this.submitPaper = submitPaper;
     }
 }

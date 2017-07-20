@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by GF on 2017/7/20.
  */
-public class submitPaper {
+public class SubmitPaper {
     private List<Title> titleList;  // 选择题列表
     private List<Additiontitle> blanksList; // 填空题列表
     private List<Additiontitle> judgeList; // 判断题列表
