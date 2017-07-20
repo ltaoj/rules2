@@ -6,6 +6,8 @@ import com.csu.rules.domain.Testtitle;
 import com.csu.rules.exception.PersistenceException;
 import org.aspectj.weaver.ast.Test;
 
+import java.util.List;
+
 /**
  * Created by ltaoj on 17-7-2.
  */
@@ -65,4 +67,12 @@ public interface TesttitleDAO {
      * 根据用户和考试信息删除关联试题记录
      */
     void deleteTesttitle (Account account, Testinfo testinfo) throws PersistenceException;
+
+    /**
+     * 获取所有学生考试题
+     * @param testId
+     * @return
+     * @throws PersistenceException
+     */
+    List<Testtitle> getTesttitleList(int testId) throws PersistenceException;
 }

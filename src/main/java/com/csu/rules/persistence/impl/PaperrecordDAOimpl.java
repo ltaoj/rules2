@@ -46,12 +46,12 @@ public class PaperrecordDAOimpl implements PaperrecordDAO{
         }
     }
 
-    public void deletePaperrecordByStudentId(int studentId) throws PersistenceException {
+    public void deletePaperrecordByStudentId(long studentId) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
             Query query=session.createQuery("delete Paperrecord as paperrecord where studentId=?");
-            query.setInteger(0,studentId);
+            query.setLong(0,studentId);
             query.executeUpdate();
             transaction.commit();
             session.close();
@@ -74,12 +74,12 @@ public class PaperrecordDAOimpl implements PaperrecordDAO{
         }
     }
 
-    public void deletePaperrecordByStudentIdAndTestId(int studentId, int testId) throws PersistenceException {
+    public void deletePaperrecordByStudentIdAndTestId(long studentId, int testId) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
             Query query=session.createQuery("delete Paperrecord as paperrecord where studentId=? and testId=?");
-            query.setInteger(0,studentId);
+            query.setLong(0,studentId);
             query.setInteger(1,testId);
             query.executeUpdate();
             transaction.commit();
@@ -100,11 +100,11 @@ public class PaperrecordDAOimpl implements PaperrecordDAO{
         }
     }
 
-    public Paperrecord getPaperrecordByStudentIdAndTestId(int studentId, int testId) throws PersistenceException {
+    public Paperrecord getPaperrecordByStudentIdAndTestId(long studentId, int testId) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Query query=session.createQuery("from Paperrecord as paperrecord where studentId=? and testId=?");
-            query.setInteger(0,studentId);
+            query.setLong(0,studentId);
             query.setInteger(1,testId);
             List<Paperrecord> paperrecordList=query.list();
             session.close();
@@ -115,7 +115,7 @@ public class PaperrecordDAOimpl implements PaperrecordDAO{
 
     }
 
-    public List<Paperrecord> getPaperrecordByStudentId(int studentId) throws PersistenceException {
+    public List<Paperrecord> getPaperrecordByStudentId(long studentId) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Criteria criteria = session.createCriteria(Paperrecord.class);
@@ -148,12 +148,12 @@ public class PaperrecordDAOimpl implements PaperrecordDAO{
         }
     }
 
-    public void updatePaperrecordBy(int studentId, int testId, Paperrecord paperrecord) throws PersistenceException {
+    public void updatePaperrecordBy(long studentId, int testId, Paperrecord paperrecord) throws PersistenceException {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
             Query query=session.createQuery("from Paperrecord as paperrecord where studentId=? and testId=?");
-            query.setInteger(0,studentId);
+            query.setLong(0,studentId);
             query.setInteger(1,testId);
             List<Paperrecord> paperrecordList=query.list();
             Paperrecord paperrecord1=paperrecordList.get(0);

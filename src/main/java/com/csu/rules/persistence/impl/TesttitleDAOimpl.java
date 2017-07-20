@@ -6,6 +6,7 @@ import com.csu.rules.domain.Testtitle;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.TesttitleDAO;
 import com.csu.rules.utils.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -72,5 +73,17 @@ public class TesttitleDAOimpl implements TesttitleDAO {
 
     public void deleteTesttitle(Account account, Testinfo testinfo) throws PersistenceException {
         deleteTesttitle(account.getStudentId(), testinfo.getTestId());
+    }
+
+    public List<Testtitle> getTesttitleList(int testId) throws PersistenceException {
+        try {
+            Session session = HibernateUtil.getSession();
+            String hql = "from Testtitle as testtitle where testId=" + testId;
+            List<Testtitle> list = session.createQuery(hql).list();
+            session.close();
+            return list != null && list.size() > 0 ? list : null;
+        }catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
     }
 }

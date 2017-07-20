@@ -7,8 +7,8 @@ import java.util.List;
  */
 public class RecordTitles {
     private Testrecord testrecord;
-    private List<Title> titleList;
-    private List<Additiontitle> additiontitleList;
+    private submitPaper submitPaper;
+
     public Testrecord getTestrecord() {
         return testrecord;
     }
@@ -17,19 +17,11 @@ public class RecordTitles {
         this.testrecord = testrecord;
     }
 
-    public List<Title> getTitleList() {
-        return titleList;
+    public com.csu.rules.domain.submitPaper getSubmitPaper() {
+        return submitPaper;
     }
 
-    public void setTitleList(List<Title> titleList) {
-        this.titleList = titleList;
-    }
-
-    public List<Additiontitle> getAdditiontitleList() {
-        return additiontitleList;
-    }
-
-    public void setAdditiontitleList(List<Additiontitle> additiontitleList) {
-        this.additiontitleList = additiontitleList;
+    public void setSubmitPaper(com.csu.rules.domain.submitPaper submitPaper) {
+        this.submitPaper = submitPaper;
     }
 }
