@@ -8,7 +8,7 @@ import java.util.List;
 public class AccountTitles {
     private Account account;
     private List<Title> titleList;
-
+    private List<Additiontitle> additiontitleList;
     public Account getAccount() {
         return account;
     }
@@ -23,5 +23,13 @@ public class AccountTitles {
 
     public void setTitleList(List<Title> titleList) {
         this.titleList = titleList;
+    }
+
+    public List<Additiontitle> getAdditiontitleList() {
+        return additiontitleList;
+    }
+
+    public void setAdditiontitleList(List<Additiontitle> additiontitleList) {
+        this.additiontitleList = additiontitleList;
     }
 }
