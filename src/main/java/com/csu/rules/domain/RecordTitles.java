@@ -8,7 +8,7 @@ import java.util.List;
 public class RecordTitles {
     private Testrecord testrecord;
     private List<Title> titleList;
-
+    private List<Additiontitle> additiontitleList;
     public Testrecord getTestrecord() {
         return testrecord;
     }
@@ -23,5 +23,13 @@ public class RecordTitles {
 
     public void setTitleList(List<Title> titleList) {
         this.titleList = titleList;
+    }
+
+    public List<Additiontitle> getAdditiontitleList() {
+        return additiontitleList;
+    }
+
+    public void setAdditiontitleList(List<Additiontitle> additiontitleList) {
+        this.additiontitleList = additiontitleList;
     }
 }

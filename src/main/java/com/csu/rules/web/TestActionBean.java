@@ -71,7 +71,7 @@ public class TestActionBean extends AbstractActionBean {
     //开始考试 插入考试时间信息 判断剩余时间
 
     @RequestMapping(value = "/startTest", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord) {
+    public ResponseEntity<List<Additiontitle>> getTestTitle(@RequestBody Testrecord testrecord) {
         try {
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
             if (testrecord1 == null) {
@@ -86,8 +86,8 @@ public class TestActionBean extends AbstractActionBean {
                 testService.insertTesttitle(testrecord, formatRandomIds);
             }
             Testtitle testtitle = testService.getTesttitleByTestrecord(testrecord);
-            List<Title> testTitleList = titleService.getTitleListByFormatString(testtitle.getTitleIds());
-            return new ResponseEntity<List<Title>>(testTitleList, HttpStatus.OK);
+            List<Additiontitle> testTitleList = titleService.getAdditiontitleListByFormatString(testtitle.getTitleIds());
+            return new ResponseEntity<List<Additiontitle>>(testTitleList, HttpStatus.OK);
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         } catch (TitleServiceException e) {
@@ -138,9 +138,16 @@ public class TestActionBean extends AbstractActionBean {
     public ResponseEntity<Testrecord> submitTest(@RequestBody RecordTitles recordTitles) {
         try {
             Testrecord testrecord=testService.getTestRecord(recordTitles.getTestrecord());
-            int score = titleService.getTitlePageScore(recordTitles.getTitleList());
+            int choiceScore = titleService.getTitlePageScore(recordTitles.getTitleList());
+            int blankScore=titleService.getAdditiontitlePageScore(recordTitles.getAdditiontitleList());
             testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-            testrecord.setScore(score);
+            testrecord.setScore(new Integer(-1));
+            Paperrecord paperrecord=new Paperrecord();
+            paperrecord.setStudentId(recordTitles.getTestrecord().getStudentId());
+            paperrecord.setTestId(recordTitles.getTestrecord().getTestId());
+            paperrecord.setChoiceScore(choiceScore);
+            paperrecord.setBlankScore(blankScore);
+            testService.insertPaperrecord(paperrecord);
             testService.updateTestRecord(testrecord);
             return new ResponseEntity<Testrecord>(testrecord, HttpStatus.OK);
         } catch (TitleServiceException te) {
@@ -232,7 +239,7 @@ public class TestActionBean extends AbstractActionBean {
 
     //开始竞赛 插入时间信息 返回确定竞赛试题
     @RequestMapping(value="/startContest",method=RequestMethod.POST,consumes="application/json")
-    public ResponseEntity<List<Title>> getContestTitle(@RequestBody Testrecord testrecord){
+    public ResponseEntity<List<Additiontitle>> getContestTitle(@RequestBody Testrecord testrecord){
         try {
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
             if (testrecord1 == null) {
@@ -240,8 +247,8 @@ public class TestActionBean extends AbstractActionBean {
                 testService.insertTestRecord(testrecord);
             }
             Contesttitle contesttitle=testService.getContesttitle(testrecord.getTestId());
-            List<Title> contestTitleList = titleService.getTitleListByFormatString(contesttitle.getTitleIds());
-            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
+            List<Additiontitle> contestTitleList = titleService.getAdditiontitleListByFormatString(contesttitle.getTitleIds());
+            return new ResponseEntity<List<Additiontitle>>(contestTitleList, HttpStatus.OK);
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         } catch (TitleServiceException e) {
@@ -423,5 +430,24 @@ public class TestActionBean extends AbstractActionBean {
         }
     }
 
+    //根据考试Id显示考试试卷供教师批阅
+    @RequestMapping(value = "/getPaperrecordByTestId", method = RequestMethod.GET)
+    public ResponseEntity<List<Additiontitle>> getContestregistionCount() {
+        try {
 
+            return new ResponseEntity<List<Additiontitle>>(, HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+    //根据学生学号显示考试试卷供教师批阅
+    @RequestMapping(value = "/getPaperrecordByStudentId", method = RequestMethod.GET)
+    public ResponseEntity<List<Additiontitle>> getContestregistionCount() {
+        try {
+
+            return new ResponseEntity<List<Additiontitle>>(, HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
 }
