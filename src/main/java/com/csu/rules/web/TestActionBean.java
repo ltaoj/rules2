@@ -75,7 +75,12 @@ public class TestActionBean extends AbstractActionBean {
         try {
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
             if (testrecord1 == null) {
-                String formatRandomIds = titleService.getRandomIntegerList(10);
+                String blankFormatRandomId = titleService.getRandomIntegerListByType(2,1);
+                String judgeFormatRandomId = titleService.getRandomIntegerListByType(2,2);
+                String shortFormatRandomId = titleService.getRandomIntegerListByType(2,3);
+                String caseFormatRandomId = titleService.getRandomIntegerListByType(2,4);
+                String discussFormatRandomId = titleService.getRandomIntegerListByType(2,5);
+                String formatRandomIds=blankFormatRandomId+judgeFormatRandomId+shortFormatRandomId+caseFormatRandomId+discussFormatRandomId;
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
                 testService.insertTesttitle(testrecord, formatRandomIds);
@@ -265,6 +270,8 @@ public class TestActionBean extends AbstractActionBean {
             throw new CatchServiceException(e);
         }
     }
+
+
     /**************************************************管理员****************************************************/
     //插入考试信息
     @RequestMapping(value = "/insertTest", method = RequestMethod.POST, consumes = "application/json")
