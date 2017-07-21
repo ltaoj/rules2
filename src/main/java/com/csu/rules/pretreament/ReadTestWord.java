@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by 51157 on 2017/7/20.
  */
 public class ReadTestWord {
-    public Map<String, Map> read() throws IOException {
+    public static Map<String, Map> read() throws IOException {
 //        System.out.println(System.getProperty("user.dir"));
         InputStream is = new FileInputStream("Test/考试题.doc");
         WordExtractor extractor = new WordExtractor(is);
@@ -137,7 +137,7 @@ public class ReadTestWord {
         /*
          *读取题答案部分
          */
-        is = new FileInputStream("POI/POI_WORD3.doc");
+        is = new FileInputStream("Test/考试题答案.doc");
         extractor = new WordExtractor(is);
         //获取各个段落的文本
         paraTexts = extractor.getParagraphText();
@@ -186,7 +186,7 @@ public class ReadTestWord {
      *
      * @param is
      */
-    private void closeStream(InputStream is) {
+    private static void closeStream(InputStream is) {
         if (is != null) {
             try {
                 is.close();
@@ -198,7 +198,7 @@ public class ReadTestWord {
 
     public static void main(String[] args) {
         try {
-            new ReadTestWord().read();
+            ReadTestWord.read();
         } catch (IOException e) {
             e.printStackTrace();
         }
