@@ -1,9 +1,11 @@
 package com.csu.rules.web;
 
 import com.csu.rules.domain.*;
+import com.csu.rules.exception.AccountServiceException;
 import com.csu.rules.exception.CatchServiceException;
 import com.csu.rules.exception.TestServiceException;
 import com.csu.rules.exception.TitleServiceException;
+import com.csu.rules.service.AccountService;
 import com.csu.rules.service.LearnService;
 import com.csu.rules.service.TestService;
 import com.csu.rules.service.TitleService;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,11 +32,13 @@ import java.util.Set;
 public class TestActionBean extends AbstractActionBean {
     private TestService testService;
     private TitleService titleService;
+    private AccountService accountService;
 
     @Autowired
-    public TestActionBean(TestService testService, TitleService titleService) {
+    public TestActionBean(TestService testService, TitleService titleService,AccountService accountService) {
         this.testService = testService;
         this.titleService = titleService;
+        this.accountService=accountService;
     }
 
     //获取考试信息
@@ -71,18 +76,35 @@ public class TestActionBean extends AbstractActionBean {
     //开始考试 插入考试时间信息 判断剩余时间
 
     @RequestMapping(value = "/startTest", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<List<Title>> getTestTitle(@RequestBody Testrecord testrecord) {
+    public ResponseEntity<Paper> getTestTitle(@RequestBody Testrecord testrecord) {
         try {
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
             if (testrecord1 == null) {
-                String formatRandomIds = titleService.getRandomIntegerList(10);
+                String choiceFormatRandomId=titleService.getRandomIntegerList(2);
+                String blankFormatRandomId = titleService.getRandomIntegerListByType(2,1);
+                String judgeFormatRandomId = titleService.getRandomIntegerListByType(2,2);
+                String shortFormatRandomId = titleService.getRandomIntegerListByType(2,3);
+                String caseFormatRandomId = titleService.getRandomIntegerListByType(2,4);
+                String discussFormatRandomId = titleService.getRandomIntegerListByType(2,5);
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
-                testService.insertTesttitle(testrecord, formatRandomIds);
+                testService.insertTesttitle(testrecord,choiceFormatRandomId, blankFormatRandomId,judgeFormatRandomId,shortFormatRandomId,caseFormatRandomId,discussFormatRandomId);
             }
             Testtitle testtitle = testService.getTesttitleByTestrecord(testrecord);
-            List<Title> testTitleList = titleService.getTitleListByFormatString(testtitle.getTitleIds());
-            return new ResponseEntity<List<Title>>(testTitleList, HttpStatus.OK);
+            List<Title> choiceList=titleService.getTitleListByFormatString(testtitle.getTitleIds());
+            List<Additiontitle> blankList = titleService.getAdditiontitleListByFormatString(testtitle.getBlankIds());
+            List<Additiontitle> judgeList = titleService.getAdditiontitleListByFormatString(testtitle.getJudgeIds());
+            List<Additiontitle> shortList = titleService.getAdditiontitleListByFormatString(testtitle.getShortIds());
+            List<Additiontitle> caseList = titleService.getAdditiontitleListByFormatString(testtitle.getCaseIds());
+            List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(testtitle.getDiscussIds());
+            Paper paper=new Paper();
+            paper.setTitleList(choiceList);
+            paper.setBlanksList(blankList);
+            paper.setJudgeList(judgeList);
+            paper.setShortList(shortList);
+            paper.setCaseList(caseList);
+            paper.setDiscussList(discussList);
+            return new ResponseEntity<Paper>(paper, HttpStatus.OK);
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         } catch (TitleServiceException e) {
@@ -133,10 +155,22 @@ public class TestActionBean extends AbstractActionBean {
     public ResponseEntity<Testrecord> submitTest(@RequestBody RecordTitles recordTitles) {
         try {
             Testrecord testrecord=testService.getTestRecord(recordTitles.getTestrecord());
-            int score = titleService.getTitlePageScore(recordTitles.getTitleList());
             testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-            testrecord.setScore(score);
+            testrecord.setScore(new Integer(-1));//表示考试已经完成
             testService.updateTestRecord(testrecord);
+
+            int choiceScore = titleService.getTitlePageScore(recordTitles.getSubmitPaper().getTitleList());//选择题分数
+            int blankScore=titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getBlanksList());//填空题分数
+            Paperrecord paperrecord=new Paperrecord();
+            paperrecord.setStudentId(recordTitles.getTestrecord().getStudentId());
+            paperrecord.setTestId(recordTitles.getTestrecord().getTestId());
+            paperrecord.setChoiceScore(choiceScore);
+            paperrecord.setBlankScore(blankScore);
+            paperrecord.setShortAnswer(recordTitles.getSubmitPaper().getShortAnswer());
+            paperrecord.setCaseAnswer(recordTitles.getSubmitPaper().getCaseAnswer());
+            paperrecord.setDiscussAnswer(recordTitles.getSubmitPaper().getDiscussAnswer());
+            testService.insertPaperrecord(paperrecord);
+
             return new ResponseEntity<Testrecord>(testrecord, HttpStatus.OK);
         } catch (TitleServiceException te) {
             throw new CatchServiceException(te);
@@ -227,7 +261,7 @@ public class TestActionBean extends AbstractActionBean {
 
     //开始竞赛 插入时间信息 返回确定竞赛试题
     @RequestMapping(value="/startContest",method=RequestMethod.POST,consumes="application/json")
-    public ResponseEntity<List<Title>> getContestTitle(@RequestBody Testrecord testrecord){
+    public ResponseEntity<Paper> getContestTitle(@RequestBody Testrecord testrecord){
         try {
             Testrecord testrecord1 = testService.getTestRecord(testrecord);
             if (testrecord1 == null) {
@@ -235,8 +269,20 @@ public class TestActionBean extends AbstractActionBean {
                 testService.insertTestRecord(testrecord);
             }
             Contesttitle contesttitle=testService.getContesttitle(testrecord.getTestId());
-            List<Title> contestTitleList = titleService.getTitleListByFormatString(contesttitle.getTitleIds());
-            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
+            List<Title> choiceList=titleService.getTitleListByFormatString(contesttitle.getTitleIds());
+            List<Additiontitle> blankList = titleService.getAdditiontitleListByFormatString(contesttitle.getBlankIds());
+            List<Additiontitle> judgeList = titleService.getAdditiontitleListByFormatString(contesttitle.getJudgeIds());
+            List<Additiontitle> shortList = titleService.getAdditiontitleListByFormatString(contesttitle.getShortIds());
+            List<Additiontitle> caseList = titleService.getAdditiontitleListByFormatString(contesttitle.getCaseIds());
+            List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(contesttitle.getDiscussIds());
+            Paper paper=new Paper();
+            paper.setTitleList(choiceList);
+            paper.setBlanksList(blankList);
+            paper.setJudgeList(judgeList);
+            paper.setShortList(shortList);
+            paper.setCaseList(caseList);
+            paper.setDiscussList(discussList);
+            return new ResponseEntity<Paper>(paper, HttpStatus.OK);
         } catch (TestServiceException te) {
             throw new CatchServiceException(te);
         } catch (TitleServiceException e) {
@@ -265,6 +311,8 @@ public class TestActionBean extends AbstractActionBean {
             throw new CatchServiceException(e);
         }
     }
+
+
     /**************************************************管理员****************************************************/
     //插入考试信息
     @RequestMapping(value = "/insertTest", method = RequestMethod.POST, consumes = "application/json")
@@ -338,17 +386,39 @@ public class TestActionBean extends AbstractActionBean {
 //    }
 
     //管理员查看系统提供的随机竞赛试题
-    @RequestMapping(value = "/getContestRandomTitle", method = RequestMethod.POST,consumes = "application/json")
-    public ResponseEntity<List<Title>> getContestRandomTitle(@RequestBody Integer count) {
+    @RequestMapping(value = "/getContestRandomTitle", method = RequestMethod.GET)
+    public ResponseEntity<Paper> getContestRandomTitle() {
         try {
             Testinfo contestInfo=testService.getContestInfoList().get(0);
-            String formatRandomIds = titleService.getRandomIntegerList(count);
+            String choiceRandomIds = titleService.getRandomIntegerList(2);
+            String blankRandomIds = titleService.getRandomIntegerListByType(2,1);
+            String judgeRandomIds = titleService.getRandomIntegerListByType(2,2);
+            String shortRandomIds = titleService.getRandomIntegerListByType(2,3);
+            String caseRandomIds = titleService.getRandomIntegerListByType(2,4);
+            String discussRandomIds = titleService.getRandomIntegerListByType(2,5);
             Contesttitle contesttitle=new Contesttitle();
             contesttitle.setTestId(contestInfo.getTestId());
-            contesttitle.setTitleIds(formatRandomIds);
+            contesttitle.setTitleIds(choiceRandomIds);
+            contesttitle.setBlankIds(blankRandomIds);
+            contesttitle.setJudgeIds(judgeRandomIds);
+            contesttitle.setShortIds(shortRandomIds);
+            contesttitle.setCaseIds(caseRandomIds);
+            contesttitle.setDiscussIds(discussRandomIds);
             testService.insertContesttitle(contesttitle);
-            List<Title> contestTitleList = titleService.getTitleListByFormatString(formatRandomIds);
-            return new ResponseEntity<List<Title>>(contestTitleList, HttpStatus.OK);
+            List<Title> choiceList=titleService.getTitleListByFormatString(choiceRandomIds);
+            List<Additiontitle> blankList = titleService.getAdditiontitleListByFormatString(blankRandomIds);
+            List<Additiontitle> judgeList = titleService.getAdditiontitleListByFormatString(judgeRandomIds);
+            List<Additiontitle> shortList = titleService.getAdditiontitleListByFormatString(shortRandomIds);
+            List<Additiontitle> caseList = titleService.getAdditiontitleListByFormatString(caseRandomIds);
+            List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(discussRandomIds);
+            Paper paper=new Paper();
+            paper.setTitleList(choiceList);
+            paper.setBlanksList(blankList);
+            paper.setJudgeList(judgeList);
+            paper.setShortList(shortList);
+            paper.setCaseList(caseList);
+            paper.setDiscussList(discussList);
+            return new ResponseEntity<Paper>(paper, HttpStatus.OK);
         } catch (TitleServiceException e) {
             throw new CatchServiceException(e);
         }catch (TestServiceException te){
@@ -412,6 +482,102 @@ public class TestActionBean extends AbstractActionBean {
             }
             return new ResponseEntity<Integer>(count, HttpStatus.OK);
         } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
+    //根据考试Id显示考试试卷供教师批阅
+    @RequestMapping(value = "/getPaperrecordByTestId", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountPaperRecord>> getPaperrecordByTestId() {
+        try {
+            int testId=testService.getTestInfoList().get(0).getTestId();
+            List<Testtitle> testtitleList=testService.getTesttitleList(testId);
+            List<AccountPaperRecord> list=new ArrayList<AccountPaperRecord>();
+
+            for(int i=0;i<testtitleList.size();i++){
+                Testtitle testtitle=testtitleList.get(i);
+                AccountPaperRecord accountPaperRecord=new AccountPaperRecord();
+                Paper paper=new Paper();
+                Paperrecord paperrecord=testService.getPaperrecordByStudentIdAndTestId(testtitle.getStudentId(),testId);
+                //考生信息
+                Account account=new Account();
+                account.setStudentId(testtitle.getStudentId());
+                String[] shortAnswers=paperrecord.getShortAnswer().split("#");
+                String[] caseAnswers=paperrecord.getCaseAnswer().split("#");
+                String[] discussAnswers=paperrecord.getDiscussAnswer().split("#");
+                List<Additiontitle> shortList=titleService.getAdditiontitleListByFormatString(testtitle.getShortIds());
+                List<Additiontitle> caseList=titleService.getAdditiontitleListByFormatString(testtitle.getCaseIds());
+                List<Additiontitle> discussList=titleService.getAdditiontitleListByFormatString(testtitle.getDiscussIds());
+                for (int j=0;j<shortList.size();j++){
+                    Additiontitle additiontitle=shortList.get(j);
+                    additiontitle.setAnswer(shortAnswers[j]);
+                }
+                for (int j=0;j<caseList.size();j++){
+                    Additiontitle additiontitle=caseList.get(j);
+                    additiontitle.setAnswer(caseAnswers[j]);
+                }
+                for (int j=0;j<discussList.size();j++){
+                    Additiontitle additiontitle=discussList.get(j);
+                    additiontitle.setAnswer(discussAnswers[j]);
+                }
+                paper.setShortList(shortList);
+                paper.setCaseList(caseList);
+                paper.setDiscussList(discussList);
+                accountPaperRecord.setPaper(paper);
+                accountPaperRecord.setPaperrecord(paperrecord);
+                accountPaperRecord.setAccount(accountService.getUserInfo(account));
+                list.add(accountPaperRecord);
+            }
+            return new ResponseEntity<List<AccountPaperRecord>>(list, HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }catch (TitleServiceException e){
+            throw new CatchServiceException(e);
+        }catch (AccountServiceException e){
+            throw new CatchServiceException(e);
+        }
+    }
+    //根据学生学号显示考试试卷供教师批阅
+    @RequestMapping(value = "/getPaperrecordByStudentId", method = RequestMethod.POST,consumes = "application/json")
+    public ResponseEntity<AccountPaperRecord> getPaperrecordByStudentId(@RequestBody Testrecord testrecord) {
+        try {
+            Testtitle testtitle=testService.getTesttitleByTestrecord(testrecord);
+            AccountPaperRecord accountPaperRecord=new AccountPaperRecord();
+            Paper paper=new Paper();
+            Paperrecord paperrecord=testService.getPaperrecordByStudentIdAndTestId(testrecord.getStudentId(),testrecord.getTestId());
+            //考生信息
+            Account account=new Account();
+            account.setStudentId(testrecord.getStudentId());
+            String[] shortAnswers=paperrecord.getShortAnswer().split("#");
+            String[] caseAnswers=paperrecord.getCaseAnswer().split("#");
+            String[] discussAnswers=paperrecord.getDiscussAnswer().split("#");
+            List<Additiontitle> shortList=titleService.getAdditiontitleListByFormatString(testtitle.getShortIds());
+            List<Additiontitle> caseList=titleService.getAdditiontitleListByFormatString(testtitle.getCaseIds());
+            List<Additiontitle> discussList=titleService.getAdditiontitleListByFormatString(testtitle.getDiscussIds());
+            for (int j=0;j<shortList.size();j++){
+                Additiontitle additiontitle=shortList.get(j);
+                additiontitle.setAnswer(shortAnswers[j]);
+            }
+            for (int j=0;j<caseList.size();j++){
+                Additiontitle additiontitle=caseList.get(j);
+                additiontitle.setAnswer(caseAnswers[j]);
+            }
+            for (int j=0;j<discussList.size();j++){
+                Additiontitle additiontitle=discussList.get(j);
+                additiontitle.setAnswer(discussAnswers[j]);
+            }
+            paper.setShortList(shortList);
+            paper.setCaseList(caseList);
+            paper.setDiscussList(discussList);
+            accountPaperRecord.setPaper(paper);
+            accountPaperRecord.setPaperrecord(paperrecord);
+            accountPaperRecord.setAccount(accountService.getUserInfo(account));
+            return new ResponseEntity<AccountPaperRecord>(accountPaperRecord, HttpStatus.OK);
+        } catch (TestServiceException e) {
+            throw new CatchServiceException(e);
+        }catch (TitleServiceException e){
+            throw new CatchServiceException(e);
+        }catch (AccountServiceException e){
             throw new CatchServiceException(e);
         }
     }

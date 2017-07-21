@@ -1,9 +1,11 @@
 package com.csu.rules.service.impl;
 
 import com.csu.rules.domain.Title;
+import com.csu.rules.persistence.AdditiontitleDAO;
 import com.csu.rules.persistence.ClockDAO;
 import com.csu.rules.persistence.TitleDAO;
 import com.csu.rules.persistence.WrongtitleDAO;
+import com.csu.rules.persistence.impl.AdditiontitleDAOimpl;
 import com.csu.rules.persistence.impl.ClockDAOimpl;
 import com.csu.rules.persistence.impl.TitleDAOimpl;
 import com.csu.rules.persistence.impl.WrongtitleDAOimpl;
@@ -23,8 +25,9 @@ public class LearnServiceimplTest {
     private TitleDAO titleDAO = new TitleDAOimpl();
     private ClockDAO clockDAO = new ClockDAOimpl();
     private WrongtitleDAO wrongtitleDAO = new WrongtitleDAOimpl();
+    private AdditiontitleDAO additiontitleDAO = new AdditiontitleDAOimpl();
     private LearnService learnService = new LearnServiceimpl(clockDAO);
-    private TitleService titleService = new TitleServiceimpl(titleDAO, wrongtitleDAO);
+    private TitleService titleService = new TitleServiceimpl(titleDAO, wrongtitleDAO, additiontitleDAO);
 
     @Test
     public void testNotNULL() throws Exception {

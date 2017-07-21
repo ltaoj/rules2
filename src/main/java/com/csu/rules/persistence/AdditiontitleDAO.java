@@ -92,7 +92,7 @@ public interface AdditiontitleDAO {
     public Set<Integer> randomIntegerList(int count, int type) throws PersistenceException;
 
     /**
-     * 将题目编号集合格式化为要存储的字符串
+     * 将题目编号集合格式化为要存储的字符串,以','分隔
      * @param set
      * @return
      * @throws PersistenceException
@@ -100,10 +100,29 @@ public interface AdditiontitleDAO {
     public String formatSet(Set set) throws PersistenceException;
 
     /**
-     * 将字符串解析成题目编号集合
+     * 将题目编号集合格式化为要存储的字符串
+     * 重载方法，可以指定分隔符
+     * @param set
+     * @param split
+     * @return
+     * @throws PersistenceException
+     */
+    public String formatSet(Set set, String split) throws PersistenceException;
+    /**
+     * 将字符串解析成题目编号集合，字符串以','分隔
      * @param formatString
      * @return
      * @throws PersistenceException
      */
     public Set parseString(String formatString) throws PersistenceException;
+
+    /**
+     * 将字符串解析成题目编号集合
+     * 重载方法，可以指定分隔符
+     * @param formatString
+     * @param split
+     * @return
+     * @throws PersistenceException
+     */
+    public Set parseString(String formatString, String split) throws PersistenceException;
 }
