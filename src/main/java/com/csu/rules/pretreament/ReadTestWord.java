@@ -168,7 +168,7 @@ public class ReadTestWord {
                 AnswerString = AnswerString.replaceAll(" +", "#");
                 completionMap.get(currentCompletionCount - 1).getAnswer().append(AnswerString);
             }
-            System.out.println("填空题答案部分：" + (i + 1) + ":" + paraTexts[i]);
+//            System.out.println("填空题答案部分：" + (i + 1) + ":" + paraTexts[i]);
         }
 //        System.out.println(completionMap.get(134).getAnswer());
 
