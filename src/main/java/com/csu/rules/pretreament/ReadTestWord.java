@@ -18,6 +18,7 @@ public class ReadTestWord {
         WordExtractor extractor = new WordExtractor(is);
         //获取各个段落的文本
         String paraTexts[] = extractor.getParagraphText();
+
         //各个标记
         int completionSign = 0;
         int shortAnswerQuestionsSign = 0;
@@ -146,6 +147,10 @@ public class ReadTestWord {
                 completionSign = i;
             else if (paraTexts[i].indexOf("二、简答题") != -1)
                 shortAnswerQuestionsSign = i;
+            else if (paraTexts[i].indexOf("三、案例分析题") != -1)
+                analysisQuestionsSign = i;
+            else if (paraTexts[i].indexOf("四、论述题") != -1)
+                expositionSign = i;
 //            System.out.println("Paragraph " + (i + 1) + " : " + paraTexts[i]);
         }
         System.out.println("填空题答案标记：" + completionSign + ",简答题答案标记：" + shortAnswerQuestionsSign);
@@ -171,9 +176,44 @@ public class ReadTestWord {
 //            System.out.println("填空题答案部分：" + (i + 1) + ":" + paraTexts[i]);
         }
 //        System.out.println(completionMap.get(134).getAnswer());
+        /**
+         * 遍历简答题答案
+         */
 
+        currentShortAnswerQuestionCount = 1;
+        for (int i = shortAnswerQuestionsSign + 1; i < analysisQuestionsSign; i++) {
+            if (paraTexts[i].trim().equals(""))
+                continue;
+            if (paraTexts[i].indexOf(currentShortAnswerQuestionCount + "、") != -1) {
+                AnswerQuestion answerQuestion = shortAnswerQuestionMap.get(currentShortAnswerQuestionCount);
+                String answerString = paraTexts[i].substring(paraTexts[i].indexOf("、") + 1, paraTexts[i].length());
+                answerQuestion.setAnswer(answerString);
+                shortAnswerQuestionMap.put(currentShortAnswerQuestionCount, answerQuestion);
+                currentShortAnswerQuestionCount++;
+            }else {
+                String answerString = shortAnswerQuestionMap.get(currentShortAnswerQuestionCount - 1).getAnswer() + paraTexts[i];
+                shortAnswerQuestionMap.get(currentShortAnswerQuestionCount - 1).setAnswer(answerString);
+            }
+        }
+
+        analysisQuestionsCount = 1;
+        for (int i = analysisQuestionsSign + 1; i < expositionSign; i++) {
+            if (paraTexts[i].trim().equals(""))
+                continue;
+            if (paraTexts[i].indexOf(analysisQuestionsCount + "、") != -1) {
+                AnswerQuestion answerQuestion = analysisQuestionsMap.get(analysisQuestionsCount);
+                String answerString = paraTexts[i].substring(paraTexts[i].indexOf("、") + 1, paraTexts[i].length());
+                answerQuestion.setAnswer(answerString);
+                analysisQuestionsMap.put(analysisQuestionsCount, answerQuestion);
+                analysisQuestionsCount++;
+            }else {
+                String answerString = analysisQuestionsMap.get(analysisQuestionsCount - 1).getAnswer() + paraTexts[i];
+                analysisQuestionsMap.get(analysisQuestionsCount - 1).setAnswer(answerString);
+            }
+        }
         Map<String, Map> paperMap = new HashMap<String, Map>();
         paperMap.put("填空题", completionMap);
+        System.out.println(shortAnswerQuestionMap.values());
         paperMap.put("简答题", shortAnswerQuestionMap);
         paperMap.put("案例分析题", analysisQuestionsMap);
         paperMap.put("论述题", expositionMap);

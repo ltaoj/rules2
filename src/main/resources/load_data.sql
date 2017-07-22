@@ -62,3 +62,15 @@ INSERT INTO clazz VALUES(202, 100, '工程试验班1503');
 INSERT INTO clazz VALUES(203, 101, '电气1501');
 INSERT INTO clazz VALUES(204, 102, '计科1501');
 INSERT INTO clazz VALUES(205, 103, '网络1501');
+
+
+### additiontitle ###
+#填空题 type=1
+INSERT INTO additiontitle(name, type, answer) VALUES('中华人民共和国是#领导的、以#为基础的人民民主专政的社会主义国家。#制度是中华人民共和国的根本制度。', 1, '工人阶级#工农联盟#社会主义')
+INSERT INTO additiontitle(name, type, answer) VALUES('中华人民共和国的国家机构实行#原则。', 1, '民主集中制')
+INSERT INTO additiontitle(name, type, answer) VALUES('中华人民共和国的一切权力属于#。人民行使国家权力的机关是#和#。', 1, '人民#全国人民代表大会#地方各级人民代表大会')
+#简答题 type=3
+INSERT INTO additiontitle(name, type, answer) VALUES('', 3, '')
+#案例分析题 type=4
+
+#论述题 type=5
