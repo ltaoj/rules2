@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by 51157 on 2017/7/20.
@@ -160,10 +162,13 @@ public class ReadTestWord {
 
         currentCompletionCount = 1;
         for (int i = completionSign + 1; i < shortAnswerQuestionsSign; i++) {
+            if (paraTexts[i].trim().equals(""))
+                continue;
             if (paraTexts[i].indexOf(currentCompletionCount + ".") != -1) {
                 Completion completion = completionMap.get(currentCompletionCount);
                 String AnswerString = paraTexts[i].substring(paraTexts[i].indexOf(".") + 1, paraTexts[i].length());
                 AnswerString = AnswerString.replaceAll(" +", "#");
+                AnswerString = AnswerString.replaceAll("\r|\n", "");
                 StringBuilder Answer = new StringBuilder(AnswerString);
                 completion.setAnswer(Answer);
                 completionMap.put(currentCompletionCount, completion);
@@ -171,6 +176,7 @@ public class ReadTestWord {
             } else {
                 String AnswerString = paraTexts[i];
                 AnswerString = AnswerString.replaceAll(" +", "#");
+                AnswerString = AnswerString.replaceAll("\r|\n", "");
                 completionMap.get(currentCompletionCount - 1).getAnswer().append(AnswerString);
             }
 //            System.out.println("填空题答案部分：" + (i + 1) + ":" + paraTexts[i]);
@@ -213,14 +219,43 @@ public class ReadTestWord {
         }
         Map<String, Map> paperMap = new HashMap<String, Map>();
         paperMap.put("填空题", completionMap);
-        System.out.println(shortAnswerQuestionMap.values());
+        generateSQL(expositionMap, 5);
         paperMap.put("简答题", shortAnswerQuestionMap);
         paperMap.put("案例分析题", analysisQuestionsMap);
         paperMap.put("论述题", expositionMap);
         return paperMap;
     }
 
-
+    private static void generateSQL(Map map, int type) {
+        switch (type) {
+            case 1:
+                map = (Map<Integer, Completion>)map;
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                map = (Map<Integer, AnswerQuestion>) map;
+                break;
+        }
+        Set keyset = map.keySet();
+        Iterator iterator = keyset.iterator();
+        while (iterator.hasNext()){
+            String sql = "";
+            if (type == 1) {
+                Completion completion = (Completion) map.get(iterator.next());
+                sql = "INSERT INTO additiontitle(name, type, answer) VALUES(\"" +completion.getContent() + "\"," + type + ",\"" + completion.getAnswer().toString() + "\");";
+            }else {
+                AnswerQuestion answerQuestion = (AnswerQuestion) map.get(iterator.next());
+                if (answerQuestion.getAnswer() != null) {
+                    sql = "INSERT INTO additiontitle(name, type, answer) VALUES(\"" + answerQuestion.getContent() + "\"," + type + ",\"" + answerQuestion.getAnswer() + "\");";
+                }else {
+                    sql = "INSERT INTO additiontitle(name, type, answer) VALUES(\"" + answerQuestion.getContent() + "\"," + type + "," + answerQuestion.getAnswer() + ");";
+                }
+            }
+            System.out.println(sql);
+        }
+    }
     /**
      * 关闭输入流
      *
