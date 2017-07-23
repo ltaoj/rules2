@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `additiontitle`;
 CREATE TABLE `additiontitle` (
   `title_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '题目编号',
-  `name` varchar(500) NOT NULL COMMENT '题目名称',
+  `name` varchar(800) NOT NULL COMMENT '题目名称',
   `type` int(4) NOT NULL COMMENT '题目类型',
   `answer` varchar(2000) DEFAULT NULL COMMENT '题目答案',
   `score` int(11) DEFAULT NULL COMMENT '题目分数',
