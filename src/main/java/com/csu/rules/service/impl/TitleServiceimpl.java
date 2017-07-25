@@ -412,9 +412,12 @@ public class TitleServiceimpl implements TitleService {
     public List<Title> getTitleListByFormatString(String formatString) throws TitleServiceException {
         try {
             TitleServiceException te = new TitleServiceException();
-            if (formatString == null || formatString.trim().equals("")) {
+            if (formatString == null) {
                 te.setErrorCode(61);
                 throw te;
+            }
+            if (formatString.equals("")) {
+                return new ArrayList<Title>();
             }
             return titleDAO.getTitleListByTitleIds(titleDAO.parseString(formatString));
         } catch (PersistenceException pe) {
@@ -427,9 +430,12 @@ public class TitleServiceimpl implements TitleService {
     public List<Additiontitle> getAdditiontitleListByFormatString(String formatString) throws TitleServiceException {
         try {
             TitleServiceException te = new TitleServiceException();
-            if (formatString == null || formatString.trim().equals("")) {
+            if (formatString == null) {
                 te.setErrorCode(61);
                 throw te;
+            }
+            if (formatString.equals("")) {
+                return new ArrayList<Additiontitle>();
             }
             return additiontitleDAO.getTitleListByTitleIds(additiontitleDAO.parseString(formatString));
         } catch (PersistenceException pe) {
