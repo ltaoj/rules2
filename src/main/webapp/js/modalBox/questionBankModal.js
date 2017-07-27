@@ -13,6 +13,61 @@ function enterTitle() {
         $("#isSimulationLogin").html("请先登录");
     }
 }
+function enterBlankTitle() {
+    if (getStudentId() != null) {
+        $('#enterSimulationBlank').attr("data-toggle", 'modal');
+        $('#enterSimulationBlank').attr("data-target", '#titleModal');
+        createQuestionBank('校规校纪模拟考试');
+    } else {
+        $('#enterSimulationBlank').attr("data-toggle", '');
+        $('#enterSimulationBlank').attr("data-target", '');
+        $("#isSimulationBlankLogin").html("请先登录");
+    }
+}
+function enterJudgeTitle() {
+    if (getStudentId() != null) {
+        $('#enterSimulationJudge').attr("data-toggle", 'modal');
+        $('#enterSimulationJudge').attr("data-target", '#titleModal');
+        createQuestionBank('校规校纪模拟考试');
+    } else {
+        $('#enterSimulationJudge').attr("data-toggle", '');
+        $('#enterSimulationJudge').attr("data-target", '');
+        $("#isSimulationJudgeLogin").html("请先登录");
+    }
+}
+function enterShortTitle() {
+    if (getStudentId() != null) {
+        $('#enterSimulationShort').attr("data-toggle", 'modal');
+        $('#enterSimulationShort').attr("data-target", '#titleModal');
+        createQuestionBank('校规校纪模拟考试');
+    } else {
+        $('#enterSimulationShort').attr("data-toggle", '');
+        $('#enterSimulationShort').attr("data-target", '');
+        $("#isSimulationShortLogin").html("请先登录");
+    }
+}
+function enterCaseTitle() {
+    if (getStudentId() != null) {
+        $('#enterSimulationCase').attr("data-toggle", 'modal');
+        $('#enterSimulationCase').attr("data-target", '#titleModal');
+        createQuestionBank('校规校纪模拟考试');
+    } else {
+        $('#enterSimulationCase').attr("data-toggle", '');
+        $('#enterSimulationCase').attr("data-target", '');
+        $("#isSimulationCaseLogin").html("请先登录");
+    }
+}
+function enterDiscussTitle() {
+    if (getStudentId() != null) {
+        $('#enterSimulationDiscuss').attr("data-toggle", 'modal');
+        $('#enterSimulationDiscuss').attr("data-target", '#titleModal');
+        createQuestionBank('校规校纪模拟考试');
+    } else {
+        $('#enterSimulationDiscuss').attr("data-toggle", '');
+        $('#enterSimulationDiscuss').attr("data-target", '');
+        $("#isSimulationDiscussLogin").html("请先登录");
+    }
+}
 function enterWrongTitle() {
     if (getStudentId() != null) {
         $('#enterWrongTitle').attr("data-toggle", 'modal');

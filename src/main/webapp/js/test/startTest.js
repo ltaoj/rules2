@@ -2,6 +2,8 @@
  * Created by GF on 2017/6/24.
  */
 var testTitleList;
+var testBlankTitleList;
+var testJudgeTitleList;
 function startTest() {
     $('#testTitle').html("");
     var studentId = getStudentId();
@@ -16,18 +18,85 @@ function startTest() {
         async: false,
         data: testRecord,
         success: function (data) {
-            testTitleList=data;
+            testTitleList=data.titleList;
+            testBlankTitleList=data.blanksList;
+            testJudgeTitleList=data.judgeList;
+            var testShortTitleList=data.shortList;
+            var testCaseTitleList=data.caseList;
+            var testDiscussTitleList=data.discussList;
             $('#testId').html(testId);
-            for (var i = 0; i < data.length; i++) {
+            //选择题
+            $('#testTitle').append("一、选择题")
+            for (var i = 0; i < testTitleList.length; i++) {
                 $('#testTitle').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                     "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + data[i].name + "</th>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
                 for (var j = 0; j < 4; j++) {
                     var str = "A";
-                    $('#testTitle').append("<tr><td><input name=\"" + data[i].titleId + "\" type=\"radio\" onclick=\"addTitleToTestList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + data[i].options[j].content + "&nbsp;</td></tr>");
+                    $('#testTitle').append("<tr><td><input name=\"" + testTitleList[i].titleId + "\" type=\"radio\" onclick=\"addTitleToTestList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + testTitleList[i].options[j].content + "&nbsp;</td></tr>");
                 }
+                $('#testTitle').append("</table>");
+            }
+            //填空题
+            $('#testTitle').append("<br>二、填空题")
+            for (var i = 0; i < testBlankTitleList.length; i++) {
+                $('#testTitle').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testBlankTitleList[i].name.replace(/#/g,"___") + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                for (var j = 0; j < (testBlankTitleList[i].name.split("#").length)-1; j++) {
+                    $('#testTitle').append("<tr><td>"+(j+1) + ".&nbsp;"+"<input type=\"text\" name=\"" + testBlankTitleList[i].titleId + "\"/>"+ "&nbsp;</td></tr>");
+                }
+                $('#testTitle').append("</table>");
+            }
+            //判断题
+            // $('#testTitle').append("<br>三、判断题")
+            // for (var i = 0; i < testJudgeTitleList.length; i++) {
+            //     $('#testTitle').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+            //         "<tr>" +
+            //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testJudgeTitleList[i].name + "</th>" +
+            //         "</tr>" +
+            //         "<br>");
+            //     for (var j = 0; j < 4; j++) {
+            //         var str = "A";
+            //         $('#testTitle').append("<tr><td><input name=\"" + testTitleList[i].titleId + "\" type=\"radio\" onclick=\"addTitleToTestList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + testTitleList[i].options[j].content + "&nbsp;</td></tr>");
+            //     }
+            //     $('#testTitle').append("</table>");
+            // }
+            //简答题
+            $('#testTitle').append("<br><br>四、简答题")
+            for (var i = 0; i < testShortTitleList.length; i++) {
+                $('#testTitle').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("</table>");
+            }
+            //案例分析题
+            $('#testTitle').append("<br><br>五、案例分析题")
+            for (var i = 0; i < testCaseTitleList.length; i++) {
+                $('#testTitle').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("</table>");
+            }
+            //论述题
+            $('#testTitle').append("<br><br>六、论述题")
+            for (var i = 0; i < testDiscussTitleList.length; i++) {
+                $('#testTitle').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
                 $('#testTitle').append("</table>");
             }
             getTestRecord(getStudentId());

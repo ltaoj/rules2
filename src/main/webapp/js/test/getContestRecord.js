@@ -4,7 +4,6 @@
 var contest_start_time;
 var contest_submit_time;
 var score;
-var d1=$.Deferred();
 function getContestRecord(studentId) {
     var contestId=getContestId();
     var testRecordString = {studentId: studentId, testId: contestId};
@@ -20,7 +19,8 @@ function getContestRecord(studentId) {
             if(data.score==null) {
                 contest_start_time=data.startTime;
                 contest_submit_time=data.submitTime;
-                d1.resolve("done");
+            }else if(data.score==-1){
+
             }else{
                 score=data.score;
                 $('#contestRecord').html(data.score);

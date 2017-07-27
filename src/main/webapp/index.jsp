@@ -361,7 +361,6 @@
                 <p>选择下方的模拟考试题库进行在线练习</p>
             </div>
             <div class="row equal-height-columns">
-                <div class="col-md-2"></div>
                 <div class="col-md-4 benefit-box animated fadeIn wow animated"
                      style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s;"
                      data-wow-duration="1.5s">
@@ -378,31 +377,136 @@
                                class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
                                data-toggle="" data-target=""
                                id="enterSimulation"
-                               onclick="enterTitle()"
-                            >进入</a>
+                              onclick="enterTitle()"
+                            >选择练习</a>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-4 benefit-box animated fadeIn wow animated"
+                     style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s;"
+                     data-wow-duration="1.5s">
+                    <div class="benefit equal-height-column"
+                         style="height: 300px; width: 310px;">
+                        <i class="fa  fa-database fa-3x"></i>
+                        <h3>校规校纪模拟考试</h3>
+                        <br>
+                        <ul class="list-unstyled">
+                            <li id="isSimulationBlankLogin" class="g-color-red">&nbsp;</li>
+                        </ul>
+                        <div class="pricing-v9-footer">
+                            <a type="button"
+                               class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                               data-toggle="" data-target=""
+                               id="enterSimulationBlank"
+                               onclick="enterBlankTitle()"
+                            >填空练习</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 benefit-box animated fadeIn wow animated"
-                     style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s; animation-delay: 0.5s;"
-                     data-wow-duration="1.5s" data-wow-delay=".5s">
+                     style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s;"
+                     data-wow-duration="1.5s">
                     <div class="benefit equal-height-column"
                          style="height: 300px; width: 310px;">
                         <i class="fa  fa-database fa-3x"></i>
-                        <h3>错题重做</h3>
+                        <h3>校规校纪模拟考试</h3>
                         <br>
                         <ul class="list-unstyled">
-                            <li id="isWrongTitleLogin" class="g-color-red">&nbsp;</li>
+                            <li id="isSimulationJudgeLogin" class="g-color-red">&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-footer">
-                            <a
-                                    class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
-                                    id="enterWrongTitle"
-                                    data-toggle="" data-target="" onclick="enterWrongTitle()"
-                            >进入</a>
+                            <a type="button"
+                               class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                               data-toggle="" data-target=""
+                               id="enterSimulationJudge"
+                               onclick="enterJudgeTitle()"
+                            >判断练习</a>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 benefit-box animated fadeIn wow animated"
+                     style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s;"
+                     data-wow-duration="1.5s">
+                    <div class="benefit equal-height-column"
+                         style="height: 300px; width: 310px;">
+                        <i class="fa  fa-database fa-3x"></i>
+                        <h3>校规校纪模拟考试</h3>
+                        <br>
+                        <ul class="list-unstyled">
+                            <li id="isSimulationShortLogin" class="g-color-red">&nbsp;</li>
+                        </ul>
+                        <div class="pricing-v9-footer">
+                            <a type="button"
+                               class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                               data-toggle="" data-target=""
+                               id="enterSimulationShort"
+                               onclick="enterShortTitle()"
+                            >简答练习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 benefit-box animated fadeIn wow animated"
+                     style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s;"
+                     data-wow-duration="1.5s">
+                    <div class="benefit equal-height-column"
+                         style="height: 300px; width: 310px;">
+                        <i class="fa  fa-database fa-3x"></i>
+                        <h3>校规校纪模拟考试</h3>
+                        <br>
+                        <ul class="list-unstyled">
+                            <li id="isSimulationCaseLogin" class="g-color-red">&nbsp;</li>
+                        </ul>
+                        <div class="pricing-v9-footer">
+                            <a type="button"
+                               class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                               data-toggle="" data-target=""
+                               id="enterSimulationCase"
+                               onclick="enterCaseTitle()"
+                            >案例分析练习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 benefit-box animated fadeIn wow animated"
+                     style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s;"
+                     data-wow-duration="1.5s">
+                    <div class="benefit equal-height-column"
+                         style="height: 300px; width: 310px;">
+                        <i class="fa  fa-database fa-3x"></i>
+                        <h3>校规校纪模拟考试</h3>
+                        <br>
+                        <ul class="list-unstyled">
+                            <li id="isSimulationDiscussLogin" class="g-color-red">&nbsp;</li>
+                        </ul>
+                        <div class="pricing-v9-footer">
+                            <a type="button"
+                               class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"
+                               data-toggle="" data-target=""
+                               id="enterSimulationDiscuss"
+                               onclick="enterDiscussTitle()"
+                            >论述练习</a>
+                        </div>
+                    </div>
+                </div>
+                <%--<div class="col-md-4 benefit-box animated fadeIn wow animated"--%>
+                     <%--style="visibility: visible; animation-name: fadeIn; animation-duration: 1.5s; animation-delay: 0.5s;"--%>
+                     <%--data-wow-duration="1.5s" data-wow-delay=".5s">--%>
+                    <%--<div class="benefit equal-height-column"--%>
+                         <%--style="height: 300px; width: 310px;">--%>
+                        <%--<i class="fa  fa-database fa-3x"></i>--%>
+                        <%--<h3>错题重做</h3>--%>
+                        <%--<br>--%>
+                        <%--<ul class="list-unstyled">--%>
+                            <%--<li id="isWrongTitleLogin" class="g-color-red">&nbsp;</li>--%>
+                        <%--</ul>--%>
+                        <%--<div class="pricing-v9-footer">--%>
+                            <%--<a--%>
+                                    <%--class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x"--%>
+                                    <%--id="enterWrongTitle"--%>
+                                    <%--data-toggle="" data-target="" onclick="enterWrongTitle()"--%>
+                            <%-->进入</a>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
             </div>
 
         </div>

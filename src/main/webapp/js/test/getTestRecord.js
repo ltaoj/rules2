@@ -19,6 +19,10 @@ function getTestRecord(studentId) {
                 $('#isTested').html("未考试");
                 start_time=data.startTime;
                 submit_time=data.submitTime;
+            }else if(data.score==-1){
+                $('#isTested').html("试卷批阅中");
+                $('#yesToTest').hide();
+                $('#noToTest').show();
             }else{
                 $('#isTested').html("已考试");
                 $('#testRecord').html(data.score);
