@@ -31,4 +31,13 @@ public class Completion {
     public void setAnswer(StringBuilder answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String toString() {
+        return "Completion{" +
+                "content=" + content +
+                ", type='" + type + '\'' +
+                ", answer=" + answer +
+                '}';
+    }
 }

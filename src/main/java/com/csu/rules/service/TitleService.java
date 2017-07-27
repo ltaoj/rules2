@@ -214,7 +214,7 @@ public interface TitleService {
      * @return
      * @throws TitleServiceException
      * 通过格式化的试题id字符串找到对应的试题列表
-     * 61.formatString为空或者为空字符
+     * 61.formatString为空
      * 50.数据持久化异常
      */
     List<Title> getTitleListByFormatString(String formatString) throws TitleServiceException;
@@ -224,7 +224,7 @@ public interface TitleService {
      * @param formatString
      * @return
      * @throws TitleServiceException
-     * 61.formatString为空或者为空字符
+     * 61.formatString为空
      * 50.数据持久化异常
      */
     List<Additiontitle> getAdditiontitleListByFormatString(String formatString) throws TitleServiceException;

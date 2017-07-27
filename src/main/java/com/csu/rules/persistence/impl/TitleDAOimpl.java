@@ -160,12 +160,12 @@ public class TitleDAOimpl implements TitleDAO {
         while (values.hasNext()) {
             sb.append("," + values.next());
         }
-        return sb.subSequence(1, sb.length()).toString();
+        return sb.length() > 0 ? sb.subSequence(1, sb.length()).toString() : "";
     }
 
     public Set parseString(String formatString) throws PersistenceException{
         String[] strIds = formatString.split(",");
-        if (strIds == null || strIds.length == 0) throw new PersistenceException();
+        if (strIds == null) throw new PersistenceException();
         Set<Integer> integerIds = new HashSet<Integer>();
         for (int i = 0;i < strIds.length;i++) {
             integerIds.add(Integer.parseInt(strIds[i]));
