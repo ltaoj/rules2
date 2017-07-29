@@ -427,3 +427,9 @@ INSERT INTO additiontitle(name, type, answer) VALUES("2014年5月4日，习近�
 ",5,null);
 INSERT INTO additiontitle(name, type, answer) VALUES("“无人监考”是我校软件学院从2013级同学们入校时就开始在倡导和积极准备的一项工作，通过一学期的学风考风教育和习惯养成教育，软件学院13级8个班194名同学以班级为单位主动向学院申请期末考试“无人监考”，同学们纷纷表示“不仅大学四年要坚持“无人监考”，以后进入社会，也要做到广义上的“无人监考”，坚持道德上的自律，做一个有道德的人”。诚信乃做人立身之本，请结合我校部分学院试行的“无人监考”，谈谈你的认识。
 ",5,null);
+
+
+### 其他SQL语句
+#更新题目分数，填空题每空2分，问答题每题10分
+UPDATE additiontitle SET score=2 WHERE type=1;
+UPDATE additiontitle SET score=10 WHERE type=3 OR type=4 OR type=5;
