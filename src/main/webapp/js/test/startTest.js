@@ -242,10 +242,12 @@ function submitBlankTitle(){
         var k=0;
         while($("#"+"blankAnswer"+i+k).length>0){
             var str=$("#" + "blankAnswer" +i+ k).val();
-            if(str==null||str==""){
-                str="@csu";
+            var str1=str.replace(/#/g,"");
+            var str2=str1.replace(/@csu/g,"");
+            if(str2==null||str2==""){
+                str2="@csu";
             }
-            blankAnswerArray[k]=str;
+            blankAnswerArray[k]=str2;
             k++;
         }
         blankTitle[i]=blankAnswerArray.join("#");
@@ -257,10 +259,12 @@ function submitShortTitle() {
     var shortAnswerArray=new Array();
     while($("#"+"shortAnswer"+i).length>0){
         var str=$("#"+"shortAnswer"+i).val();
-        if(str==null||str==""){
-            str="@csu";
+        var str1=str.replace(/#/g,"");
+        var str2=str1.replace(/@csu/g,"");
+        if(str2==null||str2==""){
+            str2="@csu";
         }
-        shortAnswerArray[i]=str;
+        shortAnswerArray[i]=str2;
         i++;
     }
     shortAnswer=shortAnswerArray.join("#");
@@ -270,10 +274,12 @@ function submitCaseTitle() {
     var caseAnswerArray=new Array();
     while($("#"+"caseAnswer"+i).length>0){
         var str=$("#"+"caseAnswer"+i).val();
-        if(str==null||str==""){
-            str="@csu";
+        var str1=str.replace(/#/g,"");
+        var str2=str1.replace(/@csu/g,"");
+        if(str2==null||str2==""){
+            str2="@csu";
         }
-        caseAnswerArray[i]=str;
+        caseAnswerArray[i]=str2;
         i++;
     }
     caseAnswer=caseAnswerArray.join("#");
@@ -283,10 +289,12 @@ function submitDiscussTitle() {
     var discussAnswerArray=new Array();
     while($("#"+"discussAnswer"+i).length>0){
         var str=$("#"+"discussAnswer"+i).val();
-        if(str==null||str==""){
-            str="@csu";
+        var str1=str.replace(/#/g,"");
+        var str2=str1.replace(/@csu/g,"");
+        if(str2==null||str2==""){
+            str2="@csu";
         }
-        discussAnswerArray[i]=str;
+        discussAnswerArray[i]=str2;
         i++;
     }
     discussAnswer=discussAnswerArray.join("#");
@@ -301,7 +309,12 @@ function submitAll() {
         submitDiscussTitle();
         submitPaper(getTestId(),testTitleList,testBlankTitleList,testJudgeTitleList,shortAnswer,caseAnswer,discussAnswer);
     }if(id==getContestId()){
-
+        contestJudgeTitleList=null;
+        submitContestBlankTitle();
+        submitContestShortTitle();
+        submitContestCaseTitle();
+        submitContestDiscussTitle();
+        submitPaper(getContestId(),contestTitleList,contestBlankTitleList,contestJudgeTitleList,contestShortAnswer,contestCaseAnswer,contestDiscussAnswer);
     }
 }
 function submitPaper(testId,choiceList,blankList,judgeList,shortStr,caseStr,discussStr) {
@@ -310,6 +323,7 @@ function submitPaper(testId,choiceList,blankList,judgeList,shortStr,caseStr,disc
     var submitPaper={titleList:choiceList,blanksList:blankList,judgeList:judgeList,shortAnswer:shortStr,caseAnswer:caseStr,discussAnswer:discussStr};
     var recordTitles = {testrecord: testrecord, submitPaper: submitPaper};
     var recordTitlesJson = $.toJSON(recordTitles);
+    alert(recordTitlesJson);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'test/submitTest',

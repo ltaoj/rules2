@@ -4,6 +4,9 @@
 var contestTitleList;
 var contestBlankTitleList;
 var contestJudgeTitleList;
+var contestShortAnswer;
+var contestCaseAnswer;
+var contestDiscussAnswer;
 function startContest() {
     $('#testTitle').html("");
     var studentId = getStudentId();
@@ -48,10 +51,11 @@ function startContest() {
                     "</tr>" +
                     "<br>");
                 for (var j = 0; j < (contestBlankTitleList[i].name.split("#").length)-1; j++) {
-                    $('#testTitle').append("<tr><td>"+(j+1) + ".&nbsp;"+"<input type=\"text\" name=\"" + contestBlankTitleList[i].titleId + "\"/>"+ "&nbsp;</td></tr>");
+                    $('#testTitle').append("<tr><td>"+(j+1) + ".&nbsp;"+"<input type=\"text\" name=\"" + contestBlankTitleList[i].titleId + "\" id=\"blankAnswer"+i+""+j+"\" />"+ "&nbsp;</td></tr>");
                 }
                 $('#testTitle').append("</table>");
             }
+            //onblur =\"addBlankTitleToTestList(" + i + "," + j + ",blankAnswer"+i+""+j+")\"
             //判断题
             // $('#testTitle').append("<br>三、判断题")
             // for (var i = 0; i < testJudgeTitleList.length; i++) {
@@ -74,7 +78,7 @@ function startContest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + contestShortTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"shortAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             //案例分析题
@@ -85,7 +89,7 @@ function startContest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + contestCaseTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"caseAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             //论述题
@@ -96,7 +100,7 @@ function startContest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + contestDiscussTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"discussAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             getContestRecord(getStudentId());
@@ -169,4 +173,68 @@ function addTitleToContestList(title, choice) {
             contestTitleList[title].options[i].checked = 0;
     }
     contestTitleList[title].options[choice].checked = 1;
+}
+function submitContestBlankTitle(){
+    var blankTitle=new Array();
+    for(var i=0;i<contestBlankTitleList.length;i++){
+        var blankAnswerArray=new Array();
+        var k=0;
+        while($("#"+"blankAnswer"+i+k).length>0){
+            var str=$("#" + "blankAnswer" +i+ k).val();
+            var str1=str.replace(/#/g,"");
+            var str2=str1.replace(/@csu/g,"");
+            if(str2==null||str2==""){
+                str2="@csu";
+            }
+            blankAnswerArray[k]=str2;
+            k++;
+        }
+        blankTitle[i]=blankAnswerArray.join("#");
+        contestBlankTitleList[i].answer=blankTitle[i];
+    }
+}
+function submitContestShortTitle() {
+    var i=0;
+    var shortAnswerArray=new Array();
+    while($("#"+"shortAnswer"+i).length>0){
+        var str=$("#"+"shortAnswer"+i).val();
+        var str1=str.replace(/#/g,"");
+        var str2=str1.replace(/@csu/g,"");
+        if(str2==null||str2==""){
+            str2="@csu";
+        }
+        shortAnswerArray[i]=str2;
+        i++;
+    }
+    contestShortAnswer=shortAnswerArray.join("#");
+}
+function submitContestCaseTitle() {
+    var i=0;
+    var caseAnswerArray=new Array();
+    while($("#"+"caseAnswer"+i).length>0){
+        var str=$("#"+"caseAnswer"+i).val();
+        var str1=str.replace(/#/g,"");
+        var str2=str1.replace(/@csu/g,"");
+        if(str2==null||str2==""){
+            str2="@csu";
+        }
+        caseAnswerArray[i]=str2;
+        i++;
+    }
+    contestCaseAnswer=caseAnswerArray.join("#");
+}
+function submitContestDiscussTitle() {
+    var i=0;
+    var discussAnswerArray=new Array();
+    while($("#"+"discussAnswer"+i).length>0){
+        var str=$("#"+"discussAnswer"+i).val();
+        var str1=str.replace(/#/g,"");
+        var str2=str1.replace(/@csu/g,"");
+        if(str2==null||str2==""){
+            str2="@csu";
+        }
+        discussAnswerArray[i]=str2;
+        i++;
+    }
+    contestDiscussAnswer=discussAnswerArray.join("#");
 }

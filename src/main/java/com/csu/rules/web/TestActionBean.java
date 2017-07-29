@@ -159,7 +159,6 @@ public class TestActionBean extends AbstractActionBean {
             testrecord.setScore(new Integer(-1));//表示考试已经完成
             testService.updateTestRecord(testrecord);
             int choiceScore = titleService.getTitlePageScore(recordTitles.getSubmitPaper().getTitleList());//选择题分数
-            System.out.println(recordTitles.getSubmitPaper().getBlanksList().get(0).getTitleId());
             int blankScore=titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getBlanksList());//填空题分数
             Paperrecord paperrecord=new Paperrecord();
             paperrecord.setStudentId(recordTitles.getTestrecord().getStudentId());
@@ -170,7 +169,6 @@ public class TestActionBean extends AbstractActionBean {
             paperrecord.setCaseAnswer(recordTitles.getSubmitPaper().getCaseAnswer());
             paperrecord.setDiscussAnswer(recordTitles.getSubmitPaper().getDiscussAnswer());
             testService.insertPaperrecord(paperrecord);
-
             return new ResponseEntity<Testrecord>(testrecord, HttpStatus.OK);
         } catch (TitleServiceException te) {
             throw new CatchServiceException(te);

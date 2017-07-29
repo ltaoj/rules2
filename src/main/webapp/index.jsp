@@ -151,8 +151,9 @@
 </div>
 <!-- /.modal -->
 <!-- 考试模态框 -->
+
 <div class="modal fade" id="testModal" data-backdrop="static">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:1900px;height:1300px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"
@@ -164,7 +165,7 @@
                     <span id="test_t_s">00秒</span>
                 </div>
             </div>
-            <div class="modal-body" style="overflow-y: scroll; height: 800px;">
+            <div class="modal-body" >
                 <form class="bs-example bs-example-form" method="post">
                     <div id="testTitle"></div>
                     <div style="text-align: center;">
