@@ -158,8 +158,8 @@ public class TestActionBean extends AbstractActionBean {
             testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             testrecord.setScore(new Integer(-1));//表示考试已经完成
             testService.updateTestRecord(testrecord);
-
             int choiceScore = titleService.getTitlePageScore(recordTitles.getSubmitPaper().getTitleList());//选择题分数
+            System.out.println(recordTitles.getSubmitPaper().getBlanksList().get(0).getTitleId());
             int blankScore=titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getBlanksList());//填空题分数
             Paperrecord paperrecord=new Paperrecord();
             paperrecord.setStudentId(recordTitles.getTestrecord().getStudentId());

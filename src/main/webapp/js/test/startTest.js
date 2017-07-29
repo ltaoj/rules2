@@ -4,6 +4,9 @@
 var testTitleList;
 var testBlankTitleList;
 var testJudgeTitleList;
+var shortAnswer;
+var caseAnswer;
+var discussAnswer;
 function startTest() {
     $('#testTitle').html("");
     var studentId = getStudentId();
@@ -48,10 +51,11 @@ function startTest() {
                     "</tr>" +
                     "<br>");
                 for (var j = 0; j < (testBlankTitleList[i].name.split("#").length)-1; j++) {
-                    $('#testTitle').append("<tr><td>"+(j+1) + ".&nbsp;"+"<input type=\"text\" name=\"" + testBlankTitleList[i].titleId + "\"/>"+ "&nbsp;</td></tr>");
+                    $('#testTitle').append("<tr><td>"+(j+1) + ".&nbsp;"+"<input type=\"text\" name=\"" + testBlankTitleList[i].titleId + "\" id=\"blankAnswer"+i+""+j+"\" />"+ "&nbsp;</td></tr>");
                 }
                 $('#testTitle').append("</table>");
             }
+            //onblur =\"addBlankTitleToTestList(" + i + "," + j + ",blankAnswer"+i+""+j+")\"
             //判断题
             // $('#testTitle').append("<br>三、判断题")
             // for (var i = 0; i < testJudgeTitleList.length; i++) {
@@ -74,7 +78,7 @@ function startTest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"shortAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             //案例分析题
@@ -85,7 +89,7 @@ function startTest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"caseAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             //论述题
@@ -96,7 +100,7 @@ function startTest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70'></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"discussAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             getTestRecord(getStudentId());
@@ -216,19 +220,95 @@ function addTitleToTestList(title, choice) {
     }
     testTitleList[title].options[choice].checked = 1;
 }
+
+// var eachBlankTitleAnswer=new Array();
+// function addBlankTitleToTestList(blankTitle,blankEach,blankId) {
+//     // eachBlankTitleAnswer[blankEach]=document.getElementById(blankId).innerText;
+//     eachBlankTitleAnswer[blankEach]=$(blankId).val();
+//     for(var i=0;i<eachBlankTitleAnswer.length;i++){
+//         if(eachBlankTitleAnswer[i]==null||eachBlankTitleAnswer[i]==""){
+//             eachBlankTitleAnswer[i]="@csu";
+//         }
+//     }
+//     var blankAnswer=eachBlankTitleAnswer.join("#");
+//     testBlankTitleList[blankTitle].answer=blankAnswer;
+//     console.log("填空题答案为：",blankAnswer);
+// }
+
+function submitBlankTitle(){
+    var blankTitle=new Array();
+    for(var i=0;i<testBlankTitleList.length;i++){
+        var blankAnswerArray=new Array();
+        var k=0;
+        while($("#"+"blankAnswer"+i+k).length>0){
+            var str=$("#" + "blankAnswer" +i+ k).val();
+            if(str==null||str==""){
+                str="@csu";
+            }
+            blankAnswerArray[k]=str;
+            k++;
+        }
+        blankTitle[i]=blankAnswerArray.join("#");
+        testBlankTitleList[i].answer=blankTitle[i];
+    }
+}
+function submitShortTitle() {
+    var i=0;
+    var shortAnswerArray=new Array();
+    while($("#"+"shortAnswer"+i).length>0){
+        var str=$("#"+"shortAnswer"+i).val();
+        if(str==null||str==""){
+            str="@csu";
+        }
+        shortAnswerArray[i]=str;
+        i++;
+    }
+    shortAnswer=shortAnswerArray.join("#");
+}
+function submitCaseTitle() {
+    var i=0;
+    var caseAnswerArray=new Array();
+    while($("#"+"caseAnswer"+i).length>0){
+        var str=$("#"+"caseAnswer"+i).val();
+        if(str==null||str==""){
+            str="@csu";
+        }
+        caseAnswerArray[i]=str;
+        i++;
+    }
+    caseAnswer=caseAnswerArray.join("#");
+}
+function submitDiscussTitle() {
+    var i=0;
+    var discussAnswerArray=new Array();
+    while($("#"+"discussAnswer"+i).length>0){
+        var str=$("#"+"discussAnswer"+i).val();
+        if(str==null||str==""){
+            str="@csu";
+        }
+        discussAnswerArray[i]=str;
+        i++;
+    }
+    discussAnswer=discussAnswerArray.join("#");
+}
 function submitAll() {
     var id=document.getElementById("testId").innerText;
     if(id==getTestId()){
-        submitTestTitle(getTestId(),testTitleList);
+        testJudgeTitleList=null;
+        submitBlankTitle();
+        submitCaseTitle();
+        submitShortTitle();
+        submitDiscussTitle();
+        submitPaper(getTestId(),testTitleList,testBlankTitleList,testJudgeTitleList,shortAnswer,caseAnswer,discussAnswer);
     }if(id==getContestId()){
-        submitTestTitle(getContestId(),contestTitleList);
+
     }
 }
-
-function submitTestTitle(testId,list) {
+function submitPaper(testId,choiceList,blankList,judgeList,shortStr,caseStr,discussStr) {
     var studentId=getStudentId();
     var testrecord={studentId:studentId,testId:testId};
-    var recordTitles = {testrecord: testrecord, titleList: list};
+    var submitPaper={titleList:choiceList,blanksList:blankList,judgeList:judgeList,shortAnswer:shortStr,caseAnswer:caseStr,discussAnswer:discussStr};
+    var recordTitles = {testrecord: testrecord, submitPaper: submitPaper};
     var recordTitlesJson = $.toJSON(recordTitles);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({

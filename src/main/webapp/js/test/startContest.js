@@ -18,7 +18,7 @@ function startContest() {
         async: false,
         data: testRecord,
         success: function (data) {
-            contestTitleList=data;
+            contestTitleList=data.titleList;
             contestBlankTitleList=data.blanksList;
             contestJudgeTitleList=data.judgeList;
             var contestShortTitleList=data.shortList;
@@ -35,7 +35,7 @@ function startContest() {
                     "<br>");
                 for (var j = 0; j < 4; j++) {
                     var str = "A";
-                    $('#testTitle').append("<tr><td><input name=\"" + contestTitleList[i].titleId + "\" type=\"radio\" onclick=\"addTitleToTestList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + contestTitleList[i].options[j].content + "&nbsp;</td></tr>");
+                    $('#testTitle').append("<tr><td><input name=\"" + contestTitleList[i].titleId + "\" type=\"radio\" onclick=\"addTitleToContestList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + contestTitleList[i].options[j].content + "&nbsp;</td></tr>");
                 }
                 $('#testTitle').append("</table>");
             }
