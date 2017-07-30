@@ -2,6 +2,8 @@
  * Created by CMM on 2017/6/22.
  */
 var practiceTitle;
+var practiceBlankTitle;
+
 function enterTitle() {
     if (getStudentId() != null) {
         $('#enterSimulation').attr("data-toggle", 'modal');
@@ -13,11 +15,15 @@ function enterTitle() {
         $("#isSimulationLogin").html("请先登录");
     }
 }
+
 function enterBlankTitle() {
     if (getStudentId() != null) {
+        console.log("填空题练习",123);
+        $('#title').html("");
+
+        blankTitlePractice('填空题练习');
         $('#enterSimulationBlank').attr("data-toggle", 'modal');
         $('#enterSimulationBlank').attr("data-target", '#titleModal');
-        createQuestionBank('校规校纪模拟考试');
     } else {
         $('#enterSimulationBlank').attr("data-toggle", '');
         $('#enterSimulationBlank').attr("data-target", '');
@@ -88,7 +94,7 @@ function createQuestionBank(subjectTitle) {
             $.ajax({
                 url: 'title/practice',
                 dataType: 'text',
-                method: 'GET',
+                method: 'get',
                 success: function (data) {
                     var Result = JSON.parse(data);
                     practiceTitle = Result.object;
@@ -213,4 +219,48 @@ function submitTitle() {
 for (var j = 0; j < 4; j++) {
     var str = "A";
     document.writeln(String.fromCharCode(str.charCodeAt() + j));
+}
+
+function blankTitlePractice(subjectTitle){
+        $('#subjectTitle').html(subjectTitle);
+        $('#title').html("");
+            $.ajax({
+                url: 'title/practice',
+                dataType: 'json',
+                method: 'POST',
+                data: {
+                    page: 1,
+                    count: 3,
+                    type: 1,
+                },
+                success: function (data) {
+                    var Result = JSON.parse(data);
+                    practiceBlankTitle = Result.object;
+                    for (var i = 0; i < practiceBlankTitle.length; i++) {
+                        $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                            "<tr>" +
+                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceBlankTitle[i].name.replace(/#/g, "___") + "</th>" +
+                            "</tr>" +
+                            "<br>");
+                        for (var j = 0; j < (practiceBlankTitle[i].name.split("#").length) - 1; j++) {
+                            $('#title').append("<tr><td>" + (j + 1) + ".&nbsp;" + "<input type=\"text\" name=\"" + practiceBlankTitle[i].titleId + "\" id=\"practiceBlankAnswer" + i + "" + j + "\" />" + "&nbsp;</td></tr>");
+                        }
+                        $('#title').append("</table>");
+                    }
+                },
+                error: function (xhr) {
+                    // 导致出错的原因较多，以后再研究
+                    alert('error:' + JSON.stringify(xhr));
+                }
+            }).done(function (data) {
+                // 请求成功后要做的工作
+                console.log('success');
+            }).fail(function () {
+                // 请求失败后要做的工作
+                console.log('error');
+            }).always(function () {
+                // 不管成功或失败都要做的工作
+                console.log('complete');
+            });
+
 }
