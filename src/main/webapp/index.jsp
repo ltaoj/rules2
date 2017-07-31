@@ -130,7 +130,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">x
+                        aria-hidden="true" onclick="exitPractice()">x
                 </button>
                 <label class="modal-title" id="subjectTitle"></label>
             </div>
@@ -139,7 +139,7 @@
                     <div id="title"></div>
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
-                                style="width: 100px; text-align: center" onclick="submitTitle()" id="submitTitleBT">提交
+                                style="width: 100px; text-align: center" onclick="submitPractice()" id="submitTitleBT">提交
                         </button>
                     </div>
                 </form>

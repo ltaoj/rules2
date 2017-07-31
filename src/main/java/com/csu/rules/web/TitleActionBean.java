@@ -33,7 +33,7 @@ public class TitleActionBean extends AbstractActionBean{
      * @param type 默认为0可不指定，代表选择题。1,2,3,4,5,6分别对应其他类型题目
      * @return
      */
-    @RequestMapping(value = "/practice", method = RequestMethod.GET)
+    @RequestMapping(value = "/practice", method = RequestMethod.POST,consumes = "application/json")
     public ResponseEntity<Result> practice(
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "count", defaultValue = "10") int count,
@@ -44,11 +44,13 @@ public class TitleActionBean extends AbstractActionBean{
                 titleList = titleService.getTitleListByPage(page, count);
             else
                 titleList = titleService.getTitleListByTypeAndPage(page, count, type);
+            System.out.println("page"+page+"count"+count+"type"+type);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, titleList), HttpStatus.OK);
         } catch (TitleServiceException te) {
             throw new CatchServiceException(te);
         }
     }
+
 
     /**
      * 练习模块提交选择、填空、判断试题

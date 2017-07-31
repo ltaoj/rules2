@@ -71,9 +71,9 @@ public class TitleServiceimpl implements TitleService {
             }
             List<Additiontitle> titleList = additiontitleDAO.getTitleListByTypeAndPage(type, page == 0 ? 0 : (page - 1) * count, count);
             // 将题目的答案设置为空字符
-            for (int i = 0;i < titleList.size();i++) {
-                titleList.get(i).setAnswer("");
-            }
+//            for (int i = 0;i < titleList.size();i++) {
+//                titleList.get(i).setAnswer("");
+//            }
             return titleList;
         } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException(pe);

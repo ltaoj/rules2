@@ -3,12 +3,17 @@
  */
 var practiceTitle;
 var practiceBlankTitle;
-
+var choicepage=1;
+var blankpage=1;
+var shortpage=1;
+var casepage=1;
+var discusspage=1;
 function enterTitle() {
     if (getStudentId() != null) {
+        $('#title').html("");
+        createQuestionBank('选择题练习');
         $('#enterSimulation').attr("data-toggle", 'modal');
         $('#enterSimulation').attr("data-target", '#titleModal');
-        createQuestionBank('校规校纪模拟考试');
     } else {
         $('#enterSimulation').attr("data-toggle", '');
         $('#enterSimulation').attr("data-target", '');
@@ -18,9 +23,7 @@ function enterTitle() {
 
 function enterBlankTitle() {
     if (getStudentId() != null) {
-        console.log("填空题练习",123);
         $('#title').html("");
-
         blankTitlePractice('填空题练习');
         $('#enterSimulationBlank').attr("data-toggle", 'modal');
         $('#enterSimulationBlank').attr("data-target", '#titleModal');
@@ -30,22 +33,24 @@ function enterBlankTitle() {
         $("#isSimulationBlankLogin").html("请先登录");
     }
 }
-function enterJudgeTitle() {
-    if (getStudentId() != null) {
-        $('#enterSimulationJudge').attr("data-toggle", 'modal');
-        $('#enterSimulationJudge').attr("data-target", '#titleModal');
-        createQuestionBank('校规校纪模拟考试');
-    } else {
-        $('#enterSimulationJudge').attr("data-toggle", '');
-        $('#enterSimulationJudge').attr("data-target", '');
-        $("#isSimulationJudgeLogin").html("请先登录");
-    }
-}
+// function enterJudgeTitle() {
+//     if (getStudentId() != null) {
+//         $('#enterSimulationJudge').attr("data-toggle", 'modal');
+//         $('#enterSimulationJudge').attr("data-target", '#titleModal');
+//         createQuestionBank('校规校纪模拟考试');
+//     } else {
+//         $('#enterSimulationJudge').attr("data-toggle", '');
+//         $('#enterSimulationJudge').attr("data-target", '');
+//         $("#isSimulationJudgeLogin").html("请先登录");
+//     }
+// }
 function enterShortTitle() {
     if (getStudentId() != null) {
+        $('#title').html("");
+        console.log("简答题",123);
+        shortTitlePractice('简答题练习');
         $('#enterSimulationShort').attr("data-toggle", 'modal');
         $('#enterSimulationShort').attr("data-target", '#titleModal');
-        createQuestionBank('校规校纪模拟考试');
     } else {
         $('#enterSimulationShort').attr("data-toggle", '');
         $('#enterSimulationShort').attr("data-target", '');
@@ -54,9 +59,10 @@ function enterShortTitle() {
 }
 function enterCaseTitle() {
     if (getStudentId() != null) {
+        $('#title').html("");
+        caseTitlePractice('案例分析题练习');
         $('#enterSimulationCase').attr("data-toggle", 'modal');
         $('#enterSimulationCase').attr("data-target", '#titleModal');
-        createQuestionBank('校规校纪模拟考试');
     } else {
         $('#enterSimulationCase').attr("data-toggle", '');
         $('#enterSimulationCase').attr("data-target", '');
@@ -65,9 +71,10 @@ function enterCaseTitle() {
 }
 function enterDiscussTitle() {
     if (getStudentId() != null) {
+        $('#title').html("");
+        discussTitlePractice('论述题练习');
         $('#enterSimulationDiscuss').attr("data-toggle", 'modal');
         $('#enterSimulationDiscuss').attr("data-target", '#titleModal');
-        createQuestionBank('校规校纪模拟考试');
     } else {
         $('#enterSimulationDiscuss').attr("data-toggle", '');
         $('#enterSimulationDiscuss').attr("data-target", '');
@@ -86,90 +93,92 @@ function enterWrongTitle() {
     }
 }
 function createQuestionBank(subjectTitle) {
-    if (this.subjectTitle !== subjectTitle) {
-        this.subjectTitle = subjectTitle;
-        $('#subjectTitle').html(subjectTitle);
-        $('#title').html("");
-        if (subjectTitle == '校规校纪模拟考试') {
-            $.ajax({
-                url: 'title/practice',
-                dataType: 'text',
-                method: 'get',
-                success: function (data) {
-                    var Result = JSON.parse(data);
-                    practiceTitle = Result.object;
-                    for (var i = 0; i < practiceTitle.length; i++) {
-                        $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                            "<tr>" +
-                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceTitle[i].name + "</th>" +
-                            "</tr>" +
-                            "<br>");
-                        for (var j = 0; j < 4; j++) {
-                            var str = "A";
-                            practiceTitle[i].options[j].checked = 0;
-                            $('#title').append("<tr><td><input name=\"" + practiceTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + practiceTitle[i].options[j].content + "&nbsp;</td></tr>"
-                            );
-                        }
-                        $('#title').append("</table>");
-                    }
-                },
-                error: function (xhr) {
-                    // 导致出错的原因较多，以后再研究
-                    alert('error:' + JSON.stringify(xhr));
+    $('#subjectTitle').html(subjectTitle);
+    $('#title').html("");
+    $.ajaxSetup({contentType: 'application/json'});
+    $.ajax({
+        url: 'title/practice',
+        dataType: 'text',
+        method: 'post',
+        data:{
+            page:1,
+            count:10,
+            type:0,
+        },
+        success: function (data) {
+            var Result = JSON.parse(data);
+            practiceTitle = Result.object;
+            for (var i = 0; i < practiceTitle.length; i++) {
+                $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceTitle[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                for (var j = 0; j < 4; j++) {
+                    var str = "A";
+                    practiceTitle[i].options[j].checked = 0;
+                    $('#title').append("<tr><td><input name=\"" + practiceTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + practiceTitle[i].options[j].content + "&nbsp;</td></tr>"
+                    );
                 }
-            }).done(function (data) {
-                // 请求成功后要做的工作
-                console.log('success');
-            }).fail(function () {
-                // 请求失败后要做的工作
-                console.log('error');
-            }).always(function () {
-                // 不管成功或失败都要做的工作
-                console.log('complete');
-            });
+                $('#title').append("</table>");
+            }
+        },
+        error: function (xhr) {
+            // 导致出错的原因较多，以后再研究
+            alert('error:' + JSON.stringify(xhr));
         }
-        else {
-            $.ajaxSetup({contentType: 'application/json'});
-            $.ajax({
-                url: 'title/wrongList',
-                dataType: 'json',
-                method: 'POST',
-                data: $.toJSON(getAccount()),
-                success: function (data) {
-                    practiceTitle = data.object;
-                    for (var i = 0; i < practiceTitle.length; i++) {
-                        $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                            "<tr>" +
-                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceTitle[i].name + "</th>" +
-                            "</tr>" +
-                            "<br>");
-                        for (var j = 0; j < 4; j++) {
-                            var str = "A";
-                            practiceTitle[i].options[j].checked = 0;
-                            $('#title').append("<tr><td><input name=\"" + practiceTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + practiceTitle[i].options[j].content + "&nbsp;</td></tr>"
-                            );
-                        }
-                        $('#title').append("</table>");
-                    }
-                }
-                ,
-                error: function (xhr) {
-                    // 导致出错的原因较多，以后再研究
-                    alert('error:' + JSON.stringify(xhr));
-                }
-            }).done(function (data) {
-                // 请求成功后要做的工作
-                console.log('success');
-            }).fail(function () {
-                // 请求失败后要做的工作
-                console.log('error');
-            }).always(function () {
-                // 不管成功或失败都要做的工作
-                console.log('complete');
-            });
-        }
-    }
+    }).done(function (data) {
+        // 请求成功后要做的工作
+        console.log('success');
+    }).fail(function () {
+        // 请求失败后要做的工作
+        console.log('error');
+    }).always(function () {
+        // 不管成功或失败都要做的工作
+        console.log('complete');
+    });
 }
+        // else {
+        //     $.ajaxSetup({contentType: 'application/json'});
+        //     $.ajax({
+        //         url: 'title/wrongList',
+        //         dataType: 'json',
+        //         method: 'POST',
+        //         data: $.toJSON(getAccount()),
+        //         success: function (data) {
+        //             practiceTitle = data.object;
+        //             for (var i = 0; i < practiceTitle.length; i++) {
+        //                 $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+        //                     "<tr>" +
+        //                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceTitle[i].name + "</th>" +
+        //                     "</tr>" +
+        //                     "<br>");
+        //                 for (var j = 0; j < 4; j++) {
+        //                     var str = "A";
+        //                     practiceTitle[i].options[j].checked = 0;
+        //                     $('#title').append("<tr><td><input name=\"" + practiceTitle[i].titleId + "\" type=\"radio\" onclick=\"addTitleToList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + practiceTitle[i].options[j].content + "&nbsp;</td></tr>"
+        //                     );
+        //                 }
+        //                 $('#title').append("</table>");
+        //             }
+        //         }
+        //         ,
+        //         error: function (xhr) {
+        //             // 导致出错的原因较多，以后再研究
+        //             alert('error:' + JSON.stringify(xhr));
+        //         }
+        //     }).done(function (data) {
+        //         // 请求成功后要做的工作
+        //         console.log('success');
+        //     }).fail(function () {
+        //         // 请求失败后要做的工作
+        //         console.log('error');
+        //     }).always(function () {
+        //         // 不管成功或失败都要做的工作
+        //         console.log('complete');
+        //     });
+
+
 
 function addTitleToList(title, choice) {
     for (var i = 0; i < 4; i++) {
@@ -177,6 +186,20 @@ function addTitleToList(title, choice) {
             practiceTitle[title].options[i].checked = 0;
     }
     practiceTitle[title].options[choice].checked = 1;
+}
+function submitPractice() {
+    var str=document.getElementById("subjectTitle").innerText;
+    if(str=="简答题练习"){
+        shortTitlePractice('简答题练习');
+    }else if(str=="案例分析题练习"){
+        caseTitlePractice('案例分析题练习');
+    }else if(str=="论述题练习"){
+        discussTitlePractice('论述题练习');
+    }else if(str=="填空题练习"){
+        blankTitlePractice('填空题练习');
+    }else if(str=="选择题练习"){
+        submitTitle();
+    }
 }
 function submitTitle() {
     if ($('#submitTitleBT').html() == '提交') {
@@ -224,14 +247,15 @@ for (var j = 0; j < 4; j++) {
 function blankTitlePractice(subjectTitle){
         $('#subjectTitle').html(subjectTitle);
         $('#title').html("");
+        $.ajaxSetup({contentType: 'application/json'});
             $.ajax({
                 url: 'title/practice',
-                dataType: 'json',
-                method: 'POST',
-                data: {
-                    page: 1,
-                    count: 3,
-                    type: 1,
+                dataType: 'text',
+                method: 'post',
+                data:{
+                    page:blankpage,
+                    count:10,
+                    type:1,
                 },
                 success: function (data) {
                     var Result = JSON.parse(data);
@@ -243,10 +267,14 @@ function blankTitlePractice(subjectTitle){
                             "</tr>" +
                             "<br>");
                         for (var j = 0; j < (practiceBlankTitle[i].name.split("#").length) - 1; j++) {
-                            $('#title').append("<tr><td>" + (j + 1) + ".&nbsp;" + "<input type=\"text\" name=\"" + practiceBlankTitle[i].titleId + "\" id=\"practiceBlankAnswer" + i + "" + j + "\" />" + "&nbsp;</td></tr>");
+                            $('#title').append("<tr><td>" + (j + 1) + ".&nbsp;" + "<input type=\"text\" name=\"" + practiceBlankTitle[i].titleId + "\" id=\"practiceBlankAnswer" + i + "" + j + "\" />"+practiceBlankTitle[i].answer.split("#")[j]+ "&nbsp;</td></tr>");
+                            // +practiceBlankTitle[i].answer.split("#")[j] 在练习的时候显示答案
                         }
                         $('#title').append("</table>");
                     }
+                    $('#submitTitleBT').attr("class", "btn btn-success")
+                    $('#submitTitleBT').html("下一组");
+                    blankpage=blankpage+1;
                 },
                 error: function (xhr) {
                     // 导致出错的原因较多，以后再研究
@@ -262,5 +290,143 @@ function blankTitlePractice(subjectTitle){
                 // 不管成功或失败都要做的工作
                 console.log('complete');
             });
-
+}
+function shortTitlePractice(subjectTitle){
+    $('#subjectTitle').html(subjectTitle);
+    $('#title').html("");
+    $.ajaxSetup({contentType: 'application/json'});
+    $.ajax({
+        url: 'title/practice',
+        dataType: 'text',
+        method: 'post',
+        data:{
+            page:shortpage,
+            count:5,
+            type:3,
+        },
+        success: function (data) {
+            var Result = JSON.parse(data);
+            var practiceShortTitle = Result.object;
+            for (var i = 0; i < practiceShortTitle.length; i++) {
+                $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceShortTitle[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#title').append("<br><textarea rows='5' cols='70' id=\"practiceShortAnswer"+i+"\">"+practiceShortTitle[i].answer+"</textarea>");
+                $('#title').append("</table>");
+            }
+            $('#submitTitleBT').attr("class", "btn btn-success")
+            $('#submitTitleBT').html("下一组");
+            shortpage=shortpage+1;
+        },
+        error: function (xhr) {
+            // 导致出错的原因较多，以后再研究
+            alert('error:' + JSON.stringify(xhr));
+        }
+    }).done(function (data) {
+        // 请求成功后要做的工作
+        console.log('success');
+    }).fail(function () {
+        // 请求失败后要做的工作
+        console.log('error');
+    }).always(function () {
+        // 不管成功或失败都要做的工作
+        console.log('complete');
+    });
+}
+function caseTitlePractice(subjectTitle){
+    $('#subjectTitle').html(subjectTitle);
+    $('#title').html("");
+    $.ajaxSetup({contentType: 'application/json'});
+    $.ajax({
+        url: 'title/practice',
+        dataType: 'text',
+        method: 'post',
+        data:{
+            page:casepage,
+            count:5,
+            type:4,
+        },
+        success: function (data) {
+            var Result = JSON.parse(data);
+            var practiceCaseTitle = Result.object;
+            for (var i = 0; i < practiceCaseTitle.length; i++) {
+                $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceCaseTitle[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#title').append("<br><textarea rows='5' cols='70' id=\"practiceCaseAnswer"+i+"\">"+practiceCaseTitle[i].answer+"</textarea>");
+                $('#title').append("</table>");
+            }
+            $('#submitTitleBT').attr("class", "btn btn-success")
+            $('#submitTitleBT').html("下一组");
+            casepage=casepage+1;
+        },
+        error: function (xhr) {
+            // 导致出错的原因较多，以后再研究
+            alert('error:' + JSON.stringify(xhr));
+        }
+    }).done(function (data) {
+        // 请求成功后要做的工作
+        console.log('success');
+    }).fail(function () {
+        // 请求失败后要做的工作
+        console.log('error');
+    }).always(function () {
+        // 不管成功或失败都要做的工作
+        console.log('complete');
+    });
+}
+function discussTitlePractice(subjectTitle){
+    $('#subjectTitle').html(subjectTitle);
+    $('#title').html("");
+    $.ajaxSetup({contentType: 'application/json'});
+    $.ajax({
+        url: 'title/practice',
+        dataType: 'text',
+        method: 'post',
+        data:{
+            page:discusspage,
+            count:5,
+            type:5,
+        },
+        success: function (data) {
+            var Result = JSON.parse(data);
+            var practiceDiscussTitle = Result.object;
+            for (var i = 0; i < practiceDiscussTitle.length; i++) {
+                $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceDiscussTitle[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#title').append("<br><textarea rows='5' cols='70' id=\"practiceDiscussAnswer"+i+"\">"+practiceDiscussTitle[i].answer+"</textarea>");
+                $('#title').append("</table>");
+            }
+            $('#submitTitleBT').attr("class", "btn btn-success")
+            $('#submitTitleBT').html("下一组");
+            discusspage=discusspage+1;
+        },
+        error: function (xhr) {
+            // 导致出错的原因较多，以后再研究
+            alert('error:' + JSON.stringify(xhr));
+        }
+    }).done(function (data) {
+        // 请求成功后要做的工作
+        console.log('success');
+    }).fail(function () {
+        // 请求失败后要做的工作
+        console.log('error');
+    }).always(function () {
+        // 不管成功或失败都要做的工作
+        console.log('complete');
+    });
+}
+function exitPractice() {
+    $('#titleModal').modal('hide');
+    blankpage=1;
+    shortpage=1;
+    casepage=1;
+    discusspage=1;
 }
