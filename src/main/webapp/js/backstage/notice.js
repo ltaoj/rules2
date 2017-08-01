@@ -97,3 +97,29 @@ function deleteNotice(obj) {
         console.log('complete');
     });
 }
+
+/**
+ * Date:2017-08-01 18:46:30
+ * Anthor：ltaoj
+ */
+function publishNotice() {
+    var picObj = $("#noticePicture")[0].files[0];
+    var title = $("#publish_notice_title")[0].value;
+    //  source通过登录的信息获取，即管理员id
+    var source = 1;
+    var content = $("#publish_notice_content")[0].value;
+    var data = {title: title, source: source, content: content};
+    $.ajaxFileUpload({
+        url: 'notice/publishNotice',
+        secureuri: false,
+        data: data,
+        fileElementId: 'noticePicture',
+        dataType: 'json',
+        success: function (data, status) {
+            console.log(data);
+        },
+        error: function (data, status, e) {
+            console.log(e);
+        }
+    })
+}
