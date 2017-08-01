@@ -2,6 +2,9 @@ package com.csu.rules.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+
 
 /**
  * Created by ltaoj on 17-6-4.
@@ -18,5 +21,10 @@ public class RulesWebAppInitializer extends AbstractAnnotationConfigDispatcherSe
 
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(new MultipartConfigElement("/tmp/rules/uploads"));
     }
 }
