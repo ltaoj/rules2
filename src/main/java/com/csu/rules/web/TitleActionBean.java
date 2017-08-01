@@ -33,7 +33,7 @@ public class TitleActionBean extends AbstractActionBean{
      * @param type 默认为0可不指定，代表选择题。1,2,3,4,5,6分别对应其他类型题目
      * @return
      */
-    @RequestMapping(value = "/practice", method = RequestMethod.POST,consumes = "application/json")
+    @RequestMapping(value = "/practice", method = RequestMethod.GET)
     public ResponseEntity<Result> practice(
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "count", defaultValue = "10") int count,
