@@ -63,6 +63,12 @@ INSERT INTO clazz VALUES(203, 101, '电气1501');
 INSERT INTO clazz VALUES(204, 102, '计科1501');
 INSERT INTO clazz VALUES(205, 103, '网络1501');
 
+### admin ###
+INSERT INTO admin(account, password, username, role) VALUES('csu@root', 'csu@root', '系统管理员',0);
+
+### notice ###
+INSERT INTO notice(title, content, picture, submit_time, source, type) VALUES('中南大学2015级竞赛通知','2017-08-01下午18:00-19:00可报名参加竞赛，竞赛时长60分钟。','https://www.ltaoj.cn/rules/img/2.jpg','2017-08-01 15:31:00', 1, 1);
+INSERT INTO notice(title, content, picture, submit_time, source, type) VALUES('中南大学2015级竞赛通知','2017-08-01下午18:00-19:00可报名参加竞赛，竞赛时长60分钟。','https://www.ltaoj.cn/rules/img/2.jpg','2017-08-01 15:31:00', 1, 0);
 
 ### additiontitle ###
 #填空题 type=1
