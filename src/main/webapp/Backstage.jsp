@@ -44,6 +44,9 @@
     <script src="plugins/js-xlsx/xlsx.full.min.js"></script>
     <script src="js/backstage/readExcel.js"></script>
     <!--Excel导入导出结束-->
+    <!--文件上传-->
+    <script src="plugins/uploads/ajaxfileupload.js"></script>
+    <!--文件上传结束-->
     <!-- 后台管理js -->
     <script src="js/backstage/initBackstage.js"></script>
     <script src="js/backstage/contestAndTest.js"></script>
@@ -509,7 +512,7 @@
                         <div class="main_bd">
                             <div class="box">
                                 <h3>发布通知</h3>
-                                <input type="file" name="file1" size="50"/>
+                                <input type="file" id="noticePicture" name="noticePicture" accept="image/jpeg,image/png,image/gif" size="50"/>
                                 <br>
                                 <div style="width:30%">
                                     <div class="input-group input-group">
@@ -532,7 +535,7 @@
 
                                 </div>
                                 <br>
-                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">发布</button>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="publishNotice()">发布</button>
                             </div>
                             <div class="box">
                                 <h3>修改/删除通知</h3>
