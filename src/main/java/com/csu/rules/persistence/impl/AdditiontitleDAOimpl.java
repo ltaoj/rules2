@@ -80,8 +80,13 @@ public class AdditiontitleDAOimpl implements AdditiontitleDAO {
             String hql = "from Additiontitle as additiontitle where type=" + type;
             Query query = session.createQuery(hql);
             query.setFirstResult(offset);
-            query.setFetchSize(count);
+            query.setMaxResults(count);
+            // setFirstResult和setMaxResults是用来进行分页查询的。
+            // 而setFetchSize与分页没有关系，只不过是将符合条件的记录查询出来，然后分批赋值给List
+//            query.setFetchSize(count);
             List<Additiontitle> list = query.list();
+            System.out.println("offset:" + offset + " count:" + count);
+            System.out.println(list.size());
             transaction.commit();
             session.close();
             return list;

@@ -65,7 +65,7 @@ public class TitleDAOimpl implements TitleDAO {
             Transaction transaction = session.beginTransaction();
             Query query = session.createQuery("from Title");
             query.setFirstResult(offset);
-            query.setFetchSize(count);
+            query.setMaxResults(count);
             List<Title> titleList = query.list();
             transaction.commit();
             session.close();
