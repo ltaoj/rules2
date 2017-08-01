@@ -99,7 +99,7 @@ function createQuestionBank(subjectTitle) {
     $.ajax({
         url: 'title/practice',
         dataType: 'text',
-        method: 'post',
+        method: 'get',
         data:{
             page:1,
             count:10,
@@ -251,7 +251,7 @@ function blankTitlePractice(subjectTitle){
             $.ajax({
                 url: 'title/practice',
                 dataType: 'text',
-                method: 'post',
+                method: 'get',
                 data:{
                     page:blankpage,
                     count:10,
@@ -298,7 +298,7 @@ function shortTitlePractice(subjectTitle){
     $.ajax({
         url: 'title/practice',
         dataType: 'text',
-        method: 'post',
+        method: 'get',
         data:{
             page:shortpage,
             count:5,
@@ -342,7 +342,7 @@ function caseTitlePractice(subjectTitle){
     $.ajax({
         url: 'title/practice',
         dataType: 'text',
-        method: 'post',
+        method: 'get',
         data:{
             page:casepage,
             count:5,
@@ -386,7 +386,7 @@ function discussTitlePractice(subjectTitle){
     $.ajax({
         url: 'title/practice',
         dataType: 'text',
-        method: 'post',
+        method: 'get',
         data:{
             page:discusspage,
             count:5,
