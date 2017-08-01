@@ -325,17 +325,10 @@
                                         <div style="width:80%">
                                             <h3>考试信息</h3>
                                             <div class="btn-group">
-<<<<<<< HEAD
-                                                <a class="btn btn-primary">查询</a>
-                                                <a class="btn btn-default" id="test_isClick">修改</a>
-                                                <a class="btn btn-default">删除</a>
-                                                <a class="btn btn-default">添加</a>
-=======
                                                 <a class="btn btn-primary" onclick="onTestSearchBT(this)" id="test_search">查询</a>
                                                 <a class="btn btn-default" onclick="onTestUpdateBT(this)" id="test_update">修改</a>
                                                 <a class="btn btn-default" onclick="onTestDeleteBT(this)" id="test_delete">删除</a>
                                                 <a class="btn btn-default" onclick="onTestAddBT(this)" id="test_add">添加</a>
->>>>>>> 4151c46851f967f9c5f5d85d5dbd50d354341350
                                             </div>
                                             <br>
                                             <br>
@@ -473,6 +466,9 @@
                                         <option value="2015">2015</option>
                                         <option value="2016">2016</option>
                                         <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
                                     </select>
                                     <span>班级:</span>
                                     <select id="clazz">
