@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,15 +73,53 @@ public class NoticeActionBean extends AbstractActionBean {
         }
     }
 
-    @RequestMapping(value = "/publishNotice", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Result> publishNotice(@RequestBody Notice notice) {
+    @RequestMapping(value = "/publishNotice", method = RequestMethod.POST)
+    public ResponseEntity<Result> publishNotice(@RequestPart("noticePicture") MultipartFile noticePicture,
+                                                Notice notice,
+                                                HttpServletRequest request) {
         try {
+            String path = request.getSession().getServletContext().getRealPath("img");
+            if (!noticePicture.isEmpty()) {
+                String fileName = noticePicture.getOriginalFilename();
+                String fileNameStr = (new Date().getTime()) + "_" + fileName;
+                File targetFile = new File(path, fileNameStr);
+                if (!targetFile.exists()) {
+                    targetFile.createNewFile();
+                }
+                noticePicture.transferTo(targetFile);
+                notice.setPicture("img/" + fileNameStr);
+                notice.setType(1);
+            }else {
+                notice.setType(0);
+            }
             notice.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             noticeService.publishNotice(notice);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (NoticeServiceException e) {
             throw new CatchServiceException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
+    }
+
+    @RequestMapping(value = "/uploadPicture", method = RequestMethod.POST)
+    public ResponseEntity<Result> uploadPicture(@RequestPart("noticePicture") MultipartFile noticePicture,HttpServletRequest request) {
+            if (noticePicture.isEmpty())
+                return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+            String path = request.getSession().getServletContext().getRealPath("img");
+            String fileName = noticePicture.getOriginalFilename();
+            String fileNameStr = (new Date().getTime()) + "_" + fileName;
+            File targetFile = new File(path, fileNameStr);
+            try {
+                if (!targetFile.exists()){
+                    targetFile.createNewFile();
+                }
+                noticePicture.transferTo(targetFile);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/deleteNotice", method = RequestMethod.POST, consumes = "application/json")
