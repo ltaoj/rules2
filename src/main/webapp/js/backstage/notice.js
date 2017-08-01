@@ -68,23 +68,21 @@ function getNoticeForText() {
     }
 }
 function deleteNotice(obj) {
-    $('#' + obj.parentNode.parentNode.id).hide();
-    var titleId = '';
-    titleId = obj.parentNode.parentNode.id;
-    var titleString = {titleId: titleId};
-    var title = $.toJSON(titleString);
+    var noticeId = '';
+    noticeId = obj.parentNode.parentNode.id;
+    var noticeString = {noticeId: noticeId};
+    var notice = $.toJSON(noticeString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'notice/deleteNotice',
         dataType: 'json',
         method: 'POST',
-        data: title,
+        data: notice,
         success: function (data) {
-
+            $('#' + obj.parentNode.parentNode.id).hide();
         },
         error: function (xhr) {
-            // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert("删除失败");
         }
     }).done(function (data) {
         // 请求成功后要做的工作
