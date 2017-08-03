@@ -77,10 +77,6 @@ public class AccountServiceimpl implements AccountService {
             throw ae;
         }
         admin = adminDAO.Login(admin);
-        if (admin == null) {
-            ae.setErrorCode(8);
-            throw ae;
-        }
         return admin;
     }
 

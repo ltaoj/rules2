@@ -241,7 +241,6 @@ function deleteContest() {
         data: testinfo,
         success: function (data) {
             if (data.result == "success") {
-                alert("删除成功");
                 $('#contest_info_name').val("");
                 $('#contest_grade').val("");
                 $('#contest_start_year').val("");
@@ -289,7 +288,6 @@ function insertContest() {
         data: testinfo,
         success: function (data) {
             if (data.result == "success") {
-                alert("添加成功");
                 $('#contest_info_name').val("");
                 $('#contest_grade').val("");
                 $('#contest_start_year').val("");
@@ -338,7 +336,6 @@ function updateContest() {
         data: testinfo,
         success: function (data) {
             if (data.result == "success") {
-                alert("修改成功");
                 $('#contest_info_name').val("");
                 $('#contest_grade').val("");
                 $('#contest_start_year').val("");
@@ -426,7 +423,6 @@ function insertTest() {
         data: testinfo,
         success: function (data) {
             if (data.result == "success") {
-                alert("添加成功");
                 $('#test_info_name').val("");
                 $('#test_grade').val("");
                 $('#test_start_year').val("");
@@ -475,7 +471,6 @@ function updateTest() {
         data: testinfo,
         success: function (data) {
             if (data.result == "success") {
-                alert("修改成功");
                 $('#test_info_name').val("");
                 $('#test_grade').val("");
                 $('#test_start_year').val("");
@@ -557,7 +552,6 @@ function exitRandomGenerate() {
         data: testinfo,
         success: function (data) {
             if(data.result=="success"){
-                alert("删除成功");
             }
         },
         error: function (xhr) {
@@ -588,7 +582,6 @@ function getContesttitle() {
         data: testinfo,
         success: function (data) {
             if(data.result=="success"){
-                alert("已有竞赛试题");
                 $('#random_generate_title').attr("data-toggle",'');
                 $('#random_generate_title').attr("data-target",'');
             }else{

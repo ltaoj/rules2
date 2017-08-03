@@ -70,6 +70,7 @@ public class AccountActionBean extends AbstractActionBean {
         try {
             Admin admin1=accountService.login(admin);
             if(admin1==null) {
+                System.out.println(admin1);
                 accountService.insertAdmin(admin);
                 return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
             }else{

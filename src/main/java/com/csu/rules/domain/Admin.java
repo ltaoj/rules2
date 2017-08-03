@@ -19,6 +19,16 @@ public class Admin {
     private String username;
     @Column(name = "role")
     private int role;
+    @Column(name="rolerange")
+    private String rolerange;
+
+    public String getRolerange() {
+        return rolerange;
+    }
+
+    public void setRolerange(String rolerange) {
+        this.rolerange = rolerange;
+    }
 
     public int getAdminId() {
         return adminId;

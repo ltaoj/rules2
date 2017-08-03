@@ -52,6 +52,7 @@
     <script src="js/backstage/contestAndTest.js"></script>
     <script src="js/backstage/achievement.js"></script>
     <script src="js/backstage/notice.js"></script>
+    <script src="js/backstage/admin.js"></script>
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -557,16 +558,49 @@
                                 <div style="width: 40%">
                                     <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-user-o"></i>
-								</span> <input type="text" class="form-control" placeholder="用户名"
-                                               id="admin_username">
+								</span> <input type="text" class="form-control" placeholder="账号" onchange="displayInsertMsg()"
+                                               id="admin_account">
                                     </div>
                                     <br>
                                     <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-key"></i>
-								</span> <input type="text" class="form-control" placeholder="密码" id="admin_password">
+								</span> <input type="text" class="form-control" placeholder="密码" id="admin_password" onchange="displayInsertMsg()">
+                                </div>
+                                    <br>
+                                    <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
+								</span> <input type="text" class="form-control" placeholder="用户名" id="admin_username" onchange="displayInsertMsg()">
                                     </div>
                                     <br>
-                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">添加</button>
+                                    <label><input name="role" type="radio" value="1" onclick="roleCheck()"/>校领导 </label>&nbsp;
+                                    <label><input name="role" type="radio" value="2" onclick="roleCheck()"/>院领导 </label>&nbsp;
+                                    <label><input name="role" type="radio" value="3" onclick="roleCheck()"/>辅导员 </label>&nbsp;
+                                    <label><input name="role" type="radio" value="4" onclick="roleCheck()"/>教师 </label>
+                                    <br>
+                                    <span>学院:</span>
+                                    <select id="role_college" onchange="getMajor(this.value)" style="display: none">
+                                        <option value="学院">请选择学院(默认全校)</option>
+                                    </select>
+                                    <span>专业:</span>
+                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none" multiple="multiple">
+                                        <option value=""></option>
+                                    </select>
+                                    <span>年级:</span>
+                                    <select id="role_grade" style="display: none" multiple="multiple">
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                    </select>
+                                    <span>班级:</span>
+                                    <select id="role_class" style="display: none" multiple="multiple">
+                                        <option value=""></option>
+                                    </select>
+                                    <br><br>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="insertAdmin()">添加</button>
+                                    <label id="insertAdmin_msg" class="g-color-red"></label>
                                 </div>
                             </div>
                         </div>
