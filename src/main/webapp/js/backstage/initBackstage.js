@@ -23,7 +23,7 @@ function initBackstage(name) {
 var contest_Id;
 function getBackContestInfo() {
     $.ajax({
-        url: 'test/getContestInfo',
+        url: '../test/getContestInfo',
         dataType: 'text',
         method: 'GET',
         success: function (data) {
@@ -75,7 +75,7 @@ function getContest_id() {
 var test_id;
 function getBackTestInfo() {
     $.ajax({
-        url: 'test/getTestInfo',
+        url: '../test/getTestInfo',
         dataType: 'text',
         method: 'GET',
         success: function (data) {
@@ -128,7 +128,7 @@ function getTest_id() {
 //查看竞赛报名人数
 function getContestregistionNum() {
     $.ajax({
-        url: 'test/getContestregistionCount',
+        url: '../test/getContestregistionCount',
         dataType: 'text',
         method: 'GET',
         success: function (data) {

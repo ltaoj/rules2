@@ -253,7 +253,7 @@
                     <li class="page-scroll"><a href="#integral">积分兑换</a></li>
                     <li class="page-scroll"><a href="#contact">联系我们</a></li>
                     <li><a href="#help">考试须知</a></li>
-                    <li><a href="Backstage.jsp" target="_blank">后台管理</a></li>
+                    <li><form action="/account/adminLoginForm" method="get"><button class="btn-u btn-u-green btn-u-upper rounded-2x" type="submit">后台管理</button></form></li>
                     <li id="login-li"><a
                             class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
                             data-toggle="modal"

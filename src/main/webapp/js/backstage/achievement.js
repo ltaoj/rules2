@@ -129,7 +129,7 @@ function formatCondition() {
 function getColleges() {
     if ($('#college')[0].options.length > 1) return;
     $.ajax({
-        url: 'school/collegeList',
+        url: '../school/collegeList',
         method: 'GET',
         success: function (data) {
             addOption($('#college'), data, "college");
@@ -152,7 +152,7 @@ function getMajor(collegeId) {
     json.collegeId = parseInt(collegeId);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'school/majorList',
+        url: '../school/majorList',
         dataType: 'json',
         method: 'POST',
         data: JSON.stringify(json),
@@ -182,7 +182,7 @@ function getClazz(majorId) {
     var json = {};
     json.majorId = majorId;
     $.ajax({
-        url: 'school/clazzList',
+        url: '../school/clazzList',
         dataType: 'json',
         method: 'POST',
         data: JSON.stringify(json),
@@ -216,7 +216,7 @@ function query() {
     json.level = scoreSelect.options.selectedIndex == 0 ? 0 : scoreSelect.options[scoreSelect.options.selectedIndex].text;
 
     $.ajax({
-        url: 'test/recordListByCondition',
+        url: '../test/recordListByCondition',
         dataType: 'json',
         method: 'GET',
         data: json,

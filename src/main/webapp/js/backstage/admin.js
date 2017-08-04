@@ -5,10 +5,9 @@ function insertAdminAjax(account,password,username,role,rolerange) {
 
     var adminString={account:account,password:password,username:username,role:role,rolerange:rolerange};
     var admin=JSON.stringify(adminString);
-    alert(role);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'account/insertAdmin',
+        url: '../account/insertAdmin',
         dataType: 'json',
         method: 'POST',
         data: admin,
@@ -121,7 +120,57 @@ function insertAdmin() {
                 rolerange=rolerange1+";"+rolerange2+";"+rolerange3+";"+rolerange4;
                 break;
         }
-        alert(rolerange);
-        //insertAdminAjax(account,password,username,role,rolerange);
+        if(admin.role<=role) {
+            insertAdminAjax(account, password, username, role, rolerange);
+        }else{
+            testOperateModal();
+            $('#test_operate_header').html("添加");
+            $('#test_operate_message').html("管理员权限不够");
+            $('#testOperateModal').modal('show');
+        }
     }
 }
+var personalPopFlag = false;
+function adminPopover() {
+    getAdmin();
+    var roleString;
+    switch (admin.role){
+        case "0":
+            roleString="系统管理员";
+            break;
+        case "1":
+            roleString="校领导";
+            break;
+        case "2":
+            roleString="院领导";
+            break;
+        case "3":
+            roleString="辅导员";
+            break;
+        case "4":
+            roleString="教师";
+            break;
+        default:
+            break;
+    }
+    $("[data-toggle='personal']")
+        .popover(
+            {
+                trigger: "click",
+                html: true,
+                container: 'body',
+                content: "姓名：<label >" + admin.username + "</label> <br>帐号：<label>" +  admin.account + "</label> <br> 权限：<label>" +  roleString + "</label><br> "
+            });
+    if (!personalPopFlag) {
+        var btn = document.getElementById("personal");
+        btn.click();
+    }
+    personalPopFlag = true;
+}
+var admin;
+function getAdmin() {
+    admin={account:document.getElementById("account").innerText,password:document.getElementById("password").innerText,username:document.getElementById("username").innerText,role:document.getElementById("role").innerText,rolerange:document.getElementById("rolerange").innerText}
+}
+$(function () {
+    getAdmin();
+})

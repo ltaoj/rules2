@@ -7,7 +7,7 @@ function getNoticeForPicture() {
     if (!flag1) {
         flag1 = true;
         $.ajax({
-            url: 'notice/getPictureNotice',
+            url: '../notice/getPictureNotice',
             dataType: 'text',
             method: 'GET',
             success: function (data) {
@@ -40,7 +40,7 @@ function getNoticeForText() {
     if (!flag2) {
         flag2 = true;
         $.ajax({
-            url: 'notice/getAllTextNotice',
+            url: '../notice/getAllTextNotice',
             dataType: 'text',
             method: 'GET',
             success: function (data) {
@@ -74,7 +74,7 @@ function deleteNotice(obj) {
     var notice = $.toJSON(noticeString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'notice/deleteNotice',
+        url: '../notice/deleteNotice',
         dataType: 'json',
         method: 'POST',
         data: notice,
@@ -108,7 +108,7 @@ function publishNotice() {
     var content = $("#publish_notice_content")[0].value;
     var data = {title: title, source: source, content: content};
     $.ajaxFileUpload({
-        url: 'notice/publishNotice',
+        url: '../notice/publishNotice',
         secureuri: false,
         data: data,
         fileElementId: 'noticePicture',

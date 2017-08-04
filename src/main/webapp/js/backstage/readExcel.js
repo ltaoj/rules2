@@ -46,7 +46,7 @@ function assemble(list, type) {
     var url;
     var tep_list;
     if (type == 0) {
-        url = 'title/addTitles';
+        url = '../title/addTitles';
         tep_list = new Array(list.length);
         for (var i = 0; i < list.length; i++) {
             tep_list[i] =
@@ -86,7 +86,7 @@ function assemble(list, type) {
         document.getElementById("demo").innerHTML = tep_list;
     }
     else {
-        url = 'account/insertAccount'
+        url = '../account/insertAccount'
         tep_list = new Array(list.length);
         for (var i = 0; i < list.length; i++) {
             tep_list[i] = '{"studentId":"+' + list[i]["学号"] + '","username":"+' + list[i]['姓名'] + '","clazz":"' + list[i]['班级'] + '","grade":"' + list[i]['年级'] + '","major":"' + list[i][专业] + '","college":"' + list[i]['学院'] + '}';

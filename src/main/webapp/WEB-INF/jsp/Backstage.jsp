@@ -6,53 +6,54 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>中南大学-校规校纪系统-后台管理系统</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <!-- CSS Global Compulsory -->
-    <link href="plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/app.css" rel="stylesheet">
-    <link href="css/blocks.css" rel="stylesheet">
-    <link href="css/one.style.css" rel="stylesheet">
+    <link href="../../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/app.css" rel="stylesheet">
+    <link href="../../css/blocks.css" rel="stylesheet">
+    <link href="../../css/one.style.css" rel="stylesheet">
     <!-- CSS Implementing Plugins -->
-    <link href="plugins/animate.css" rel="stylesheet">
-    <link href="plugins/line-icons/line-icons.css" rel="stylesheet">
-    <link href="plugins/font-awesome/css/font-awesome.min.css"
+    <link href="../../plugins/animate.css" rel="stylesheet">
+    <link href="../../plugins/line-icons/line-icons.css" rel="stylesheet">
+    <link href="../../plugins/font-awesome/css/font-awesome.min.css"
           rel="stylesheet">
-    <link href="plugins/owl-carousel2/owl-carousel.css" rel="stylesheet">
+    <link href="../../plugins/owl-carousel2/owl-carousel.css" rel="stylesheet">
     <link
-            href="plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css"
+            href="../../plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css"
             rel="stylesheet">
     <link
-            href="plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css"
+            href="../../plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css"
             rel="stylesheet">
-    <link href="plugins/shhos/shhos.css" rel="stylesheet">
-    <link href="css/app.style.css" rel="stylesheet">
+    <link href="../../plugins/shhos/shhos.css" rel="stylesheet">
+    <link href="../../css/app.style.css" rel="stylesheet">
 
-    <link href="css/backstage.css" rel="stylesheet">
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="plugins/json/jquery.json.min.js"></script>
+    <link href="../../css/backstage.css" rel="stylesheet">
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <script src="../../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../plugins/json/jquery.json.min.js"></script>
     <!-- 平滑滚动 -->
-    <script src="plugins/smoothScroll/jquery.smooth-scroll.js"></script>
-    <script src="js/smoothScroll/smoothScroll.js"></script>
+    <script src="../../plugins/smoothScroll/jquery.smooth-scroll.js"></script>
+    <script src="../../js/smoothScroll/smoothScroll.js"></script>
     <!-- 平滑滚动结束 -->
     <!--Excel导入导出-->
-    <script src="plugins/js-xlsx/shim.js"></script>
-    <script src="plugins/js-xlsx/xlsx.full.min.js"></script>
-    <script src="js/backstage/readExcel.js"></script>
+    <script src="../../plugins/js-xlsx/shim.js"></script>
+    <script src="../../plugins/js-xlsx/xlsx.full.min.js"></script>
+    <script src="../../js/backstage/readExcel.js"></script>
     <!--Excel导入导出结束-->
     <!--文件上传-->
-    <script src="plugins/uploads/ajaxfileupload.js"></script>
+    <script src="../../plugins/uploads/ajaxfileupload.js"></script>
     <!--文件上传结束-->
     <!-- 后台管理js -->
-    <script src="js/backstage/initBackstage.js"></script>
-    <script src="js/backstage/contestAndTest.js"></script>
-    <script src="js/backstage/achievement.js"></script>
-    <script src="js/backstage/notice.js"></script>
-    <script src="js/backstage/admin.js"></script>
+    <script src="../../js/backstage/initBackstage.js"></script>
+    <script src="../../js/backstage/contestAndTest.js"></script>
+    <script src="../../js/backstage/achievement.js"></script>
+    <script src="../../js/backstage/notice.js"></script>
+    <script src="../../js/backstage/admin.js"></script>
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -174,7 +175,7 @@
     <div class="container">
         <div class="menu-container page-scroll">
             <a class="navbar-brand" href="#body"> <img alt="中南大学"
-                                                       src="img/logo.png">
+                                                       src="../../img/logo.png">
             </a>
         </div>
         <!-- 导航栏 -->
@@ -184,7 +185,7 @@
                     <li><a type="button"
                            class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
                            data-toggle="personal" id="personal"
-                           onclick="personalPopover()">个人</a></li>
+                           onclick="adminPopover()">个人</a></li>
                 </ul>
             </div>
         </div>
@@ -192,11 +193,17 @@
     </div>
     <!-- /.container --> </nav>
 <!-- 顶栏结束 -->
+<ul style="display:none;">
+    <li id="account">${admin.account}</li>
+    <li id="password">${admin.password}</li>
+    <li id="username">${admin.username}</li>
+    <li id="role">${admin.role}</li>
+    <li id="rolerange">${admin.rolerange}</li>
+</ul>
 <!-- 公告模块 -->
 <section class="promo-section" id="intro">
     <div class="interactive-slider-v2" style="background:#FFFFFF"></div>
 </section>
-
 <section>
     <div>
         <div id="js_container_box" class="container_box side_l ">

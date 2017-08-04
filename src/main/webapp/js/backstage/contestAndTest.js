@@ -235,7 +235,7 @@ function deleteContest() {
     var testinfo = JSON.stringify(testInfoString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/deleteTest',
+        url: '../test/deleteTest',
         dataType: 'json',
         method: 'POST',
         data: testinfo,
@@ -282,7 +282,7 @@ function insertContest() {
     var testinfo = JSON.stringify(testinfoString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/insertTest',
+        url: '../test/insertTest',
         dataType: 'json',
         method: 'POST',
         data: testinfo,
@@ -330,7 +330,7 @@ function updateContest() {
     var testinfo = JSON.stringify(testinfoString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/updateTest',
+        url: '../test/updateTest',
         dataType: 'json',
         method: 'POST',
         data: testinfo,
@@ -370,7 +370,7 @@ function deleteTest() {
     var testinfo = JSON.stringify(testInfoString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/deleteTest',
+        url: '../test/deleteTest',
         dataType: 'json',
         method: 'POST',
         data: testinfo,
@@ -417,7 +417,7 @@ function insertTest() {
     var testinfo = JSON.stringify(testinfoString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/insertTest',
+        url: '../test/insertTest',
         dataType: 'json',
         method: 'POST',
         data: testinfo,
@@ -465,7 +465,7 @@ function updateTest() {
     var testinfo = JSON.stringify(testinfoString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/updateTest',
+        url: '../test/updateTest',
         dataType: 'json',
         method: 'POST',
         data: testinfo,
@@ -506,7 +506,7 @@ function getContestRandomTitle() {
     var count=JSON.stringify(countString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/getContestRandomTitle',
+        url: '../test/getContestRandomTitle',
         dataType: 'json',
         method: 'POST',
         async: false,
@@ -546,7 +546,7 @@ function exitRandomGenerate() {
     var testinfo=JSON.stringify(testinfoJson);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/deleteContestTitle',
+        url: '../test/deleteContestTitle',
         dataType: 'json',
         method: 'POST',
         data: testinfo,
@@ -575,7 +575,7 @@ function getContesttitle() {
     var testinfo=JSON.stringify(testinfoJson);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
-        url: 'test/getContesttitle',
+        url: '../test/getContesttitle',
         dataType: 'json',
         method: 'POST',
         async: false,
