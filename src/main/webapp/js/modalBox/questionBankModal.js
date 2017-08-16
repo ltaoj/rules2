@@ -188,18 +188,18 @@ function addTitleToList(title, choice) {
     practiceTitle[title].options[choice].checked = 1;
 }
 function submitPractice() {
-    var str=document.getElementById("subjectTitle").innerText;
-    if(str=="简答题练习"){
-        shortTitlePractice('简答题练习');
-    }else if(str=="案例分析题练习"){
-        caseTitlePractice('案例分析题练习');
-    }else if(str=="论述题练习"){
-        discussTitlePractice('论述题练习');
-    }else if(str=="填空题练习"){
-        blankTitlePractice('填空题练习');
-    }else if(str=="选择题练习"){
-        submitTitle();
-    }
+        var str = document.getElementById("subjectTitle").innerText;
+        if (str == "简答题练习") {
+            shortTitlePractice('简答题练习');
+        } else if (str == "案例分析题练习") {
+            caseTitlePractice('案例分析题练习');
+        } else if (str == "论述题练习") {
+            discussTitlePractice('论述题练习');
+        } else if (str == "填空题练习") {
+            blankTitlePractice('填空题练习');
+        } else if (str == "选择题练习") {
+            submitTitle();
+        }
 }
 function submitTitle() {
     if ($('#submitTitleBT').html() == '提交') {
@@ -380,6 +380,7 @@ function caseTitlePractice(subjectTitle){
     });
 }
 function discussTitlePractice(subjectTitle){
+
     $('#subjectTitle').html(subjectTitle);
     $('#title').html("");
     $.ajaxSetup({contentType: 'application/json'});
@@ -406,6 +407,10 @@ function discussTitlePractice(subjectTitle){
             }
             $('#submitTitleBT').attr("class", "btn btn-success")
             $('#submitTitleBT').html("下一组");
+            if($('#title').html()==""){
+                $('#submitTitleBT').attr("class", "btn btn-primary")
+                $('#submitTitleBT').html("已完成");
+            }
             discusspage=discusspage+1;
         },
         error: function (xhr) {
