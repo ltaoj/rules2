@@ -194,7 +194,7 @@ CREATE TABLE `notice` (
   `content` text NOT NULL COMMENT '通知文本内容',
   `picture` varchar(150) DEFAULT NULL COMMENT '图片描述url',
   `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '发布时间',
-  `source` int(11) DEFAULT NULL COMMENT '作者，来源',
+  `source` varchar(20) DEFAULT NULL COMMENT '作者，来源',
   `type` int(11) NOT NULL COMMENT '通知类型',
   PRIMARY KEY (`notice_id`),
   KEY `notice_fk_1` (`source`),

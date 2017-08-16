@@ -22,7 +22,7 @@ public class Notice {
     @Column(name = "submit_time")
     private Timestamp submitTime;
     @Column(name = "source")
-    private Integer source;
+    private String source;
     @Column(name = "type")
     private int type;
 
@@ -66,11 +66,11 @@ public class Notice {
         this.submitTime = submitTime;
     }
 
-    public Integer getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(Integer source) {
+    public void setSource(String source) {
         this.source = source;
     }
 
