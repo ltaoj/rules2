@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.Notice;
 import com.csu.rules.domain.Title;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.NoticeDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
@@ -18,11 +19,12 @@ import java.util.List;
  * Created by GF on 2017/6/10.
  */
 @Repository
-public class NoticeDAOimpl implements NoticeDAO{
+public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
     public void insertNotice(Notice notice) throws PersistenceException {
             Session session = HibernateUtil.getSession();
         try {
             session.save(notice);
+            session.flush();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
         }finally {
@@ -34,6 +36,7 @@ public class NoticeDAOimpl implements NoticeDAO{
             Session session = HibernateUtil.getSession();
         try {
             Notice notice = (Notice) session.get(Notice.class, new Integer(noticeId));
+            session.flush();
             return notice;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -48,6 +51,7 @@ public class NoticeDAOimpl implements NoticeDAO{
             Criteria criteria = session.createCriteria(Notice.class);
             criteria.add(Restrictions.eq("type", new Integer(0)));
             List<Notice> textNoticeList = criteria.list();
+            session.flush();
             return textNoticeList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -62,6 +66,7 @@ public class NoticeDAOimpl implements NoticeDAO{
             Criteria criteria = session.createCriteria(Notice.class);
             criteria.add(Restrictions.eq("type", new Integer(1)));
             List<Notice> pictureNoticeList = criteria.list();
+            session.flush();
             return pictureNoticeList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);

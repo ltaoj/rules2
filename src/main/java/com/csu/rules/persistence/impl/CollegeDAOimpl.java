@@ -2,6 +2,7 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.College;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.CollegeDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Hibernate;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by ltaoj on 17-7-4.
  */
 @Repository
-public class CollegeDAOimpl implements CollegeDAO {
+public class CollegeDAOimpl extends AbstractDAO implements CollegeDAO {
     public void insertCollege(College college) throws PersistenceException {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();

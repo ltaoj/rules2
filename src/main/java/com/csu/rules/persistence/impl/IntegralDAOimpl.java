@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Integral;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.IntegralDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * Created by CMM on 2017/6/10.
  */
 @Repository
-public class IntegralDAOimpl implements IntegralDAO {
+public class IntegralDAOimpl extends AbstractDAO implements IntegralDAO {
 
     public Integral getIntegral(Account account) throws PersistenceException {
         Integral integral = new Integral();
@@ -24,6 +25,7 @@ public class IntegralDAOimpl implements IntegralDAO {
             Criteria criteria = session.createCriteria(Integral.class);
             criteria.add(Restrictions.eq("studentId", account.getStudentId()));
             integral = (Integral) criteria.list().get(0);
+            session.flush();
             return integral;
         }catch (RuntimeException e){
             throw new PersistenceException(e);

@@ -2,6 +2,7 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Major;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.MajorDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by ltaoj on 17-7-4.
  */
 @Repository
-public class MajorDAOimpl implements MajorDAO {
+public class MajorDAOimpl extends AbstractDAO implements MajorDAO {
     public void insertMajor(Major major) throws PersistenceException {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();

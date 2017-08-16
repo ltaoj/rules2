@@ -2,6 +2,7 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Clockin;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.ClockDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by ltaoj on 17-6-10.
  */
 @Repository
-public class ClockDAOimpl implements ClockDAO {
+public class ClockDAOimpl extends AbstractDAO implements ClockDAO {
 
     public void insertClock(Clockin clockin) throws PersistenceException {
         // 首先判断是否是同天第二次调用此方法，如果是，则进行更新操作，如果不是，则插入记录

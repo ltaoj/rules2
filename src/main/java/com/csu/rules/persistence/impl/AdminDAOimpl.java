@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Admin;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.AdminDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by CMM on 2017/6/10.
  */
 @Repository
-public class AdminDAOimpl implements AdminDAO {
+public class AdminDAOimpl extends AbstractDAO implements AdminDAO {
 
     public Admin Login(Admin admin) throws PersistenceException {
             Session session = HibernateUtil.getSession();

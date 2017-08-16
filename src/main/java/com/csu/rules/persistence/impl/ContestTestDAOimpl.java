@@ -4,6 +4,7 @@ import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Contestregistion;
 import com.csu.rules.domain.Testinfo;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.ContestTestDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.CacheMode;
@@ -19,7 +20,7 @@ import java.util.List;
  * Created by GF on 2017/6/8.
  */
 @Repository
-public class ContestTestDAOimpl implements ContestTestDAO {
+public class ContestTestDAOimpl extends AbstractDAO implements ContestTestDAO {
 
     public void registContest(Contestregistion contestregistion) throws PersistenceException {
         Session session= HibernateUtil.getSession();
@@ -67,6 +68,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("testId", testInfo.getTestId()));
             List<Contestregistion> contsetRegistionList = criteria.list();
+            session.flush();
             return contsetRegistionList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -115,6 +117,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
             List list = criteria.list();
             Contestregistion contest = (Contestregistion) list.get(0);
+            session.flush();
             return contest;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -131,6 +134,7 @@ public class ContestTestDAOimpl implements ContestTestDAO {
             org.hibernate.query.Query query=session.createQuery(hql);
             query.setInteger(0,new Integer(1).byteValue());
             List<Testinfo> contestinfoList=query.list();
+            session.flush();
             return contestinfoList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
