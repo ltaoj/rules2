@@ -4,6 +4,7 @@ import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Testinfo;
 import com.csu.rules.domain.Testtitle;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.TesttitleDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
@@ -17,30 +18,36 @@ import java.util.List;
  * Created by ltaoj on 17-7-2.
  */
 @Repository
-public class TesttitleDAOimpl implements TesttitleDAO {
+public class TesttitleDAOimpl extends AbstractDAO implements TesttitleDAO {
     public void insertTesttitle(Testtitle testtitle) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             session.save(testtitle);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
     public Testtitle getTesttitle(long studentId, int testId) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             String hql = "from Testtitle as testtitle where studentId=" + studentId + " and testId=" + testId;
             List<Testtitle> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list != null && list.size() > 0 ? list.get(0) : null;
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
@@ -60,14 +67,17 @@ public class TesttitleDAOimpl implements TesttitleDAO {
     }
 
     public void deleteTesttitle(Testtitle testtitle) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             session.delete(testtitle);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
@@ -76,14 +86,19 @@ public class TesttitleDAOimpl implements TesttitleDAO {
     }
 
     public List<Testtitle> getTesttitleList(int testId) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
             String hql = "from Testtitle as testtitle where testId=" + testId;
             List<Testtitle> list = session.createQuery(hql).list();
-            session.close();
+            session.flush();
+            transaction.commit();
             return list != null && list.size() > 0 ? list : null;
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 }

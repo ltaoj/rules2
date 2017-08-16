@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.TitleDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -16,62 +17,74 @@ import java.util.*;
  * Created by ltaoj on 17-6-9.
  */
 @Repository
-public class TitleDAOimpl implements TitleDAO {
+public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
 
     public Integer addTitle(Title title) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             Integer titleId = (Integer) session.save(title);
+            session.flush();
             transaction.commit();
-            session.close();
             return titleId;
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
     public void addTitleList(List<Title> titleList) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             for(int i = 0;i < titleList.size();i++) {
                 session.save(titleList.get(i));
             }
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
     public Title getTitle(int titleId) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             String hql = "from Title as title where title.titleId=" + titleId;
             List<Title> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list.size() > 0 ? list.get(0) : null;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
     public List<Title> getTitleList(int offset, int count) throws PersistenceException {
-            try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
+        try {
             Query query = session.createQuery("from Title");
             query.setFirstResult(offset);
             query.setMaxResults(count);
             List<Title> titleList = query.list();
+            session.flush();
             transaction.commit();
-            session.close();
             return titleList;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
@@ -87,30 +100,36 @@ public class TitleDAOimpl implements TitleDAO {
     }
 
     public List<Title> getTitleListByTitleIds(Set<Integer> titleIds) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             String hql = "from Title as title where title.titleId in (" + formatSet(titleIds) + ")";
             List<Title> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }  finally {
+            session.close();
         }
     }
 
     public Long getTotalTitleSize() throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
             String hql = "select count(*) from Title as title";
             Long count = (Long) session.createQuery(hql).uniqueResult();
+            session.flush();
             transaction.commit();
-            session.close();
             return count;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        } finally {
+            session.close();
         }
     }
 
