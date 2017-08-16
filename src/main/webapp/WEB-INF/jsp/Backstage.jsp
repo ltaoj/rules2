@@ -590,11 +590,11 @@
                                         <option value="学院">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none" multiple="multiple">
+                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none">
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>
-                                    <select id="role_grade" style="display: none" multiple="multiple">
+                                    <select id="role_grade" style="display: none" multiple="multiple" size="1">
                                         <option value="2015">2015</option>
                                         <option value="2016">2016</option>
                                         <option value="2017">2017</option>
@@ -603,7 +603,7 @@
                                         <option value="2020">2020</option>
                                     </select>
                                     <span>班级:</span>
-                                    <select id="role_class" style="display: none" multiple="multiple">
+                                    <select id="role_class" style="display: none" multiple="multiple" size="1">
                                         <option value=""></option>
                                     </select>
                                     <br><br>
