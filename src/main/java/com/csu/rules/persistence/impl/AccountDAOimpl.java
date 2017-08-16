@@ -2,7 +2,6 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.*;
 import com.csu.rules.exception.PersistenceException;
-import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.AccountDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
@@ -18,7 +17,7 @@ import java.util.List;
  * Created by ltaoj on 17-5-30.
  */
 @Repository
-public class AccountDAOimpl extends AbstractDAO implements AccountDAO {
+public class AccountDAOimpl implements AccountDAO {
 
     public Account getUserInfo(Account account) throws PersistenceException {
         Session session = HibernateUtil.getSession();
