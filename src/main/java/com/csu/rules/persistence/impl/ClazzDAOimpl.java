@@ -16,42 +16,51 @@ import java.util.List;
 @Repository
 public class ClazzDAOimpl implements ClazzDAO {
     public void insertClazz(Clazz clazz) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.save(clazz);
+            session.flush();
             transaction.commit();
-            session.close();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Clazz> getClazzByMajorId(int majorId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "from Clazz as clazz where majorId=" + majorId;
             List<Clazz> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Clazz> getClazzByName(String name) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "from Clazz as clazz where name=" + name;
             List<Clazz> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 }

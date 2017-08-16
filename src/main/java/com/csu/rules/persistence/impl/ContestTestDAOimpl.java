@@ -30,101 +30,112 @@ public class ContestTestDAOimpl implements ContestTestDAO {
         contest.setStatus(0);
         try {
             session.save(contest);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Contestregistion isRegistedContest(Contestregistion contestregistion) throws PersistenceException{
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("studentId", contestregistion.getStudentId()));
             criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
             List list = criteria.list();
             if(list.size()!=0) {
                 Contestregistion contest = (Contestregistion) list.get(0);
-                session.close();
                 return contest;
             }else{
                 Contestregistion contest=new Contestregistion();
-                session.close();
                 return contest;
             }
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Contestregistion> getContestRegistionList(Testinfo testInfo) throws PersistenceException{
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("testId", testInfo.getTestId()));
             List<Contestregistion> contsetRegistionList = criteria.list();
-            session.close();
             return contsetRegistionList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void changeContestStatusBegin(Contestregistion contestregistion) throws PersistenceException{
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             contestregistion.setStatus(1);
             session.update(contestregistion);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void changeContestStatusEnd(Contestregistion contestregistion) throws PersistenceException{
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             contestregistion.setStatus(2);
             session.update(contestregistion);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Contestregistion getContestRegistion(Contestregistion contestregistion) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Criteria criteria = session.createCriteria(Contestregistion.class);
             criteria.add(Restrictions.eq("studentId", contestregistion.getStudentId()));
             criteria.add(Restrictions.eq("testId", contestregistion.getTestId()));
             List list = criteria.list();
             Contestregistion contest = (Contestregistion) list.get(0);
-            session.close();
             return contest;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
 
     }
 
     public List<Testinfo> getContestInfoList() throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             String hql="from Testinfo as testinfo where testinfo.type=? order by testId desc";
             org.hibernate.query.Query query=session.createQuery(hql);
             query.setInteger(0,new Integer(1).byteValue());
             List<Testinfo> contestinfoList=query.list();
-            session.clear();
-            session.close();
             return contestinfoList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 }

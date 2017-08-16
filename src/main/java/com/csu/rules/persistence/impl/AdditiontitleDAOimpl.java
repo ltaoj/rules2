@@ -20,63 +20,75 @@ import java.util.Set;
 @Repository
 public class AdditiontitleDAOimpl implements AdditiontitleDAO {
     public Integer addTitle(Additiontitle title) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             Integer titleId = (Integer) session.save(title);
+            session.flush();
             transaction.commit();
-            session.close();
             return titleId;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void addTitleList(List<Additiontitle> titleList) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             for (int i = 0;i < titleList.size();i++) {
                 session.save(titleList.get(i));
             }
+            session.flush();
             transaction.commit();
-            session.close();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Additiontitle getTitle(int titleId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             Additiontitle title = session.get(Additiontitle.class, titleId);
+            session.flush();
             transaction.commit();
-            session.close();
             return title;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Additiontitle> getTitleListByType(int type) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "from Additiontitle as additiontitle where type=" + type;
             List<Additiontitle> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Additiontitle> getTitleListByTypeAndPage(int type, int offset, int count) {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "from Additiontitle as additiontitle where type=" + type;
             Query query = session.createQuery(hql);
             query.setFirstResult(offset);
@@ -87,11 +99,14 @@ public class AdditiontitleDAOimpl implements AdditiontitleDAO {
             List<Additiontitle> list = query.list();
             System.out.println("offset:" + offset + " count:" + count);
             System.out.println(list.size());
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
@@ -105,44 +120,53 @@ public class AdditiontitleDAOimpl implements AdditiontitleDAO {
     }
 
     public List<Additiontitle> getTitleListByTitleIds(Set<Integer> titleIds) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "from Additiontitle as additiontitle where additiontitle.titleId in (" + formatSet(titleIds) + ")";
             List<Additiontitle> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Long getTotalTitleSizeByType(int type) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "select count(*) from Additiontitle as additiontitle where type=" + type;
             Long count = (Long) session.createQuery(hql).uniqueResult();
+            session.flush();
             transaction.commit();
-            session.close();
             return count;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Set<Integer> randomIntegerList(int count, int type) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "select additiontitle.titleId from Additiontitle as additiontitle where type=" + type;
             List<Integer> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return listToSet(list, count);
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 

@@ -16,24 +16,34 @@ import org.springframework.stereotype.Repository;
 public class ContestTitleDAOimpl implements ContestTitleDAO {
 
     public void insertContesttitle(Contesttitle contesttitle) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.save(contesttitle);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Contesttitle getContesttitle(int testId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        Contesttitle contesttitle = session.get(Contesttitle.class, testId);
-        transaction.commit();
-        session.close();
-        return contesttitle;
+        try {
+            Contesttitle contesttitle = session.get(Contesttitle.class, testId);
+            session.flush();
+            transaction.commit();
+            return contesttitle;
+        }catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 
     public Contesttitle getContesttitle(Testinfo testinfo) throws PersistenceException {
@@ -55,14 +65,17 @@ public class ContestTitleDAOimpl implements ContestTitleDAO {
     }
 
     public void deleteContesttitle(Contesttitle contesttitle) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.delete(contesttitle);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 }

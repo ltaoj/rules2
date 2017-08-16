@@ -323,7 +323,6 @@ function submitPaper(testId,choiceList,blankList,judgeList,shortStr,caseStr,disc
     var submitPaper={titleList:choiceList,blanksList:blankList,judgeList:judgeList,shortAnswer:shortStr,caseAnswer:caseStr,discussAnswer:discussStr};
     var recordTitles = {testrecord: testrecord, submitPaper: submitPaper};
     var recordTitlesJson = $.toJSON(recordTitles);
-    alert(recordTitlesJson);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'test/submitTest',

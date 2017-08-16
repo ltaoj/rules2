@@ -21,16 +21,32 @@ public class AccountDAOimpl implements AccountDAO {
 
     public Account getUserInfo(Account account) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        account = session.get(Account.class, account.getStudentId());
-        return account;
+        try {
+            account = session.get(Account.class, account.getStudentId());
+            session.flush();
+            return account;
+        }catch (RuntimeException e){
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 
     public void insertUserInfoList(List<Account> accountList) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        for (Account account : accountList)
-            session.save(account);
-        transaction.commit();
+        try {
+            for (Account account : accountList)
+                session.save(account);
+            session.flush();
+            transaction.commit();
+        }catch (RuntimeException e){
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
+
     }
 
 }

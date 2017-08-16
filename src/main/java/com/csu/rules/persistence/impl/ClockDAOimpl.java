@@ -23,39 +23,67 @@ public class ClockDAOimpl implements ClockDAO {
         if (clockin1 != null) { updateClock(clockin); return;}
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        session.save(clockin);
-        transaction.commit();
-        session.close();
+        try {
+            session.save(clockin);
+            session.flush();
+            transaction.commit();
+        }catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 
     public List<Clockin> getAllClocks(long studentId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        String hql = "from Clockin as clockin where clockin.studentId=" + studentId;
-        List<Clockin> clockinList = session.createQuery(hql).list();
-        transaction.commit();
-        session.close();
-        return clockinList;
+        try {
+            String hql = "from Clockin as clockin where clockin.studentId=" + studentId;
+            List<Clockin> clockinList = session.createQuery(hql).list();
+            session.flush();
+            transaction.commit();
+            return clockinList;
+        }catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 
     public Clockin getClockByDay(long studentId, Timestamp datetime) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        String hql = "from Clockin as clockin where clockin.studentId=" + studentId +
-                " and extract(year from clockin.clockDay)=" + (datetime.getYear() + 1900) +
-                " and extract(month from clockin.clockDay)=" + (datetime.getMonth() + 1) +
-                " and extract(day from clockin.clockDay)=" + (datetime.getDate());
-        List<Clockin> clockinList = session.createQuery(hql).list();
-        transaction.commit();;
-        session.close();
-        return clockinList != null && clockinList.size() > 0 ? clockinList.get(0) : null;
+        try {
+            String hql = "from Clockin as clockin where clockin.studentId=" + studentId +
+                    " and extract(year from clockin.clockDay)=" + (datetime.getYear() + 1900) +
+                    " and extract(month from clockin.clockDay)=" + (datetime.getMonth() + 1) +
+                    " and extract(day from clockin.clockDay)=" + (datetime.getDate());
+            List<Clockin> clockinList = session.createQuery(hql).list();
+            session.flush();
+            transaction.commit();
+            return clockinList != null && clockinList.size() > 0 ? clockinList.get(0) : null;
+        }catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 
     public void updateClock(Clockin clockin) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        session.update("Clockin", clockin);
-        transaction.commit();
-        session.close();
+        try {
+            session.update("Clockin", clockin);
+            session.flush();
+            transaction.commit();
+        }catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 }

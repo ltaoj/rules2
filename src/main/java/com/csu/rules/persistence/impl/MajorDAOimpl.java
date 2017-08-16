@@ -16,42 +16,51 @@ import java.util.List;
 @Repository
 public class MajorDAOimpl implements MajorDAO {
     public void insertMajor(Major major) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.save(major);
+            session.flush();
             transaction.commit();
-            session.close();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Major> getMajorListByCollegeId(int collegeId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "from Major as major where collegeId=" + collegeId;
             List<Major> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Major> getMajorListByName(String name) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = "from Major as major where name=" + name;
             List<Major> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 }

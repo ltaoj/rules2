@@ -17,27 +17,33 @@ import java.util.List;
 @Repository
 public class CollegeDAOimpl implements CollegeDAO {
     public void insertCollege(College college) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.save(college);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<College> getCollegeList() throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             List<College> list = session.createQuery("from College").list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         }catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 }

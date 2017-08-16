@@ -20,23 +20,45 @@ public class IntegralDAOimpl implements IntegralDAO {
     public Integral getIntegral(Account account) throws PersistenceException {
         Integral integral = new Integral();
         Session session = HibernateUtil.getSession();
-        Criteria criteria = session.createCriteria(Integral.class);
-        criteria.add(Restrictions.eq("studentId", account.getStudentId()));
-        integral = (Integral) criteria.list().get(0);
-        return integral;
+        try {
+            Criteria criteria = session.createCriteria(Integral.class);
+            criteria.add(Restrictions.eq("studentId", account.getStudentId()));
+            integral = (Integral) criteria.list().get(0);
+            return integral;
+        }catch (RuntimeException e){
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 
     public void insertIntegral(Integral integral) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        session.save(integral);
-        transaction.commit();
+        try {
+            session.save(integral);
+            session.flush();
+            transaction.commit();
+        }catch (RuntimeException e){
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 
     public void updateIntegral(Integral integral) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        session.update(integral);
-        transaction.commit();
+        try {
+            session.update(integral);
+            session.flush();
+            transaction.commit();
+        }catch (RuntimeException e){
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
     }
 }

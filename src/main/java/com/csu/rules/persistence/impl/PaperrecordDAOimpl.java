@@ -22,55 +22,67 @@ import java.util.List;
 @Repository
 public class PaperrecordDAOimpl implements PaperrecordDAO{
     public void insertPaperrecord(Paperrecord paperrecord) throws PersistenceException {
-        try{
             Session session= HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
+        try{
             session.save(paperrecord);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch(RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void deletePaperrecord(int paperId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
+        try {
             Paperrecord paperrecord=(Paperrecord) session.get(Paperrecord.class,new Integer(paperId));
             session.delete(paperrecord);
+            session.flush();
             transaction.commit();
-            session.close();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void deletePaperrecordByStudentId(long studentId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
+        try {
             Query query=session.createQuery("delete Paperrecord as paperrecord where studentId=?");
             query.setLong(0,studentId);
             query.executeUpdate();
+            session.flush();
             transaction.commit();
-            session.close();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void deletePaperrecordByTestId(int testId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
+        try {
             Query query=session.createQuery("delete Paperrecord as paperrecord where testId=?");
             query.setInteger(0,testId);
             query.executeUpdate();
+            session.flush();
             transaction.commit();
-            session.close();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 

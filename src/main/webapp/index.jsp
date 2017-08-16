@@ -153,7 +153,7 @@
 <!-- 考试模态框 -->
 
 <div class="modal fade" id="testModal" data-backdrop="static">
-    <div class="modal-dialog" style="width:1900px;height:1300px;">
+    <div class="modal-dialog" style="width:900px;height:1300px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"

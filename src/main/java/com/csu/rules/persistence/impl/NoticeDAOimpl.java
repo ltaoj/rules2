@@ -20,104 +20,124 @@ import java.util.List;
 @Repository
 public class NoticeDAOimpl implements NoticeDAO{
     public void insertNotice(Notice notice) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             session.save(notice);
-            session.close();
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Notice getNotice(int noticeId) throws PersistenceException{
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Notice notice = (Notice) session.get(Notice.class, new Integer(noticeId));
-            session.close();
             return notice;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Notice> getTextNoticeList() throws PersistenceException{
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Criteria criteria = session.createCriteria(Notice.class);
             criteria.add(Restrictions.eq("type", new Integer(0)));
             List<Notice> textNoticeList = criteria.list();
             return textNoticeList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Notice> getPictrueNoticeList() throws PersistenceException{
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Criteria criteria = session.createCriteria(Notice.class);
             criteria.add(Restrictions.eq("type", new Integer(1)));
             List<Notice> pictureNoticeList = criteria.list();
             return pictureNoticeList;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void deleteNotice(int noticeId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             Notice notice=(Notice)session.get(Notice.class,new Integer(noticeId));
             session.delete(notice);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void updateNotice(Notice notice) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.update(notice);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Notice> getTextNoticeListByPage(int offset, int count) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             Query query = session.createQuery("from Notice where type=?");
             query.setInteger(0,0);
             query.setFirstResult(offset);
             query.setMaxResults(count);
             List<Notice> textNoticeList = query.list();
+            session.flush();
             transaction.commit();
             return textNoticeList;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Notice> getPicNoticeListByPage(int offset, int count) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             Query query = session.createQuery("from Notice where type=?");
             query.setFirstResult(offset);//从offset开始查询
             query.setMaxResults(count);//获取count数量的结果
             query.setInteger(0,1);
             List<Notice> PicNoticeList = query.list();
+            session.flush();
             transaction.commit();
             return PicNoticeList;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 }

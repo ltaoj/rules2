@@ -267,7 +267,7 @@ function blankTitlePractice(subjectTitle){
                             "</tr>" +
                             "<br>");
                         for (var j = 0; j < (practiceBlankTitle[i].name.split("#").length) - 1; j++) {
-                            $('#title').append("<tr><td>" + (j + 1) + ".&nbsp;" + "<input type=\"text\" name=\"" + practiceBlankTitle[i].titleId + "\" id=\"practiceBlankAnswer" + i + "" + j + "\" />"+practiceBlankTitle[i].answer.split("#")[j]+ "&nbsp;</td></tr>");
+                            $('#title').append("<tr><td>" + (j + 1) + ".&nbsp;" + "<input type=\"text\" name=\"" + practiceBlankTitle[i].titleId + "\" id=\"practiceBlankAnswer" + i + "" + j + "\"  value=\""+practiceBlankTitle[i].answer.split("#")[j]+"\"/>&nbsp;</td></tr>");
                             // +practiceBlankTitle[i].answer.split("#")[j] 在练习的时候显示答案
                         }
                         $('#title').append("</table>");

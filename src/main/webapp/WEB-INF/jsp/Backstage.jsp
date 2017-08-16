@@ -418,18 +418,19 @@
                             <div class="box">
                                 <h3>指定竞赛题目</h3>
                                 <br>
-                                <span>题库中含有：</span><label>1000</label><span>道题</span>&nbsp;<button
+                                <%--<span>题库中含有：</span><label>1000</label><span>道题</span>&nbsp;--%>
+                                <button
                                     class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                     id="random_generate_title" data-toggle="" data-target=""
                                     onclick="getContesttitle()">随机生成
                             </button>
-                                <select id="contest_title_num">
-                                    <option value="0">10</option>
-                                    <option value="1">20</option>
-                                    <option value="2" selected>50</option>
-                                    <option value="3">100</option>
-                                    <option value="4">200</option>
-                                </select><span>题</span>
+                                <%--<select id="contest_title_num">--%>
+                                    <%--<option value="0">10</option>--%>
+                                    <%--<option value="1">20</option>--%>
+                                    <%--<option value="2" selected>50</option>--%>
+                                    <%--<option value="3">100</option>--%>
+                                    <%--<option value="4">200</option>--%>
+                                <%--</select><span>题</span>--%>
 
                             </div>
                             <div class="box">

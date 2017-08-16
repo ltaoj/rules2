@@ -501,27 +501,92 @@ function updateTest() {
 }
 function getContestRandomTitle() {
     $('#contest_title').html("");
-    var counts=$('#contest_title_num').find("option:selected").text();
-    var countString=counts;
-    var count=JSON.stringify(countString);
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: '../test/getContestRandomTitle',
         dataType: 'json',
-        method: 'POST',
+        method: 'get',
         async: false,
-        data: count,
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
+            var testTitleList=data.titleList;
+            var testBlankTitleList=data.blanksList;
+            var testJudgeTitleList=data.judgeList;
+            var testShortTitleList=data.shortList;
+            var testCaseTitleList=data.caseList;
+            var testDiscussTitleList=data.discussList;
+            //选择题
+            $('#contest_title').append("一、选择题")
+            for (var i = 0; i < testTitleList.length; i++) {
                 $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                     "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + data[i].name + "</th>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
                 for (var j = 0; j < 4; j++) {
                     var str = "A";
-                    $('#contest_title').append("<tr><td><input name=\"" + data[i].titleId + "\" type=\"radio\" />" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + data[i].options[j].content + "&nbsp;</td></tr>");
+                    $('#contest_title').append("<tr><td><input name=\"" + testTitleList[i].titleId + "\" type=\"radio\"&nbsp;" + testTitleList[i].options[j].content + "&nbsp;</td></tr>");
                 }
+                $('#contest_title').append("</table>");
+            }
+            //填空题
+            $('#contest_title').append("<br>二、填空题")
+            for (var i = 0; i < testBlankTitleList.length; i++) {
+                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testBlankTitleList[i].name.replace(/#/g,"___") + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                for (var j = 0; j < (testBlankTitleList[i].name.split("#").length)-1; j++) {
+                    $('#contest_title').append("<tr><td>"+(j+1) + ".&nbsp;"+"<input type=\"text\" name=\"" + testBlankTitleList[i].titleId + "\" id=\"blankAnswer"+i+""+j+"\" />"+ "&nbsp;</td></tr>");
+                }
+                $('#contest_title').append("</table>");
+            }
+            //onblur =\"addBlankTitleToTestList(" + i + "," + j + ",blankAnswer"+i+""+j+")\"
+            //判断题
+            // $('#contest_title').append("<br>三、判断题")
+            // for (var i = 0; i < testJudgeTitleList.length; i++) {
+            //     $('#testTitle').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+            //         "<tr>" +
+            //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testJudgeTitleList[i].name + "</th>" +
+            //         "</tr>" +
+            //         "<br>");
+            //     for (var j = 0; j < 4; j++) {
+            //         var str = "A";
+            //         $('#contest_title').append("<tr><td><input name=\"" + testTitleList[i].titleId + "\" type=\"radio\" onclick=\"addTitleToTestList(" + i + "," + j + ")\"/>" + String.fromCharCode(str.charCodeAt() + j) + ".&nbsp;" + testTitleList[i].options[j].content + "&nbsp;</td></tr>");
+            //     }
+            //     $('#contest_title').append("</table>");
+            // }
+            //简答题
+            $('#contest_title').append("<br><br>四、简答题")
+            for (var i = 0; i < testShortTitleList.length; i++) {
+                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"shortAnswer"+i+"\"></textarea>");
+                $('#contest_title').append("</table>");
+            }
+            //案例分析题
+            $('#contest_title').append("<br><br>五、案例分析题")
+            for (var i = 0; i < testCaseTitleList.length; i++) {
+                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"caseAnswer"+i+"\"></textarea>");
+                $('#contest_title').append("</table>");
+            }
+            //论述题
+            $('#contest_title').append("<br><br>六、论述题")
+            for (var i = 0; i < testDiscussTitleList.length; i++) {
+                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"discussAnswer"+i+"\"></textarea>");
                 $('#contest_title').append("</table>");
             }
         },

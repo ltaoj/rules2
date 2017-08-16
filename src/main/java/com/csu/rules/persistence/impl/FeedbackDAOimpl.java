@@ -17,27 +17,31 @@ import java.util.List;
 @Repository
 public class FeedbackDAOimpl implements FeedbackDAO {
     public void insertFeedback(Feedback feedback) throws PersistenceException {
-        try {
             Session session= HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
+        try {
             session.save(feedback);
+            session.flush();
             transaction.commit();
-            session.close();
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Feedback> getFeedbackList() throws PersistenceException {
-        try {
             Session session= HibernateUtil.getSession();
+        try {
             String hql="from Feedback";
             Query query=session.createQuery(hql);
             List<Feedback> list=query.list();
-            session.close();
             return list;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 }
