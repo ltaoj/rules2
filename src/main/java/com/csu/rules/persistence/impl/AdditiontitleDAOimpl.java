@@ -2,6 +2,7 @@ package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Additiontitle;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.AdditiontitleDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -18,7 +19,7 @@ import java.util.Set;
  * Created by ltaoj on 17-7-17.
  */
 @Repository
-public class AdditiontitleDAOimpl implements AdditiontitleDAO {
+public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDAO {
     public Integer addTitle(Additiontitle title) throws PersistenceException {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();

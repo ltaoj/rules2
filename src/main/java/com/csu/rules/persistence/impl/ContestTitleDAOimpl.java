@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.Contesttitle;
 import com.csu.rules.domain.Testinfo;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.ContestTitleDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * Created by ltaoj on 17-7-2.
  */
 @Repository
-public class ContestTitleDAOimpl implements ContestTitleDAO {
+public class ContestTitleDAOimpl extends AbstractDAO implements ContestTitleDAO {
 
     public void insertContesttitle(Contesttitle contesttitle) throws PersistenceException {
             Session session = HibernateUtil.getSession();

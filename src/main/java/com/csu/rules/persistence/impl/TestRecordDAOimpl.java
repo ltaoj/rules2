@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.AccountTestRecord;
 import com.csu.rules.domain.Testrecord;
 import com.csu.rules.exception.PersistenceException;
+import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.TestRecordDAO;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
@@ -19,90 +20,113 @@ import java.util.List;
  * Created by GF on 2017/6/10.
  */
 @Repository
-public class TestRecordDAOimpl implements TestRecordDAO {
+public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
     public void insertTestRecord(Testrecord testrecord) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.save(testrecord);
+            session.flush();
             transaction.commit();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void updateTestRecord(Testrecord testrecord) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             session.update(testrecord);
+            session.flush();
             transaction.commit();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public Testrecord getTestRecord(Testrecord testrecord) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("studentId",new Long(testrecord.getStudentId())));
             criteria.add(Restrictions.eq("testId",testrecord.getTestId()));
             List<Testrecord> list=criteria.list();
+            session.flush();
             return list.size() > 0 ? list.get(0) : null;
         } catch (RuntimeException e) {
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Testrecord> getTestRecordList(int testId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("testId",testId));
             List<Testrecord> testrecordList=criteria.list();
+            session.flush();
             return testrecordList;
         } catch (RuntimeException e) {
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<Testrecord> getTestRecordListByRecord(int testId) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
+        try {
             String hql="from Testrecord as testrecord where testrecord.testId=? order by score desc";
             org.hibernate.query.Query query=session.createQuery(hql);
             query.setInteger(0,testId);
             List<Testrecord> testrecordList=query.list();
+            session.flush();
             return testrecordList;
         } catch (RuntimeException e) {
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public void deleteTestRecord(Testrecord testrecord) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction=session.beginTransaction();
+        try {
             session.delete(testrecord);
+            session.flush();
             transaction.commit();
-            session.close();
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
     public List<AccountTestRecord> getTestrecordByCondition(String clazz, int grade, String major, String college, int level) throws PersistenceException {
-        try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
+        try {
             String hql = formatHql(clazz, grade, major, college, level);
             List<AccountTestRecord> list = session.createQuery(hql).list();
+            session.flush();
             transaction.commit();
-            session.close();
             return list;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
+        }finally {
+            session.close();
         }
     }
 
