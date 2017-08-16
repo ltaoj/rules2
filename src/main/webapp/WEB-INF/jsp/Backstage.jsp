@@ -210,12 +210,12 @@
             <div class="col_side">
                 <div class="menu_box" id="menuBar">
                     <ul style="list-style:none;" id="tab_t">
-                        <li class="to_red" id="0"><i class="fa fa-user-circle "></i>&nbsp;&nbsp;学生用户</li>
-                        <li id="1"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;考试试题</li>
-                        <li id="2"><i class="fa fa-file-o"></i>&nbsp;&nbsp;考试竞赛</li>
-                        <li id="3"><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
-                        <li id="4"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
-                        <li id="5"><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
+                        <li class="to_red" id="0" href="#"><i class="fa fa-user-circle "></i>&nbsp;&nbsp;学生用户</li>
+                        <li id="1" href="#"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;考试试题</li>
+                        <li id="2" href="#"><i class="fa fa-file-o"></i>&nbsp;&nbsp;考试竞赛</li>
+                        <li id="3" href="#"><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
+                        <li id="4" href="#"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
+                        <li id="5" href="#"><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
                     </ul>
                 </div>
             </div>
