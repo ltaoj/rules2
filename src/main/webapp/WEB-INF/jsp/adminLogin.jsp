@@ -5,10 +5,10 @@
 <head>
 <title>登录</title>
         <!-- CSS -->
-        <%--<link rel="stylesheet" href="../../Exam/assets/css/reset.css">--%>
-        <%--<link rel="stylesheet" href="../../Exam/assets/css/supersized.css">--%>
-        <%--<link rel="stylesheet" href="../../Exam/assets/css/style.css">--%>
-        <%--<link rel="stylesheet" type="text/css" href="../../Exam/css/styles.css">--%>
+        <link rel="stylesheet" href="../../Exam/assets/css/reset.css">
+        <link rel="stylesheet" href="../../Exam/assets/css/supersized.css">
+        <link rel="stylesheet" href="../../Exam/assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="../../Exam/css/styles.css">
 		<!-- <style type="text/css">
 		body,td,th { font-family: "Source Sans Pro", sans-serif; }
 		/* body { background-color: #2B2B2B; } */
@@ -28,12 +28,12 @@
 			</div>
 	  </div>
         </div>
-      <%--<script type="text/javascript" src="../../Exam/js/jquery-2.1.1.min.js"></script>--%>
-        <%--<!-- Javascript -->--%>
-        <%--<script src="../../Exam/assets/js/jquery-1.8.2.min.js"></script>--%>
-        <%--<script src="../../Exam/assets/js/supersized.3.2.7.min.js"></script>--%>
-        <%--<script src="../../Exam/assets/js/supersized-init.js"></script>--%>
-        <%--<script src="../../Exam/assets/js/scripts.js"></script>--%>
+      <script type="text/javascript" src="../../Exam/js/jquery-2.1.1.min.js"></script>
+        <!-- Javascript -->
+        <script src="../../Exam/assets/js/jquery-1.8.2.min.js"></script>
+        <script src="../../Exam/assets/js/supersized.3.2.7.min.js"></script>
+        <script src="../../Exam/assets/js/supersized-init.js"></script>
+        <script src="../../Exam/assets/js/scripts.js"></script>
 
 </body>
 </html>
