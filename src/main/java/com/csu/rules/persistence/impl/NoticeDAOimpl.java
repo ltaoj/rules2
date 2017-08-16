@@ -22,10 +22,13 @@ import java.util.List;
 public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
     public void insertNotice(Notice notice) throws PersistenceException {
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             session.save(notice);
             session.flush();
+            transaction.commit();
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -34,11 +37,14 @@ public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
 
     public Notice getNotice(int noticeId) throws PersistenceException{
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Notice notice = (Notice) session.get(Notice.class, new Integer(noticeId));
             session.flush();
+            transaction.commit();
             return notice;
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -47,13 +53,16 @@ public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
 
     public List<Notice> getTextNoticeList() throws PersistenceException{
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Criteria criteria = session.createCriteria(Notice.class);
             criteria.add(Restrictions.eq("type", new Integer(0)));
             List<Notice> textNoticeList = criteria.list();
             session.flush();
+            transaction.commit();
             return textNoticeList;
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -62,13 +71,16 @@ public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
 
     public List<Notice> getPictrueNoticeList() throws PersistenceException{
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Criteria criteria = session.createCriteria(Notice.class);
             criteria.add(Restrictions.eq("type", new Integer(1)));
             List<Notice> pictureNoticeList = criteria.list();
             session.flush();
+            transaction.commit();
             return pictureNoticeList;
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -77,7 +89,7 @@ public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
 
     public void deleteNotice(int noticeId) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             Notice notice=(Notice)session.get(Notice.class,new Integer(noticeId));
             session.delete(notice);
@@ -93,7 +105,7 @@ public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
 
     public void updateNotice(Notice notice) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.update(notice);
             session.flush();
@@ -108,7 +120,7 @@ public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
 
     public List<Notice> getTextNoticeListByPage(int offset, int count) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             Query query = session.createQuery("from Notice where type=?");
             query.setInteger(0,0);
@@ -128,7 +140,7 @@ public class NoticeDAOimpl extends AbstractDAO implements NoticeDAO{
 
     public List<Notice> getPicNoticeListByPage(int offset, int count) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             Query query = session.createQuery("from Notice where type=?");
             query.setFirstResult(offset);//从offset开始查询

@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import javax.security.sasl.SaslException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,9 +23,11 @@ public class AccountDAOimpl extends AbstractDAO implements AccountDAO {
 
     public Account getUserInfo(Account account) throws PersistenceException {
         Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             account = session.get(Account.class, account.getStudentId());
             session.flush();
+            transaction.commit();
             return account;
         }catch (RuntimeException e){
             throw new PersistenceException(e);
@@ -35,7 +38,7 @@ public class AccountDAOimpl extends AbstractDAO implements AccountDAO {
 
     public void insertUserInfoList(List<Account> accountList) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             for (Account account : accountList)
                 session.save(account);

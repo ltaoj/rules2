@@ -23,7 +23,7 @@ import java.util.List;
 public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
     public void insertTestRecord(Testrecord testrecord) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.save(testrecord);
             session.flush();
@@ -38,7 +38,7 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
 
     public void updateTestRecord(Testrecord testrecord) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.update(testrecord);
             session.flush();
@@ -53,14 +53,17 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
 
     public Testrecord getTestRecord(Testrecord testrecord) throws PersistenceException {
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("studentId",new Long(testrecord.getStudentId())));
             criteria.add(Restrictions.eq("testId",testrecord.getTestId()));
             List<Testrecord> list=criteria.list();
             session.flush();
+            transaction.commit();
             return list.size() > 0 ? list.get(0) : null;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -69,13 +72,16 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
 
     public List<Testrecord> getTestRecordList(int testId) throws PersistenceException {
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("testId",testId));
             List<Testrecord> testrecordList=criteria.list();
             session.flush();
+            transaction.commit();
             return testrecordList;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -84,14 +90,17 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
 
     public List<Testrecord> getTestRecordListByRecord(int testId) throws PersistenceException {
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             String hql="from Testrecord as testrecord where testrecord.testId=? order by score desc";
             org.hibernate.query.Query query=session.createQuery(hql);
             query.setInteger(0,testId);
             List<Testrecord> testrecordList=query.list();
             session.flush();
+            transaction.commit();
             return testrecordList;
         } catch (RuntimeException e) {
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -100,7 +109,7 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
 
     public void deleteTestRecord(Testrecord testrecord) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction=session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.delete(testrecord);
             session.flush();
@@ -115,7 +124,7 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
 
     public List<AccountTestRecord> getTestrecordByCondition(String clazz, int grade, String major, String college, int level) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = formatHql(clazz, grade, major, college, level);
             List<AccountTestRecord> list = session.createQuery(hql).list();

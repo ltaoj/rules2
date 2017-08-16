@@ -23,7 +23,7 @@ public class ClockDAOimpl extends AbstractDAO implements ClockDAO {
         Clockin clockin1 = getClockByDay(clockin.getStudentId(),clockin.getClockDay());
         if (clockin1 != null) { updateClock(clockin); return;}
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.save(clockin);
             session.flush();
@@ -38,7 +38,7 @@ public class ClockDAOimpl extends AbstractDAO implements ClockDAO {
 
     public List<Clockin> getAllClocks(long studentId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Clockin as clockin where clockin.studentId=" + studentId;
             List<Clockin> clockinList = session.createQuery(hql).list();
@@ -55,7 +55,7 @@ public class ClockDAOimpl extends AbstractDAO implements ClockDAO {
 
     public Clockin getClockByDay(long studentId, Timestamp datetime) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Clockin as clockin where clockin.studentId=" + studentId +
                     " and extract(year from clockin.clockDay)=" + (datetime.getYear() + 1900) +
@@ -75,7 +75,7 @@ public class ClockDAOimpl extends AbstractDAO implements ClockDAO {
 
     public void updateClock(Clockin clockin) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.update("Clockin", clockin);
             session.flush();

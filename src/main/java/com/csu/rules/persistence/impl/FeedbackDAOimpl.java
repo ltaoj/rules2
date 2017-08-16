@@ -19,7 +19,7 @@ import java.util.List;
 public class FeedbackDAOimpl extends AbstractDAO implements FeedbackDAO {
     public void insertFeedback(Feedback feedback) throws PersistenceException {
             Session session= HibernateUtil.getSession();
-            Transaction transaction=session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.save(feedback);
             session.flush();
@@ -34,13 +34,16 @@ public class FeedbackDAOimpl extends AbstractDAO implements FeedbackDAO {
 
     public List<Feedback> getFeedbackList() throws PersistenceException {
             Session session= HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             String hql="from Feedback";
             Query query=session.createQuery(hql);
             List<Feedback> list=query.list();
             session.flush();
+            transaction.commit();
             return list;
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();

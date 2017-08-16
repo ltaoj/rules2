@@ -18,8 +18,8 @@ import java.util.List;
 @Repository
 public class CollegeDAOimpl extends AbstractDAO implements CollegeDAO {
     public void insertCollege(College college) throws PersistenceException {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             session.save(college);
             session.flush();
@@ -33,8 +33,8 @@ public class CollegeDAOimpl extends AbstractDAO implements CollegeDAO {
     }
 
     public List<College> getCollegeList() throws PersistenceException {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             List<College> list = session.createQuery("from College").list();
             session.flush();

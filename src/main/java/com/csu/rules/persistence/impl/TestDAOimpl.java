@@ -26,14 +26,17 @@ public class TestDAOimpl extends AbstractDAO implements TestDAO{
   * */
     public List<Testinfo> getTestInfoList() throws PersistenceException {
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             String hql="from Testinfo as testinfo where testinfo.type=? order by testId desc";
             org.hibernate.query.Query query=session.createQuery(hql);
             query.setInteger(0,new Integer(0).byteValue());
             List<Testinfo> tsetinfoList=query.list();
             session.flush();
+            transaction.commit();
             return tsetinfoList;
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -42,7 +45,7 @@ public class TestDAOimpl extends AbstractDAO implements TestDAO{
 
     public void insertTestInfo(Testinfo testinfo) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.save(testinfo);
             session.flush();
@@ -57,7 +60,7 @@ public class TestDAOimpl extends AbstractDAO implements TestDAO{
 
     public void deleteTestInfo(int testId) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             Testinfo testinfo=(Testinfo)session.get(Testinfo.class,new Integer(testId));
             session.delete(testinfo);
@@ -73,7 +76,7 @@ public class TestDAOimpl extends AbstractDAO implements TestDAO{
 
     public void updateTestInfo(Testinfo testinfo) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.update(testinfo);
             session.flush();
@@ -88,11 +91,14 @@ public class TestDAOimpl extends AbstractDAO implements TestDAO{
 
     public Testinfo getTestInfo(int testId) throws PersistenceException {
             Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Testinfo testinfo=(Testinfo)session.get(Testinfo.class,new Integer(testId));
             session.flush();
+            transaction.commit();
             return testinfo;
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
