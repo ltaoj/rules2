@@ -21,13 +21,16 @@ public class IntegralDAOimpl extends AbstractDAO implements IntegralDAO {
     public Integral getIntegral(Account account) throws PersistenceException {
         Integral integral = new Integral();
         Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Criteria criteria = session.createCriteria(Integral.class);
             criteria.add(Restrictions.eq("studentId", account.getStudentId()));
             integral = (Integral) criteria.list().get(0);
             session.flush();
+            transaction.commit();
             return integral;
         }catch (RuntimeException e){
+            transaction.rollback();
             throw new PersistenceException(e);
         }finally {
             session.close();
@@ -36,7 +39,7 @@ public class IntegralDAOimpl extends AbstractDAO implements IntegralDAO {
 
     public void insertIntegral(Integral integral) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.save(integral);
             session.flush();
@@ -51,7 +54,7 @@ public class IntegralDAOimpl extends AbstractDAO implements IntegralDAO {
 
     public void updateIntegral(Integral integral) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.update(integral);
             session.flush();

@@ -22,7 +22,7 @@ import java.util.Set;
 public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDAO {
     public Integer addTitle(Additiontitle title) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+            Transaction transaction = getTransation(session);
         try {
             Integer titleId = (Integer) session.save(title);
             session.flush();
@@ -38,7 +38,7 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
 
     public void addTitleList(List<Additiontitle> titleList) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+            Transaction transaction = getTransation(session);
         try {
             for (int i = 0;i < titleList.size();i++) {
                 session.save(titleList.get(i));
@@ -54,8 +54,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
     }
 
     public Additiontitle getTitle(int titleId) throws PersistenceException {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             Additiontitle title = session.get(Additiontitle.class, titleId);
             session.flush();
@@ -70,8 +70,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
     }
 
     public List<Additiontitle> getTitleListByType(int type) throws PersistenceException {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Additiontitle as additiontitle where type=" + type;
             List<Additiontitle> list = session.createQuery(hql).list();
@@ -87,8 +87,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
     }
 
     public List<Additiontitle> getTitleListByTypeAndPage(int type, int offset, int count) {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Additiontitle as additiontitle where type=" + type;
             Query query = session.createQuery(hql);
@@ -122,7 +122,7 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
 
     public List<Additiontitle> getTitleListByTitleIds(Set<Integer> titleIds) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Additiontitle as additiontitle where additiontitle.titleId in (" + formatSet(titleIds) + ")";
             List<Additiontitle> list = session.createQuery(hql).list();
@@ -139,7 +139,7 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
 
     public Long getTotalTitleSizeByType(int type) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "select count(*) from Additiontitle as additiontitle where type=" + type;
             Long count = (Long) session.createQuery(hql).uniqueResult();
@@ -156,7 +156,7 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
 
     public Set<Integer> randomIntegerList(int count, int type) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "select additiontitle.titleId from Additiontitle as additiontitle where type=" + type;
             List<Integer> list = session.createQuery(hql).list();

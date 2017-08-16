@@ -18,7 +18,7 @@ import java.util.List;
 public class ClazzDAOimpl extends AbstractDAO implements ClazzDAO {
     public void insertClazz(Clazz clazz) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.save(clazz);
             session.flush();
@@ -33,7 +33,7 @@ public class ClazzDAOimpl extends AbstractDAO implements ClazzDAO {
 
     public List<Clazz> getClazzByMajorId(int majorId) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Clazz as clazz where majorId=" + majorId;
             List<Clazz> list = session.createQuery(hql).list();
@@ -50,7 +50,7 @@ public class ClazzDAOimpl extends AbstractDAO implements ClazzDAO {
 
     public List<Clazz> getClazzByName(String name) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Clazz as clazz where name=" + name;
             List<Clazz> list = session.createQuery(hql).list();

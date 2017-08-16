@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 public class ContestTitleDAOimpl extends AbstractDAO implements ContestTitleDAO {
 
     public void insertContesttitle(Contesttitle contesttitle) throws PersistenceException {
-            Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
         try {
             session.save(contesttitle);
             session.flush();
@@ -33,7 +33,7 @@ public class ContestTitleDAOimpl extends AbstractDAO implements ContestTitleDAO 
 
     public Contesttitle getContesttitle(int testId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             Contesttitle contesttitle = session.get(Contesttitle.class, testId);
             session.flush();
@@ -67,7 +67,7 @@ public class ContestTitleDAOimpl extends AbstractDAO implements ContestTitleDAO 
 
     public void deleteContesttitle(Contesttitle contesttitle) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.delete(contesttitle);
             session.flush();

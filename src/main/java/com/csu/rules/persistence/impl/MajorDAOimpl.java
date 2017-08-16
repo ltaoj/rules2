@@ -18,7 +18,7 @@ import java.util.List;
 public class MajorDAOimpl extends AbstractDAO implements MajorDAO {
     public void insertMajor(Major major) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             session.save(major);
             session.flush();
@@ -33,7 +33,7 @@ public class MajorDAOimpl extends AbstractDAO implements MajorDAO {
 
     public List<Major> getMajorListByCollegeId(int collegeId) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Major as major where collegeId=" + collegeId;
             List<Major> list = session.createQuery(hql).list();
@@ -50,7 +50,7 @@ public class MajorDAOimpl extends AbstractDAO implements MajorDAO {
 
     public List<Major> getMajorListByName(String name) throws PersistenceException {
             Session session = HibernateUtil.getSession();
-            Transaction transaction = session.beginTransaction();
+        Transaction transaction = getTransation(session);
         try {
             String hql = "from Major as major where name=" + name;
             List<Major> list = session.createQuery(hql).list();
