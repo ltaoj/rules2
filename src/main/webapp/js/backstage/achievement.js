@@ -245,3 +245,12 @@ function exportInfo() {
         alert("请先查询信息！！");
     downloadExl(info);
 }
+
+/**
+ * 多选下拉框
+ */
+function initMultipleSelect(obj) {
+    $(obj).multipleSelect({
+        width: '100%'
+    });
+}
