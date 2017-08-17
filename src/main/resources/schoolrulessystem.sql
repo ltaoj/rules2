@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-07-17 10:15:54
+Date: 2017-08-17 19:48:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,12 +42,29 @@ CREATE TABLE `admin` (
   `password` varchar(20) NOT NULL COMMENT '密码',
   `username` varchar(20) NOT NULL COMMENT '姓名',
   `role` int(11) NOT NULL DEFAULT '0' COMMENT '角色权限',
+  `rolerange` varchar(50) NOT NULL,
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `uc_account` (`account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `choice`
+-- ----------------------------
+DROP TABLE IF EXISTS `choice`;
+CREATE TABLE `choice` (
+  `option_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项编号',
+  `title_id` int(11) NOT NULL COMMENT '题目编号',
+  `content` varchar(300) NOT NULL COMMENT '选项内容',
+  `checked` tinyint(1) NOT NULL COMMENT '是否选择',
+  PRIMARY KEY (`option_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of choice
 -- ----------------------------
 
 -- ----------------------------
@@ -196,29 +213,11 @@ CREATE TABLE `notice` (
   `submit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '发布时间',
   `source` varchar(20) DEFAULT NULL COMMENT '作者，来源',
   `type` int(11) NOT NULL COMMENT '通知类型',
-  PRIMARY KEY (`notice_id`),
-  KEY `notice_fk_1` (`source`),
-  CONSTRAINT `notice_fk_1` FOREIGN KEY (`source`) REFERENCES `admin` (`admin_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  PRIMARY KEY (`notice_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of notice
--- ----------------------------
-
--- ----------------------------
--- Table structure for `choice`
--- ----------------------------
-DROP TABLE IF EXISTS `choice`;
-CREATE TABLE `choice` (
-  `option_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '选项编号',
-  `title_id` int(11) NOT NULL COMMENT '题目编号',
-  `content` varchar(300) NOT NULL COMMENT '选项内容',
-  `checked` tinyint(1) NOT NULL COMMENT '是否选择',
-  PRIMARY KEY (`option_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of choice
 -- ----------------------------
 
 -- ----------------------------
@@ -236,6 +235,7 @@ CREATE TABLE `paperrecord` (
   `short_answer` varchar(2000) DEFAULT NULL COMMENT '简单题答案',
   `case_answer` varchar(2000) DEFAULT NULL COMMENT '案例分析题答案',
   `discuss_answer` varchar(2000) DEFAULT NULL COMMENT '论述题答案',
+  `is_corrected` int(4) DEFAULT NULL,
   PRIMARY KEY (`paper_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

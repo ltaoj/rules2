@@ -5,23 +5,8 @@ INSERT INTO userinfo VALUES(3903150327, '陈铭明', 1,'工程试验班1503', 20
 
 ### signon ###
 INSERT INTO signon VALUES(3903150326, 3903150326);
-
-### integral ###
-INSERT INTO integral VALUES(3903150326, 10);
-
-### clockin ###
-INSERT INTO clockin(student_id, clock_day, duration, title_num, comment) VALUES(3903150326, '2017-06-07 15:56:00', 15, 20, '第一天打卡测试数据库');
-
-### testinfo ###
-INSERT INTO testinfo(name, type, grade, start_time, end_time, duration) VALUES('中南大学2015级校规校纪补考', 0, 2015, '2017-09-01 14:00:00', '2017-10-01 14:00:00', 120);
-INSERT INTO testinfo(name, type, grade, start_time, end_time, duration) VALUES('中南大学2017级校规校纪考试', 0, 2017, '2017-09-01 14:00:00', '2017-10-01 14:00:00', 120);
-INSERT INTO testinfo(name, type, grade, start_time, end_time, duration) VALUES('中南大学第一届校规校纪竞赛', 0, 2015, '2017-06-15 14:00:00', '2017-06-15 16:00:00', 120);
-
-### contestregistion ###
-INSERT INTO contestregistion VALUES(3903150326, 3, 0);
-
-### testrecord ###
-INSERT INTO testrecord(student_id, test_id, start_time, submit_time, score) VALUES(3903150326, 1, '2017-06-07 14:00:00', '2017-06-07 14:05:00', 99);
+INSERT INTO signon VALUES(3903150332, 3903150332);
+INSERT INTO signon VALUES(3903150327, 3903150327);
 
 ### titlediff ###
 INSERT INTO titlediff VALUES(1, '易');
@@ -42,9 +27,6 @@ INSERT INTO choice(title_id, content, checked) VALUES(2, '2', 0);
 INSERT INTO choice(title_id, content, checked) VALUES(2, '3', 0);
 INSERT INTO choice(title_id, content, checked) VALUES(2, '4', 1);
 
-### wrongtitle ###
-INSERT INTO wrongtitle VALUES(1, 3903150326);
-
 ### college ###
 INSERT INTO college VALUES(1, '软件学院');
 INSERT INTO college VALUES(2, '信息与工程学院');
@@ -64,14 +46,10 @@ INSERT INTO clazz VALUES(204, 102, '计科1501');
 INSERT INTO clazz VALUES(205, 103, '网络1501');
 
 ### admin ###
-INSERT INTO admin(account, password, username, role) VALUES('csu@root', 'csu@root', '系统管理员',0);
-
-### notice ###
-INSERT INTO notice(title, content, picture, submit_time, source, type) VALUES('中南大学2015级竞赛通知','2017-08-01下午18:00-19:00可报名参加竞赛，竞赛时长60分钟。','https://www.ltaoj.cn/rules/img/2.jpg','2017-08-01 15:31:00', 1, 1);
-INSERT INTO notice(title, content, picture, submit_time, source, type) VALUES('中南大学2015级竞赛通知','2017-08-01下午18:00-19:00可报名参加竞赛，竞赛时长60分钟。','https://www.ltaoj.cn/rules/img/2.jpg','2017-08-01 15:31:00', 1, 0);
+INSERT INTO admin(account, password, username, role, rolerange) VALUES('csu@root', 'csu@root', '系统管理员',0, '@csu#@csu#@csu#@csu');
 
 ### additiontitle ###
-#填空题 type=1
+### 填空题 type=1 ###
 INSERT INTO additiontitle(name, type, answer) VALUES("中华人民共和国是#领导的、以#为基础的人民民主专政的社会主义国家。#制度是中华人民共和国的根本制度。",1,"工人阶级#工农联盟#社会主义");
 INSERT INTO additiontitle(name, type, answer) VALUES("中华人民共和国的国家机构实行#原则。",1,"民主集中制");
 INSERT INTO additiontitle(name, type, answer) VALUES("中华人民共和国的一切权力属于#。人民行使国家权力的机关是#和#。",1,"人民#全国人民代表大会#地方各级人民代表大会");
