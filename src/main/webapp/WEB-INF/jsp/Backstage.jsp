@@ -547,11 +547,11 @@
                                 <br>
                                 <div style="width:100%;font-size: 15px;">
                                     <span>学院:</span>
-                                    <select id="college" onchange="getMajor(this.value)">
+                                    <select id="college" onchange="getMajor(this.value, $('#major'), $('#clazz'))">
                                         <option value="">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="major" onchange="getClazz(this.value)">
+                                    <select id="major" onchange="getClazz(this.value, $('#clazz'))">
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>

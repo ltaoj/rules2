@@ -9,7 +9,6 @@ function initBackstage(name) {
             getContestregistionNum();
             break;
         case "3":
-            getColleges();
             getBackContestInfo();
             getBackTestInfo();
             correctContestTime();

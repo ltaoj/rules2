@@ -141,17 +141,17 @@ function correctPaperBT(testId) {
         var k = 0;
         while ($("#" + "shortTitleScore" + i).length > 0) {
             var score = $("#" + "shortTitleScore" + i).val();
-            shortScore += score;
+            shortScore += parseInt(score);
             i++;
         }
         while ($("#" + "caseTitleScore" + j).length > 0) {
             var score = $("#" + "caseTitleScore" + j).val();
-            caseScore += score;
+            caseScore += parseInt(score);
             j++;
         }
         while ($("#" + "discussTitleScore" + k).length > 0) {
             var score = $("#" + "discussTitleScore" + k).val();
-            discussScore += score;
+            discussScore += parseInt(score);
             k++;
         }
         totalScore = parseInt(shortScore) + parseInt(caseScore) + parseInt(discussScore);
