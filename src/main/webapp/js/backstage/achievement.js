@@ -8,9 +8,9 @@
  * @param type
  */
 function addOption(select, data, type) {
-    for (var i = 0;i < data.length;i++) {
+    for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");
-        switch (type){
+        switch (type) {
             case "college":
                 option.value = data[i].collegeId;
                 break;
@@ -38,7 +38,7 @@ var pNames = ["studentId", "username", "college", "major", "grade", "clazz", "sc
  */
 function getRow(item) {
     var tr = document.createElement("tr");
-    for (var i = 0;i < pNames.length;i++) {
+    for (var i = 0; i < pNames.length; i++) {
         var td = document.createElement("td");
         td.innerHTML = item[pNames[i]];
         tr.appendChild(td);
@@ -56,7 +56,7 @@ function showAchieve(data, conditionMsg) {
     var achieveTbody = $('#achieve_tbody')[0];
     removeAllChild(achieveTbody);
     achieveMsg.innerHTML = conditionMsg + '共查询出记录数目' + data.length + '个';
-    for  (var i = 0;i < data.length;i++) {
+    for (var i = 0; i < data.length; i++) {
         var tr = getRow(data[i]);
         achieveBody.appendChild(tr);
     }
@@ -67,7 +67,7 @@ function showAchieve(data, conditionMsg) {
  * @param parentNode
  */
 function removeAllChild(parentNode) {
-    while (parentNode.hasChildNodes()){
+    while (parentNode.hasChildNodes()) {
         parentNode.removeChild(parentNode.firstChild);
     }
 }
@@ -97,7 +97,7 @@ function setDisabled(select, flag) {
  * 初始化方法
  */
 function init(select, num) {
-    for (var i = 0; i <= num;i++) {
+    for (var i = 0; i <= num; i++) {
         var option = document.createElement("option");
         option.value = i;
         option.text = i;
@@ -134,7 +134,7 @@ function getColleges() {
         success: function (data) {
             addOption($('#college'), data, "college");
         }
-        
+
     })
     init($('#score'), 100);
 }
@@ -202,6 +202,8 @@ function getClazz(majorId) {
     })
 }
 
+var info;
+
 function query() {
     var collegeSelect = $('#college')[0];
     var majorSelect = $('#major')[0];
@@ -222,6 +224,7 @@ function query() {
         data: json,
         success: function (data) {
             showAchieve(data, formatCondition());
+            info = data;
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));
@@ -234,4 +237,10 @@ function query() {
     }).always(function () {
         console.log('complete');
     })
+}
+
+function exportInfo() {
+    if (info == undefined)
+        alert("请先查询信息！！");
+    downloadExl(info);
 }

@@ -231,7 +231,7 @@
                                 <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         onclick="importf(1)">上传
                                 </button>
-                                <div id="demo"></div>
+                                <%--<div id="demo"></div>--%>
                             </div>
                         </div>
                     </li>
@@ -242,7 +242,7 @@
                                 <input type="file" name="file1" size="30" onchange="setObj(this)"/>
                                 <br>
                                 <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
-                                        onclick="importf(0)">上传
+                                        onclick="importf(2)">上传
                                 </button>
                             </div>
                         </div>
@@ -494,7 +494,7 @@
                                 <div style="width:100%">
                                     <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="query()">查询</button>
                                     <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
-                                            style="margin-left: 20px">导出
+                                            style="margin-left: 20px" onclick="exportInfo()">导出
                                     </button>
                                 </div>
 
