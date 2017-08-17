@@ -501,4 +501,14 @@ public class TestServiceimpl implements TestService {
             throw te;
         }
     }
+
+    public List<Paperrecord> getPaperrecordByTestId(int testId) throws TestServiceException {
+        try {
+            return paperrecordDAO.getPaperRecordListByTestid(testId);
+        }catch (PersistenceException pe) {
+            TestServiceException te = new TestServiceException();
+            te.setErrorCode(100);
+            throw te;
+        }
+    }
 }

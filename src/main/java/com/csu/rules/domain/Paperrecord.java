@@ -30,6 +30,8 @@ public class Paperrecord {
     private String caseAnswer;
     @Column(name = "discuss_answer")
     private String discussAnswer;
+    @Column(name = "is_corrected")
+    private int isCorrected;//0未批改 1已批改
 
     public int getPaperId() {
         return paperId;
@@ -109,6 +111,14 @@ public class Paperrecord {
 
     public void setDiscussAnswer(String discussAnswer) {
         this.discussAnswer = discussAnswer;
+    }
+
+    public int getIsCorrected() {
+        return isCorrected;
+    }
+
+    public void setIsCorrected(int isCorrected) {
+        this.isCorrected = isCorrected;
     }
 
     @Override

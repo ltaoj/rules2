@@ -10,6 +10,10 @@ function initBackstage(name) {
             break;
         case "3":
             getColleges();
+            getBackContestInfo();
+            getBackTestInfo();
+            correctContestTime();
+            correctTestTime();
             break;
         case "4":
             getNoticeForPicture();
@@ -94,7 +98,6 @@ function getBackTestInfo() {
                 $('#test_end_day').val(new Date(testInfo.endTime).format("dd"));
                 $('#test_end_hour').val(new Date(testInfo.endTime).format("hh"));
             } else {
-                alert("暂无竞赛信息");
                 $('#test_info_name').val("");
                 $('#test_start_year').val("");
                 $('#test_start_month').val("");
@@ -181,3 +184,59 @@ Date.prototype.format = function (format) {
     }
     return format;
 };
+function correctTestTime() {
+    $.ajax({
+        url: '../test/getCorrectTestTime',
+        dataType: 'json',
+        method: 'GET',
+        success: function (data) {
+            if (data.result == 'success') {
+                $('#correctMsg1').html("");
+                $('#test_correct_paper').attr("style","");
+            }else{
+                $('#correctMsg1').html("暂无试卷");
+            }
+        },
+        error: function (xhr) {
+            // 导致出错的原因较多，以后再研究
+            alert('error:' + JSON.stringify(xhr));
+        }
+    }).done(function (data) {
+        // 请求成功后要做的工作
+        console.log('success');
+    }).fail(function () {
+        // 请求失败后要做的工作
+        console.log('error');
+    }).always(function () {
+        // 不管成功或失败都要做的工作
+        console.log('complete');
+    });
+}
+function correctContestTime() {
+    $.ajax({
+        url: '../test/getCorrectContestTime',
+        dataType: 'json',
+        method: 'GET',
+        success: function (data) {
+            if (data.result == 'success') {
+                $('#correctMsg2').html("");
+                $('#contest_correct_paper').attr("style","");
+            }else{
+                $('#correctMsg2').html("暂无试卷");
+            }
+        },
+        error: function (xhr) {
+            // 导致出错的原因较多，以后再研究
+            alert('error:' + JSON.stringify(xhr));
+        }
+    }).done(function (data) {
+        // 请求成功后要做的工作
+        console.log('success');
+    }).fail(function () {
+        // 请求失败后要做的工作
+        console.log('error');
+    }).always(function () {
+        // 不管成功或失败都要做的工作
+        console.log('complete');
+    });
+}

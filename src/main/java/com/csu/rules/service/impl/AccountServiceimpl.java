@@ -82,11 +82,12 @@ public class AccountServiceimpl implements AccountService {
 
     public Account getUserInfo(Account account) throws AccountServiceException {
         AccountServiceException ae = new AccountServiceException();
+        Account account1=accountDAO.getUserInfo(account);
         if (account == null) {
             ae.setErrorCode(5);
             throw ae;
         }
-        return account;
+        return account1;
     }
 
     public void submitProposals(Long studentId, String mail, String content) throws AccountServiceException {

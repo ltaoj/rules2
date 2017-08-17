@@ -87,4 +87,12 @@ public interface PaperrecordDAO {
      * @throws PersistenceException
      */
     void updatePaperrecordBy(long studentId, int testId, Paperrecord paperrecord) throws PersistenceException;
+
+    /**
+     * 通过考试编号获取试卷
+     * @param testId
+     * @return
+     * @throws PersistenceException
+     */
+    List<Paperrecord> getPaperRecordListByTestid(int testId) throws PersistenceException;
 }

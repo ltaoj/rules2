@@ -329,4 +329,12 @@ public interface TestService {
      * @throws TestServiceException
      */
     void updatePaperrecordBy(long studentId, int testId, Paperrecord paperrecord) throws TestServiceException;
+
+    /**
+     * 通过考试id获取所有试卷
+     * @param testId
+     * @return
+     * @throws TestServiceException
+     */
+    List<Paperrecord> getPaperrecordByTestId(int testId) throws TestServiceException;
 }

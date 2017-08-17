@@ -171,6 +171,7 @@ public class PaperrecordDAOimpl extends AbstractDAO implements PaperrecordDAO{
             paperrecord1.setJudgeScore(paperrecord.getJudgeScore());
             paperrecord1.setShortAnswer(paperrecord.getShortAnswer());
             paperrecord1.setSubmitTime(paperrecord.getSubmitTime());
+            paperrecord1.setIsCorrected(paperrecord.getIsCorrected());
             session.update(paperrecord1);
             session.flush();
             transaction.commit();
@@ -198,10 +199,30 @@ public class PaperrecordDAOimpl extends AbstractDAO implements PaperrecordDAO{
             paperrecord1.setJudgeScore(paperrecord.getJudgeScore());
             paperrecord1.setShortAnswer(paperrecord.getShortAnswer());
             paperrecord1.setSubmitTime(paperrecord.getSubmitTime());
+            paperrecord1.setIsCorrected(paperrecord.getIsCorrected());
             session.update(paperrecord1);
             session.flush();
             transaction.commit();
         } catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
+            session.close();
+        }
+    }
+
+    public List<Paperrecord> getPaperRecordListByTestid(int testId) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
+        try {
+            Criteria criteria = session.createCriteria(Paperrecord.class);
+            criteria.add(Restrictions.eq("testId", testId));
+            criteria.add(Restrictions.eq("isCorrected", 0));
+            List list = criteria.list();
+            session.flush();
+            transaction.commit();
+            return list;
+        }catch (RuntimeException e){
             transaction.rollback();
             throw new PersistenceException(e);
         }finally {

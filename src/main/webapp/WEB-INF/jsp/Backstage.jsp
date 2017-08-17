@@ -54,6 +54,7 @@
     <script src="../../js/backstage/achievement.js"></script>
     <script src="../../js/backstage/notice.js"></script>
     <script src="../../js/backstage/admin.js"></script>
+    <script src="../../js/backstage/correctPaper.js"></script>
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -114,22 +115,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <label id="correctId" style="display: none"></label>
+                <label id="isSearchClick" style="display: none"></label>
                 <button type="button" class="close"
                         data-dismiss="modal"
-                        aria-hidden="true" onclick="exitRandomGenerate()">X
+                        aria-hidden="true" onclick="">X
                 </button>
             </div>
             <div class="modal-body" style="overflow-y: scroll; height: 800px;">
                 <form class="bs-example bs-example-form" method="post">
-                    <div id="paper_stu"><span>学号:</span><span>xx</span><span>    姓名:</span><span>xx</span><span>    学院:</span><span>xx</span>
-                        <span>    专业:</span><span>xx</span><span>    班级:</span><span>xx</span></div>
+                    <div id="paper_stu"><span>学号:</span><span id="paper_stuId"></span><span>&nbsp;&nbsp;姓名:</span><span
+                            id="paper_stuName"></span><span>&nbsp;&nbsp;学院:</span><span id="paper_stuCollege"></span>
+                        <span>&nbsp;&nbsp;专业:</span><span id="paper_stuMajor"></span><span>&nbsp;&nbsp;班级:</span><span
+                                id="paper_stuClass"></span></div>
                     <br>
-                    <div id="paper_blankscore"><span>填空题分数:</span><span>xx</span></div>
+                    <div><span>填空题分数:</span><span id="paper_blankscore"></span></div>
                     <div id="paper_title"></div>
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
-                                style="width: 100px; text-align: center" onclick="" data-dismiss="modal"
-                                aria-hidden="true">确认
+                                style="width: 100px; text-align: center" onclick="correctPaper()"
+                                id="correct_submit">提交
                         </button>
                     </div>
                 </form>
@@ -286,10 +291,14 @@
                                         <div style="width:80%">
                                             <h3>竞赛信息</h3>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary" onclick="onContestSearchBT(this)" id="contest_search">查询</a>
-                                                <a class="btn btn-default" onclick="onContestUpdateBT(this)" id="contest_update">修改</a>
-                                                <a class="btn btn-default" onclick="onContestDeleteBT(this)" id="contest_delete">删除</a>
-                                                <a class="btn btn-default" onclick="onContestAddBT(this)" id="contest_add">添加</a>
+                                                <a class="btn btn-primary" onclick="onContestSearchBT(this)"
+                                                   id="contest_search">查询</a>
+                                                <a class="btn btn-default" onclick="onContestUpdateBT(this)"
+                                                   id="contest_update">修改</a>
+                                                <a class="btn btn-default" onclick="onContestDeleteBT(this)"
+                                                   id="contest_delete">删除</a>
+                                                <a class="btn btn-default" onclick="onContestAddBT(this)"
+                                                   id="contest_add">添加</a>
                                             </div>
                                             <br>
                                             <br>
@@ -367,10 +376,14 @@
                                         <div style="width:80%">
                                             <h3>考试信息</h3>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary" onclick="onTestSearchBT(this)" id="test_search">查询</a>
-                                                <a class="btn btn-default" onclick="onTestUpdateBT(this)" id="test_update">修改</a>
-                                                <a class="btn btn-default" onclick="onTestDeleteBT(this)" id="test_delete">删除</a>
-                                                <a class="btn btn-default" onclick="onTestAddBT(this)" id="test_add">添加</a>
+                                                <a class="btn btn-primary" onclick="onTestSearchBT(this)"
+                                                   id="test_search">查询</a>
+                                                <a class="btn btn-default" onclick="onTestUpdateBT(this)"
+                                                   id="test_update">修改</a>
+                                                <a class="btn btn-default" onclick="onTestDeleteBT(this)"
+                                                   id="test_delete">删除</a>
+                                                <a class="btn btn-default" onclick="onTestAddBT(this)"
+                                                   id="test_add">添加</a>
                                             </div>
                                             <br>
                                             <br>
@@ -451,16 +464,16 @@
                                 <br>
                                 <%--<span>题库中含有：</span><label>1000</label><span>道题</span>&nbsp;--%>
                                 <button
-                                    class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
-                                    id="random_generate_title" data-toggle="" data-target=""
-                                    onclick="getContesttitle()">随机生成
-                            </button>
+                                        class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                        id="random_generate_title" data-toggle="" data-target=""
+                                        onclick="getContesttitle()">随机生成
+                                </button>
                                 <%--<select id="contest_title_num">--%>
-                                    <%--<option value="0">10</option>--%>
-                                    <%--<option value="1">20</option>--%>
-                                    <%--<option value="2" selected>50</option>--%>
-                                    <%--<option value="3">100</option>--%>
-                                    <%--<option value="4">200</option>--%>
+                                <%--<option value="0">10</option>--%>
+                                <%--<option value="1">20</option>--%>
+                                <%--<option value="2" selected>50</option>--%>
+                                <%--<option value="3">100</option>--%>
+                                <%--<option value="4">200</option>--%>
                                 <%--</select><span>题</span>--%>
 
                             </div>
@@ -473,23 +486,23 @@
                     </li>
                     <li class="hide">
                         <%--<div class="main_bd">--%>
-                            <%--<div class="box">--%>
-                                <%--<h3>查询个人成绩</h3>--%>
-                                <%--<br>--%>
-                                <%--<div style="width:30%">--%>
-                                    <%--<div class="input-group input-group">--%>
-                                        <%--<span class="input-group-addon"><i class="fa fa-address-card-o"></i></span>--%>
-                                        <%--<input type="password" class="form-control" placeholder="学号"--%>
-                                               <%--id="search_one_record"/>--%>
-                                    <%--</div>--%>
+                        <%--<div class="box">--%>
+                        <%--<h3>查询个人成绩</h3>--%>
+                        <%--<br>--%>
+                        <%--<div style="width:30%">--%>
+                        <%--<div class="input-group input-group">--%>
+                        <%--<span class="input-group-addon"><i class="fa fa-address-card-o"></i></span>--%>
+                        <%--<input type="password" class="form-control" placeholder="学号"--%>
+                        <%--id="search_one_record"/>--%>
+                        <%--</div>--%>
 
-                                    <%--<label style="font-size: medium;margin-top: 15px">考试成绩: </label> &nbsp;<i--%>
-                                        <%--class="fa fa-refresh fa-spin fa-2x"></i>--%>
-                                    <%--<label></label>--%>
-                                    <%--<br>--%>
-                                    <%--<button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
+                        <%--<label style="font-size: medium;margin-top: 15px">考试成绩: </label> &nbsp;<i--%>
+                        <%--class="fa fa-refresh fa-spin fa-2x"></i>--%>
+                        <%--<label></label>--%>
+                        <%--<br>--%>
+                        <%--<button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x">查询</button>--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
                         <%--</div>--%>
                         <div class="main_bd">
                             <div class="box">
@@ -523,7 +536,9 @@
                                 </div>
                                 <br>
                                 <div style="width:100%">
-                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="query()">查询</button>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                            onclick="query()">查询
+                                    </button>
                                     <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                             style="margin-left: 20px">导出
                                     </button>
@@ -533,13 +548,13 @@
                                     <span id="achieve_msg"></span>
                                     <table class="table table-hover">
                                         <thead>
-                                            <th>学号</th>
-                                            <th>姓名</th>
-                                            <th>学院</th>
-                                            <th>专业</th>
-                                            <th>年级</th>
-                                            <th>班级</th>
-                                            <th>分数</th>
+                                        <th>学号</th>
+                                        <th>姓名</th>
+                                        <th>学院</th>
+                                        <th>专业</th>
+                                        <th>年级</th>
+                                        <th>班级</th>
+                                        <th>分数</th>
                                         </thead>
                                         <tbody id="achieve_tbody"></tbody>
                                     </table>
@@ -549,30 +564,55 @@
                             <div class="box">
                                 <h3>考试试卷审批</h3>
                                 <br>
+                                <label id="correctMsg1"></label>
                                 <button
                                         class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
-                                        id="test_correct_paper" data-toggle="modal" data-target="#correctPaperModal"
-                                        onclick="">审批试卷
+                                        id="test_correct_paper" data-toggle="" data-target=""
+                                        onclick="showPaper()" style="display: none">审批试卷
                                 </button>
                             </div>
 
                             <div class="box">
                                 <h3>竞赛试卷审批</h3>
                                 <br>
+                                <label id="correctMsg2"></label>
                                 <button
                                         class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         id="contest_correct_paper" data-toggle="" data-target=""
-                                        onclick="" style="display: none">审批试卷
+                                        onclick="showContestPaper()" style="display: none">审批试卷
                                 </button>
                             </div>
-                        </div>
+
+                            <div class="box">
+                                <h3>查询试卷</h3>
+                                <br>
+                                <div style="width: 40%">
+                                    <div class="input-group input-group">
+								<span class="input-group-addon"><i class="fa fa-user-o"></i>
+								</span> <input type="text" class="form-control" placeholder="学号"
+                                               id="search_paperId">
+                                    </div>
+                                    <br>
+                                    <select id="type">
+                                        <option value="考试">考试</option>
+                                        <option value="竞赛">竞赛</option>
+                                    </select>
+                                    &nbsp;
+                                    <button
+                                            class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                            id="search_paper" data-toggle="" data-target=""
+                                            onclick="showSearchPaper()">查询试卷
+                                    </button>
+                                </div>
+                            </div>
                     </li>
 
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">
                                 <h3>发布通知</h3>
-                                <input type="file" id="noticePicture" name="noticePicture" accept="image/jpeg,image/png,image/gif" size="50"/>
+                                <input type="file" id="noticePicture" name="noticePicture"
+                                       accept="image/jpeg,image/png,image/gif" size="50"/>
                                 <br>
                                 <div style="width:30%">
                                     <div class="input-group input-group">
@@ -595,7 +635,9 @@
 
                                 </div>
                                 <br>
-                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="publishNotice()">发布</button>
+                                <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                        onclick="publishNotice()">发布
+                                </button>
                             </div>
                             <div class="box">
                                 <h3>修改/删除通知</h3>
@@ -604,7 +646,7 @@
                                 <div id="backstage_notice_picture" style="width:40%;line-height:2.0;font-size:18px">
                                 </div>
                                 <span style="font-size: 20px;"
-                                      >文字通知：</span>
+                                >文字通知：</span>
                                 <div style="width:40%;line-height:2.0;font-size:18px" id="backstage_notice_text"></div>
                             </div>
                         </div>
@@ -617,18 +659,21 @@
                                 <div style="width: 40%">
                                     <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-user-o"></i>
-								</span> <input type="text" class="form-control" placeholder="账号" onchange="displayInsertMsg()"
+								</span> <input type="text" class="form-control" placeholder="账号"
+                                               onchange="displayInsertMsg()"
                                                id="admin_account">
                                     </div>
                                     <br>
                                     <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-key"></i>
-								</span> <input type="text" class="form-control" placeholder="密码" id="admin_password" onchange="displayInsertMsg()">
-                                </div>
+								</span> <input type="text" class="form-control" placeholder="密码" id="admin_password"
+                                               onchange="displayInsertMsg()">
+                                    </div>
                                     <br>
                                     <div class="input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
-								</span> <input type="text" class="form-control" placeholder="用户名" id="admin_username" onchange="displayInsertMsg()">
+								</span> <input type="text" class="form-control" placeholder="用户名" id="admin_username"
+                                               onchange="displayInsertMsg()">
                                     </div>
                                     <br>
                                     <label><input name="role" type="radio" value="1" onclick="roleCheck()"/>校领导 </label>&nbsp;
@@ -641,7 +686,8 @@
                                         <option value="学院">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none" multiple="multiple" size="1">
+                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none"
+                                            multiple="multiple" size="1">
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>
@@ -658,7 +704,9 @@
                                         <option value=""></option>
                                     </select>
                                     <br><br>
-                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x" onclick="insertAdmin()">添加</button>
+                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                            onclick="insertAdmin()">添加
+                                    </button>
                                     <label id="insertAdmin_msg" class="g-color-red"></label>
                                 </div>
                             </div>

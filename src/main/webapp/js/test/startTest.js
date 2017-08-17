@@ -328,6 +328,7 @@ function submitPaper(testId,choiceList,blankList,judgeList,shortStr,caseStr,disc
         url: 'test/submitTest',
         dataType: 'json',
         method: 'POST',
+        async: false,
         data: recordTitlesJson,
         success: function (data) {
             $('#testModal').modal('hide');
