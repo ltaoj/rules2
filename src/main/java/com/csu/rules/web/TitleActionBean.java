@@ -118,7 +118,7 @@ public class TitleActionBean extends AbstractActionBean {
         }
     }
 
-    @RequestMapping(value = "addAdditiontitle", method = RequestMethod.GET, consumes = "application/json")
+    @RequestMapping(value = "addAdditiontitle", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> addAdditiontitle(@RequestBody Additiontitle additiontitle) {
         try {
             titleService.insertTitle(additiontitle);

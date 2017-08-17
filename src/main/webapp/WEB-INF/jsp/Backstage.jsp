@@ -54,6 +54,7 @@
     <script src="../../js/backstage/achievement.js"></script>
     <script src="../../js/backstage/notice.js"></script>
     <script src="../../js/backstage/admin.js"></script>
+    <script src="../../js/backstage/title.js"></script>
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -244,6 +245,39 @@
                                 <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         onclick="importf(2)">上传
                                 </button>
+                            </div>
+
+                            <div class="box">
+                                <h3>添加试题</h3><br>
+                                <div>
+                                    <label for="titleName">题目内容</label>
+                                    <textarea id="titleName" type="text" class="form-control" placeholder="请输入题目内容"></textarea>
+                                </div>
+                                <div>
+                                    <label for="titleAnswer">题目答案</label>
+                                    <textarea id="titleAnswer" type="text" class="form-control"></textarea>
+                                </div>
+                                <div>
+                                    <label for="titleType">题目类型</label>
+                                    <select id="titleType" class="form-control">
+                                        <option value="0">选择题</option>
+                                        <option value="1">填空题</option>
+                                        <option value="2">判断题</option>
+                                        <option value="3">简答题</option>
+                                        <option value="4">案例分析题</option>
+                                        <option value="5">论述题</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="titleScore">题目分数</label>
+                                    <input id="titleScore" type="text" class="form-control" value="5"/>
+                                </div>
+                                <br/><br/>
+                                <div id="addTitleMsg"></div>
+                                <br/>
+                                <div>
+                                    <button class="form-control btn btn-info" id="addTitle" onclick="addTitle()">确认添加</button>
+                                </div>
                             </div>
                         </div>
                     </li>
