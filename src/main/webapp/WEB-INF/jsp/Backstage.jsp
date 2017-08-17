@@ -586,11 +586,11 @@
                                     <label><input name="role" type="radio" value="4" onclick="roleCheck()"/>教师 </label>
                                     <br>
                                     <span>学院:</span>
-                                    <select id="role_college" onchange="getMajor(this.value)" style="display: none">
+                                    <select id="role_college" onclick="getColleges(this)" onchange="getMajor(this.value, $('#role_major'), $('#role_class'))" style="display: none">
                                         <option value="学院">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none">
+                                    <select id="role_major" onchange="getClazz(this.value, $('#role_class'))" style="display: none">
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>

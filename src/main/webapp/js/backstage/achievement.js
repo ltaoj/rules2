@@ -126,13 +126,14 @@ function formatCondition() {
 /**
  * 请求学院信息
  */
-function getColleges() {
-    if ($('#college')[0].options.length > 1) return;
+function getColleges(obj) {
+    if ($(obj)[0].options.length > 1) return;
     $.ajax({
         url: '../school/collegeList',
         method: 'GET',
         success: function (data) {
-            addOption($('#college'), data, "college");
+            console.log(data)
+            addOption($(obj), data, "college");
         }
 
     })
@@ -143,11 +144,11 @@ function getColleges() {
  * 请求某个学院的专业信息
  * @param collegeId 学院编号
  */
-function getMajor(collegeId) {
-    clearOptions($('#major')[0]);
-    clearOptions($('#clazz')[0]);
-    collegeId == "" ? setDisabled($('#major')[0], true) : setDisabled($('#major')[0], false);
-    setDisabled($('#clazz')[0], true);
+function getMajor(collegeId, majorObj, classObj) {
+    clearOptions($(majorObj)[0]);
+    clearOptions($(classObj)[0]);
+    collegeId == "" ? setDisabled($(majorObj)[0], true) : setDisabled($(majorObj)[0], false);
+    setDisabled($(classObj)[0], true);
     var json = {};
     json.collegeId = parseInt(collegeId);
     $.ajaxSetup({contentType: 'application/json'});
@@ -157,7 +158,7 @@ function getMajor(collegeId) {
         method: 'POST',
         data: JSON.stringify(json),
         success: function (data) {
-            addOption($('#major'), data, "major");
+            addOption($(majorObj), data, "major");
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));
@@ -176,9 +177,9 @@ function getMajor(collegeId) {
  * 请求某个专业的班级信息
  * @param majorId 专业编号
  */
-function getClazz(majorId) {
-    clearOptions($('#clazz')[0]);
-    majorId == "" ? setDisabled($('#clazz')[0], true) : setDisabled($('#clazz')[0], false);
+function getClazz(majorId, classObj) {
+    clearOptions($(classObj)[0]);
+    majorId == "" ? setDisabled($(classObj)[0], true) : setDisabled($(classObj)[0], false);
     var json = {};
     json.majorId = majorId;
     $.ajax({
@@ -187,7 +188,7 @@ function getClazz(majorId) {
         method: 'POST',
         data: JSON.stringify(json),
         success: function (data) {
-            addOption($('#clazz'), data, "clazz");
+            addOption($(classObj), data, "clazz");
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));

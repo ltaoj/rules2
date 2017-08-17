@@ -9,12 +9,14 @@ function initBackstage(name) {
             getContestregistionNum();
             break;
         case "3":
-            getColleges();
+            getColleges($("#college"));
             break;
         case "4":
             getNoticeForPicture();
             getNoticeForText();
             break;
+        case "5":
+            getColleges($("#role_college"));
         default:
             break;
     }
