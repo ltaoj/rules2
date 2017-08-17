@@ -210,12 +210,12 @@
             <div class="col_side">
                 <div class="menu_box" id="menuBar">
                     <ul style="list-style:none;" id="tab_t">
-                        <li class="to_red" id="0"><i class="fa fa-user-circle "></i>&nbsp;&nbsp;学生用户</li>
-                        <li id="1"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;考试试题</li>
-                        <li id="2"><i class="fa fa-file-o"></i>&nbsp;&nbsp;考试竞赛</li>
-                        <li id="3"><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
-                        <li id="4"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
-                        <li id="5"><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
+                        <li class="to_red" id="0" href="#"><i class="fa fa-user-circle "></i>&nbsp;&nbsp;学生用户</li>
+                        <li id="1" href="#"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;考试试题</li>
+                        <li id="2" href="#"><i class="fa fa-file-o"></i>&nbsp;&nbsp;考试竞赛</li>
+                        <li id="3" href="#"><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
+                        <li id="4" href="#"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
+                        <li id="5" href="#"><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
                     </ul>
                 </div>
             </div>
@@ -590,11 +590,11 @@
                                         <option value="学院">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none" multiple="multiple">
+                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none">
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>
-                                    <select id="role_grade" style="display: none" multiple="multiple">
+                                    <select id="role_grade" style="display: none" multiple="multiple" size="1">
                                         <option value="2015">2015</option>
                                         <option value="2016">2016</option>
                                         <option value="2017">2017</option>
@@ -603,7 +603,7 @@
                                         <option value="2020">2020</option>
                                     </select>
                                     <span>班级:</span>
-                                    <select id="role_class" style="display: none" multiple="multiple">
+                                    <select id="role_class" style="display: none" multiple="multiple" size="1">
                                         <option value=""></option>
                                     </select>
                                     <br><br>

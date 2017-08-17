@@ -47,7 +47,6 @@ function enterBlankTitle() {
 function enterShortTitle() {
     if (getStudentId() != null) {
         $('#title').html("");
-        console.log("简答题",123);
         shortTitlePractice('简答题练习');
         $('#enterSimulationShort').attr("data-toggle", 'modal');
         $('#enterSimulationShort').attr("data-target", '#titleModal');
@@ -188,17 +187,21 @@ function addTitleToList(title, choice) {
     practiceTitle[title].options[choice].checked = 1;
 }
 function submitPractice() {
-    var str=document.getElementById("subjectTitle").innerText;
-    if(str=="简答题练习"){
-        shortTitlePractice('简答题练习');
-    }else if(str=="案例分析题练习"){
-        caseTitlePractice('案例分析题练习');
-    }else if(str=="论述题练习"){
-        discussTitlePractice('论述题练习');
-    }else if(str=="填空题练习"){
-        blankTitlePractice('填空题练习');
-    }else if(str=="选择题练习"){
-        submitTitle();
+    if(document.getElementById("submitTitleBT").innerText=='已完成'){
+        exitPractice();
+    }else {
+        var str = document.getElementById("subjectTitle").innerText;
+        if (str == "简答题练习") {
+            shortTitlePractice('简答题练习');
+        } else if (str == "案例分析题练习") {
+            caseTitlePractice('案例分析题练习');
+        } else if (str == "论述题练习") {
+            discussTitlePractice('论述题练习');
+        } else if (str == "填空题练习") {
+            blankTitlePractice('填空题练习');
+        } else if (str == "选择题练习") {
+            submitTitle();
+        }
     }
 }
 function submitTitle() {
@@ -263,7 +266,7 @@ function blankTitlePractice(subjectTitle){
                     for (var i = 0; i < practiceBlankTitle.length; i++) {
                         $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                             "<tr>" +
-                            "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceBlankTitle[i].name.replace(/#/g, "___") + "</th>" +
+                            "<th colspan=\"4\"><span>" + ((blankpage-1)*10+i + 1) + ".</span>" + practiceBlankTitle[i].name.replace(/#/g, "___") + "</th>" +
                             "</tr>" +
                             "<br>");
                         for (var j = 0; j < (practiceBlankTitle[i].name.split("#").length) - 1; j++) {
@@ -274,6 +277,10 @@ function blankTitlePractice(subjectTitle){
                     }
                     $('#submitTitleBT').attr("class", "btn btn-success")
                     $('#submitTitleBT').html("下一组");
+                    if($('#title').html()==""){
+                        $('#submitTitleBT').attr("class", "btn btn-primary")
+                        $('#submitTitleBT').html("已完成");
+                    }
                     blankpage=blankpage+1;
                 },
                 error: function (xhr) {
@@ -310,7 +317,7 @@ function shortTitlePractice(subjectTitle){
             for (var i = 0; i < practiceShortTitle.length; i++) {
                 $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                     "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceShortTitle[i].name + "</th>" +
+                    "<th colspan=\"4\"><span>" + ((shortpage-1)*5+i + 1) + ".</span>" + practiceShortTitle[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
                 $('#title').append("<br><textarea rows='5' cols='70' id=\"practiceShortAnswer"+i+"\">"+practiceShortTitle[i].answer+"</textarea>");
@@ -318,6 +325,10 @@ function shortTitlePractice(subjectTitle){
             }
             $('#submitTitleBT').attr("class", "btn btn-success")
             $('#submitTitleBT').html("下一组");
+            if($('#title').html()==""){
+                $('#submitTitleBT').attr("class", "btn btn-primary")
+                $('#submitTitleBT').html("已完成");
+            }
             shortpage=shortpage+1;
         },
         error: function (xhr) {
@@ -354,7 +365,7 @@ function caseTitlePractice(subjectTitle){
             for (var i = 0; i < practiceCaseTitle.length; i++) {
                 $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                     "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceCaseTitle[i].name + "</th>" +
+                    "<th colspan=\"4\"><span>" + ((casepage-1)*5+i + 1) + ".</span>" + practiceCaseTitle[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
                 $('#title').append("<br><textarea rows='5' cols='70' id=\"practiceCaseAnswer"+i+"\">"+practiceCaseTitle[i].answer+"</textarea>");
@@ -362,6 +373,10 @@ function caseTitlePractice(subjectTitle){
             }
             $('#submitTitleBT').attr("class", "btn btn-success")
             $('#submitTitleBT').html("下一组");
+            if($('#title').html()==""){
+                $('#submitTitleBT').attr("class", "btn btn-primary")
+                $('#submitTitleBT').html("已完成");
+            }
             casepage=casepage+1;
         },
         error: function (xhr) {
@@ -380,6 +395,7 @@ function caseTitlePractice(subjectTitle){
     });
 }
 function discussTitlePractice(subjectTitle){
+
     $('#subjectTitle').html(subjectTitle);
     $('#title').html("");
     $.ajaxSetup({contentType: 'application/json'});
@@ -398,7 +414,7 @@ function discussTitlePractice(subjectTitle){
             for (var i = 0; i < practiceDiscussTitle.length; i++) {
                 $('#title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                     "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + practiceDiscussTitle[i].name + "</th>" +
+                    "<th colspan=\"4\"><span>" + ((discusspage-1)*5+i + 1) + ".</span>" + practiceDiscussTitle[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
                 $('#title').append("<br><textarea rows='5' cols='70' id=\"practiceDiscussAnswer"+i+"\">"+practiceDiscussTitle[i].answer+"</textarea>");
@@ -406,6 +422,10 @@ function discussTitlePractice(subjectTitle){
             }
             $('#submitTitleBT').attr("class", "btn btn-success")
             $('#submitTitleBT').html("下一组");
+            if($('#title').html()==""){
+                $('#submitTitleBT').attr("class", "btn btn-primary")
+                $('#submitTitleBT').html("已完成");
+            }
             discusspage=discusspage+1;
         },
         error: function (xhr) {
