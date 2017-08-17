@@ -488,10 +488,17 @@ public class TestActionBean extends AbstractActionBean {
 
     //根据考试Id显示考试试卷供教师批阅
     @RequestMapping(value = "/getPaperrecordByTestId", method = RequestMethod.POST,consumes = "application/json")
-    public ResponseEntity<AccountPaperRecord> getPaperrecordByTestId(@RequestBody Map map) {
+    public ResponseEntity<AccountPaperRecord> getPaperrecordByTestId(@RequestBody AdminTest adminTest) {
         try {
-            int testId=Integer.parseInt(map.get("testId")+"");
-            List<Paperrecord> paperrecordList = testService.getPaperrecordByTestId(testId);
+            int testId=adminTest.getTestId();
+            List<Account> list=accountService.getAccountListByCondition(adminTest.getRolerange());
+            List<Paperrecord> paperrecordList = new ArrayList<Paperrecord>();
+            for(int i=0;i<list.size();i++){
+                Paperrecord paperrecord=testService.getPaperrecordByStudentIdAndTestId(list.get(i).getStudentId(),testId);
+                if(paperrecord!=null){
+                    paperrecordList.add(paperrecord);
+                }
+            }
             if(paperrecordList.size()!=0) {
                 Paperrecord paperrecord = paperrecordList.get(0);
                 Testrecord testrecord = new Testrecord();
@@ -511,21 +518,21 @@ public class TestActionBean extends AbstractActionBean {
                 List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(testtitle.getDiscussIds());
                 for (int j = 0; j < shortList.size(); j++) {
                     Additiontitle additiontitle = shortList.get(j);
-                    if(shortAnswers[j]=="@csu"){
+                    if(shortAnswers[j].equals("@csu")){
                         shortAnswers[j]="";
                     }
                     additiontitle.setAnswer(shortAnswers[j]);
                 }
                 for (int j = 0; j < caseList.size(); j++) {
                     Additiontitle additiontitle = caseList.get(j);
-                    if(caseAnswers[j]=="@csu"){
+                    if(caseAnswers[j].equals("@csu")){
                         caseAnswers[j]="";
                     }
                     additiontitle.setAnswer(caseAnswers[j]);
                 }
                 for (int j = 0; j < discussList.size(); j++) {
                     Additiontitle additiontitle = discussList.get(j);
-                    if(discussAnswers[j]=="@csu"){
+                    if(discussAnswers[j].equals("@csu")){
                         discussAnswers[j]="";
                     }
                     additiontitle.setAnswer(discussAnswers[j]);

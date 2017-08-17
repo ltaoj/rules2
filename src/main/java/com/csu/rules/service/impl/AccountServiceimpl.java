@@ -128,4 +128,16 @@ public class AccountServiceimpl implements AccountService {
         }
     }
 
+    public List<Account> getAccountListByCondition(String college) throws AccountServiceException {
+        try {
+            String[] rolerange=college.split(";");
+            List<Account> list=accountDAO.getAccountListByCondition(rolerange[0]);
+            return list;
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
 }
