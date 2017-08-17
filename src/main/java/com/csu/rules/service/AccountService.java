@@ -92,4 +92,13 @@ public interface AccountService {
      * @throws AccountServiceException
      */
     List<Feedback> getFeedbackList() throws AccountServiceException;
+
+    /**
+     * 通过条件获取学生
+     * @param college
+     * @return
+     * @throws AccountServiceException
+     */
+    List<Account> getAccountListByCondition(String college)throws AccountServiceException;
 }
+

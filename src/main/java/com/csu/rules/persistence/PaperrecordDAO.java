@@ -96,14 +96,5 @@ public interface PaperrecordDAO {
      */
     List<Paperrecord> getPaperRecordListByTestid(int testId) throws PersistenceException;
 
-    /**
-     * 通过权限条件获取试卷
-     * @param clazz
-     * @param grade
-     * @param major
-     * @param college
-     * @return
-     * @throws PersistenceException
-     */
-    List<Paperrecord> getPaperRecordListByCondition(String clazz, int grade, String major, String college)throws PersistenceException;
+
 }

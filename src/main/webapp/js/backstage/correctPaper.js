@@ -2,13 +2,13 @@
  * Created by GF on 2017/8/17.
  */
 function getPaperList(testId) {
-    var testIdInfo = {testId: testId}
+    var adminTestinfo = {testId: testId,rolerange:admin.rolerange}
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: '../test/getPaperrecordByTestId',
         dataType: 'json',
         method: 'POST',
-        data: JSON.stringify(testIdInfo),
+        data: JSON.stringify(adminTestinfo),
         success: function (data) {
             if (data.account == null) {
                 $('#paper_stuId').html("");

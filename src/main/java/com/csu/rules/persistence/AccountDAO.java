@@ -26,4 +26,12 @@ public interface AccountDAO {
      * @throws PersistenceException
      */
     void insertUserInfoList(List<Account> accountList) throws PersistenceException;
+
+    /**
+     * 通过权限条件获取学生
+     * @param college
+     * @return
+     * @throws PersistenceException
+     */
+    List<Account> getAccountListByCondition(String college)throws PersistenceException;
 }

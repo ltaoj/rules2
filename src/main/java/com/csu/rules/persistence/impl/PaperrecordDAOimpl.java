@@ -1,5 +1,6 @@
 package com.csu.rules.persistence.impl;
 
+import com.csu.rules.domain.Account;
 import com.csu.rules.domain.Contestregistion;
 import com.csu.rules.domain.Paper;
 import com.csu.rules.domain.Paperrecord;
@@ -14,6 +15,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -125,9 +127,10 @@ public class PaperrecordDAOimpl extends AbstractDAO implements PaperrecordDAO{
             Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {
-            Query query=session.createQuery("from Paperrecord as paperrecord where studentId=? and testId=?");
+            Query query=session.createQuery("from Paperrecord as paperrecord where studentId=? and testId=? and isCorrected=?");
             query.setLong(0,studentId);
             query.setInteger(1,testId);
+            query.setInteger(2,0);
             List<Paperrecord> paperrecordList=query.list();
             session.flush();
             transaction.commit();
@@ -230,12 +233,5 @@ public class PaperrecordDAOimpl extends AbstractDAO implements PaperrecordDAO{
         }
     }
 
-    public List<Paperrecord> getPaperRecordListByCondition(String clazz, int grade, String major, String college) throws PersistenceException {
-        return null;
-    }
 
-    private String formatHql(String college) {
-        String hql =  "from Account where ";
-        return hql;
-    }
 }
