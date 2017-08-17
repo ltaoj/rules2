@@ -109,6 +109,37 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<!-- 试卷审批模态框 -->
+<div class="modal fade" id="correctPaperModal" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal"
+                        aria-hidden="true" onclick="exitRandomGenerate()">X
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; height: 800px;">
+                <form class="bs-example bs-example-form" method="post">
+                    <div id="paper_stu"><span>学号:</span><span>xx</span><span>    姓名:</span><span>xx</span><span>    学院:</span><span>xx</span>
+                        <span>    专业:</span><span>xx</span><span>    班级:</span><span>xx</span></div>
+                    <br>
+                    <div id="paper_blankscore"><span>填空题分数:</span><span>xx</span></div>
+                    <div id="paper_title"></div>
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-primary"
+                                style="width: 100px; text-align: center" onclick="" data-dismiss="modal"
+                                aria-hidden="true">确认
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!-- 竞赛操作按钮模态框 -->
 <div class="modal fade" id="contestOperateModal" data-backdrop="static">
     <div class="modal-dialog" style="width:450px">
@@ -436,7 +467,7 @@
                             <div class="box">
                                 <h3>查看竞赛报名学生</h3>
                                 <br>
-                                <span>当前报名学生人数为：</span><label id="contestregistionNum">1000</label><span>人</span>
+                                <span>当前报名学生人数为：</span><label id="contestregistionNum"></label><span>人</span>
                             </div>
                         </div>
                     </li>
@@ -514,6 +545,26 @@
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="box">
+                                <h3>考试试卷审批</h3>
+                                <br>
+                                <button
+                                        class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                        id="test_correct_paper" data-toggle="modal" data-target="#correctPaperModal"
+                                        onclick="">审批试卷
+                                </button>
+                            </div>
+
+                            <div class="box">
+                                <h3>竞赛试卷审批</h3>
+                                <br>
+                                <button
+                                        class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                        id="contest_correct_paper" data-toggle="" data-target=""
+                                        onclick="" style="display: none">审批试卷
+                                </button>
+                            </div>
                         </div>
                     </li>
 
@@ -590,7 +641,7 @@
                                         <option value="学院">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none">
+                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none" multiple="multiple" size="1">
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>
