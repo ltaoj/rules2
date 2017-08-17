@@ -22,6 +22,8 @@ function initBackstage(name) {
             break;
         case "5":
             getColleges($("#role_college"));
+            // initMultipleSelect($("#role_grade"));
+            // initMultipleSelect($("#role_class"));
         default:
             break;
     }
