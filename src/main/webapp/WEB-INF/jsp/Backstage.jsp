@@ -54,7 +54,11 @@
     <script src="../../js/backstage/achievement.js"></script>
     <script src="../../js/backstage/notice.js"></script>
     <script src="../../js/backstage/admin.js"></script>
+<<<<<<< HEAD
     <script src="../../js/backstage/correctPaper.js"></script>
+=======
+    <script src="../../js/backstage/title.js"></script>
+>>>>>>> f9ce310370c260661ed6a810d69928b8c02a75e6
     <!-- 后台管理js结束 -->
     <script>
         window.onload = function () {
@@ -267,7 +271,7 @@
                                 <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         onclick="importf(1)">上传
                                 </button>
-                                <div id="demo"></div>
+                                <%--<div id="demo"></div>--%>
                             </div>
                         </div>
                     </li>
@@ -278,8 +282,41 @@
                                 <input type="file" name="file1" size="30" onchange="setObj(this)"/>
                                 <br>
                                 <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
-                                        onclick="importf(0)">上传
+                                        onclick="importf(2)">上传
                                 </button>
+                            </div>
+
+                            <div class="box">
+                                <h3>添加试题</h3><br>
+                                <div>
+                                    <label for="titleName">题目内容</label>
+                                    <textarea id="titleName" type="text" class="form-control" placeholder="请输入题目内容"></textarea>
+                                </div>
+                                <div>
+                                    <label for="titleAnswer">题目答案</label>
+                                    <textarea id="titleAnswer" type="text" class="form-control"></textarea>
+                                </div>
+                                <div>
+                                    <label for="titleType">题目类型</label>
+                                    <select id="titleType" class="form-control">
+                                        <option value="0">选择题</option>
+                                        <option value="1">填空题</option>
+                                        <option value="2">判断题</option>
+                                        <option value="3">简答题</option>
+                                        <option value="4">案例分析题</option>
+                                        <option value="5">论述题</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="titleScore">题目分数</label>
+                                    <input id="titleScore" type="text" class="form-control" value="5"/>
+                                </div>
+                                <br/><br/>
+                                <div id="addTitleMsg"></div>
+                                <br/>
+                                <div>
+                                    <button class="form-control btn btn-info" id="addTitle" onclick="addTitle()">确认添加</button>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -540,7 +577,7 @@
                                             onclick="query()">查询
                                     </button>
                                     <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
-                                            style="margin-left: 20px">导出
+                                            style="margin-left: 20px" onclick="exportInfo()">导出
                                     </button>
                                 </div>
 
@@ -605,6 +642,7 @@
                                     </button>
                                 </div>
                             </div>
+                        </div>
                     </li>
 
                     <li class="hide">
@@ -682,12 +720,11 @@
                                     <label><input name="role" type="radio" value="4" onclick="roleCheck()"/>教师 </label>
                                     <br>
                                     <span>学院:</span>
-                                    <select id="role_college" onchange="getMajor(this.value)" style="display: none">
+                                    <select id="role_college" onclick="getColleges(this)" onchange="getMajor(this.value, $('#role_major'), $('#role_class'))" style="display: none">
                                         <option value="学院">请选择学院(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
-                                    <select id="role_major" onchange="getClazz(this.value)" style="display: none"
-                                            multiple="multiple" size="1">
+                                    <select id="role_major" onchange="getClazz(this.value, $('#role_class'))" style="display: none" multiple="multiple" size="1">
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>

@@ -229,4 +229,13 @@ public class PaperrecordDAOimpl extends AbstractDAO implements PaperrecordDAO{
             session.close();
         }
     }
+
+    public List<Paperrecord> getPaperRecordListByCondition(String clazz, int grade, String major, String college) throws PersistenceException {
+        return null;
+    }
+
+    private String formatHql(String college) {
+        String hql =  "from Account where ";
+        return hql;
+    }
 }

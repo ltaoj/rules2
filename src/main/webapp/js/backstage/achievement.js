@@ -8,9 +8,9 @@
  * @param type
  */
 function addOption(select, data, type) {
-    for (var i = 0;i < data.length;i++) {
+    for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");
-        switch (type){
+        switch (type) {
             case "college":
                 option.value = data[i].collegeId;
                 break;
@@ -38,7 +38,7 @@ var pNames = ["studentId", "username", "college", "major", "grade", "clazz", "sc
  */
 function getRow(item) {
     var tr = document.createElement("tr");
-    for (var i = 0;i < pNames.length;i++) {
+    for (var i = 0; i < pNames.length; i++) {
         var td = document.createElement("td");
         td.innerHTML = item[pNames[i]];
         tr.appendChild(td);
@@ -56,7 +56,7 @@ function showAchieve(data, conditionMsg) {
     var achieveTbody = $('#achieve_tbody')[0];
     removeAllChild(achieveTbody);
     achieveMsg.innerHTML = conditionMsg + '共查询出记录数目' + data.length + '个';
-    for  (var i = 0;i < data.length;i++) {
+    for (var i = 0; i < data.length; i++) {
         var tr = getRow(data[i]);
         achieveBody.appendChild(tr);
     }
@@ -67,7 +67,7 @@ function showAchieve(data, conditionMsg) {
  * @param parentNode
  */
 function removeAllChild(parentNode) {
-    while (parentNode.hasChildNodes()){
+    while (parentNode.hasChildNodes()) {
         parentNode.removeChild(parentNode.firstChild);
     }
 }
@@ -97,7 +97,7 @@ function setDisabled(select, flag) {
  * 初始化方法
  */
 function init(select, num) {
-    for (var i = 0; i <= num;i++) {
+    for (var i = 0; i <= num; i++) {
         var option = document.createElement("option");
         option.value = i;
         option.text = i;
@@ -126,15 +126,16 @@ function formatCondition() {
 /**
  * 请求学院信息
  */
-function getColleges() {
-    if ($('#college')[0].options.length > 1) return;
+function getColleges(obj) {
+    if ($(obj)[0].options.length > 1) return;
     $.ajax({
         url: '../school/collegeList',
         method: 'GET',
         success: function (data) {
-            addOption($('#college'), data, "college");
+            console.log(data)
+            addOption($(obj), data, "college");
         }
-        
+
     })
     init($('#score'), 100);
 }
@@ -143,11 +144,11 @@ function getColleges() {
  * 请求某个学院的专业信息
  * @param collegeId 学院编号
  */
-function getMajor(collegeId) {
-    clearOptions($('#major')[0]);
-    clearOptions($('#clazz')[0]);
-    collegeId == "" ? setDisabled($('#major')[0], true) : setDisabled($('#major')[0], false);
-    setDisabled($('#clazz')[0], true);
+function getMajor(collegeId, majorObj, classObj) {
+    clearOptions($(majorObj)[0]);
+    clearOptions($(classObj)[0]);
+    collegeId == "" ? setDisabled($(majorObj)[0], true) : setDisabled($(majorObj)[0], false);
+    setDisabled($(classObj)[0], true);
     var json = {};
     json.collegeId = parseInt(collegeId);
     $.ajaxSetup({contentType: 'application/json'});
@@ -157,7 +158,7 @@ function getMajor(collegeId) {
         method: 'POST',
         data: JSON.stringify(json),
         success: function (data) {
-            addOption($('#major'), data, "major");
+            addOption($(majorObj), data, "major");
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));
@@ -176,9 +177,9 @@ function getMajor(collegeId) {
  * 请求某个专业的班级信息
  * @param majorId 专业编号
  */
-function getClazz(majorId) {
-    clearOptions($('#clazz')[0]);
-    majorId == "" ? setDisabled($('#clazz')[0], true) : setDisabled($('#clazz')[0], false);
+function getClazz(majorId, classObj) {
+    clearOptions($(classObj)[0]);
+    majorId == "" ? setDisabled($(classObj)[0], true) : setDisabled($(classObj)[0], false);
     var json = {};
     json.majorId = majorId;
     $.ajax({
@@ -187,7 +188,7 @@ function getClazz(majorId) {
         method: 'POST',
         data: JSON.stringify(json),
         success: function (data) {
-            addOption($('#clazz'), data, "clazz");
+            addOption($(classObj), data, "clazz");
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));
@@ -201,6 +202,8 @@ function getClazz(majorId) {
         console.log('complete');
     })
 }
+
+var info;
 
 function query() {
     var collegeSelect = $('#college')[0];
@@ -222,6 +225,7 @@ function query() {
         data: json,
         success: function (data) {
             showAchieve(data, formatCondition());
+            info = data;
         },
         error: function (xhr) {
             console.log('error:' + JSON.stringify(xhr));
@@ -234,4 +238,10 @@ function query() {
     }).always(function () {
         console.log('complete');
     })
+}
+
+function exportInfo() {
+    if (info == undefined)
+        alert("请先查询信息！！");
+    downloadExl(info);
 }

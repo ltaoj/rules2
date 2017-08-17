@@ -19,8 +19,9 @@ import java.util.Set;
  */
 @Controller
 @RequestMapping(value = "/title")
-public class TitleActionBean extends AbstractActionBean{
+public class TitleActionBean extends AbstractActionBean {
     private TitleService titleService;
+
     @Autowired
     public TitleActionBean(TitleService titleService) {
         this.titleService = titleService;
@@ -28,9 +29,10 @@ public class TitleActionBean extends AbstractActionBean{
 
     /**
      * 练习模块返回指定类型试题
+     *
      * @param page
      * @param count
-     * @param type 默认为0可不指定，代表选择题。1,2,3,4,5,6分别对应其他类型题目
+     * @param type  默认为0可不指定，代表选择题。1,2,3,4,5,6分别对应其他类型题目
      * @return
      */
     @RequestMapping(value = "/practice", method = RequestMethod.GET)
@@ -44,7 +46,7 @@ public class TitleActionBean extends AbstractActionBean{
                 titleList = titleService.getTitleListByPage(page, count);
             else
                 titleList = titleService.getTitleListByTypeAndPage(page, count, type);
-            System.out.println("page"+page+"count"+count+"type"+type);
+            System.out.println("page" + page + "count" + count + "type" + type);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, titleList), HttpStatus.OK);
         } catch (TitleServiceException te) {
             throw new CatchServiceException(te);
@@ -54,6 +56,7 @@ public class TitleActionBean extends AbstractActionBean{
 
     /**
      * 练习模块提交选择、填空、判断试题
+     *
      * @param accountTitles
      * @return
      */
@@ -115,7 +118,7 @@ public class TitleActionBean extends AbstractActionBean{
         }
     }
 
-    @RequestMapping(value = "addAdditiontitle", method = RequestMethod.GET, consumes = "application/json")
+    @RequestMapping(value = "addAdditiontitle", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> addAdditiontitle(@RequestBody Additiontitle additiontitle) {
         try {
             titleService.insertTitle(additiontitle);
@@ -130,14 +133,24 @@ public class TitleActionBean extends AbstractActionBean{
         try {
             titleService.insertTitleList(titleList);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
-        }catch (TitleServiceException te) {
+        } catch (TitleServiceException te) {
+            throw new CatchServiceException(te);
+        }
+    }
+
+    @RequestMapping(value = "addAdditionTitles", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> addAdditionTitles(@RequestBody List<Additiontitle> additiontitles) {
+        try {
+            titleService.insertAdditionTitleList(additiontitles);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (TitleServiceException te) {
             throw new CatchServiceException(te);
         }
     }
 
     private Set<Integer> idListFromWrongtitles(List<Wrongtitle> wrongList) {
         Set<Integer> idList = new HashSet<Integer>();
-        for (int i = 0;i < wrongList.size();i++) {
+        for (int i = 0; i < wrongList.size(); i++) {
             idList.add(wrongList.get(i).getTitleId());
         }
         return idList;
