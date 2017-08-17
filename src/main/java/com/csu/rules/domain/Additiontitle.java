@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "additiontitle", schema = "schoolrulessystem", catalog = "")
 public class Additiontitle {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "title_id")
     private int titleId;
     @Column(name = "name")

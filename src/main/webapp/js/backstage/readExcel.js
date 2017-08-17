@@ -51,31 +51,26 @@ function assemble(list, type) {
         for (var i = 0; i < list.length; i++) {
             tep_list[i] =
                 '{' +
-                '"titleId":' + list[i]['题目编号'] + ',' +
                 '"name": "' + list[i]['题目内容'] + '",' +
                 '"diffId":' + (list[i]['难度等级'] == '易' ? 1 : (list[i]['难易等级'] == '中' ? 2 : 3)) + ',' +
                 '"score":' + list[i]['分值'] + ',' +
                 '"options":[' +
                 '{' +
-                '"optionId": 1,' +
                 '"titleId":' + list[i]['题目编号'] + ',' +
                 '"content": "' + list[i]['选项A'] + '1",' +
                 '"checked":' + (list[i]['正确选项'].indexOf('A') == '-1' ? 0 : 1) +
                 '},' +
                 '{' +
-                '"optionId": 2,' +
                 '"titleId":' + list[i]['题目编号'] + ',' +
                 '"content": "' + list[i]['选项A'] + '1",' +
                 '"checked":' + (list[i]['正确选项'].indexOf('B') == '-1' ? 0 : 1) +
                 '},' +
                 '{' +
-                '"optionId": 3,' +
                 '"titleId":' + list[i]['题目编号'] + ',' +
                 '"content": "' + list[i]['选项A'] + '1",' +
                 '"checked":' + (list[i]['正确选项'].indexOf('C') == '-1' ? 0 : 1) +
                 '},' +
                 '{' +
-                '"optionId": 4,' +
                 '"titleId":' + list[i]['题目编号'] + ',' +
                 '"content": "' + list[i]['选项A'] + '1",' +
                 '"checked":' + (list[i]['正确选项'].indexOf('D') == '-1' ? 0 : 1) +
@@ -101,16 +96,15 @@ function assemble(list, type) {
         }
     }
     else if (type == 2) {
-        url = '../title/addTitles';
+        url = '../title/addAdditionTitles';
         tep_list = new Array(list.length);
         for (var i = 0; i < list.length; i++) {
             tep_list[i] =
                 '{' +
-                '"titleId":' + list[i]['题目编号'] + ',' +
                 '"name": "' + list[i]['题目内容'] + '",' +
-                '"type":' + (list[i]['类型'] == '填空题' ? 1 : (list[i]['类型'] == '简答题' ? 2 : (list[i]['类型'] == '案例题' ? 3 : 4))) + ',' +
+                '"type":' + (list[i]['类型'] == '填空题' ? 1 : (list[i]['类型'] == '简答题' ? 3 : (list[i]['类型'] == '案例题' ? 4 : 5))) + ',' +
                 '"score":' + list[i]['分值'] + ',' +
-                '"answer":"' + list[i]['答案'] + '",'
+                '"answer":"' + list[i]['答案'] + '"' +
             '}';
         }
     }
