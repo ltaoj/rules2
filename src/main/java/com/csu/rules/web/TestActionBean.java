@@ -646,7 +646,12 @@ public class TestActionBean extends AbstractActionBean {
             }else {
                 Testinfo testinfo1 = list.get(0);
                 if (testinfo1.getEndTime().before(new Timestamp(System.currentTimeMillis()))) {
-                    return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+                    List<Paperrecord> list1=testService.getPaperrecordByTestId(testinfo1.getTestId());
+                    if(list1.size()==0){
+                        return new ResponseEntity<Result>(new Result(Result.RESULT_ERROR), HttpStatus.OK);
+                    }else {
+                        return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+                    }
                 } else {
                     return new ResponseEntity<Result>(new Result(Result.RESULT_ERROR), HttpStatus.OK);
                 }
@@ -665,7 +670,12 @@ public class TestActionBean extends AbstractActionBean {
             }else {
                 Testinfo testinfo1 = list.get(0);
                 if (testinfo1.getEndTime().before(new Timestamp(System.currentTimeMillis()))) {
-                    return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+                    List<Paperrecord> list1=testService.getPaperrecordByTestId(testinfo1.getTestId());
+                    if(list1.size()==0){
+                        return new ResponseEntity<Result>(new Result(Result.RESULT_ERROR), HttpStatus.OK);
+                    }else {
+                        return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+                    }
                 } else {
                     return new ResponseEntity<Result>(new Result(Result.RESULT_ERROR), HttpStatus.OK);
                 }

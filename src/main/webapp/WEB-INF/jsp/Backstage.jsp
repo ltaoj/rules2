@@ -135,7 +135,7 @@
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
                                 style="width: 100px; text-align: center" onclick="correctPaper()"
-                                id="correct_submit">提交
+                                id="correct_submit" disabled="disabled">提交
                         </button>
                     </div>
                 </form>
@@ -613,7 +613,7 @@
                                 <button
                                         class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         id="contest_correct_paper" data-toggle="" data-target=""
-                                        onclick="showContestPaper()" style="display: none">审批试卷
+                                        onclick="showContestPaper()" style="display: none" >审批试卷
                                 </button>
                             </div>
 
