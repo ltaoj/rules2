@@ -137,6 +137,6 @@
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.16" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.11" level="application_server_libraries" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.36" level="application_server_libraries" />
   </component>
 </module>
