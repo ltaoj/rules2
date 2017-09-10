@@ -9,6 +9,8 @@
     中南大学-校规校纪系统
     <!-- Meta -->
     <meta charset="utf-8">
+    <%--添加此meta适应手机--%>
+    <meta name="viewport" content="width=device-width">
     <%--<!-- Web Fonts -->--%>
     <%--<link--%>
     <%--href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=cyrillic,latin"--%>
@@ -239,11 +241,17 @@
             <a class="navbar-brand" href="#body"> <img alt="中南大学"
                                                        src="img/logo.png">
             </a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
 
 
         <!-- 导航栏 -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" id="navbar-collapse">
             <div class="menu-container">
                 <ul class="nav navbar-nav">
                     <li class="page-scroll"><a href="#notice">通知公告</a></li>
@@ -257,11 +265,11 @@
                     <li id="login-li"><a
                             class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
                             data-toggle="modal"
-                            data-target="#loginModal">登录</a></li>
+                            data-target="#loginModal" style="text-align: center">登录</a></li>
                     <li style="display:none" id="personal-li"><a type="button"
                                                                  class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"
                                                                  data-toggle="personal" id="personal"
-                                                                 onclick="personalPopover()">个人</a></li>
+                                                                 onclick="personalPopover()" style="text-align: center">个人</a></li>
                 </ul>
             </div>
         </div>
