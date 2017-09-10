@@ -530,7 +530,7 @@
                     <p>请在下方的竞赛报名处选择你需要参加的考试，浏览必须的考试信息并点击报名按钮完成竞赛报名</p>
                     <p>请在下方的考试处选择你需要参加的考试，浏览必须的考试信息在规定时间内完成考试</p>
                 </div>
-                <div class="col-md-2 col-xs-6 col-2xs-12 g-mb-30"></div>
+                <div class="col-md-2 col-xs-0 col-2xs-0 g-mb-30"></div>
                 <!-- /考试项目 -->
                 <div class="col-md-4 col-xs-6 col-2xs-12 g-mb-30">
                     <div class="pricing-v9 rounded-2x hover-effect">
@@ -631,7 +631,7 @@
                 <div class="g-heading-v7 g-mb-40">
                     <p>请在下方了解已参加过的考试的成绩信息</p>
                 </div>
-                <div class="col-md-2 col-xs-6 col-2xs-12 g-mb-30"></div>
+                <div class="col-md-2 col-xs-0 col-2xs-0 g-mb-30"></div>
                 <!-- 考试成绩项目 -->
                 <div class="col-md-4 col-xs-6 col-2xs-12 g-mb-30">
                     <div class="pricing-v9 rounded-2x hover-effect">
@@ -687,54 +687,7 @@
 <!-- 考试排名结束 -->
 
 
-<!-- 积分兑换 -->
-<section id="integral">
-    <div class="container">
-        <div class="g-pt-90">
-            <div class="g-heading-v10 g-mb-30 text-center">
-                <h2>
-                    <em class="block-name">积分兑换</em>
-                </h2>
-                <p>通过学习获得的积分可以兑换以下物品，物品会进行间断的更新。</p>
-            </div>
-            <div class="row equal-height-columns">
-                <div class="col-md-3 short-info short-info-bg-1 equal-height-column"
-                     style="height: 420px;">
-                    <img alt="Goods1" src="img/exchangegoods1.jpg">
-                    <div class="short-info-text">
-                        <h2>物品1</h2>
-                        <p>物品1</p>
-                    </div>
-                </div>
-                <div class="col-md-3 short-info short-info-bg-2 equal-height-column"
-                     style="height: 420px;">
-                    <img alt="Goods2" src="img/exchangegoods3.jpg">
-                    <div class="short-info-text">
-                        <h2>物品2</h2>
-                        <p>物品2</p>
-                    </div>
-                </div>
-                <div class="col-md-3 short-info short-info-bg-3 equal-height-column"
-                     style="height: 420px;">
-                    <img alt="Goods3" src="img/exchangegoods1.jpg">
-                    <div class="short-info-text">
-                        <h2>物品3</h2>
-                        <p>物品3</p>
-                    </div>
-                </div>
-                <div class="col-md-3 short-info short-info-bg-4 equal-height-column"
-                     style="height: 420px;">
-                    <img alt="Goods4" src="img/exchangegoods2.jpg">
-                    <div class="short-info-text">
-                        <h2>物品4</h2>
-                        <p>物品4</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- 积分兑换结束 -->
+
 <hr>
 <!-- 页脚 -->
 <section id="contact">
