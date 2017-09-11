@@ -98,23 +98,29 @@
             </div>
             <div class="modal-body">
                 <form class="bs-example bs-example-form">
-                    <div style="padding: 5px 160px 10px;">
-                        <div class="input-group input-group">
+                    <div style="padding: 10px 10px 10px 10px;">
+                        <div class="col-md-2 col-sm-0 col-xs-0"></div>
+                        <div class="col-md-8 col-sm-12 col-xs-12 input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-user-o"></i>
 								</span> <input type="text" class="form-control" placeholder="学号" id="studentId">
 
                         </div>
+                        <div class="col-md-2 col-sm-0 col-xs-0"></div>
                         <br>
-                        <div class="input-group input-group">
+                        <div class="col-md-2 col-sm-0 col-xs-0"></div>
+                        <div class="col-md-8 col-sm-12 col-xs-12 input-group input-group">
 								<span class="input-group-addon"><i class="fa fa-key"></i>
 								</span> <input type="password" class="form-control" placeholder="密码" id="password">
                         </div>
+                        <div class="col-md-2 col-sm-0 col-xs-0"></div>
                         <br>
                         <span id="loginMessage" class="g-color-red"></span>
                         <br>
-                        <button type="button" class="btn btn-primary "
-                                style="width: 250px" id="loginBT" onclick="login()">登录
+                        <div class="col-md-2 col-sm-0 col-xs-0"></div>
+                        <button type="button" class="col-md-8 col-sm-12 col-xs-12 btn btn-primary "
+                                 id="loginBT" onclick="login()">登录
                         </button>
+                        <div class="col-md-2 col-sm-0 col-xs-0"></div>
                     </div>
                     <hr>
                 </form>
