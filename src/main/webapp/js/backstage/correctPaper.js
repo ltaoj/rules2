@@ -56,7 +56,7 @@ function getPaperList(testId) {
                         "<th colspan=\"2\"><span id=\"shortScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
                         "</tr>" +
                         "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='70' id=\"shortAnswer" + i + "\">" + testShortTitleList[i].answer + "</textarea>");
+                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"shortAnswer" + i + "\">" + testShortTitleList[i].answer + "</textarea>");
                     $('#paper_title').append("</table>+<br>");
                 }
                 //案例分析题
@@ -71,7 +71,7 @@ function getPaperList(testId) {
                         "<th colspan=\"2\"><span id=\"caseScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
                         "</tr>" +
                         "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='70' id=\"caseAnswer" + i + "\">" + testCaseTitleList[i].answer + "</textarea>");
+                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"caseAnswer" + i + "\">" + testCaseTitleList[i].answer + "</textarea>");
                     $('#paper_title').append("</table>+<br>");
                 }
                 //论述题
@@ -86,7 +86,7 @@ function getPaperList(testId) {
                         "<th colspan=\"2\"><span id=\"discussScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
                         "</tr>" +
                         "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='70' id=\"discussAnswer" + i + "\">" + testDiscussTitleList[i].answer + "</textarea>");
+                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"discussAnswer" + i + "\">" + testDiscussTitleList[i].answer + "</textarea>");
                     $('#paper_title').append("</table>+<br>");
                 }
             }
@@ -270,7 +270,7 @@ function searchPaper() {
                         "<th colspan=\"2\"><span id=\"shortScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
                         "</tr>" +
                         "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='70' id=\"shortAnswer" + i + "\">" + testShortTitleList[i].answer + "</textarea>");
+                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"shortAnswer" + i + "\">" + testShortTitleList[i].answer + "</textarea>");
                     $('#paper_title').append("</table>+<br>");
                 }
                 //案例分析题
@@ -285,7 +285,7 @@ function searchPaper() {
                         "<th colspan=\"2\"><span id=\"shortScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
                         "</tr>" +
                         "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='70' id=\"caseAnswer" + i + "\">" + testCaseTitleList[i].answer + "</textarea>");
+                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"caseAnswer" + i + "\">" + testCaseTitleList[i].answer + "</textarea>");
                     $('#paper_title').append("</table>+<br>");
                 }
                 //论述题
@@ -300,7 +300,7 @@ function searchPaper() {
                         "<th colspan=\"2\"><span id=\"shortScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
                         "</tr>" +
                         "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='70' id=\"discussAnswer" + i + "\">" + testDiscussTitleList[i].answer + "</textarea>");
+                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"discussAnswer" + i + "\">" + testDiscussTitleList[i].answer + "</textarea>");
                     $('#paper_title').append("</table>+<br>");
                 }
             }

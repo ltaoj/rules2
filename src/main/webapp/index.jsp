@@ -161,7 +161,7 @@
 <!-- 考试模态框 -->
 
 <div class="modal fade" id="testModal" data-backdrop="static">
-    <div class="modal-dialog" style="width:900px;height:1300px;">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"
@@ -191,7 +191,7 @@
 <!-- /.modal -->
 <!-- 退出按钮模态框 -->
 <div class="modal fade" id="exitModal" data-backdrop="static">
-    <div class="modal-dialog" style="width:450px">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
@@ -258,15 +258,13 @@
 
         <!-- 导航栏 -->
         <div class="collapse navbar-collapse navbar-ex1-collapse" id="navbar-collapse">
-            <div class="menu-container">
-                <ul class="nav navbar-nav">
+            <div class="col-sm-3 col-xs-3 col-md-10 menu-container">
+                <ul class="nav navbar-nav ">
                     <li class="page-scroll"><a href="#notice">通知公告</a></li>
                     <li class="page-scroll"><a href="#questionsbank">在线题库</a></li>
                     <li class="page-scroll"><a href="#examination">报名考试</a></li>
                     <li class="page-scroll"><a href="#ranking">考试排名</a></li>
-                    <li class="page-scroll"><a href="#integral">积分兑换</a></li>
                     <li class="page-scroll"><a href="#contact">联系我们</a></li>
-                    <li><a href="#help">考试须知</a></li>
                     <%--<li><form action="/account/adminLoginForm" method="get"><button class="btn-u btn-u-green btn-u-upper rounded-2x" type="submit">后台管理</button></form></li>--%>
                     <li id="login-li"><a
                             class="btn-u btn-u-lg btn-u-green btn-u-upper rounded-2x"

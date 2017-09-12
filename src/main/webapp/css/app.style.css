@@ -363,7 +363,7 @@ a:hover {
 
 /* Designing the button */
 .homeapp-header.one-page-header .navbar-nav > li > a.btn-u {
-	margin-left: 13px;
+	margin-left: 0px;
 	color: #fff;
 	background: #4fd2c2;
 }

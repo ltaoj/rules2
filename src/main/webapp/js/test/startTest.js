@@ -78,7 +78,7 @@ function startTest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"shortAnswer"+i+"\"></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='40' id=\"shortAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             //案例分析题
@@ -89,7 +89,7 @@ function startTest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"caseAnswer"+i+"\"></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='40' id=\"caseAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             //论述题
@@ -100,7 +100,7 @@ function startTest() {
                     "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name + "</th>" +
                     "</tr>" +
                     "<br>");
-                $('#testTitle').append("<br><textarea rows='5' cols='70' id=\"discussAnswer"+i+"\"></textarea>");
+                $('#testTitle').append("<br><textarea rows='5' cols='40' id=\"discussAnswer"+i+"\"></textarea>");
                 $('#testTitle').append("</table>");
             }
             getTestRecord(getStudentId());
