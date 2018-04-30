@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by ltaoj on 17-6-9.
  */
 @Entity
-@Table(name = "title", schema = "schoolrulessystem", catalog = "")
+@Table(name = "title", schema = "saverulessystem", catalog = "")
 public class Title {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

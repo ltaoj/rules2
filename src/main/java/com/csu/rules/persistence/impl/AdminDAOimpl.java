@@ -21,7 +21,7 @@ import java.util.List;
 public class AdminDAOimpl extends AbstractDAO implements AdminDAO {
 
     public Admin Login(Admin admin) throws PersistenceException {
-            Session session = HibernateUtil.getSession();
+        Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {
             Criteria criteria = session.createCriteria(Admin.class);
@@ -40,7 +40,7 @@ public class AdminDAOimpl extends AbstractDAO implements AdminDAO {
     }
 
     public void insertAdmin(Admin admin) throws PersistenceException {
-            Session session = HibernateUtil.getSession();
+        Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {
             session.save(admin);

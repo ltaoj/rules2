@@ -5,7 +5,6 @@ import com.csu.rules.domain.Result;
 import com.csu.rules.exception.CatchServiceException;
 import com.csu.rules.exception.NoticeServiceException;
 import com.csu.rules.service.NoticeService;
-import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

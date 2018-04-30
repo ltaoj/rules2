@@ -14,20 +14,27 @@ function getTestRecord(studentId) {
         method: 'post',
         async: false,
         data:testRecord,
+        //MY_FLAG
         success: function (data) {
+            // Sunss Test
+            // data.score = 100;
             if(data.score==null) {
-                $('#isTested').html("未考试");
+                // $('#isTested').html("未考试");
                 start_time=data.startTime;
                 submit_time=data.submitTime;
-            }else if(data.score==-1){
+            }else if(data.score==-1){ // 从现在的需求来看是不存在试卷批阅的//Sunss
                 $('#isTested').html("试卷批阅中");
                 $('#yesToTest').hide();
                 $('#noToTest').show();
             }else{
-                $('#isTested').html("已考试");
+                // $('#isTested').html("已考试");
+                // $('#testRecord').html(data.score);
+                // $('#yesToTest').hide();
+                // $('#noToTest').show();
+                $('#isTested').hide();
+                $('#noToTest').hide();
                 $('#testRecord').html(data.score);
-                $('#yesToTest').hide();
-                $('#noToTest').show();
+                $('#yesToTest').show();
             }
         },
         error: function (xhr) {

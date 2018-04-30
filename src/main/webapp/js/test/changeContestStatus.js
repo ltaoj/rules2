@@ -4,6 +4,9 @@
 function changeStatus() {
     var testId = getContestId();
     var student_Id = getStudentId();
+
+    $('#loginMessage').css("display",'inline-block');
+
     var contestString = {studentId: student_Id, testId: testId};
     var contestregistion = $.toJSON(contestString);
     $.ajaxSetup({contentType: 'application/json'});
@@ -13,22 +16,22 @@ function changeStatus() {
         method: 'post',
         data: contestregistion,
         success: function (data) {
-            if(data.studentId!=student_Id){
+            if(data.studentId != student_Id){
                 //返回为空
                 getContestTime();
             }else {
-                    if (data.status == 0) {
-                        $('#regist').hide();
-                        $('#notBegin').show();
-                    }
-                    if (data.status == 1) {
-                        $('#regist').hide();
-                        $('#enter').show();
-                    }
-                    if (data.status == 2) {
-                        $('#regist').hide();
-                        $('#isEnd').show();
-                    }
+                if (data.status == 0) {
+                    $('#regist').hide();
+                    $('#notBegin').show();
+                }
+                if (data.status == 1) {
+                    $('#regist').hide();
+                    $('#enter').show();
+                }
+                if (data.status == 2) {
+                    $('#regist').hide();
+                    $('#isEnd').show();
+                }
             }
         },
         error: function (xhr) {

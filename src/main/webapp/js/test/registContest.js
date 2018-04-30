@@ -34,6 +34,7 @@ function registContest(){
         console.log('complete');
     });
 }
+//Sunss
 function regist() {
     if(getStudentId()!=null){
         registContest();

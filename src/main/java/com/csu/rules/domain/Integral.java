@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by ltaoj on 17-6-9.
  */
 @Entity
-@Table(name = "integral", schema = "schoolrulessystem", catalog = "")
+@Table(name = "integral", schema = "saverulessystem", catalog = "")
 @IdClass(IntegralPK.class)
 public class Integral {
     @Id

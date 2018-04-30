@@ -11,7 +11,8 @@ import java.util.List;
 public interface PaperrecordDAO {
 
     /**
-     * 将提交试卷写进数据库
+     *
+     *
      * @param paperrecord
      * @return
      * @throws PersistenceException

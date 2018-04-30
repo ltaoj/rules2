@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by CMM on 2017/6/9.
  */
 @Entity
-@Table(name = "testrecord", schema = "schoolrulessystem", catalog = "")
+@Table(name = "testrecord", schema = "saverulessystem", catalog = "")
 public class Testrecord {
     @Column(name = "score")
     private Integer score;

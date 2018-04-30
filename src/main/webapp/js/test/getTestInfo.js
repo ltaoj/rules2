@@ -41,9 +41,9 @@ $(function () {
             if(testInfo.name!=null) {
                 var startTime = (new Date(testInfo.startTime)).format("yyyy-MM-dd hh:mm:ss");
                 var endTime = (new Date(testInfo.endTime)).format("yyyy-MM-dd hh:mm:ss");
-                $('#testTime').append("考试时间:" + startTime + "--" + endTime);
-                $('#testGrade').append("考试要求:" + testInfo.grade + "级全体学生");
-                $('#testDuration').append("考试时间:" + testInfo.duration + "分钟");
+                $('#testTime').append("时间:" + startTime + "--" + endTime);
+                // $('#testGrade').append("考试要求:" + testInfo.grade + "级全体学生");
+                $('#testDuration').append("时间:" + testInfo.duration + "分钟");
                 $('#testName').append("考试名称:" + testInfo.name);
                 $('#test_name').append("考试名称:" + testInfo.name);
                 setTestId(testInfo.testId);
@@ -87,6 +87,7 @@ $(function () {
         url: 'test/testTimeStatus',
         dataType: 'text',
         method: 'GET',
+        //Sunss
         success: function (data) {
             var status=JSON.parse(data);
             switch (status.result){

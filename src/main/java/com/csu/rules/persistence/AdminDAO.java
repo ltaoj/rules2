@@ -21,6 +21,4 @@ public interface AdminDAO {
      * @throws PersistenceException
      */
     void insertAdmin(Admin admin) throws PersistenceException;
-
-
 }

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by GF on 2017/6/24.
  */
 Date.prototype.format = function(format) {
@@ -42,8 +42,8 @@ $(function () {
                 var startTime = (new Date(contestInfo.startTime)).format("yyyy-MM-dd hh:mm:ss");
                 var endTime = (new Date(contestInfo.endTime)).format("yyyy-MM-dd hh:mm:ss");
                 $('#contestTime').append("考试时间:" + startTime + "--" + endTime);
-                $('#contestGrade').append("考试要求:" + contestInfo.grade + "级全体学生");
-                $('#contestDuration').append("考试时间:" + contestInfo.duration + "分钟");
+                // $('#contestGrade').append("考试要求:" + contestInfo.grade + "级全体学生");
+                $('#contestDuration').append("时间:" + contestInfo.duration + "分钟");
                 $('#contestName').append("考试名称:" + contestInfo.name);
                 $('#contest_name').append("考试名称:" + contestInfo.name);
                 contestId = contestInfo.testId;

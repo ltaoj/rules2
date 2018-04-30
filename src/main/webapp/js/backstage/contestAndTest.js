@@ -508,14 +508,16 @@ function getContestRandomTitle() {
         method: 'get',
         async: false,
         success: function (data) {
+            //Sunss 就在这里，要把多选做得和判断一样都变成填空题
             var testTitleList=data.titleList;
             var testBlankTitleList=data.blanksList;
             var testJudgeTitleList=data.judgeList;
             var testShortTitleList=data.shortList;
             var testCaseTitleList=data.caseList;
             var testDiscussTitleList=data.discussList;
-            //选择题
-            $('#contest_title').append("一、选择题")
+            //Sunss 核心之一
+            //单选题
+            $('#contest_title').append("一、单选题")
             for (var i = 0; i < testTitleList.length; i++) {
                 $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                     "<tr>" +
@@ -528,17 +530,26 @@ function getContestRandomTitle() {
                 }
                 $('#contest_title').append("</table>");
             }
-            //填空题
-            $('#contest_title').append("<br>二、填空题")
+            //判断题
+            $('#contest_title').append("<br>二、判断题")
             for (var i = 0; i < testBlankTitleList.length; i++) {
                 $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
                     "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testBlankTitleList[i].name.replace(/#/g,"___") + "</th>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testBlankTitleList[i].name.replace(/#/g, "") + "</th>" +
                     "</tr>" +
                     "<br>");
-                for (var j = 0; j < (testBlankTitleList[i].name.split("#").length)-1; j++) {
-                    $('#contest_title').append("<tr><td>"+(j+1) + ".&nbsp;"+"<input type=\"text\" name=\"" + testBlankTitleList[i].titleId + "\" id=\"blankAnswer"+i+""+j+"\" />"+ "&nbsp;</td></tr>");
-                }
+                $('#contest_title').append("<br><textarea rows='1' cols='35' id=\"shortAnswer"+i+"\"></textarea>");
+                $('#contest_title').append("</table>");
+            }
+            //多选题
+            $('#contest_title').append("<br><br>三、多选题")
+            for (var i = 0; i < testShortTitleList.length; i++) {
+                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                    "<tr>" +
+                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name.replace(/#/g, "") + "</th>" +
+                    "</tr>" +
+                    "<br>");
+                $('#contest_title').append("<br><textarea rows='1' cols='35' id=\"shortAnswer"+i+"\"></textarea>");
                 $('#contest_title').append("</table>");
             }
             //onblur =\"addBlankTitleToTestList(" + i + "," + j + ",blankAnswer"+i+""+j+")\"
@@ -556,39 +567,39 @@ function getContestRandomTitle() {
             //     }
             //     $('#contest_title').append("</table>");
             // }
-            //简答题
-            $('#contest_title').append("<br><br>四、简答题")
-            for (var i = 0; i < testShortTitleList.length; i++) {
-                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                    "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "</th>" +
-                    "</tr>" +
-                    "<br>");
-                $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"shortAnswer"+i+"\"></textarea>");
-                $('#contest_title').append("</table>");
-            }
-            //案例分析题
-            $('#contest_title').append("<br><br>五、案例分析题")
-            for (var i = 0; i < testCaseTitleList.length; i++) {
-                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                    "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name + "</th>" +
-                    "</tr>" +
-                    "<br>");
-                $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"caseAnswer"+i+"\"></textarea>");
-                $('#contest_title').append("</table>");
-            }
-            //论述题
-            $('#contest_title').append("<br><br>六、论述题")
-            for (var i = 0; i < testDiscussTitleList.length; i++) {
-                $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                    "<tr>" +
-                    "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name + "</th>" +
-                    "</tr>" +
-                    "<br>");
-                $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"discussAnswer"+i+"\"></textarea>");
-                $('#contest_title').append("</table>");
-            }
+            // //简答题
+            // $('#contest_title').append("<br><br>四、简答题")
+            // for (var i = 0; i < testShortTitleList.length; i++) {
+            //     $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+            //         "<tr>" +
+            //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "</th>" +
+            //         "</tr>" +
+            //         "<br>");
+            //     $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"shortAnswer"+i+"\"></textarea>");
+            //     $('#contest_title').append("</table>");
+            // }
+            // //案例分析题
+            // $('#contest_title').append("<br><br>五、案例分析题")
+            // for (var i = 0; i < testCaseTitleList.length; i++) {
+            //     $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+            //         "<tr>" +
+            //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name + "</th>" +
+            //         "</tr>" +
+            //         "<br>");
+            //     $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"caseAnswer"+i+"\"></textarea>");
+            //     $('#contest_title').append("</table>");
+            // }
+            // //论述题
+            // $('#contest_title').append("<br><br>六、论述题")
+            // for (var i = 0; i < testDiscussTitleList.length; i++) {
+            //     $('#contest_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+            //         "<tr>" +
+            //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name + "</th>" +
+            //         "</tr>" +
+            //         "<br>");
+            //     $('#contest_title').append("<br><textarea rows='5' cols='70' id=\"discussAnswer"+i+"\"></textarea>");
+            //     $('#contest_title').append("</table>");
+            // }
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
@@ -634,6 +645,7 @@ function exitRandomGenerate() {
         console.log('complete');
     });
 }
+// Sunss 生成题目的地方呀
 function getContesttitle() {
     var testId=getContest_id();
     var testinfoJson={testId:testId};

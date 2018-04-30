@@ -7,9 +7,19 @@ import java.util.List;
  */
 public class SubmitPaper {
     private List<Title> titleList;  // 选择题列表
-    private List<Additiontitle> blanksList; // 填空题列表
-    private List<Additiontitle> judgeList; // 判断题列表
-    private String shortAnswer; //简答题回答内容
+    private List<Additiontitle> blanksList; // 判断列表,这个是我添加的
+    private List<Additiontitle> judgeList;
+    private List<Additiontitle> shortList;  // 多选题列表
+
+    public void setShortList(List<Additiontitle> shortList) {
+        this.shortList = shortList;
+    }
+
+    public List<Additiontitle> getShortList() {
+        return shortList;
+    }
+
+    private String shortAnswer; //简答题回答内容 // 其实不注释也没关系
     private String caseAnswer; //案例题回答内容
     private String discussAnswer; //论述题回答内容
 

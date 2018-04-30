@@ -13,6 +13,7 @@ import java.util.Set;
  * Created by ltaoj on 17-6-11.
  */
 public interface TitleService {
+    // Sunss 这里很核心
     /**
      * 试题练习获取试题,选择题
      * @param page
@@ -72,6 +73,7 @@ public interface TitleService {
      */
     List<Title> submitTitleList(Account account, List<Title> titleList) throws TitleServiceException;
 
+    List<Title> submitTitleList2( List<Title> titleList)throws TitleServiceException;
     /**
      * 试题练习模块提交非选择题目
      * @param account

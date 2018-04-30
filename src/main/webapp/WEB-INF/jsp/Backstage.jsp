@@ -1,4 +1,4 @@
-<%--
+﻿<%--
   Created by IntelliJ IDEA.
   User: CMM
   Date: 2017/7/2
@@ -9,7 +9,7 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>
-    <title>中南大学-校规校纪系统-后台管理系统</title>
+    <title>中南大学-网络安全知识竞赛-后台管理系统</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <!-- CSS Global Compulsory -->
@@ -126,16 +126,18 @@
             <div class="modal-body" style="overflow-y: scroll; height: 800px;">
                 <form class="bs-example bs-example-form" method="post">
                     <div id="paper_stu"><span>学号:</span><span id="paper_stuId"></span><span>&nbsp;&nbsp;姓名:</span><span
-                            id="paper_stuName"></span><span>&nbsp;&nbsp;学院:</span><span id="paper_stuCollege"></span>
+                            id="paper_stuName"></span><span>&nbsp;&nbsp;二级培养单位:</span><span id="paper_stuCollege"></span>
                         <span>&nbsp;&nbsp;专业:</span><span id="paper_stuMajor"></span><span>&nbsp;&nbsp;班级:</span><span
                                 id="paper_stuClass"></span></div>
                     <br>
-                    <div><span>填空题分数:</span><span id="paper_blankscore"></span></div>
+                    <%--Sunss 这里有一个填空题分数代表什么，那单选呢--%>
+                    <div><span>分数:</span><span id="paper_blankscore"></span></div>
                     <div id="paper_title"></div>
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
                                 style="width: 100px; text-align: center" onclick="correctPaper()"
-                                id="correct_submit" disabled="disabled">提交
+                                <%--id="correct_submit" disabled="disabled">提交--%>
+                                id="correct_submit" >提交
                         </button>
                     </div>
                 </form>
@@ -296,12 +298,16 @@
                                 <div>
                                     <label for="titleType">题目类型</label>
                                     <select id="titleType" class="form-control">
-                                        <option value="0">选择题</option>
-                                        <option value="1">填空题</option>
-                                        <option value="2">判断题</option>
-                                        <option value="3">简答题</option>
-                                        <option value="4">案例分析题</option>
-                                        <option value="5">论述题</option>
+                                        <%--<option value="0">选择题</option>--%>
+                                        <%--<option value="1">填空题</option>--%>
+                                        <%--<option value="2">判断题</option>--%>
+                                        <%--&lt;%&ndash;Sunss 这里或许会和关联着的有关系&ndash;%&gt;--%>
+                                        <%--<option value="3">简答题</option>--%>
+                                        <%--<option value="4">案例分析题</option>--%>
+                                        <%--<option value="5">论述题</option>--%>
+                                        <option value="0">单选题</option>
+                                        <option value="1">判断题</option>
+                                        <option value="2">多选题</option>
                                     </select>
                                 </div>
                                 <div>
@@ -342,13 +348,13 @@
                                                        id="contest_info_name">
                                             </div>
                                             <br>
-                                            <label>考试年级：</label>
-                                            <br>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" id="contest_grade" value="">
-                                                <span class="input-group-addon">级</span>
-                                            </div>
-                                            <br>
+                                            <%--<label>考试年级：</label>--%>
+                                            <%--<br>--%>
+                                            <%--<div class="input-group">--%>
+                                                <%--<input type="text" class="form-control" id="contest_grade" value="">--%>
+                                                <%--<span class="input-group-addon">级</span>--%>
+                                            <%--</div>--%>
+                                            <%--<br>--%>
                                             <label>开始时间：</label>
                                             <br>
                                             <div class="input-group">
@@ -427,13 +433,13 @@
                                                        id="test_info_name">
                                             </div>
                                             <br>
-                                            <label>考试年级：</label>
-                                            <br>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" id="test_grade" value="">
-                                                <span class="input-group-addon">级</span>
-                                            </div>
-                                            <br>
+                                            <%--<label>考试年级：</label>--%>
+                                            <%--<br>--%>
+                                            <%--<div class="input-group">--%>
+                                                <%--<input type="text" class="form-control" id="test_grade" value="">--%>
+                                                <%--<span class="input-group-addon">级</span>--%>
+                                            <%--</div>--%>
+                                            <%--<br>--%>
                                             <label>开始时间：</label>
                                             <br>
 
@@ -493,7 +499,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <%--Sunss 竞赛题目似乎不简单啊 --%>
                             <div class="box">
+                                <%--Sunss 这里和生成题目有很大关系--%>
+                                <%--Sunss 要让它变成每隔一段时间就会自己去触发这个生成事件 对 这才是简单的逻辑--%>
                                 <h3>指定竞赛题目</h3>
                                 <br>
                                 <%--<span>题库中含有：</span><label>1000</label><span>道题</span>&nbsp;--%>
@@ -540,30 +549,30 @@
                         <%--</div>--%>
                         <div class="main_bd">
                             <div class="box">
-                                <h3>查询年纪,学院，学校成绩(判断权限，改变内容)</h3>
+                                <h3>查询年级，二级培养单位，学校成绩(判断权限，改变内容)</h3>
                                 <br>
                                 <div style="width:100%;font-size: 15px;">
-                                    <span>学院:</span>
+                                    <span>二级培养单位:</span>
                                     <select id="college" onchange="getMajor(this.value, $('#major'), $('#clazz'))">
-                                        <option value="">请选择学院(默认全校)</option>
+                                        <option value="">请选择二级培养单位(默认全校)</option>
                                     </select>
-                                    <span>专业:</span>
-                                    <select id="major" onchange="getClazz(this.value, $('#clazz'))">
-                                        <option value=""></option>
-                                    </select>
-                                    <span>年级:</span>
-                                    <select id="grade">
-                                        <option value="2015">2015</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                    </select>
-                                    <span>班级:</span>
-                                    <select id="clazz">
-                                        <option value=""></option>
-                                    </select>
+                                    <%--<span>专业:</span>--%>
+                                    <%--<select id="major" onchange="getClazz(this.value, $('#clazz'))">--%>
+                                        <%--<option value=""></option>--%>
+                                    <%--</select>--%>
+                                    <%--<span>年级:</span>--%>
+                                    <%--<select id="grade">--%>
+                                        <%--<option value="2015">2015</option>--%>
+                                        <%--<option value="2016">2016</option>--%>
+                                        <%--<option value="2017">2017</option>--%>
+                                        <%--<option value="2018">2018</option>--%>
+                                        <%--<option value="2019">2019</option>--%>
+                                        <%--<option value="2020">2020</option>--%>
+                                    <%--</select>--%>
+                                    <%--<span>班级:</span>--%>
+                                    <%--<select id="clazz">--%>
+                                        <%--<option value=""></option>--%>
+                                    <%--</select>--%>
                                     <span>分数线</span>
                                     <select id="score">
                                     </select>
@@ -584,7 +593,7 @@
                                         <thead>
                                         <th>学号</th>
                                         <th>姓名</th>
-                                        <th>学院</th>
+                                        <th>二级培养单位</th>
                                         <th>专业</th>
                                         <th>年级</th>
                                         <th>班级</th>
@@ -595,6 +604,7 @@
                                 </div>
                             </div>
 
+                            <%--//Sunss 不需要审批试卷--%>
                             <div class="box">
                                 <h3>考试试卷审批</h3>
                                 <br>
@@ -602,7 +612,8 @@
                                 <button
                                         class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         id="test_correct_paper" data-toggle="" data-target=""
-                                        onclick="showPaper()" style="display: none">审批试卷
+                                        <%--onclick="showPaper()" style="display: none">审批试卷--%>
+                                        onclick="showPaper()" >审批试卷
                                 </button>
                             </div>
 
@@ -628,7 +639,7 @@
                                     </div>
                                     <br>
                                     <select id="type">
-                                        <option value="考试">考试</option>
+                                        <option value="考试">模拟</option>
                                         <option value="竞赛">竞赛</option>
                                     </select>
                                     &nbsp;
@@ -642,6 +653,7 @@
                         </div>
                     </li>
 
+                    <%--Sunss 这里竟然是发布通知--%>
                     <li class="hide">
                         <div class="main_bd">
                             <div class="box">
@@ -716,9 +728,9 @@
                                     <label><input name="role" type="radio" value="3" onclick="roleCheck()"/>辅导员 </label>&nbsp;
                                     <label><input name="role" type="radio" value="4" onclick="roleCheck()"/>教师 </label>
                                     <br>
-                                    <span>学院:</span>
+                                    <span>二级培养单位:</span>
                                     <select class="form-control" id="role_college" onclick="getColleges(this)" onchange="getMajor(this.value, $('#role_major'), $('#role_class'))" style="display: none">
-                                        <option value="学院">请选择学院(默认全校)</option>
+                                        <option value="二级培养单位">请选择二级培养单位(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
 

@@ -48,7 +48,12 @@ public class LearnServiceimpl implements LearnService {
     public List<Clockin> getAllClocks(Account account) throws LearnServiceException {
         try {
             LearnServiceException le = new LearnServiceException();
-            if (Long.toString(account.getStudentId()).length() != 10 || account.getUsername() == null) {
+            // 修改字段验证规则
+            // 如果学号以多个0开头，那么后台转换成long值后会将0去除
+            // 所以学号的位数可能小于10
+            // 2018-04-22 14:11:38
+            int len = Long.toString(account.getStudentId()).length();
+            if (len > 10 || len < 6 || account.getUsername() == null) {
                 le.setErrorCode(56);
                 throw le;
             }
@@ -64,7 +69,12 @@ public class LearnServiceimpl implements LearnService {
     public Clockin getClockDetailByDay(Account account, Timestamp datetime) throws LearnServiceException {
         try {
             LearnServiceException le = new LearnServiceException();
-            if (Long.toString(account.getStudentId()).length() != 10 || account.getUsername() == null) {
+            // 修改字段验证规则
+            // 如果学号以多个0开头，那么后台转换成long值后会将0去除
+            // 所以学号的位数可能小于10
+            // 2018-04-22 14:11:38
+            int len = Long.toString(account.getStudentId()).length();
+            if (len > 10 || len < 6 || account.getUsername() == null) {
                 le.setErrorCode(56);
                 throw le;
             }else if (datetime == null) {

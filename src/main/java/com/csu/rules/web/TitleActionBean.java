@@ -60,19 +60,40 @@ public class TitleActionBean extends AbstractActionBean {
      * @param accountTitles
      * @return
      */
-    @RequestMapping(value = "/submit", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Result> submit(@RequestBody AccountTitles accountTitles) {
+    // Sunss 填空并没有提交啊
+//    @RequestMapping(value = "/submit", method = RequestMethod.POST, consumes = "application/json")
+//    public ResponseEntity<Result> practiceAnswer(@RequestBody AccountTitles accountTitles) {
+//        try {
+//            List checkedTitleList = null;
+//            if (accountTitles.getTitleList() != null)
+//                checkedTitleList = titleService.submitTitleList(accountTitles.getAccount(), accountTitles.getTitleList());
+//            else
+//                checkedTitleList = titleService.submitAdditionList(accountTitles.getAccount(), accountTitles.getAdditiontitleList());
+//            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, checkedTitleList), HttpStatus.OK);
+//        } catch (TitleServiceException te) {
+//            throw new CatchServiceException(te);
+//        }
+//    }
+
+    @RequestMapping(value = "/practiceAnswer", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Paper> practiceAnswer(@RequestBody AccountTitles accountTitles) {
         try {
+            Paper paper = new Paper();
             List checkedTitleList = null;
-            if (accountTitles.getTitleList() != null)
-                checkedTitleList = titleService.submitTitleList(accountTitles.getAccount(), accountTitles.getTitleList());
-            else
+            if (accountTitles.getTitleList() != null){
+                checkedTitleList = titleService.submitTitleList2(accountTitles.getTitleList());
+                paper.setTitleList(checkedTitleList);
+            } else {
                 checkedTitleList = titleService.submitAdditionList(accountTitles.getAccount(), accountTitles.getAdditiontitleList());
-            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS, checkedTitleList), HttpStatus.OK);
+                paper.setBlanksList(checkedTitleList);
+            }
+            return new ResponseEntity<Paper>(paper, HttpStatus.OK);
         } catch (TitleServiceException te) {
             throw new CatchServiceException(te);
         }
     }
+
+
 
     @RequestMapping(value = "/wrongList", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> wrongList(@RequestBody Account account) {
@@ -155,5 +176,4 @@ public class TitleActionBean extends AbstractActionBean {
         }
         return idList;
     }
-
 }

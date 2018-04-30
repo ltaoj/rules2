@@ -36,7 +36,12 @@ public class AccountServiceimpl implements AccountService {
         try {
             AccountServiceException ae = new AccountServiceException();
             // 字段验证
-            if (Long.toString(studentId).length() != 10) {
+            // 修改字段验证规则
+            // 如果学号以多个0开头，那么后台转换成long值后会将0去除
+            // 所以学号的位数可能小于10
+            // 2018-04-22 14:11:38
+            int len = Long.toString(studentId).length();
+            if (len > 10 || len < 6) {
                 ae.setErrorCode(0);
                 throw ae;
             } else if (password == null || password.length() < 6) {
@@ -100,6 +105,33 @@ public class AccountServiceimpl implements AccountService {
     public void insertAdmin(Admin admin) throws AccountServiceException {
         try {
             adminDAO.insertAdmin(admin);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+//    插入用户
+    public void insertUser(Account account) throws AccountServiceException {
+        try {
+            accountDAO.insertUserInfo(account);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public void insertUserList(List<Account> accountList) throws AccountServiceException {
+      for(Account a:accountList) {
+        this.insertUser(a);
+      }
+    }
+    
+    public void insertSignon(Signon signon) throws AccountServiceException {
+        try {
+            signonDAO.insertSignonInfo(signon);
         } catch (PersistenceException pe) {
             AccountServiceException ae = new AccountServiceException(pe);
             ae.setErrorCode(100);

@@ -1,6 +1,7 @@
 package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.domain.Signon;
 import com.csu.rules.exception.PersistenceException;
 
 
@@ -17,4 +18,6 @@ public interface SignonDAO {
      * @throws PersistenceException
      */
     Account login(long studentId, String password) throws PersistenceException;
+
+    void insertSignonInfo(Signon signon);
 }

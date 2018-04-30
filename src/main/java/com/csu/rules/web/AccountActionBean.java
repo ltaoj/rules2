@@ -105,6 +105,26 @@ public class AccountActionBean extends AbstractActionBean {
         }
     }
 
+    @RequestMapping(value = "/registerForInfo", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> register(@RequestBody Account account) {
+        try {
+            accountService.insertUser(account);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (AccountServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
+    @RequestMapping(value = "/registerForAccount", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> register(@RequestBody Signon signon) {
+        try {
+            accountService.insertSignon(signon);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
+        } catch (AccountServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+
     @RequestMapping(value = "/insertFeedback", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Result> insertFeedback(@RequestBody Feedback feedback) {
         try {
@@ -121,6 +141,17 @@ public class AccountActionBean extends AbstractActionBean {
         try {
             List<Feedback> list=accountService.getFeedbackList();
             return new ResponseEntity<List<Feedback>>(list, HttpStatus.OK);
+        } catch (AccountServiceException e) {
+            throw new CatchServiceException(e);
+        }
+    }
+    
+        // 2018/04/22添加 只用于批量添加AccountInfo
+    @RequestMapping(value = "/insertAccount", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Result> register(@RequestBody List<Account> accountList) {
+        try {
+            accountService.insertUserList(accountList);
+            return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (AccountServiceException e) {
             throw new CatchServiceException(e);
         }

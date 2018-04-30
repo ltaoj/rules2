@@ -54,6 +54,21 @@ public class AccountDAOimpl extends AbstractDAO implements AccountDAO {
 
     }
 
+    public void insertUserInfo(Account account) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
+        try {
+            session.save(account);
+            session.flush();
+            transaction.commit();
+        } catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        } finally {
+            session.close();
+        }
+    }
+
     public List<Account> getAccountListByCondition(String college) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);

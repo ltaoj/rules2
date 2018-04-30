@@ -9,6 +9,7 @@ import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -58,6 +59,7 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
             Criteria criteria=session.createCriteria(Testrecord.class);
             criteria.add(Restrictions.eq("studentId",new Long(testrecord.getStudentId())));
             criteria.add(Restrictions.eq("testId",testrecord.getTestId()));
+            criteria.addOrder(Order.desc("startTime"));
             List<Testrecord> list=criteria.list();
             session.flush();
             transaction.commit();
@@ -140,6 +142,9 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
     }
 
     private String formatHql(String clazz, int grade, String major, String college, int level) {
+        // Sunss 这里我只要竞赛信息
+//        String hql =  "select new com.csu.rules.domain.AccountTestRecord(a.studentId, a.username, a.clazz, a.grade, a.major, a.college, t.score) " +
+//                "from Testrecord as t, Account as a where ";
         String hql =  "select new com.csu.rules.domain.AccountTestRecord(a.studentId, a.username, a.clazz, a.grade, a.major, a.college, t.score) " +
                 "from Testrecord as t, Account as a where ";
         int initSize = hql.length();

@@ -12,7 +12,7 @@ function personalPopover() {
                 trigger: "click",
                 html: true,
                 container: 'body',
-                content: "姓名：<label >" + account.username + "</label> <br>学号：<label>" + account.studentId + "</label> <br> 学校：<label>" + account.school + "</label><br> 学院：<label>" + account.college + "</label><br><div align='right'><button class='btn btn-success btn-xs' onClick='exit()'>注销</button></div>"
+                content: "姓名：<label >" + account.username + "</label> <br>学号：<label>" + account.studentId + "</label> <br> 学校：<label>" + "中南大学" + "</label><br> 学院：<label>" + account.college + "</label><br><div align='right'><button class='btn btn-success btn-xs' onClick='exit()'>注销</button></div>"
             });
     if (!personalPopFlag) {
         var btn = document.getElementById("personal");
@@ -25,7 +25,7 @@ function exit() {
     var btn = document.getElementById("personal");
     btn.click();
     $("[data-toggle='personal']").popover('hide');
-    deleteCookie('signon');
+    $.cookie("signon",'',{expires:-1,path:'/'})
     setAccount(null);
     setStundentId(null);
     $('#isTested').html("未登录");
@@ -35,7 +35,7 @@ function exit() {
     $('#isEnd').hide();
     $('#notbegin').hide();
     $('#enter').hide();
-    $('#regist').show();
+    $('#register-li').show();
 
     $('#rank').html('--');
     $('#testRecord').html('--');

@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by GF on 2017/6/8.
  */
+// 我要设置只能考一次就说明要在这里进行操作了
 public interface ContestTestDAO {
     /**
      * 报名竞赛

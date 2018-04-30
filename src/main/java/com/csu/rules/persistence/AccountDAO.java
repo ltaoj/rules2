@@ -28,6 +28,14 @@ public interface AccountDAO {
     void insertUserInfoList(List<Account> accountList) throws PersistenceException;
 
     /**
+     * 通过注册插入用户信息
+     *
+     * @param account
+     * @throws PersistenceException
+     */
+    void insertUserInfo(Account account) throws PersistenceException;
+
+    /**
      * 通过权限条件获取学生
      * @param college
      * @return

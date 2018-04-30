@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by ltaoj on 17-6-9.
  */
 @Entity
-@Table(name = "choice", schema = "schoolrulessystem", catalog = "")
+@Table(name = "choice", schema = "saverulessystem", catalog = "")
 public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

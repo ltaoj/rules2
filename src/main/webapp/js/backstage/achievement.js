@@ -117,9 +117,10 @@ function formatCondition() {
     var scoreSelect = $('#score')[0];
     var conditionMsg = '';
     collegeSelect.options.selectedIndex == 0 ? conditionMsg += "中南大学所有学院" : conditionMsg += ('中南大学' + collegeSelect.options[collegeSelect.options.selectedIndex].text);
-    majorSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += (majorSelect.options[majorSelect.options.selectedIndex].text + '专业');
-    conditionMsg += (gradeSelect.options[gradeSelect.options.selectedIndex].text + '级');
-    clazzSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += (clazzSelect.options[clazzSelect.options.selectedIndex].text);
+    // majorSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += (majorSelect.options[majorSelect.options.selectedIndex].text + '专业');
+    // conditionMsg += "";
+    // conditionMsg += (gradeSelect.options[gradeSelect.options.selectedIndex].text + '级');
+    // clazzSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += (clazzSelect.options[clazzSelect.options.selectedIndex].text);
     scoreSelect.options.selectedIndex == 0 ? conditionMsg += "" : conditionMsg += ('分数在' + scoreSelect.options[scoreSelect.options.selectedIndex].text + '分以上');
     return conditionMsg;
 }
@@ -136,7 +137,7 @@ function getColleges(obj) {
             addOption($(obj), data, "college");
         }
 
-    })
+    });
     init($('#score'), 100);
 }
 
@@ -145,10 +146,10 @@ function getColleges(obj) {
  * @param collegeId 学院编号
  */
 function getMajor(collegeId, majorObj, classObj) {
-    clearOptions($(majorObj)[0]);
-    clearOptions($(classObj)[0]);
-    collegeId == "" ? setDisabled($(majorObj)[0], true) : setDisabled($(majorObj)[0], false);
-    setDisabled($(classObj)[0], true);
+    // clearOptions($(majorObj)[0]);
+    // clearOptions($(classObj)[0]);
+    // collegeId == "" ? setDisabled($(majorObj)[0], true) : setDisabled($(majorObj)[0], false);
+    // setDisabled($(classObj)[0], true);
     var json = {};
     json.collegeId = parseInt(collegeId);
     $.ajaxSetup({contentType: 'application/json'});
@@ -213,10 +214,16 @@ function query() {
     var scoreSelect = $('#score')[0];
     var json = {};
     json.college = collegeSelect.options.selectedIndex == 0 ? "" : collegeSelect.options[collegeSelect.options.selectedIndex].text;
-    json.major = majorSelect.options.selectedIndex == 0 ? "" : majorSelect.options[majorSelect.options.selectedIndex].text;
-    json.grade = gradeSelect.options.selectedIndex == 0 ? 0 : gradeSelect.options[gradeSelect.options.selectedIndex].text;
-    json.clazz = clazzSelect.options.selectedIndex == 0 ? "" : clazzSelect.options[clazzSelect.options.selectedIndex].text;
+    // json.major = majorSelect.options.selectedIndex == 0 ? "" : majorSelect.options[majorSelect.options.selectedIndex].text;
+    // json.grade = gradeSelect.options.selectedIndex == 0 ? 0 : gradeSelect.options[gradeSelect.options.selectedIndex].text;
+    // json.clazz = clazzSelect.options.selectedIndex == 0 ? "" : clazzSelect.options[clazzSelect.options.selectedIndex].text;
+    json.major = "";
+    json.grade = "";
+    json.clazz = "";
     json.level = scoreSelect.options.selectedIndex == 0 ? 0 : scoreSelect.options[scoreSelect.options.selectedIndex].text;
+
+    console.log(json.college + typeof (json.college));
+        // console.log("Hello");
 
     $.ajax({
         url: '../test/recordListByCondition',

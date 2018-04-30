@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by ltaoj on 17-7-2.
  */
 @Entity
-@Table(name = "testtitle", schema = "schoolrulessystem", catalog = "")
+@Table(name = "testtitle", schema = "saverulessystem", catalog = "")
 @IdClass(TesttitlePK.class)
 public class Testtitle {
     @Id

@@ -1,4 +1,4 @@
-var student_id;
+﻿var student_id;
 var account;
 
 
@@ -7,6 +7,7 @@ function login() {
     var password;
     studentId = $('#studentId').val();
     password = $('#password').val();
+  //  if(studentId.length===9){studentId="0"+studentId;}
     var signonString = {studentId: studentId, password: password};
     var signonJson = $.toJSON(signonString);
     loginForJson(signonJson);
@@ -19,7 +20,7 @@ function loginForJson(signonJson) {
         method: 'POST',
         data: signonJson,
         success: function (data) {
-            if (data.code == undefined) {
+            if (data.code === undefined) {
                 setCookie('signon', signonJson);
                 $('#loginModal').modal('hide');
                 $('#login-li').hide();
@@ -30,9 +31,12 @@ function loginForJson(signonJson) {
                 getContestRecord(data.studentId);
                 isRegisted();
                 $("#isSimulationLogin").html("&nbsp;");
-                $("#isWrongTitleLogin").html("&nbsp;");
+                $('#isSimulationBlankLogin').html("&nbsp;");
+                $('#isSimulationShortLogin').html("&nbsp;");
+                // $("#isWrongTitleLogin").html("&nbsp;");
                 $("#isLogin").html("&nbsp;");
                 $("#isContestLogin").html("&nbsp;");
+                $("#register-li").hide();
                 changeStatus();
             } else {
                 $('#loginMessage').html("用户名或密码错误");

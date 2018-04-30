@@ -80,6 +80,28 @@ public interface AccountService {
     void insertAdmin(Admin admin) throws AccountServiceException;
 
     /**
+     * 添加用户信息
+     * @param account
+     * @throws AccountServiceException
+     */
+    void insertUser(Account account) throws AccountServiceException;
+
+   /**
+     * 批量添加用户信息
+     * 2018/04/22 添加
+     * @param account
+     * @throws AccountServiceException
+     */
+    void insertUserList(List<Account> accountList) throws AccountServiceException;
+    
+    /**
+     * 添加用户账号
+     * @param signon
+     * @throws AccountServiceException
+     */
+    void insertSignon(Signon signon) throws AccountServiceException;
+
+    /**
      * 添加反馈信息
      * @param feedback
      * @throws AccountServiceException

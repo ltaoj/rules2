@@ -2,7 +2,7 @@
  * Created by GF on 2017/8/17.
  */
 var accountPaperRecord;
-
+//Sunss 这里就是实现不用批改的逻辑的地方了
 function getPaperList(testId) {
     var adminTestinfo = {testId: testId,rolerange:admin.rolerange}
     $.ajaxSetup({contentType: 'application/json'});
@@ -44,51 +44,51 @@ function getPaperList(testId) {
                 var testShortTitleList = accountPaperRecord.paper.shortList;
                 var testCaseTitleList = accountPaperRecord.paper.caseList;
                 var testDiscussTitleList = accountPaperRecord.paper.discussList;
-                //简答题
-                $('#paper_title').append("<br><br>四、简答题")
-                for (var i = 0; i < testShortTitleList.length; i++) {
-                    $('#paper_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                        "<tr>" +
-                        "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "("+testShortTitleList[i].score+"分)"+"</th>" +
-                        "</tr>" +
-                        "<tr>" +
-                        "<th colspan=\"2\"><span>请输入本题得分：</span>&nbsp;<input type='text' id=\"shortTitleScore" + i + "\" size='4' onchange=\"checkShortScore("+i+")\"/>" + "</th>" +
-                        "<th colspan=\"2\"><span id=\"shortScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
-                        "</tr>" +
-                        "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"shortAnswer" + i + "\">" + testShortTitleList[i].answer + "</textarea>");
-                    $('#paper_title').append("</table>+<br>");
-                }
-                //案例分析题
-                $('#paper_title').append("<br><br>五、案例分析题")
-                for (var i = 0; i < testCaseTitleList.length; i++) {
-                    $('#paper_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                        "<tr>" +
-                        "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name +"("+testCaseTitleList[i].score+"分)"+ "</th>" +
-                        "</tr>" +
-                        "<tr>" +
-                        "<th colspan=\"2\"><span>请输入本题得分：</span>&nbsp;<input type='text' id=\"caseTitleScore" + i + "\" size='4' onchange=\"checkCaseScore("+i+")\"/> " + "</th>" +
-                        "<th colspan=\"2\"><span id=\"caseScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
-                        "</tr>" +
-                        "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"caseAnswer" + i + "\">" + testCaseTitleList[i].answer + "</textarea>");
-                    $('#paper_title').append("</table>+<br>");
-                }
-                //论述题
-                $('#paper_title').append("<br><br>六、论述题")
-                for (var i = 0; i < testDiscussTitleList.length; i++) {
-                    $('#paper_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
-                        "<tr>" +
-                        "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name +"("+testDiscussTitleList[i].score+"分)"+ "</th>" +
-                        "</tr>" +
-                        "<tr>" +
-                        "<th colspan=\"2\"><span>请输入本题得分：</span>&nbsp;<input type='text' id=\"discussTitleScore" + i + "\" size='4' onchange=\"checkDiscussScore("+i+")\"/>" + "</th>" +
-                        "<th colspan=\"2\"><span id=\"discussScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
-                        "</tr>" +
-                        "<br>");
-                    $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"discussAnswer" + i + "\">" + testDiscussTitleList[i].answer + "</textarea>");
-                    $('#paper_title').append("</table>+<br>");
-                }
+                // //简答题
+                // $('#paper_title').append("<br><br>四、简答题")
+                // for (var i = 0; i < testShortTitleList.length; i++) {
+                //     $('#paper_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                //         "<tr>" +
+                //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testShortTitleList[i].name + "("+testShortTitleList[i].score+"分)"+"</th>" +
+                //         "</tr>" +
+                //         "<tr>" +
+                //         "<th colspan=\"2\"><span>请输入本题得分：</span>&nbsp;<input type='text' id=\"shortTitleScore" + i + "\" size='4' onchange=\"checkShortScore("+i+")\"/>" + "</th>" +
+                //         "<th colspan=\"2\"><span id=\"shortScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
+                //         "</tr>" +
+                //         "<br>");
+                //     $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"shortAnswer" + i + "\">" + testShortTitleList[i].answer + "</textarea>");
+                //     $('#paper_title').append("</table>+<br>");
+                // }
+                // //案例分析题
+                // $('#paper_title').append("<br><br>五、案例分析题")
+                // for (var i = 0; i < testCaseTitleList.length; i++) {
+                //     $('#paper_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                //         "<tr>" +
+                //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testCaseTitleList[i].name +"("+testCaseTitleList[i].score+"分)"+ "</th>" +
+                //         "</tr>" +
+                //         "<tr>" +
+                //         "<th colspan=\"2\"><span>请输入本题得分：</span>&nbsp;<input type='text' id=\"caseTitleScore" + i + "\" size='4' onchange=\"checkCaseScore("+i+")\"/> " + "</th>" +
+                //         "<th colspan=\"2\"><span id=\"caseScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
+                //         "</tr>" +
+                //         "<br>");
+                //     $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"caseAnswer" + i + "\">" + testCaseTitleList[i].answer + "</textarea>");
+                //     $('#paper_title').append("</table>+<br>");
+                // }
+                // //论述题
+                // $('#paper_title').append("<br><br>六、论述题")
+                // for (var i = 0; i < testDiscussTitleList.length; i++) {
+                //     $('#paper_title').append("<table style=\"font-family: '宋体'; font-size: 20px;\">" +
+                //         "<tr>" +
+                //         "<th colspan=\"4\"><span>" + (i + 1) + ".</span>" + testDiscussTitleList[i].name +"("+testDiscussTitleList[i].score+"分)"+ "</th>" +
+                //         "</tr>" +
+                //         "<tr>" +
+                //         "<th colspan=\"2\"><span>请输入本题得分：</span>&nbsp;<input type='text' id=\"discussTitleScore" + i + "\" size='4' onchange=\"checkDiscussScore("+i+")\"/>" + "</th>" +
+                //         "<th colspan=\"2\"><span id=\"discussScoreMsg" + i + "\" style='color: #e0080b'></span>" + "</th>" +
+                //         "</tr>" +
+                //         "<br>");
+                //     $('#paper_title').append("<br><textarea rows='5' cols='40' id=\"discussAnswer" + i + "\">" + testDiscussTitleList[i].answer + "</textarea>");
+                //     $('#paper_title').append("</table>+<br>");
+                // }
             }
         },
         error: function (xhr) {
@@ -135,35 +135,40 @@ function showSearchPaper() {
     $('#search_paper').attr("data-toggle", "modal");
     $('#search_paper').attr("data-target", "#correctPaperModal");
 }
+
+//Sunss这是批试卷？我怎么一次都没见过
 function correctPaperBT(testId) {
-    if (document.getElementById("correct_submit").innerText == '审批完毕') {
-        $('#correctPaperModal').modal('hide');
-    } else if(document.getElementById("correct_submit").innerText == '试卷不存在'){
-        $('#correctPaperModal').modal('hide');
-    }else{
-        var shortScore = 0;
-        var caseScore = 0;
-        var discussScore = 0;
-        var totalScore = 0;
-        var i = 0;
-        var j = 0;
-        var k = 0;
-        while ($("#" + "shortTitleScore" + i).length > 0) {
-            var score = $("#" + "shortTitleScore" + i).val();
-            shortScore += parseInt(score);
-            i++;
-        }
-        while ($("#" + "caseTitleScore" + j).length > 0) {
-            var score = $("#" + "caseTitleScore" + j).val();
-            caseScore += parseInt(score);
-            j++;
-        }
-        while ($("#" + "discussTitleScore" + k).length > 0) {
-            var score = $("#" + "discussTitleScore" + k).val();
-            discussScore += parseInt(score);
-            k++;
-        }
-        totalScore = parseInt(shortScore) + parseInt(caseScore) + parseInt(discussScore);
+    // if (document.getElementById("correct_submit").innerText == '审批完毕') {
+    //     $('#correctPaperModal').modal('hide');
+    // } else if(document.getElementById("correct_submit").innerText == '试卷不存在'){
+    //     $('#correctPaperModal').modal('hide');
+    // }else{
+    //     var shortScore = 0;
+    //     var caseScore = 0;
+    //     var discussScore = 0;
+    //     var totalScore = 0;
+    //     var i = 0;
+    //     var j = 0;
+    //     var k = 0;
+    //     while ($("#" + "shortTitleScore" + i).length > 0) {
+    //         var score = $("#" + "shortTitleScore" + i).val();
+    //         shortScore += parseInt(score);
+    //         i++;
+    //     }
+    //     while ($("#" + "caseTitleScore" + j).length > 0) {
+    //         var score = $("#" + "caseTitleScore" + j).val();
+    //         caseScore += parseInt(score);
+    //         j++;
+    //     }
+    //     while ($("#" + "discussTitleScore" + k).length > 0) {
+    //         var score = $("#" + "discussTitleScore" + k).val();
+    //         discussScore += parseInt(score);
+    //         k++;
+    //     }
+    //     totalScore = parseInt(shortScore) + parseInt(caseScore) + parseInt(discussScore);
+
+    // Sunss Test
+    var totalScore = 200;
         var scoreInfo = {
             studentId: document.getElementById("paper_stuId").innerText,
             testId: testId,
@@ -199,7 +204,6 @@ function correctPaperBT(testId) {
             // 不管成功或失败都要做的工作
             console.log('complete');
         });
-    }
 }
 
 function correctPaper() {

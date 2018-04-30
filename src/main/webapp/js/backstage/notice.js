@@ -1,6 +1,9 @@
 /**
  * Created by CMM on 2017/7/5.
  */
+
+//Sunss 似乎和前端显示脱节的通知
+
 var flag1 = false;
 var flag2 = false;
 function getNoticeForPicture() {

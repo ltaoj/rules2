@@ -52,7 +52,7 @@ public class ClazzDAOimpl extends AbstractDAO implements ClazzDAO {
             Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {
-            String hql = "from Clazz as clazz where name=" + name;
+            String hql = "from Clazz as clazz where name='" + name + "'";
             List<Clazz> list = session.createQuery(hql).list();
             session.flush();
             transaction.commit();

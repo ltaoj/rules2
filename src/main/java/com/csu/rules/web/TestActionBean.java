@@ -76,21 +76,28 @@ public class TestActionBean extends AbstractActionBean {
 
     //开始考试 插入考试时间信息 判断剩余时间
 
+    //Sunss 估计最初判断题题只是没有数据源而已，但是设计了
     @RequestMapping(value = "/startTest", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Paper> getTestTitle(@RequestBody Testrecord testrecord) {
         try {
-            Testrecord testrecord1 = testService.getTestRecord(testrecord);
-            if (testrecord1 == null) {
-                String choiceFormatRandomId = titleService.getRandomIntegerList(2);
-                String blankFormatRandomId = titleService.getRandomIntegerListByType(2, 1);
-                String judgeFormatRandomId = titleService.getRandomIntegerListByType(2, 2);
-                String shortFormatRandomId = titleService.getRandomIntegerListByType(2, 3);
-                String caseFormatRandomId = titleService.getRandomIntegerListByType(2, 4);
-                String discussFormatRandomId = titleService.getRandomIntegerListByType(2, 5);
+//            Testrecord testrecord1 = testService.getTestRecord(testrecord);
+//            if (testrecord1 == null) {
+                String choiceFormatRandomId = titleService.getRandomIntegerList(20); // 单选
+                String blankFormatRandomId = titleService.getRandomIntegerListByType(10, 1);
+                String judgeFormatRandomId = titleService.getRandomIntegerListByType(0, 2);
+                String shortFormatRandomId = titleService.getRandomIntegerListByType(10, 3);
+                String caseFormatRandomId = titleService.getRandomIntegerListByType(0, 4);
+                String discussFormatRandomId = titleService.getRandomIntegerListByType(0, 5);
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
+                Testtitle testtitle1 = testService.getTesttitleByTestrecord(testrecord);
+                if (testtitle1 != null) {
+                    testService.deleteTestTitle(testrecord);
+                }
                 testService.insertTesttitle(testrecord, choiceFormatRandomId, blankFormatRandomId, judgeFormatRandomId, shortFormatRandomId, caseFormatRandomId, discussFormatRandomId);
-            }
+//            }
+
+
             Testtitle testtitle = testService.getTesttitleByTestrecord(testrecord);
             List<Title> choiceList = titleService.getTitleListByFormatString(testtitle.getTitleIds());
             List<Additiontitle> blankList = titleService.getAdditiontitleListByFormatString(testtitle.getBlankIds());
@@ -98,11 +105,13 @@ public class TestActionBean extends AbstractActionBean {
             List<Additiontitle> shortList = titleService.getAdditiontitleListByFormatString(testtitle.getShortIds());
             List<Additiontitle> caseList = titleService.getAdditiontitleListByFormatString(testtitle.getCaseIds());
             List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(testtitle.getDiscussIds());
+
+            // 卷面对象
             Paper paper = new Paper();
             paper.setTitleList(choiceList);
-            paper.setBlanksList(blankList);
+            paper.setBlanksList(blankList); // 判断
             paper.setJudgeList(judgeList);
-            paper.setShortList(shortList);
+            paper.setShortList(shortList); // 多选
             paper.setCaseList(caseList);
             paper.setDiscussList(discussList);
             return new ResponseEntity<Paper>(paper, HttpStatus.OK);
@@ -152,32 +161,64 @@ public class TestActionBean extends AbstractActionBean {
     }
 
     //提交考试 获取考试成绩 更新testRecord
-    @RequestMapping(value = "/submitTest", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = {"/submitTest"}, method = {RequestMethod.POST}, consumes = {"application/json"})
     public ResponseEntity<Testrecord> submitTest(@RequestBody RecordTitles recordTitles) {
         try {
             Testrecord testrecord = testService.getTestRecord(recordTitles.getTestrecord());
             testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-            testrecord.setScore(new Integer(-1));//表示考试已经完成
+//            int choiceScore = 0;
+//            int blankScore = 0;
+//            int shortScore = 0;
+            int choiceScore = titleService.getTitlePageScore(recordTitles.getSubmitPaper().getTitleList());//选择题分数
+//            System.out.println("1");
+            int blankScore = titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getBlanksList());//判断题分数
+//            System.out.println("2");
+            int shortScore = titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getShortList()); // 多选题分数
+//            System.out.println("3");
+            int totalScore = choiceScore + blankScore + shortScore;
+            testrecord.setScore(totalScore);
             testService.updateTestRecord(testrecord);
-            //int choiceScore = titleService.getTitlePageScore(recordTitles.getSubmitPaper().getTitleList());//选择题分数
-            int blankScore = titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getBlanksList());//填空题分数
             Paperrecord paperrecord = new Paperrecord();
             paperrecord.setStudentId(recordTitles.getTestrecord().getStudentId());
             paperrecord.setTestId(recordTitles.getTestrecord().getTestId());
-            //paperrecord.setChoiceScore(choiceScore);
-            paperrecord.setBlankScore(blankScore);
+            paperrecord.setBlankScore(blankScore+shortScore);
             paperrecord.setShortAnswer(recordTitles.getSubmitPaper().getShortAnswer());
             paperrecord.setCaseAnswer(recordTitles.getSubmitPaper().getCaseAnswer());
             paperrecord.setDiscussAnswer(recordTitles.getSubmitPaper().getDiscussAnswer());
-            paperrecord.setIsCorrected(0);
+            paperrecord.setIsCorrected(1);
             testService.insertPaperrecord(paperrecord);
-            return new ResponseEntity<Testrecord>(testrecord, HttpStatus.OK);
-        } catch (TitleServiceException te) {
-            throw new CatchServiceException(te);
-        } catch (TestServiceException e) {
-            throw new CatchServiceException(e);
+            return new ResponseEntity(testrecord, HttpStatus.OK);
+        } catch (TitleServiceException var5) {
+            throw new CatchServiceException(var5);
+        } catch (TestServiceException var6) {
+            throw new CatchServiceException(var6);
         }
     }
+//    @RequestMapping(value = {"/submitTest"}, method = {RequestMethod.POST}, consumes = {"application/json"})
+//    public ResponseEntity<Testrecord> submitTest(@RequestBody RecordTitles recordTitles) {
+//        try {
+//            Testrecord testrecord = this.testService.getTestRecord(recordTitles.getTestrecord());
+//            testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+//            int blankScore = this.titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getBlanksList());
+//            int shortScore = 2 * this.titleService.getAdditiontitlePageScore(recordTitles.getSubmitPaper().getShortList());
+//            testrecord.setScore(new Integer(-1));
+//            this.testService.updateTestRecord(testrecord);
+//            Paperrecord paperrecord = new Paperrecord();
+//            paperrecord.setStudentId(recordTitles.getTestrecord().getStudentId());
+//            paperrecord.setTestId(recordTitles.getTestrecord().getTestId());
+//            paperrecord.setBlankScore(blankScore+shortScore);
+//            paperrecord.setShortAnswer(recordTitles.getSubmitPaper().getShortAnswer());
+//            paperrecord.setCaseAnswer(recordTitles.getSubmitPaper().getCaseAnswer());
+//            paperrecord.setDiscussAnswer(recordTitles.getSubmitPaper().getDiscussAnswer());
+//            paperrecord.setIsCorrected(1);
+//            this.testService.insertPaperrecord(paperrecord);
+//            return new ResponseEntity(testrecord, HttpStatus.OK);
+//        } catch (TitleServiceException var5) {
+//            throw new CatchServiceException(var5);
+//        } catch (TestServiceException var6) {
+//            throw new CatchServiceException(var6);
+//        }
+//    }
 
     //获取竞赛排名
     @RequestMapping(value = "/getContsetRank", method = RequestMethod.POST, consumes = "application/json")
@@ -260,6 +301,7 @@ public class TestActionBean extends AbstractActionBean {
     }
 
     //开始竞赛 插入时间信息 返回确定竞赛试题
+    // Sunss 通过改变这里，让它变成和测试一样
     @RequestMapping(value = "/startContest", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Paper> getContestTitle(@RequestBody Testrecord testrecord) {
         try {
@@ -268,13 +310,40 @@ public class TestActionBean extends AbstractActionBean {
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
             }
-            Contesttitle contesttitle = testService.getContesttitle(testrecord.getTestId());
-            List<Title> choiceList = titleService.getTitleListByFormatString(contesttitle.getTitleIds());
-            List<Additiontitle> blankList = titleService.getAdditiontitleListByFormatString(contesttitle.getBlankIds());
-            List<Additiontitle> judgeList = titleService.getAdditiontitleListByFormatString(contesttitle.getJudgeIds());
-            List<Additiontitle> shortList = titleService.getAdditiontitleListByFormatString(contesttitle.getShortIds());
-            List<Additiontitle> caseList = titleService.getAdditiontitleListByFormatString(contesttitle.getCaseIds());
-            List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(contesttitle.getDiscussIds());
+
+            // 生成
+            Testinfo contestInfo = testService.getContestInfoList().get(0);
+            String choiceRandomIds = titleService.getRandomIntegerList(20);
+            String blankRandomIds = titleService.getRandomIntegerListByType(10, 1);
+            String judgeRandomIds = titleService.getRandomIntegerListByType(0, 2);
+            String shortRandomIds = titleService.getRandomIntegerListByType(10, 3);
+            String caseRandomIds = titleService.getRandomIntegerListByType(0, 4);
+            String discussRandomIds = titleService.getRandomIntegerListByType(0, 5);
+//            Contesttitle newcontesttitle = new Contesttitle();
+//            newcontesttitle.setTestId(contestInfo.getTestId());
+//            newcontesttitle.setTitleIds(choiceRandomIds);
+//            newcontesttitle.setBlankIds(blankRandomIds);
+//            newcontesttitle.setJudgeIds(judgeRandomIds);
+//            newcontesttitle.setShortIds(shortRandomIds);
+//            newcontesttitle.setCaseIds(caseRandomIds);
+//            newcontesttitle.setDiscussIds(discussRandomIds);
+//            testService.insertContesttitle(newcontesttitle);
+
+            // 获取
+            // 这里问题就出现了，这样子是拿不到题目的，数据库也会十分混乱，这里我们有没有可能不经过数据库，直接返回randomid呢
+//            Contesttitle contesttitle = testService.getContesttitle(testrecord.getTestId());
+//            List<Title> choiceList = titleService.getTitleListByFormatString(contesttitle.getTitleIds());
+//            List<Additiontitle> blankList = titleService.getAdditiontitleListByFormatString(contesttitle.getBlankIds());
+//            List<Additiontitle> judgeList = titleService.getAdditiontitleListByFormatString(contesttitle.getJudgeIds());
+//            List<Additiontitle> shortList = titleService.getAdditiontitleListByFormatString(contesttitle.getShortIds());
+//            List<Additiontitle> caseList = titleService.getAdditiontitleListByFormatString(contesttitle.getCaseIds());
+//            List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(contesttitle.getDiscussIds());
+            List<Title> choiceList = titleService.getTitleListByFormatString(choiceRandomIds);
+            List<Additiontitle> blankList = titleService.getAdditiontitleListByFormatString(blankRandomIds);
+            List<Additiontitle> judgeList = titleService.getAdditiontitleListByFormatString(judgeRandomIds);
+            List<Additiontitle> shortList = titleService.getAdditiontitleListByFormatString(shortRandomIds);
+            List<Additiontitle> caseList = titleService.getAdditiontitleListByFormatString(caseRandomIds);
+            List<Additiontitle> discussList = titleService.getAdditiontitleListByFormatString(discussRandomIds);
             Paper paper = new Paper();
             paper.setTitleList(choiceList);
             paper.setBlanksList(blankList);
@@ -390,12 +459,12 @@ public class TestActionBean extends AbstractActionBean {
     public ResponseEntity<Paper> getContestRandomTitle() {
         try {
             Testinfo contestInfo = testService.getContestInfoList().get(0);
-            String choiceRandomIds = titleService.getRandomIntegerList(2);
-            String blankRandomIds = titleService.getRandomIntegerListByType(2, 1);
-            String judgeRandomIds = titleService.getRandomIntegerListByType(2, 2);
-            String shortRandomIds = titleService.getRandomIntegerListByType(2, 3);
-            String caseRandomIds = titleService.getRandomIntegerListByType(2, 4);
-            String discussRandomIds = titleService.getRandomIntegerListByType(2, 5);
+            String choiceRandomIds = titleService.getRandomIntegerList(20);
+            String blankRandomIds = titleService.getRandomIntegerListByType(10, 1);
+            String judgeRandomIds = titleService.getRandomIntegerListByType(0, 2);
+            String shortRandomIds = titleService.getRandomIntegerListByType(10, 3);
+            String caseRandomIds = titleService.getRandomIntegerListByType(0, 4);
+            String discussRandomIds = titleService.getRandomIntegerListByType(0, 5);
             Contesttitle contesttitle = new Contesttitle();
             contesttitle.setTestId(contestInfo.getTestId());
             contesttitle.setTitleIds(choiceRandomIds);
@@ -464,6 +533,15 @@ public class TestActionBean extends AbstractActionBean {
             @RequestParam(value = "level", defaultValue = "0") int level) {
 
         try {
+            // Sunss这里输出了乱码，这是为什么呢....所以就肯定是查询不到了
+            System.out.println(college);
+            System.out.println(college);
+            System.out.println(college);
+            System.out.println(college);
+            System.out.println(college);
+            System.out.println(level);
+            System.out.println(level);
+            System.out.println(level);
             List<AccountTestRecord> testrecordList = testService.getTestRecordByCondition(clazz, grade, major, college, level);
             return new ResponseEntity<List<AccountTestRecord>>(testrecordList, HttpStatus.OK);
         } catch (TestServiceException te) {
@@ -617,6 +695,7 @@ public class TestActionBean extends AbstractActionBean {
     @RequestMapping(value = "/submitCorrectPaper", method = RequestMethod.POST,consumes = "application/json")
     public ResponseEntity<Result> submitCorrectPaper(@RequestBody CorrectPaper correctPaper) {
         try {
+            // Sunss在前台就应该要完成
             //插入分数
             Testrecord testrecord=new Testrecord();
             testrecord.setStudentId(correctPaper.getStudentId());
@@ -626,7 +705,8 @@ public class TestActionBean extends AbstractActionBean {
             Paperrecord paperrecord=testService.getPaperrecordByStudentIdAndTestId(correctPaper.getStudentId(),correctPaper.getTestId());
             paperrecord.setIsCorrected(1);
             paperrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-            int score=correctPaper.getScore()+paperrecord.getBlankScore();
+//            int score=correctPaper.getScore()+paperrecord.getBlankScore();
+            int score=paperrecord.getBlankScore();
             testrecord1.setScore(score);
             testService.updateTestRecord(testrecord1);
             testService.updatePaperrecord(paperrecord.getPaperId(),paperrecord);

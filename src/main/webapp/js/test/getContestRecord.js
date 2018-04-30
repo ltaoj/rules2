@@ -20,7 +20,7 @@ function getContestRecord(studentId) {
                 contest_start_time=data.startTime;
                 contest_submit_time=data.submitTime;
             }else if(data.score==-1){
-
+                // 分数分数处理分数
             }else{
                 score=data.score;
                 $('#contestRecord').html(data.score);
@@ -62,8 +62,9 @@ function getContsetRank() {
         dataType: 'json',
         method: 'post',
         data:testRecord,
+        //MY_FLAG
         success: function (data) {
-            $('#rank').html("排名：" + data);
+            $('#rank').html("当前排名：" + data);
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究

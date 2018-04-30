@@ -1,6 +1,7 @@
 package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.domain.Signon;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.SignonDAO;
@@ -20,7 +21,7 @@ public class SignonDAOimpl extends AbstractDAO implements SignonDAO {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {
-            String hql = "select account from Account as account,  Signon signon " + "where signon.studentId=account.studentId and signon.studentId=" + studentId + " and signon.password=" + password;
+            String hql = "select account from Account as account,  Signon signon " + "where signon.studentId=account.studentId and signon.studentId=" + studentId + " and signon.password='"+ password +"'";
             List<Account> list = session.createQuery(hql).list();
             session.flush();
             transaction.commit();
@@ -29,6 +30,21 @@ public class SignonDAOimpl extends AbstractDAO implements SignonDAO {
             transaction.rollback();
             throw new PersistenceException(e);
         } finally {
+            session.close();
+        }
+    }
+
+    public void insertSignonInfo(Signon signon) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
+        try {
+            session.save(signon);
+            session.flush();
+            transaction.commit();
+        }catch (RuntimeException e){
+            transaction.rollback();
+            throw new PersistenceException(e);
+        }finally {
             session.close();
         }
     }

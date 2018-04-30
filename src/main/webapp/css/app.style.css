@@ -44,7 +44,7 @@ a:hover {
 	text-transform: uppercase;
 }
 .btn-u-lg.btn-u-upper, a.btn-u-lg.btn-u-upper {
-	font-size: 12px;
+	font-size: 20px;
 	font-weight: bold;
 }
 
@@ -299,7 +299,7 @@ a:hover {
 /* Giving a min height */
 @media (min-width: 992px) {
 	.homeapp-header.one-page-header.navbar {
-	    padding: 23px 0px;
+	    padding: 0px 0px;
 	    transition: #000 0.3s ease-in-out 0s, padding 0.3s ease-in-out 0s;
 	}
 
@@ -320,7 +320,7 @@ a:hover {
 	height: auto;
 }
 .navbar-brand > img {
-  width: 130px;
+  width:158px;
   opacity: 0.8;
 }
 @media (min-width: 992px) {
@@ -337,8 +337,9 @@ a:hover {
 /* Designing the a links */
 .homeapp-header.one-page-header .navbar-nav > li > a,
 .homeapp-header.one-page-header .navbar-nav > li > a:focus {
-    color: #222;
-    font-size: 11px;
+    color:#000;
+    font-family: 'ºÚÌå';
+    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
     padding: 7px 13px;
@@ -403,6 +404,7 @@ a:hover {
 	.homeapp-header.one-page-header .navbar-nav > li > a,
 	.homeapp-header.one-page-header .navbar-nav > li > a:focus {
 	  padding: 7px 0;
+          font-size: 13px;
 	}
 }
 
@@ -440,6 +442,7 @@ a:hover {
 	.homeapp-header.one-page-header .navbar-nav > li > a.btn-nav {
 		margin: 0 0 20px;
 		max-width: 138px;
+                
 	}
 }
 
@@ -476,6 +479,7 @@ a:hover {
   font-weight: normal;
   line-height: 1.625;
   margin-bottom: 35px;
+	font-family: "ºÚÌå"£»
 }
 
 /* Designing the banner buttons */
@@ -939,7 +943,8 @@ a:hover {
 ---------------------------------------------------- */
 /* Default padding */
 .how-it-works {
-	padding: 90px 0;
+	/*padding: 90px 0;*/
+	padding: 36px 0;
 }
 
 /* Altering g-heading-v10 */
@@ -1034,7 +1039,8 @@ a:hover {
 
 /* Default padding */
 .app-screens {
-	padding: 90px 0;
+	/*padding: 90px 0;*/
+	padding: 36px 0;
 }
 
 /* Designing the cubeportfolio filter buttons */
