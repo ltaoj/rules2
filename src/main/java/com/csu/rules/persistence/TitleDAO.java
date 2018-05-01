@@ -65,6 +65,7 @@ public interface TitleDAO {
      * @throws PersistenceException
      * 返回题库总题目数
      */
+    @Deprecated
     Long getTotalTitleSize() throws PersistenceException;
 
     /**

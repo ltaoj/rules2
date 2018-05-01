@@ -34,7 +34,7 @@ public class SchoolServiceimpl implements SchoolService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(cacheNames = "school", key = "collegeList")
+    @Cacheable(cacheNames = "school", key = "'collegeList'")
     public List<College> getCollegeList() throws SchoolServiceException {
         try {
             return collegeDAO.getCollegeList();

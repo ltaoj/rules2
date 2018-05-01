@@ -91,8 +91,11 @@ public interface TestService {
      * @param testrecord
      * @throws com.csu.rules.exception.PersistenceException
      * 异常：100.持久层失败异常
+     * 2018年05月01日13:17:09
+     * ltaoj
+     * 添加返回值
      */
-    void insertTestRecord(Testrecord testrecord) throws TestServiceException;
+    Testrecord insertTestRecord(Testrecord testrecord) throws TestServiceException;
 
     /**
      * 根据学号和考试id修改考试成绩
@@ -100,7 +103,7 @@ public interface TestService {
      * @throws com.csu.rules.exception.PersistenceException
      * 异常：100.持久层失败异常
      */
-    void updateTestRecord(Testrecord testrecord) throws TestServiceException;
+    Testrecord updateTestRecord(Testrecord testrecord) throws TestServiceException;
 
     /**
      * 根据学号和考试id查看成绩
@@ -161,9 +164,10 @@ public interface TestService {
      * @param shortIds
      * @param caseIds
      * @param discussIds
+     * @return
      * @throws TestServiceException
      */
-    void insertTesttitle(Testrecord testrecord, String formatString, String blankIds,
+    Testtitle insertTesttitle(Testrecord testrecord, String formatString, String blankIds,
                     String judgeIds, String shortIds, String caseIds, String discussIds) throws TestServiceException;
 
     /**

@@ -176,7 +176,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    @Transactional()
+    @Transactional(readOnly = true)
     @Cacheable(cacheNames = "test", key = "'idtest'.concat(#testId)")
     public Testinfo getTestInfo(int testId) throws TestServiceException {
         try {
@@ -194,9 +194,12 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public void insertTestRecord(Testrecord testrecord) throws TestServiceException {
+    @Transactional
+    @CachePut(value = "record", key = "'latestrd'.concat(#testrecord.studentId).concat(#testrecord.testId)")
+    public Testrecord insertTestRecord(Testrecord testrecord) throws TestServiceException {
         try {
             testRecordDAO.insertTestRecord(testrecord);
+            return testRecordDAO.getTestRecord(testrecord);
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
             te.setErrorCode(100);
@@ -204,9 +207,12 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public void updateTestRecord(Testrecord testrecord) throws TestServiceException {
+    @Transactional
+    @CachePut(value = "record", key = "'latestrd'.concat(#testrecord.studentId).concat(#testrecord.testId)")
+    public Testrecord updateTestRecord(Testrecord testrecord) throws TestServiceException {
         try {
             testRecordDAO.updateTestRecord(testrecord);
+            return testRecordDAO.getTestRecord(testrecord);
         } catch (PersistenceException e) {
             TestServiceException te = new TestServiceException();
             te.setErrorCode(100);
@@ -214,6 +220,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "record", key = "'latestrd'.concat(#testrecord.studentId).concat(#testrecord.testId)")
     public Testrecord getTestRecord(Testrecord testrecord) throws TestServiceException {
         try {
             TestServiceException te = new TestServiceException();
@@ -226,6 +234,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    // 管理员使用，不需要缓存
     public List<Testrecord> getTestRecordList(int testId) throws TestServiceException {
         try {
             TestServiceException te = new TestServiceException();
@@ -242,6 +251,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    // 不需要缓存
     public int getTestPersonTotalNum(int testId) throws TestServiceException {
         try {
             int count = testRecordDAO.getTestRecordList(testId).size();
@@ -276,6 +286,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional
+    @CacheEvict(cacheNames = "record", key = "'latestrd'.concat(#testrecord.studentId).concat(#testrecord.testId)")
     public void deleteTestRecord(Testrecord testrecord) throws TestServiceException {
         try {
             Testrecord testrecord1=testRecordDAO.getTestRecord(testrecord);
@@ -297,7 +309,9 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public void insertTesttitle(Testrecord testrecord, String formatString, String blankIds, String judgeIds,
+    @Transactional
+    @CachePut(cacheNames = "testtitle", key = "'latesttesttitle'.concat(#testrecord.studentId).concat(#testrecord.testId)")
+    public Testtitle insertTesttitle(Testrecord testrecord, String formatString, String blankIds, String judgeIds,
                                 String shortIds, String caseIds, String discussIds) throws TestServiceException {
         Testtitle testtitle = new Testtitle();
         testtitle.setStudentId(testrecord.getStudentId());
@@ -309,8 +323,11 @@ public class TestServiceimpl implements TestService {
         testtitle.setCaseIds(caseIds);
         testtitle.setDiscussIds(discussIds);
         insertTesttitle(testtitle);
+        return testtitleDAO.getTesttitle(testrecord.getStudentId(), testrecord.getTestId());
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "testtitle", key = "'latesttesttitle'.concat(#testrecord.studentId).concat(#testrecord.testId)")
     public Testtitle getTesttitleByTestrecord(Testrecord testrecord) throws TestServiceException {
         try {
             return testtitleDAO.getTesttitle(testrecord.getStudentId(), testrecord.getTestId());
@@ -321,6 +338,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional
+    @CacheEvict(cacheNames = "testtitle", key = "'latesttesttitle'.concat(#testrecord.studentId).concat(#testrecord.testId)")
     public void deleteTestTitle(Testrecord testrecord) throws TestServiceException {
         try {
             testtitleDAO.deleteTesttitle(testrecord.getStudentId(), testrecord.getTestId());

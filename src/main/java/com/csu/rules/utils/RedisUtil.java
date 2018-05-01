@@ -12,8 +12,8 @@ public class RedisUtil {
 
     public static Map<String, Long> getExpries() {
         Map<String, Long> expires = new HashMap<String, Long>();
-        /*单个题目缓存12个小时后过期*/
-        expires.put("title", (12 * 60 * 60L));
+        /*单个题目10天不会过期*/
+        expires.put("title", (10 * 24 * 60 * 60L));
         expires.put("practice", (1 * 60 * 60L));
         return expires.size() == 0 ? null : expires;
     }

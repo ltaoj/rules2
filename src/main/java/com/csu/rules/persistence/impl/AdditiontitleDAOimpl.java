@@ -1,13 +1,16 @@
 package com.csu.rules.persistence.impl;
 
 import com.csu.rules.domain.Additiontitle;
+import com.csu.rules.domain.Integral;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.AdditiontitleDAO;
+import com.csu.rules.persistence.AdditiontitleDAO2;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -22,8 +25,15 @@ import java.util.Set;
  * Created by ltaoj on 17-7-17.
  */
 @Repository
-@CacheConfig(cacheNames = "additiontitle")
 public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDAO {
+
+    private AdditiontitleDAO2 additiontitleDAO2;
+
+    @Autowired
+    public AdditiontitleDAOimpl(AdditiontitleDAO2 additiontitleDAO2) {
+        this.additiontitleDAO2 = additiontitleDAO2;
+    }
+
     public Integer addTitle(Additiontitle title) throws PersistenceException {
             Session session = HibernateUtil.getSession();
             Transaction transaction = getTransation(session);
@@ -58,7 +68,7 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(key = "'aid'.concat(#titleId)")
+    @Cacheable(cacheNames = "additiondao", key = "'addition'.concat(#titleId)")
     public Additiontitle getTitle(int titleId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -75,6 +85,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
         }
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "additiondao", key = "'additionlistbytype'.concat(#type)")
     public List<Additiontitle> getTitleListByType(int type) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -93,7 +105,7 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(key = "'aidlist'.concat(#type).concat(#offset).concat(#count)")
+    @Cacheable(cacheNames = "additiondao", key = "'additionlistbytypepage'.concat(#type).concat(#offset).concat(#count)")
     public List<Additiontitle> getTitleListByTypeAndPage(int type, int offset, int count) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -145,6 +157,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
         }
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "additiondao", key = "'totalsizebytype'.concat(#type)")
     public Long getTotalTitleSizeByType(int type) throws PersistenceException {
             Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -163,20 +177,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
     }
 
     public Set<Integer> randomIntegerList(int count, int type) throws PersistenceException {
-            Session session = HibernateUtil.getSession();
-        Transaction transaction = getTransation(session);
-        try {
-            String hql = "select additiontitle.titleId from Additiontitle as additiontitle where type=" + type;
-            List<Integer> list = session.createQuery(hql).list();
-            session.flush();
-            transaction.commit();
-            return listToSet(list, count);
-        } catch (RuntimeException e) {
-            transaction.rollback();
-            throw new PersistenceException(e);
-        }finally {
-            session.close();
-        }
+        List<Integer> list = additiontitleDAO2.getAdditiontitleIdsByType(type);
+        return listToSet(list, count);
     }
 
     public String formatSet(Set set) throws PersistenceException{

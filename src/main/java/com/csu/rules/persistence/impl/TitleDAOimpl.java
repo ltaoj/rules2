@@ -5,10 +5,12 @@ import com.csu.rules.domain.Title;
 import com.csu.rules.exception.PersistenceException;
 import com.csu.rules.persistence.AbstractDAO;
 import com.csu.rules.persistence.TitleDAO;
+import com.csu.rules.persistence.TitleDAO2;
 import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -22,6 +24,13 @@ import java.util.*;
 @Repository
 @CacheConfig(cacheNames = "title")
 public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
+
+    private TitleDAO2 titleDAO2;
+
+    @Autowired
+    public TitleDAOimpl(TitleDAO2 titleDAO2) {
+        this.titleDAO2 = titleDAO2;
+    }
 
     public Integer addTitle(Title title) throws PersistenceException {
         Session session = HibernateUtil.getSession();
@@ -57,7 +66,7 @@ public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(cacheNames = "title", key = "'tid'.concat(#titleId)")
+    @Cacheable(cacheNames = "titledao", key = "'title'.concat(#titleId)")
     public Title getTitle(int titleId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -76,7 +85,7 @@ public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(key = "'tidlist'.concat(#offset).concat(#count)")
+    @Cacheable(cacheNames = "titledao", key = "'titlelistbypage'.concat(#offset).concat(#count)")
     public List<Title> getTitleList(int offset, int count) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -98,7 +107,7 @@ public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
 
     public List<Title> getRandomTitleList(int count) throws PersistenceException {
         try {
-            int totalSize = Integer.parseInt(getTotalTitleSize().toString());
+            int totalSize = Integer.parseInt(titleDAO2.getTotalTitleSize().toString());
             if (count > totalSize) count = totalSize;
             Set<Integer> set = randomIntegerList(count, totalSize);
             return getTitleListByTitleIds(set);
@@ -124,6 +133,7 @@ public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
         }
     }
 
+    @Deprecated
     public Long getTotalTitleSize() throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -171,7 +181,7 @@ public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
     }
 
     public Set<Integer> randomIntegerList(int count) throws PersistenceException{
-        int totalSize = Integer.parseInt(getTotalTitleSize().toString());
+        int totalSize = Integer.parseInt(titleDAO2.getTotalTitleSize().toString());
         if (count > totalSize) count = totalSize;
         Set<Integer> set = new HashSet<Integer>();
         while (set.size() < count) {

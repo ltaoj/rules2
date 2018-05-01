@@ -3,6 +3,7 @@ package com.csu.rules.persistence.impl;
 import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
 import com.csu.rules.persistence.TitleDAO;
+import com.csu.rules.persistence.TitleDAO2;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -16,7 +17,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class TitleDAOimplTest {
 
-    private TitleDAO titleDAO = new TitleDAOimpl();
+    private TitleDAO2 titleDAO2 = new TitleDAO2impl();
+    private TitleDAO titleDAO = new TitleDAOimpl(titleDAO2);
 
     @Test
     public void testAddTitle2() throws Exception {

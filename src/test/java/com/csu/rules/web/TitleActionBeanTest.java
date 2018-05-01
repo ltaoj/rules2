@@ -4,12 +4,8 @@ import com.csu.rules.domain.Account;
 import com.csu.rules.domain.AccountTitles;
 import com.csu.rules.domain.Option;
 import com.csu.rules.domain.Title;
-import com.csu.rules.persistence.AdditiontitleDAO;
-import com.csu.rules.persistence.TitleDAO;
-import com.csu.rules.persistence.WrongtitleDAO;
-import com.csu.rules.persistence.impl.AdditiontitleDAOimpl;
-import com.csu.rules.persistence.impl.TitleDAOimpl;
-import com.csu.rules.persistence.impl.WrongtitleDAOimpl;
+import com.csu.rules.persistence.*;
+import com.csu.rules.persistence.impl.*;
 import com.csu.rules.service.TitleService;
 import com.csu.rules.service.impl.TitleServiceimpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,9 +30,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  * Created by ltaoj on 17-6-12.
  */
 public class TitleActionBeanTest {
-    private TitleDAO titleDAO = new TitleDAOimpl();
+    private TitleDAO2 titleDAO2 = new TitleDAO2impl();
+    private TitleDAO titleDAO = new TitleDAOimpl(titleDAO2);
     private WrongtitleDAO wrongtitleDAO = new WrongtitleDAOimpl();
-    private AdditiontitleDAO additiontitleDAO = new AdditiontitleDAOimpl();
+    private AdditiontitleDAO2 additiontitleDAO2 = new AdditiontitleDAO2impl();
+    private AdditiontitleDAO additiontitleDAO = new AdditiontitleDAOimpl(additiontitleDAO2);
     private TitleService titleService = new TitleServiceimpl(titleDAO, wrongtitleDAO, additiontitleDAO);
     private TitleActionBean titleActionBean = new TitleActionBean(titleService);
 

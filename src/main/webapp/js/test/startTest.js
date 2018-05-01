@@ -246,17 +246,17 @@ function submitToBack() {
         // 所以就看填空题
         submitPaper(getTestId(),testTitleList,answerBlankTitleList,testJudgeTitleList,answerShortTitleList,caseAnswer,discussAnswer);
     }
-    // 暂时注释掉
-    if(id==getContestId()){
-        contestJudgeTitleList = null;
-        contestCaseAnswer = null;
-        contestDiscussAnswer = null;
-        submitContestBlankTitle();
-        submitContestShortTitle();
-        // submitContestCaseTitle();
-        // submitContestDiscussTitle();
-        submitPaper(getContestId(),contestTitleList,answerContestBlankTitleList,contestJudgeTitleList,answerContestShortTitleList,contestCaseAnswer,contestDiscussAnswer);
-    }
+    // // 暂时注释掉
+    // if(id==getContestId()){
+    //     contestJudgeTitleList = null;
+    //     caseAnswer = null;
+    //     discussAnswer = null;
+    //     submitContestBlankTitle();
+    //     submitContestShortTitle();
+    //     // submitContestCaseTitle();
+    //     // submitContestDiscussTitle();
+    //     submitPaper(getContestId(),contestTitleList,contestBlankTitleList,contestJudgeTitleList,contestShortTitleList,contestCaseAnswer,contestDiscussAnswer);
+    // }
 }
 function submitPaper(testId,choiceList,blankList,judgeList,shortList,caseStr,discussStr) {
     var studentId=getStudentId();
@@ -278,18 +278,10 @@ function submitPaper(testId,choiceList,blankList,judgeList,shortList,caseStr,dis
             getContestRecord(getStudentId());
             // 之前那三个方法都是异步,其实它们还没有完成但是我就要进行渲染了...所以要只能等它们一个一个完成了吗
             // 或者说不我能让三个函数一起去访问同一个方法吗?
-            var id=document.getElementById("testId").innerText;
-            if(id==getTestId()){
-                getCorrectTitle();
-                getCorrectBlankTitle();
-                getCorrectShortTitle();
-                reviewAnswer();
-            }else{
-                getContestCorrectTitle();
-                getContestCorrectBlankTitle();
-                getContestCorrectShortTitle();
-                reviewContestAnswer();
-            }
+            getCorrectTitle();
+            getCorrectBlankTitle();
+            getCorrectShortTitle();
+            reviewAnswer();
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
@@ -401,8 +393,8 @@ function reviewAnswer() {
     $('#testId').html(testId);
     clearInterval(int);
     // $('#testCountMsg').html("");
-    // // 选择题
-    // $('#testId').html(testId);
+    // 选择题
+    $('#testId').html(testId);
     // 选择题
     $('#testTitle').append("一、单选题")
     for (var i = 0; i < testTitleList.length; i++) {
@@ -558,7 +550,7 @@ function setTime() {
         var h = Math.floor(time / 60 / 60);
         var m = Math.floor(time / 60 % 60);
         var s = Math.floor(time % 60);
-        if(m == 5){
+        if(m == 5 && s == 0){
             alert("仅剩5分钟，请抓紧时间");
         }
         document.getElementById("test_t_h").innerHTML = h + "时";
@@ -600,7 +592,7 @@ function exitByX(testId) {
             success: function (data) {
                 if (data.result == "success") {
                     clearInterval(int);
-                    // clearInterval(int1);
+                    clearInterval(int1);
                 }
             },
             error: function (xhr) {
