@@ -4,8 +4,13 @@ import com.csu.rules.domain.*;
 import com.csu.rules.exception.TestServiceException;
 import com.csu.rules.persistence.*;
 import com.csu.rules.service.TestService;
+import com.csu.rules.service.TestService2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import java.sql.Timestamp;
@@ -99,6 +104,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional
+    @Cacheable(cacheNames = "test", key = "'contestlist'")
     public List<Testinfo> getContestInfoList() throws TestServiceException {
         try {
             TestServiceException te = new TestServiceException();
@@ -115,6 +122,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional
+    @Cacheable(cacheNames = "test", key = "'testlist'")
     public List<Testinfo> getTestInfoList() throws TestServiceException {
         try {
             TestServiceException te = new TestServiceException();
@@ -131,6 +140,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional
+    @CacheEvict(cacheNames = "test", allEntries = true)
     public void insertTestInfo(Testinfo testinfo) throws TestServiceException {
         try {
             testDAO.insertTestInfo(testinfo);
@@ -141,6 +152,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional
+    @CacheEvict(cacheNames = "test", allEntries = true)
     public void deleteTestInfo(int testId) throws TestServiceException {
         try {
             testDAO.deleteTestInfo(testId);
@@ -151,6 +164,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional
+    @CacheEvict(cacheNames = "test", allEntries = true)
     public void updateTestInfo(Testinfo testinfo) throws TestServiceException {
         try {
             testDAO.updateTestInfo(testinfo);
@@ -161,6 +176,8 @@ public class TestServiceimpl implements TestService {
         }
     }
 
+    @Transactional()
+    @Cacheable(cacheNames = "test", key = "'idtest'.concat(#testId)")
     public Testinfo getTestInfo(int testId) throws TestServiceException {
         try {
             TestServiceException te = new TestServiceException();

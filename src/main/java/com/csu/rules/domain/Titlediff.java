@@ -1,13 +1,14 @@
 package com.csu.rules.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ltaoj on 17-6-9.
  */
 @Entity
 @Table(name = "titlediff", schema = "saverulessystem", catalog = "")
-public class Titlediff {
+public class Titlediff implements Serializable {
     @Column(name = "name")
     private String name;
     @Id

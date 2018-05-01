@@ -1,6 +1,7 @@
 package com.csu.rules.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ltaoj on 17-6-9.
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "wrongtitle", schema = "saverulessystem", catalog = "")
 @IdClass(WrongtitlePK.class)
-public class Wrongtitle {
+public class Wrongtitle implements Serializable {
     @Id
     @Column(name = "title_id")
     private Integer titleId;

@@ -1,13 +1,14 @@
 package com.csu.rules.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ltaoj on 17-7-17.
  */
 @Entity
 @Table(name = "contesttitle", schema = "saverulessystem", catalog = "")
-public class Contesttitle {
+public class Contesttitle implements Serializable {
     @Id
     @Column(name = "test_id")
     private int testId;

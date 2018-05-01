@@ -1,6 +1,7 @@
 package com.csu.rules.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -8,7 +9,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "paperrecord", schema = "saverulessystem", catalog = "")
-public class Paperrecord {
+public class Paperrecord implements Serializable {
     @Id
     @Column(name = "paper_id")
     private int paperId;
