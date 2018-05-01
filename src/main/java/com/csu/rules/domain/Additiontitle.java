@@ -1,13 +1,14 @@
 package com.csu.rules.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ltaoj on 17-7-17.
  */
 @Entity
 @Table(name = "additiontitle", schema = "saverulessystem", catalog = "")
-public class Additiontitle {
+public class Additiontitle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "title_id")

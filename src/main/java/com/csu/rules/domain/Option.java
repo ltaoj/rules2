@@ -3,13 +3,14 @@ package com.csu.rules.domain;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ltaoj on 17-6-9.
  */
 @Entity
 @Table(name = "choice", schema = "saverulessystem", catalog = "")
-public class Option {
+public class Option implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "option_id")

@@ -9,7 +9,10 @@ import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -17,6 +20,7 @@ import java.util.*;
  * Created by ltaoj on 17-6-9.
  */
 @Repository
+@CacheConfig(cacheNames = "title")
 public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
 
     public Integer addTitle(Title title) throws PersistenceException {
@@ -52,6 +56,8 @@ public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
         }
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "title", key = "'tid'.concat(#titleId)")
     public Title getTitle(int titleId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -69,6 +75,8 @@ public class TitleDAOimpl extends AbstractDAO implements TitleDAO {
         }
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(key = "'tidlist'.concat(#offset).concat(#count)")
     public List<Title> getTitleList(int offset, int count) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);

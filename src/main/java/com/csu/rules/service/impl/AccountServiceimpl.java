@@ -8,7 +8,10 @@ import com.csu.rules.persistence.impl.AdminDAOimpl;
 import com.csu.rules.persistence.impl.SignonDAOimpl;
 import com.csu.rules.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
  * Created by ltaoj on 17-5-30.
  */
 @Service
+@CacheConfig(cacheNames = "user")
 public class AccountServiceimpl implements AccountService {
 
     private AccountDAO accountDAO;
@@ -85,6 +89,8 @@ public class AccountServiceimpl implements AccountService {
         return admin;
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(key = "#account.studentId")
     public Account getUserInfo(Account account) throws AccountServiceException {
         AccountServiceException ae = new AccountServiceException();
         Account account1=accountDAO.getUserInfo(account);

@@ -10,7 +10,10 @@ import com.csu.rules.persistence.CollegeDAO;
 import com.csu.rules.persistence.MajorDAO;
 import com.csu.rules.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +33,8 @@ public class SchoolServiceimpl implements SchoolService {
         this.clazzDAO = clazzDAO;
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "school", key = "collegeList")
     public List<College> getCollegeList() throws SchoolServiceException {
         try {
             return collegeDAO.getCollegeList();

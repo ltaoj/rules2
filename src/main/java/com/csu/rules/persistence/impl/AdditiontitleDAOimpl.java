@@ -8,7 +8,10 @@ import com.csu.rules.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -19,6 +22,7 @@ import java.util.Set;
  * Created by ltaoj on 17-7-17.
  */
 @Repository
+@CacheConfig(cacheNames = "additiontitle")
 public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDAO {
     public Integer addTitle(Additiontitle title) throws PersistenceException {
             Session session = HibernateUtil.getSession();
@@ -53,6 +57,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
         }
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(key = "'aid'.concat(#titleId)")
     public Additiontitle getTitle(int titleId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
@@ -86,6 +92,8 @@ public class AdditiontitleDAOimpl extends AbstractDAO implements AdditiontitleDA
         }
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(key = "'aidlist'.concat(#type).concat(#offset).concat(#count)")
     public List<Additiontitle> getTitleListByTypeAndPage(int type, int offset, int count) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);

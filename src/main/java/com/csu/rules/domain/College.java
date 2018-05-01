@@ -4,13 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by ltaoj on 17-7-4.
  */
 @Entity
 @Table(name = "college", schema = "saverulessystem", catalog = "")
-public class College {
+public class College implements Serializable {
     @Id
     @Column(name = "college_id")
     private int collegeId;
