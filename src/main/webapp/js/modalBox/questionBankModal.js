@@ -193,7 +193,7 @@ function createQuestionBank(subjectTitle) {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -250,7 +250,7 @@ function blankTitlePractice(subjectTitle){
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -308,7 +308,7 @@ function shortTitlePractice(subjectTitle){
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -374,7 +374,7 @@ function submitTitle(subjectTitle) {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -439,7 +439,7 @@ function blankTitleAnswer(subjectTitle) {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -526,7 +526,7 @@ function shortTitleAnswer(subjectTitle) {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -640,7 +640,7 @@ function exitPractice() {
 //         },
 //         error: function (xhr) {
 //             // 导致出错的原因较多，以后再研究
-//             alert('error:' + JSON.stringify(xhr));
+//             alert('出错了，请刷新重试或截图反馈');
 //         }
 //     }).done(function (data) {
 //         // 请求成功后要做的工作
@@ -680,7 +680,7 @@ function exitPractice() {
 //         ,
 //         error: function (xhr) {
 //             // 导致出错的原因较多，以后再研究
-//             alert('error:' + JSON.stringify(xhr));
+//             alert('出错了，请刷新重试或截图反馈');
 //         }
 //     }).done(function (data) {
 //         // 请求成功后要做的工作
@@ -728,7 +728,7 @@ function exitPractice() {
 //         },
 //         error: function (xhr) {
 //             // 导致出错的原因较多，以后再研究
-//             alert('error:' + JSON.stringify(xhr));
+//             alert('出错了，请刷新重试或截图反馈');
 //         }
 //     }).done(function (data) {
 //         // 请求成功后要做的工作
@@ -777,7 +777,7 @@ function exitPractice() {
 //         },
 //         error: function (xhr) {
 //             // 导致出错的原因较多，以后再研究
-//             alert('error:' + JSON.stringify(xhr));
+//             alert('出错了，请刷新重试或截图反馈');
 //         }
 //     }).done(function (data) {
 //         // 请求成功后要做的工作

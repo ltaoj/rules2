@@ -162,7 +162,7 @@ function startTest() {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('Error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -293,7 +293,7 @@ function submitPaper(testId,choiceList,blankList,judgeList,shortList,caseStr,dis
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -325,7 +325,7 @@ function getCorrectTitle() {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -354,7 +354,7 @@ function getCorrectBlankTitle() {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -383,7 +383,7 @@ function getCorrectShortTitle() {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -605,7 +605,7 @@ function exitByX(testId) {
             },
             error: function (xhr) {
                 // 导致出错的原因较多，以后再研究
-                alert('Error:' + JSON.stringify(xhr));
+                alert('出错了，请刷新重试或截图反馈');
             }
         }).done(function (data) {
             // 请求成功后要做的工作

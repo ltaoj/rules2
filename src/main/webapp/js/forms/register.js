@@ -57,7 +57,7 @@ function registerInfoForJson(userInfoJson) {
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
             $('#registerMessage').html("该学号已注册");
-            // alert('error:' + JSON.stringify(xhr));
+            // alert('出错了，请刷新重试或截图反馈');
             alert("该学号已被注册");
         }
     }).done(function (data) {
@@ -92,7 +92,7 @@ function registerAccountForJson(accountInfoJson) {
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
             $('#registerMessage').html("该学号已注册");
-            // alert('error:' + JSON.stringify(xhr));
+            // alert('出错了，请刷新重试或截图反馈');
             alert("该学号已被注册");
         }
     }).done(function (data) {

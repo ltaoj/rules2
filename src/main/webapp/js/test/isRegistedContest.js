@@ -21,7 +21,7 @@ function isRegisted() {
         },
         error: function (xhr) {
             // 导致出错的原因较多，以后再研究
-            alert('Error:' + JSON.stringify(xhr));
+            alert('出错了，请刷新重试或截图反馈');
         }
     }).done(function (data) {
         // 请求成功后要做的工作
