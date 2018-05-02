@@ -813,7 +813,8 @@
                             <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
-                            你的上一次有效测试成绩：<span class="g-color-default" id="testRecord">--</span>
+                            你的上一次有效测试成绩：<span class="g-color-default" id="testRecord">--</span><br><br>
+                            <a class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x" id="" data-toggle="" data-target="" onclick="" style="visibility:hidden">这是假的</a>
                         </div>
                     </div>
                 </div>
@@ -833,11 +834,12 @@
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
-                            <li>&nbsp;</li>
-                            <li>&nbsp;</li>
+                            <li>成绩高于70分可获得电子证书</li>
+                            <li>点击导出后右键保存即可</li>
                         </ul>
                         <div class="pricing-v9-price">
-                            你的成绩：<span class="g-color-default" id="contestRecord">--</span>
+                            你的成绩：<span class="g-color-default" id="contestRecord">--</span><br><br>
+                            <a class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x" id="" data-toggle="" data-target="" onclick="zhengshu()">导出证书</a>
                         </div>
                     </div>
                 </div>
@@ -848,6 +850,12 @@
 </section>
 <!-- 考试排名结束 -->
 
+<div class="zs" style="text-align:center;display:none">   
+<canvas id="cvs" width="1024" height="723" style="position:absolute">
+ here is image
+</canvas>
+<img id="img" src="img/zhengshu.png">
+</div>
 
 
 <hr>
@@ -949,5 +957,37 @@
 
 <!-- JS Implementing Plugins -->
 <script src="plugins/owl-carousel2/owl.carousel.min.js"></script>
+<script>
+function zhengshu(){
+    var score = getScore();
+    if (score >= 70) {
+    $(".zs").css("display","block");
+    var username = getAccount().username;
+    var nob = getAccount().studentId;
+    var college = getAccount().college;
+    var img = document.getElementById("img");
+    var canvas=document.getElementById("cvs");
+    var ctx=canvas.getContext("2d");
+    ctx.drawImage(img,0,0);
+    //var username= "username";
+    ctx.font="25px 黑体 ";
+    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillText(username,490,280);
+    //var nob="山地车";   
+    ctx.font="25px 黑体";
+    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillText(nob,720,250);
+    //var college="阿三";   
+    ctx.font="25px 黑体";
+    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillText(college,160,280);
+    }
+        else{
+            alert("很抱歉，成绩不足70分，无法生成证书！")
+        };
+};
+       
+   
+</script>
 </body>
 </html>
