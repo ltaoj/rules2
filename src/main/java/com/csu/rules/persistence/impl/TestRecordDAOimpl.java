@@ -164,4 +164,11 @@ public class TestRecordDAOimpl extends AbstractDAO implements TestRecordDAO {
         System.out.println(hql);
         return hql;
     }
+
+    private String formatHql2(String college, int level, int testId) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(formatHql(null, 0, null, college, level));
+        sb.append(" and t.testId=" + testId);
+        return sb.toString();
+    }
 }
