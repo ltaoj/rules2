@@ -268,7 +268,7 @@ public class TestServiceimpl implements TestService {
             int count = 1;
             List<Testrecord> testrecordList = testRecordDAO.getTestRecordListByRecord(testrecord.getTestId());
             Testrecord testrecord1=testRecordDAO.getTestRecord(testrecord);
-            if (testrecord1.getSubmitTime() == null || testrecord1.getScore() == null) return Integer.MAX_VALUE;
+            if (testrecord == null || testrecord1.getSubmitTime() == null || testrecord1.getScore() == null) return Integer.MAX_VALUE;
             // Sunss 这里还要添加计算做题时间的
             for (int i = 0; i < testrecordList.size(); i++) {
                 if (testrecordList.get(i).getSubmitTime() == null || testrecordList.get(i).getScore() == null) continue;

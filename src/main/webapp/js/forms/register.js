@@ -21,13 +21,12 @@ function register() {
         $('#registerMessage').html("请输入正确的学号");
     }else if(!judgeNumber(studentId)){
         $('#registerMessage').html("请输入正确的学号");
-    } else if(college===null){ // 检查是否选了学院
+    } else if(college==="null"){ // 检查是否选了学院
         $('#registerMessage').html("请选择学院");
-    } else if(studentId==="" || password==="" || userName==="" || college==="" || clazz===""){ // 检查是否输入完整
+    } else if(studentId==="" || password==="" || userName==="" || college==="null" || clazz===""){ // 检查是否输入完整
         $('#registerMessage').html("请先输入完整信息");
     } else{
         if(studentId.length===9){studentId="0"+studentId};
-        if(studentId[0]="0"){studentId[0]="9"};
         // 一定要先插入信息，因为账户密码是以userfinfo里的学号为外键的
         var userInfoString = {studentId: studentId, username: userName, sex: 0, clazz: clazz,  college: college, grade:9999,major:'' };
         var userInfoJson = $.toJSON(userInfoString);

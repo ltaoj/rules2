@@ -166,6 +166,11 @@ public class TestActionBean extends AbstractActionBean {
         try {
             Testrecord testrecord = testService.getTestRecord(recordTitles.getTestrecord());
             testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+            // ltaoj 2018年05月04日22:56:02 防止同一条记录被多次更新
+            if (checkRecordMulUpdate(testrecord)) {
+                return new ResponseEntity(new Result("考试已提交"), HttpStatus.OK);
+            }
+
 //            int choiceScore = 0;
 //            int blankScore = 0;
 //            int shortScore = 0;
@@ -194,6 +199,15 @@ public class TestActionBean extends AbstractActionBean {
             throw new CatchServiceException(var6);
         }
     }
+
+    /**
+     * 检查一条记录是否被多次更改
+     * @return
+     */
+    private boolean checkRecordMulUpdate(Testrecord testrecord) {
+        return testrecord.getScore() != null;
+    }
+
 //    @RequestMapping(value = {"/submitTest"}, method = {RequestMethod.POST}, consumes = {"application/json"})
 //    public ResponseEntity<Testrecord> submitTest(@RequestBody RecordTitles recordTitles) {
 //        try {
@@ -310,6 +324,13 @@ public class TestActionBean extends AbstractActionBean {
                 testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
                 testService.insertTestRecord(testrecord);
             }
+
+            // ****************************************************
+            // * 防止POST方式多次考试 * ltaoj * 2018年05月04日23:15:25 * 没必要检查
+            // ****************************************************
+//            if (checkMulContestSubmit(testrecord)) {
+//                return new ResponseEntity(new Result("诚信考试，请勿作弊,只有一次"), HttpStatus.OK);
+//            }
 
             // 生成
             Testinfo contestInfo = testService.getContestInfoList().get(0);

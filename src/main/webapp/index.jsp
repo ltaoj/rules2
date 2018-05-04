@@ -835,11 +835,11 @@
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>成绩高于70分可获得电子证书</li>
-                            <li>点击导出后右键保存即可</li>
+                            <li>&nbsp;</li>
                         </ul>
                         <div class="pricing-v9-price">
                             你的成绩：<span class="g-color-default" id="contestRecord">--</span><br><br>
-                            <a class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x" id="" data-toggle="" data-target="" onclick="zhengshu()">导出证书</a>
+                            <a class="btn-u btn-u-lg btn-u-light-green btn-u-upper rounded-2x" id="" data-toggle="" data-target="" onclick="Download()">导出证书</a>
                         </div>
                     </div>
                 </div>
@@ -849,14 +849,12 @@
     </div>
 </section>
 <!-- 考试排名结束 -->
-
 <div class="zs" style="text-align:center;display:none">   
 <canvas id="cvs" width="1024" height="723" style="position:absolute">
  here is image
 </canvas>
-<img id="img" src="img/zhengshu.png">
+<img id="img" src="img/zhengshu.png" width="1024" height="723"  crossorigin="anonymous">
 </div>
-
 
 <hr>
 <!-- 页脚 -->
@@ -958,36 +956,66 @@
 <!-- JS Implementing Plugins -->
 <script src="plugins/owl-carousel2/owl.carousel.min.js"></script>
 <script>
-function zhengshu(){
-    var score = getScore();
-    if (score >= 70) {
-    $(".zs").css("display","block");
-    var username = getAccount().username;
-    var nob = getAccount().studentId;
-    var college = getAccount().college;
-    var img = document.getElementById("img");
-    var canvas=document.getElementById("cvs");
-    var ctx=canvas.getContext("2d");
-    ctx.drawImage(img,0,0);
-    //var username= "username";
-    ctx.font="25px 黑体 ";
-    ctx.fillStyle = "rgb(0,0,0)";
-    ctx.fillText(username,490,280);
-    //var nob="山地车";   
-    ctx.font="25px 黑体";
-    ctx.fillStyle = "rgb(0,0,0)";
-    ctx.fillText(nob,720,250);
-    //var college="阿三";   
-    ctx.font="25px 黑体";
-    ctx.fillStyle = "rgb(0,0,0)";
-    ctx.fillText(college,160,280);
-    }
-        else{
-            alert("很抱歉，成绩不足70分，无法生成证书！")
+function draw(){
+        $(".zs").css("display","block");
+        var username = getAccount().username;
+        var college = getAccount().college;
+        var nob = getAccount().studentId.toString();
+        var r = confirm("您是研究生吗？");
+        if (r == true){
+            if (nob.length == 8) {nob = 0  +nob}
+        }
+          else{
+            if (nob.length == 9) {nob = 0 + nob}
         };
-};
-       
-   
+        var img = document.getElementById("img");
+        var canvas=document.getElementById("cvs");
+        var ctx=canvas.getContext("2d");
+        ctx.drawImage(img,0,0);
+        //var username= "username";
+        ctx.font="25px 黑体 ";
+        ctx.fillStyle = "rgb(0,0,0)";
+        ctx.fillText(username,490,280);
+        //var nob="山地车";   
+        ctx.font="25px 黑体";
+        ctx.fillStyle = "rgb(0,0,0)";
+        ctx.fillText(nob,720,250);
+        //var college="阿三";   
+        ctx.font="25px 黑体";
+        ctx.fillStyle = "rgb(0,0,0)";
+        ctx.fillText(college,160,280);
+        }
+
+    function Download(){
+        var score = getScore();
+        if (score >= 70) {
+              draw();
+            var type ='png';
+            var d=document.getElementById("cvs");
+            var imgdata=d.toDataURL(type);
+            var fixtype=function(type){
+                type=type.toLocaleLowerCase().replace(/jpg/i,'jpeg');
+                var r=type.match(/png|jpeg|bmp|gif/)[0];
+                return 'image/'+r;
+            };
+            imgdata=imgdata.replace(fixtype(type),'image/octet-stream');
+            var savaFile=function(data,filename)
+            {
+                var save_link=document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+                save_link.href=data;
+                save_link.download=filename;
+                var event=document.createEvent('MouseEvents');
+                event.initMouseEvent('click',true,false,window,0,0,0,0,0,false,false,false,false,0,null);
+                save_link.dispatchEvent(event);
+            };
+            var filename=''+new Date().getDate()+'.'+type;  
+            savaFile(imgdata,filename);  
+            }
+                else{
+                    alert("很抱歉，成绩不足70分，无法生成证书！")
+                };
+        
+        };
 </script>
 </body>
 </html>

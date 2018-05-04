@@ -215,6 +215,9 @@ public class TitleServiceimpl implements TitleService {
                 te.setErrorCode(55);
                 throw te;
             }
+            // 使用后台的分数，2018年05月04日22:44:13 ltaoj
+            title.setScore(title1.getScore());
+
             // Sunss 原先写的没有错误..但好像哪里不太对
 //             检查答案是否与题库一致
             Iterator<Option> iterator1 = title.getOptions().iterator();
@@ -260,6 +263,9 @@ public class TitleServiceimpl implements TitleService {
                 te.setErrorCode(55);
                 throw te;
             }
+
+            // 使用后台分数，2018年05月04日22:44:55 ltaoj
+            title.setScore(title1.getScore());
             // Sunss 数组里只有一个值
             // 所以其实可以不用这么写
 //            String[] standardAnswers = title1.getAnswer().split("#");
