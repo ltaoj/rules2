@@ -4,6 +4,7 @@ import com.csu.rules.domain.*;
 import com.csu.rules.exception.AccountServiceException;
 import com.csu.rules.exception.CatchServiceException;
 import com.csu.rules.service.AccountService;
+import com.csu.rules.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +27,12 @@ import java.util.List;
 public class AccountActionBean extends AbstractActionBean {
 
     private AccountService accountService;
+    private MailService mailService;
 
     @Autowired
-    public AccountActionBean(AccountService accountService) {
+    public AccountActionBean(AccountService accountService, MailService mailService) {
         this.accountService = accountService;
+        this.mailService = mailService;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -134,6 +137,9 @@ public class AccountActionBean extends AbstractActionBean {
         try {
             feedback.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             accountService.insertFeedback(feedback);
+            // ltaoj 2018年05月05日18:27:53 添加自动回复和通知功能
+            mailService.autoReply(feedback);
+            mailService.forwardFeedback(feedback);
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (AccountServiceException e) {
             throw new CatchServiceException(e);
