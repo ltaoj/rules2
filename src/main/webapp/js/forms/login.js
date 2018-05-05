@@ -3,11 +3,16 @@ var account;
 
 
 function login() {
-    var studentId;
+    var re1=/[A-Z]{1}\d{9,10}/
+    var nob = $("#studentId").val();
     var password;
-    studentId = $('#studentId').val();
+    if(re1.test(nob)){
+            var a = "";
+            a = nob.charCodeAt()-64 + nob.slice("1");
+            if (a.length == 11) {nob = "90" + a}else{nob = 9 + a};
+        };
+    var studentId = nob;
     password = $('#password').val();
-  //  if(studentId.length===9){studentId="0"+studentId;}
     var signonString = {studentId: studentId, password: password};
     var signonJson = $.toJSON(signonString);
     loginForJson(signonJson);

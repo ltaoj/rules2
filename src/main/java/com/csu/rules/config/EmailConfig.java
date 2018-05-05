@@ -6,6 +6,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.util.Properties;
+
 /**
  * Created by ltaoj on 2017/9/20.
  */
@@ -19,6 +21,14 @@ public class EmailConfig {
         mailSender.setPort(25);
         mailSender.setUsername("taoj0417@163.com");
         mailSender.setPassword("helloworld123");
+
+        //加认证机制
+        Properties javaMailProperties = new Properties();
+        javaMailProperties.put("mail.smtp.auth", true);
+        javaMailProperties.put("mail.smtp.starttls.enable", true);
+        javaMailProperties.put("mail.smtp.timeout", 5000);
+        mailSender.setJavaMailProperties(javaMailProperties);
+
         return mailSender;
     }
 }

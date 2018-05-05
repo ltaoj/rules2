@@ -137,9 +137,16 @@ public class AccountActionBean extends AbstractActionBean {
         try {
             feedback.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             accountService.insertFeedback(feedback);
+
+            final Feedback feedback1 = feedback;
             // ltaoj 2018年05月05日18:27:53 添加自动回复和通知功能
-            mailService.autoReply(feedback);
-            mailService.forwardFeedback(feedback);
+            new Thread(new Runnable() {
+                public void run() {
+                    mailService.autoReply(feedback1);
+                    mailService.forwardFeedback(feedback1);
+                }
+            }).start();
+
             return new ResponseEntity<Result>(new Result(Result.RESULT_SUCCESS), HttpStatus.OK);
         } catch (AccountServiceException e) {
             throw new CatchServiceException(e);
