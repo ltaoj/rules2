@@ -53,7 +53,7 @@ public class LearnServiceimpl implements LearnService {
             // 所以学号的位数可能小于10
             // 2018-04-22 14:11:38
             int len = Long.toString(account.getStudentId()).length();
-            if (len > 10 || len < 6 || account.getUsername() == null) {
+            if (len > 15 || len < 6 || account.getUsername() == null) {
                 le.setErrorCode(56);
                 throw le;
             }
@@ -74,7 +74,7 @@ public class LearnServiceimpl implements LearnService {
             // 所以学号的位数可能小于10
             // 2018-04-22 14:11:38
             int len = Long.toString(account.getStudentId()).length();
-            if (len > 10 || len < 6 || account.getUsername() == null) {
+            if (len > 15 || len < 6 || account.getUsername() == null) {
                 le.setErrorCode(56);
                 throw le;
             }else if (datetime == null) {

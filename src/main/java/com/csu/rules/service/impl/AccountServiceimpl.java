@@ -45,7 +45,7 @@ public class AccountServiceimpl implements AccountService {
             // 所以学号的位数可能小于10
             // 2018-04-22 14:11:38
             int len = Long.toString(studentId).length();
-            if (len > 10 || len < 6) {
+            if (len > 15 || len < 6) {
                 ae.setErrorCode(0);
                 throw ae;
             } else if (password == null || password.length() < 6) {

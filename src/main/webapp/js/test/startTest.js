@@ -558,7 +558,7 @@ function setTime() {
         var h = Math.floor(time / 60 / 60);
         var m = Math.floor(time / 60 % 60);
         var s = Math.floor(time % 60);
-        if(m == 5){
+        if(m == 5 && s == 0){
             alert("仅剩5分钟，请抓紧时间");
         }
         document.getElementById("test_t_h").innerHTML = h + "时";

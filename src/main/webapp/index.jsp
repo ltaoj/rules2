@@ -835,7 +835,7 @@
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
                             <li>成绩高于70分可获得电子证书</li>
-                            <li>&nbsp;</li>
+                            <li>点击导出后右键保存或截屏即可</li>
                         </ul>
                         <div class="pricing-v9-price">
                             你的成绩：<span class="g-color-default" id="contestRecord">--</span><br><br>
@@ -966,7 +966,11 @@ function draw(){
             if (nob.length == 8) {nob = 0  +nob}
         }
           else{
-            if (nob.length == 9) {nob = 0 + nob}
+            if (nob.length == 9) {nob = 0 + nob};
+            if (nob.length == 13) {
+                alphabet= String.fromCharCode(64 + parseInt(nob.substr(1, 2))); 
+                nob = alphabet + nob.slice("3");
+            };
         };
         var img = document.getElementById("img");
         var canvas=document.getElementById("cvs");
@@ -990,26 +994,27 @@ function draw(){
         var score = getScore();
         if (score >= 70) {
               draw();
-            var type ='png';
-            var d=document.getElementById("cvs");
-            var imgdata=d.toDataURL(type);
-            var fixtype=function(type){
-                type=type.toLocaleLowerCase().replace(/jpg/i,'jpeg');
-                var r=type.match(/png|jpeg|bmp|gif/)[0];
-                return 'image/'+r;
-            };
-            imgdata=imgdata.replace(fixtype(type),'image/octet-stream');
-            var savaFile=function(data,filename)
-            {
-                var save_link=document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-                save_link.href=data;
-                save_link.download=filename;
-                var event=document.createEvent('MouseEvents');
-                event.initMouseEvent('click',true,false,window,0,0,0,0,0,false,false,false,false,0,null);
-                save_link.dispatchEvent(event);
-            };
-            var filename=''+new Date().getDate()+'.'+type;  
-            savaFile(imgdata,filename);  
+              $("#img").css("visibility","hidden");
+            // var type ='png';
+            // var d=document.getElementById("cvs");
+            // var imgdata=d.toDataURL(type);
+            // var fixtype=function(type){
+            //     type=type.toLocaleLowerCase().replace(/jpg/i,'jpeg');
+            //     var r=type.match(/png|jpeg|bmp|gif/)[0];
+            //     return 'image/'+r;
+            // };
+            // imgdata=imgdata.replace(fixtype(type),'image/octet-stream');
+            // var savaFile=function(data,filename)
+            // {
+            //     var save_link=document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+            //     save_link.href=data;
+            //     save_link.download=filename;
+            //     var event=document.createEvent('MouseEvents');
+            //     event.initMouseEvent('click',true,false,window,0,0,0,0,0,false,false,false,false,0,null);
+            //     save_link.dispatchEvent(event);
+            // };
+            // var filename=''+new Date().getDate()+'.'+type;  
+            // savaFile(imgdata,filename);  
             }
                 else{
                     alert("很抱歉，成绩不足70分，无法生成证书！")
