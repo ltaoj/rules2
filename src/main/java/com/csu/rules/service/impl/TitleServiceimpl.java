@@ -477,7 +477,15 @@ public class TitleServiceimpl implements TitleService {
             if (formatString.equals("")) {
                 return new ArrayList<Title>();
             }
-            return titleDAO.getTitleListByTitleIds(titleDAO.parseString(formatString));
+            // 2018-05-08 19:40:27 ltaoj
+            List<Title> titleList = titleDAO.getTitleListByTitleIds(titleDAO.parseString(formatString));
+            for (int i = 0; i < titleList.size(); i++) {
+                Iterator<Option> iterator = titleList.get(i).getOptions().iterator();
+                while (iterator.hasNext()) {
+                    iterator.next().setChecked((byte) 0);
+                }
+            }
+            return titleList;
         } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException();
             te.setErrorCode(50);
@@ -495,7 +503,13 @@ public class TitleServiceimpl implements TitleService {
             if (formatString.equals("")) {
                 return new ArrayList<Additiontitle>();
             }
-            return additiontitleDAO.getTitleListByTitleIds(additiontitleDAO.parseString(formatString));
+
+            // 2018-05-08 19:40:44 ltaoj
+            List<Additiontitle> titleList = additiontitleDAO.getTitleListByTitleIds(additiontitleDAO.parseString(formatString));
+            for (int i = 0;i < titleList.size();i++) {
+                titleList.get(i).setAnswer("");
+            }
+            return titleList;
         } catch (PersistenceException pe) {
             TitleServiceException te = new TitleServiceException();
             te.setErrorCode(50);

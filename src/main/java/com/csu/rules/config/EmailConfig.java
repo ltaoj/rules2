@@ -26,7 +26,8 @@ public class EmailConfig {
         Properties javaMailProperties = new Properties();
         javaMailProperties.put("mail.smtp.auth", true);
         javaMailProperties.put("mail.smtp.starttls.enable", true);
-        javaMailProperties.put("mail.smtp.timeout", 5000);
+        javaMailProperties.put("mail.smtp.connectiontimeout", 5000); // 连接超时时间
+        javaMailProperties.put("mail.smtp.timeout", 5000); // 发送超时时间
         mailSender.setJavaMailProperties(javaMailProperties);
 
         return mailSender;
