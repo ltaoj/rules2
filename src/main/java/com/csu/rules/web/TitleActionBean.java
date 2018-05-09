@@ -101,12 +101,12 @@ public class TitleActionBean extends AbstractActionBean {
         List<Additiontitle> additiontitles = null;
         boolean isPractice = true;
         if ((titleList = accountTitles.getTitleList()) != null) {
-            if (titleList.get(titleList.size()).getTitleId() - titleList.get(0).getTitleId() != 9)
+            if (titleList.get(titleList.size()-1).getTitleId() - titleList.get(0).getTitleId() != 9)
                 isPractice = false;
         }
 
         if (isPractice && (additiontitles = accountTitles.getAdditiontitleList()) != null) {
-            if (additiontitles.get(additiontitles.size()).getTitleId() - additiontitles.get(0).getTitleId() != 9)
+            if (additiontitles.get(additiontitles.size()-1).getTitleId() - additiontitles.get(0).getTitleId() != 9)
                 isPractice = false;
         }
 

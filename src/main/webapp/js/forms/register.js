@@ -49,6 +49,7 @@ function registerInfoForJson(userInfoJson) {
         dataType: 'json',
         method: 'POST',
         data: userInfoJson,
+        async: false,
         success: function (data) {
         /*    if (data.code === undefined) {
                 $('#registerModal').modal('hide');
