@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Repository
 public class SignonDAOimpl extends AbstractDAO implements SignonDAO {
-    public Account login(long studentId, String password) throws PersistenceException {
+    public Account login(String studentId, String password) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {

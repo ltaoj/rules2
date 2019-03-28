@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Account implements Serializable {
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Column(name = "username")
     private String username;
     @Column(name = "sex")
@@ -30,7 +30,7 @@ public class Account implements Serializable {
 
     public Account() {}
 
-    public Account(long studentId, String username, byte sex, String clazz, int grade, String college) {
+    public Account(String studentId, String username, byte sex, String clazz, int grade, String college) {
         this.studentId = studentId;
         this.username = username;
         this.sex = sex;
@@ -39,7 +39,7 @@ public class Account implements Serializable {
         this.college = college;
     }
 
-    public Account(long studentId, String username, byte sex, String clazz, int grade, String major, String college) {
+    public Account(String studentId, String username, byte sex, String clazz, int grade, String major, String college) {
         this.studentId = studentId;
         this.username = username;
         this.sex = sex;
@@ -49,11 +49,11 @@ public class Account implements Serializable {
         this.college = college;
     }
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

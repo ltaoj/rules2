@@ -23,7 +23,7 @@ public interface AccountService {
      *                                 2.账号密码错误
      *                                 3.持久层失败异常
      */
-    Account login(long studentId, String password) throws AccountServiceException;
+    Account login(String studentId, String password) throws AccountServiceException;
 
     /**
      * @param signon
@@ -62,7 +62,7 @@ public interface AccountService {
      * @param content
      * @throws AccountServiceException
      */
-    void submitProposals(Long studentId, String mail, String content) throws AccountServiceException;
+    void submitProposals(String studentId, String mail, String content) throws AccountServiceException;
 
     /**
      * 用户兑换礼品

@@ -36,7 +36,7 @@ public class ClockDAOimpl extends AbstractDAO implements ClockDAO {
         }
     }
 
-    public List<Clockin> getAllClocks(long studentId) throws PersistenceException {
+    public List<Clockin> getAllClocks(String studentId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {
@@ -53,7 +53,7 @@ public class ClockDAOimpl extends AbstractDAO implements ClockDAO {
         }
     }
 
-    public Clockin getClockByDay(long studentId, Timestamp datetime) throws PersistenceException {
+    public Clockin getClockByDay(String studentId, Timestamp datetime) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {

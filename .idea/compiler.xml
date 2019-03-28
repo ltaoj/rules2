@@ -9,8 +9,5 @@
         <module name="rules" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="rules" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

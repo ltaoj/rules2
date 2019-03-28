@@ -10,16 +10,16 @@ import java.io.Serializable;
 public class TesttitlePK implements Serializable {
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Id
     @Column(name = "test_id")
     private int testId;
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -46,7 +46,7 @@ public class TesttitlePK implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int) (studentId ^ (studentId >>> 32));
+        int result = 31 * studentId.hashCode();
         result = 31 * result + testId;
         return result;
     }

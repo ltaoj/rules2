@@ -16,7 +16,7 @@ public class Clockin {
     @Column(name = "clock_id")
     private int clockId;
     @Column(name = "student_id")
-    private Long studentId;
+    private String studentId;
     @Column(name = "clock_day")
     private Timestamp clockDay;
     @Column(name = "duration")
@@ -40,11 +40,11 @@ public class Clockin {
         this.clockId = clockId;
     }
 
-    public Long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

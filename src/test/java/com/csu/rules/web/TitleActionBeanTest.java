@@ -86,7 +86,7 @@ public class TitleActionBeanTest {
         title1.setOptions(options);
         titleList.add(title1);
         Account account = new Account();
-        account.setStudentId(3903150326l);
+        account.setStudentId("3903150326l");
         account.setUsername("李涛江");
         AccountTitles accountTitles = new AccountTitles();
         accountTitles.setTitleList(titleList);
@@ -107,7 +107,7 @@ public class TitleActionBeanTest {
     @Test
     public void testWrongList() throws Exception {
         Account account = new Account();
-        account.setStudentId(3903150326l);
+        account.setStudentId("3903150326l");
         account.setUsername("李涛江");
         MockMvc mockMvc = standaloneSetup(titleActionBean).build();
 

@@ -17,7 +17,7 @@ public interface SignonDAO {
      * @return
      * @throws PersistenceException
      */
-    Account login(long studentId, String password) throws PersistenceException;
+    Account login(String studentId, String password) throws PersistenceException;
 
     void insertSignonInfo(Signon signon);
 }

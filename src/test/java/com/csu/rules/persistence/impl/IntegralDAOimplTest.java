@@ -22,7 +22,7 @@ public class IntegralDAOimplTest {
     @Test
     public void testGetIntegral() {
         Account account = new Account();
-        account.setStudentId(3903150326L);
+        account.setStudentId("3903150326");
         Integral integral = integralDAO.getIntegral(account);
         assertEquals(integral.getIntegralNum().intValue(), 10);
     }
@@ -31,7 +31,7 @@ public class IntegralDAOimplTest {
     public void testInsertIntegral() {
         Integral integral = new Integral();
         integral.setIntegralNum(5);
-        integral.setStudentId(3903150327L);
+        integral.setStudentId("3903150327");
         integralDAO.insertIntegral(integral);
     }
 
@@ -39,7 +39,7 @@ public class IntegralDAOimplTest {
     public void testUpdateIntegral() {
         Integral integral = new Integral();
         integral.setIntegralNum(6);
-        integral.setStudentId(3903150327L);
+        integral.setStudentId("3903150327");
         integralDAO.updateIntegral(integral);
     }
 }

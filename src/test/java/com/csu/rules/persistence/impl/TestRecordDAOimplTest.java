@@ -19,7 +19,7 @@ public class TestRecordDAOimplTest {
     @Test
     public void testInsert(){
         Testrecord testrecord=new Testrecord();
-        testrecord.setStudentId(3903150326L);
+        testrecord.setStudentId("3903150326");
         testrecord.setTestId(1);
         testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
         testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
@@ -30,7 +30,7 @@ public class TestRecordDAOimplTest {
     public void testUpdate(){
         Testrecord testrecord=new Testrecord();
         testrecord.setRecordId(2);
-        testrecord.setStudentId(3903150326L);
+        testrecord.setStudentId("3903150326");
         testrecord.setTestId(3);
         testrecord.setStartTime(new Timestamp(System.currentTimeMillis()));
         testrecord.setSubmitTime(new Timestamp(System.currentTimeMillis()));
@@ -40,7 +40,7 @@ public class TestRecordDAOimplTest {
     @Test
     public void testGet(){
         Testrecord record=new Testrecord();
-        record.setStudentId(3903150326L);
+        record.setStudentId("3903150326");
         record.setTestId(3);
         Testrecord testrecord=testRecordDAO.getTestRecord(record);
     }

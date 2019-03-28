@@ -21,15 +21,15 @@ public class SignonDAOimplTest {
     @Test
     public void testLogin() throws Exception {
         SignonDAO signonDAO = new SignonDAOimpl();
-        Account account = signonDAO.login(3903150326l, "3903150326");
+        Account account = signonDAO.login("3903150326l", "3903150326");
         System.out.println();
         assertTrue(account != null);
         assertEquals(account.getUsername(), "李涛江");
 
-        account = signonDAO.login(3903150326l, "3903150327");
+        account = signonDAO.login("3903150326l", "3903150327");
         assertTrue(account == null);
 
-        account = signonDAO.login(3903150324l, "3903150326");
+        account = signonDAO.login("3903150324l", "3903150326");
         assertTrue(account == null);
     }
 }

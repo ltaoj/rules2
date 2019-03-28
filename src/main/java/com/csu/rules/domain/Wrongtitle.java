@@ -15,7 +15,7 @@ public class Wrongtitle implements Serializable {
     private Integer titleId;
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
 
     public Integer getTitleId() {
         return titleId;
@@ -25,11 +25,11 @@ public class Wrongtitle implements Serializable {
         this.titleId = titleId;
     }
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 }

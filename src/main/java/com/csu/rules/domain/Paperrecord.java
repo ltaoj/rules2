@@ -14,7 +14,7 @@ public class Paperrecord implements Serializable {
     @Column(name = "paper_id")
     private int paperId;
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Column(name = "test_id")
     private int testId;
     @Column(name = "submit_time")
@@ -42,11 +42,11 @@ public class Paperrecord implements Serializable {
         this.paperId = paperId;
     }
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -147,7 +147,7 @@ public class Paperrecord implements Serializable {
     @Override
     public int hashCode() {
         int result = paperId;
-        result = 31 * result + (int) (studentId ^ (studentId >>> 32));
+        result = 31 * result + studentId.hashCode();
         result = 31 * result + testId;
         result = 31 * result + (submitTime != null ? submitTime.hashCode() : 0);
         result = 31 * result + (choiceScore != null ? choiceScore.hashCode() : 0);

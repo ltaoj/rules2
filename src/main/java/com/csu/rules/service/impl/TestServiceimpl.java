@@ -465,7 +465,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public void deletePaperrecordByStudentId(long studentId) throws TestServiceException {
+    public void deletePaperrecordByStudentId(String studentId) throws TestServiceException {
         try {
             paperrecordDAO.deletePaperrecordByStudentId(studentId);
         }catch (PersistenceException pe) {
@@ -485,7 +485,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public void deletePaperrecordByStudentIdAndTestId(long studentId, int testId) throws TestServiceException {
+    public void deletePaperrecordByStudentIdAndTestId(String studentId, int testId) throws TestServiceException {
         try {
             paperrecordDAO.deletePaperrecordByStudentIdAndTestId(studentId, testId);
         }catch (PersistenceException pe) {
@@ -505,7 +505,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public Paperrecord getPaperrecordByStudentIdAndTestId(long studentId, int testId) throws TestServiceException {
+    public Paperrecord getPaperrecordByStudentIdAndTestId(String studentId, int testId) throws TestServiceException {
         try {
             return paperrecordDAO.getPaperrecordByStudentIdAndTestId(studentId, testId);
         }catch (PersistenceException pe) {
@@ -515,7 +515,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public List<Paperrecord> getPaperrecordByStudentId(long studentId) throws TestServiceException {
+    public List<Paperrecord> getPaperrecordByStudentId(String studentId) throws TestServiceException {
         try {
             return paperrecordDAO.getPaperrecordByStudentId(studentId);
         }catch (PersistenceException pe) {
@@ -535,7 +535,7 @@ public class TestServiceimpl implements TestService {
         }
     }
 
-    public void updatePaperrecordBy(long studentId, int testId, Paperrecord paperrecord) throws TestServiceException {
+    public void updatePaperrecordBy(String studentId, int testId, Paperrecord paperrecord) throws TestServiceException {
         try {
             paperrecordDAO.updatePaperrecordBy(studentId,testId, paperrecord);
         }catch (PersistenceException pe) {

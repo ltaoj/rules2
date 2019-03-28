@@ -11,16 +11,16 @@ import javax.persistence.*;
 public class Integral {
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Id
     @Column(name = "integral_num")
     private Integer integralNum;
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

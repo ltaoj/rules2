@@ -39,7 +39,7 @@ public class CertActionBean {
 
     @RequestMapping(value = "/exportCert")
     public void genCert(@RequestParam(value = "realSId", required = true) String realSId,
-                        @RequestParam(value = "studentId", required = true) long studentId,
+                        @RequestParam(value = "studentId", required = true) String studentId,
                         HttpServletRequest request, HttpServletResponse response) {
         CertUtil.setCertOriginPath(request.getSession().getServletContext().getRealPath("img"));
         CertUtil.setCertSaveTemp(request.getSession().getServletContext().getRealPath("cert"));
