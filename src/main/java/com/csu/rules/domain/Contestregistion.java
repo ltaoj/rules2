@@ -11,18 +11,18 @@ import javax.persistence.*;
 public class Contestregistion {
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Id
     @Column(name = "test_id")
     private int testId;
     @Column(name = "status")
     private int status;
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

@@ -21,14 +21,14 @@ public interface ClockDAO {
      * @return
      * @throws PersistenceException
      */
-    List<Clockin> getAllClocks(long studentId) throws PersistenceException;
+    List<Clockin> getAllClocks(String studentId) throws PersistenceException;
 
     /**
      * @param datetime
      * @return
      * @throws PersistenceException
      */
-    Clockin getClockByDay(long studentId, Timestamp datetime) throws PersistenceException;
+    Clockin getClockByDay(String studentId, Timestamp datetime) throws PersistenceException;
 
     /**
      * @throws PersistenceException

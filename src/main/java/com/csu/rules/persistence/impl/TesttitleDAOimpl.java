@@ -34,7 +34,7 @@ public class TesttitleDAOimpl extends AbstractDAO implements TesttitleDAO {
         }
     }
 
-    public Testtitle getTesttitle(long studentId, int testId) throws PersistenceException {
+    public Testtitle getTesttitle(String studentId, int testId) throws PersistenceException {
         Session session = HibernateUtil.getSession();
         Transaction transaction = getTransation(session);
         try {
@@ -59,7 +59,7 @@ public class TesttitleDAOimpl extends AbstractDAO implements TesttitleDAO {
         return getTesttitle(account.getStudentId(), testinfo.getTestId());
     }
 
-    public void deleteTesttitle(long studentId, int testId) throws PersistenceException {
+    public void deleteTesttitle(String studentId, int testId) throws PersistenceException {
         Testtitle testtitle = new Testtitle();
         testtitle.setStudentId(studentId);
         testtitle.setTestId(testId);

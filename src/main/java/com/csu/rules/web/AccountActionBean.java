@@ -76,7 +76,7 @@ public class AccountActionBean extends AbstractActionBean {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<Account> logintest(
-            @RequestParam(value = "studentId") long studentId,
+            @RequestParam(value = "studentId") String studentId,
             @RequestParam(value = "password") String password) {
         try {
             Account account = accountService.login(studentId, password);

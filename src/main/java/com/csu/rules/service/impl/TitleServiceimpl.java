@@ -341,7 +341,8 @@ public class TitleServiceimpl implements TitleService {
             // 如果学号以多个0开头，那么后台转换成long值后会将0去除
             // 所以学号的位数可能小于10
             // 2018-04-22 14:11:38
-            int len = Long.toString(account.getStudentId()).length();
+//            int len = Long.toString(account.getStudentId()).length();
+            int len = account.getStudentId().length();
             if (len > 15 || len < 6 || account.getUsername() == null) {
                 te.setErrorCode(56);
                 throw te;

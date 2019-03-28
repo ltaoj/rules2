@@ -26,7 +26,7 @@ public interface TesttitleDAO {
      * @throws PersistenceException
      * 根据学号和考试id查找关联试题
      */
-    Testtitle getTesttitle (long studentId, int testId) throws PersistenceException;
+    Testtitle getTesttitle (String studentId, int testId) throws PersistenceException;
 
     /**
      * @param testtitle
@@ -51,7 +51,7 @@ public interface TesttitleDAO {
      * @throws PersistenceException
      * 根据学号和考试id删除关联试题记录
      */
-    void deleteTesttitle (long studentId, int testId) throws PersistenceException;
+    void deleteTesttitle (String studentId, int testId) throws PersistenceException;
 
     /**
      * @param testtitle

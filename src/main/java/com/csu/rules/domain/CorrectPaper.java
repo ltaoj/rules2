@@ -4,15 +4,15 @@ package com.csu.rules.domain;
  * Created by GF on 2017/8/17.
  */
 public class CorrectPaper {
-    private Long studentId;
+    private String studentId;
     private int testId;
     private int score;
 
-    public Long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

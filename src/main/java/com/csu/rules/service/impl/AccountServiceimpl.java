@@ -36,7 +36,7 @@ public class AccountServiceimpl implements AccountService {
         this.feedbackDAO=feedbackDAO;
     }
 
-    public Account login(long studentId, String password) throws AccountServiceException {
+    public Account login(String studentId, String password) throws AccountServiceException {
         try {
             AccountServiceException ae = new AccountServiceException();
             // 字段验证
@@ -44,7 +44,8 @@ public class AccountServiceimpl implements AccountService {
             // 如果学号以多个0开头，那么后台转换成long值后会将0去除
             // 所以学号的位数可能小于10
             // 2018-04-22 14:11:38
-            int len = Long.toString(studentId).length();
+//            int len = Long.toString(studentId).length();
+            int len = studentId.length();
             if (len > 15 || len < 6) {
                 ae.setErrorCode(0);
                 throw ae;
@@ -101,7 +102,7 @@ public class AccountServiceimpl implements AccountService {
         return account1;
     }
 
-    public void submitProposals(Long studentId, String mail, String content) throws AccountServiceException {
+    public void submitProposals(String studentId, String mail, String content) throws AccountServiceException {
 
     }
 

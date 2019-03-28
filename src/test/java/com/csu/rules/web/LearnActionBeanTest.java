@@ -34,7 +34,7 @@ public class LearnActionBeanTest {
     @Test
     public void testClock() throws Exception {
         Clockin clockin = new Clockin();
-        clockin.setStudentId(3903150326l);
+        clockin.setStudentId("3903150326l");
         clockin.setComment("打卡");
         clockin.setClockDay(Timestamp.valueOf("2017-06-11 16:48:38"));
         clockin.setTitleNum(15);
@@ -54,7 +54,7 @@ public class LearnActionBeanTest {
     @Test
     public void testUpClock() throws Exception {
         Clockin clockin = new Clockin();
-        clockin.setStudentId(3903150326l);
+        clockin.setStudentId("3903150326l");
         clockin.setComment("更新打卡信息");
         clockin.setClockDay(new Timestamp(System.currentTimeMillis()));
         clockin.setDuration(10);
@@ -84,7 +84,7 @@ public class LearnActionBeanTest {
     @Test
     public void testClockList() throws Exception {
         Account account = new Account();
-        account.setStudentId(3903150326l);
+        account.setStudentId("3903150326l");
         account.setUsername("李涛江");
 
         MockMvc mockMvc = standaloneSetup(learnActionBean).build();

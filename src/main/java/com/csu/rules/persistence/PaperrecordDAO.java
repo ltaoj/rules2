@@ -31,7 +31,7 @@ public interface PaperrecordDAO {
      * @param studentId
      * @throws PersistenceException
      */
-    void deletePaperrecordByStudentId(long studentId) throws PersistenceException;
+    void deletePaperrecordByStudentId(String studentId) throws PersistenceException;
 
     /**
      * 通过测试编号删除所有试卷
@@ -46,7 +46,7 @@ public interface PaperrecordDAO {
      * @param testId
      * @throws PersistenceException
      */
-    void deletePaperrecordByStudentIdAndTestId(long studentId, int testId) throws PersistenceException;
+    void deletePaperrecordByStudentIdAndTestId(String studentId, int testId) throws PersistenceException;
 
     /**
      * 通过试卷编号获取试卷
@@ -63,7 +63,7 @@ public interface PaperrecordDAO {
      * @return
      * @throws PersistenceException
      */
-    Paperrecord getPaperrecordByStudentIdAndTestId(long studentId, int testId) throws PersistenceException;
+    Paperrecord getPaperrecordByStudentIdAndTestId(String studentId, int testId) throws PersistenceException;
 
     /**
      * 通过学号获取试卷
@@ -71,7 +71,7 @@ public interface PaperrecordDAO {
      * @return
      * @throws PersistenceException
      */
-    List<Paperrecord> getPaperrecordByStudentId(long studentId) throws PersistenceException;
+    List<Paperrecord> getPaperrecordByStudentId(String studentId) throws PersistenceException;
 
     /**
      * 通过试卷编号更新提交的试卷
@@ -87,7 +87,7 @@ public interface PaperrecordDAO {
      * @param paperrecord
      * @throws PersistenceException
      */
-    void updatePaperrecordBy(long studentId, int testId, Paperrecord paperrecord) throws PersistenceException;
+    void updatePaperrecordBy(String studentId, int testId, Paperrecord paperrecord) throws PersistenceException;
 
     /**
      * 通过考试编号获取试卷

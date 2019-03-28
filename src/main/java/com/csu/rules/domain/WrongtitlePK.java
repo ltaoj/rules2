@@ -13,7 +13,7 @@ public class WrongtitlePK implements Serializable {
     private Integer titleId;
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
 
     public Integer getTitleId() {
         return titleId;
@@ -23,11 +23,11 @@ public class WrongtitlePK implements Serializable {
         this.titleId = titleId;
     }
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -47,7 +47,7 @@ public class WrongtitlePK implements Serializable {
     @Override
     public int hashCode() {
         int result = titleId != null ? titleId.hashCode() : 0;
-        result = 31 * result + (int) (studentId ^ (studentId >>> 32));
+        result = 31 * result + studentId.hashCode();
         return result;
     }
 }
