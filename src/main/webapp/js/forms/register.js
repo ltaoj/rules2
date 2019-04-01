@@ -16,7 +16,7 @@ function register() {
     // 1. 是否输入位十位学号
     // 2. 
     var re = /[A-Z]{0,1}\d{9,10}/;
-    var re1=/[A-Z]{1}\d{9,10}/
+    var re1=/[A-Z]{1}\d{9,10}/;
     var nob =studentId.toString();
     if(!(re.test(nob))){
         $('#registerMessage').html("请输入正确的学号");
@@ -133,4 +133,4 @@ $(document).ready(function(){
 
         };
 
-})
+});
