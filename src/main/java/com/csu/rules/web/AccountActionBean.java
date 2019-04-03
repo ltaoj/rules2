@@ -185,15 +185,19 @@ public class AccountActionBean extends AbstractActionBean {
             Account query = new Account();
             query.setStudentId(accountId);
             Account account = accountService.getUserInfo(query);
-            map.put("Msg", "success");
-            map.put("username", account.getUsername());
+            if (account != null) {
+                map.put("Msg", "success");
+                map.put("username", account.getUsername());
+            } else {
+                map.put("Msg", "fail");
+            }
             return map;
         } catch (AccountServiceException e) {
             throw new CatchServiceException(e);
         }
     }
 
-    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> updateUser(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -204,18 +208,19 @@ public class AccountActionBean extends AbstractActionBean {
             Account account = accountService.getUserInfo(query);
             Signon signon = accountService.getSignon(accountId);
             String type = request.getParameter("type");
-            if(account != null) {
+            if (account != null) {
                 if ("reset".equals(type)) {
                     signon.setPassword("123456");
                     accountService.updateSignon(signon);
                 } else if ("delete".equals(type)) {
                     account.setDelFlag(1);
                     accountService.updateUser(account);
-                } else if ("update".equals(type)) {
+                } else if ("change".equals(type)) {
                     String username = request.getParameter("username");
                     account.setUsername(username);
                     accountService.updateUser(account);
                 }
+                map.put("Msg", "success");
             } else {
                 map.put("Msg", "fail");
             }

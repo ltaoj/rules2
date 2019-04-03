@@ -790,11 +790,15 @@
                                     <br>
                                     <label><input name="operate" type="radio" value="reset" />重置</label>&nbsp;
                                     <label><input name="operate" type="radio" value="delete"/>删除</label>&nbsp;
-                                    <label><input name="operate" type="radio" value="find" />改名</label>&nbsp;
+                                    <label><input name="operate" type="radio" value="change" />改名</label>&nbsp;
                                     <br>
-                                    <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
-                                            onclick="saveUser()">保存
-                                    </button>
+                                    <div>
+                                        <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                                onclick="saveUser()">保存
+                                        </button>
+                                        <label id="submit_info"></label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
