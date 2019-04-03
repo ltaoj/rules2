@@ -27,6 +27,8 @@ public class Account implements Serializable {
     private String major;
     @Column(name = "college")
     private String college;
+    @Column(name = "del_flag")
+    private int delFlag = 0;
 
     public Account() {}
 
@@ -105,13 +107,25 @@ public class Account implements Serializable {
         this.major = major;
     }
 
+    public int getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(int delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    @Override
     public String toString() {
-        return "studentId:" + this.getStudentId() + "\n" +
-                "username:" + this.getUsername() + "\n" +
-                "sex:" + this.getSex() + "\n" +
-                "clazz:" + this.getClazz() + "\n" +
-                "grade:" + this.getGrade() + "\n" +
-                "college:" + this.getCollege() + "\n" +
-                "school:" + this.getMajor();
+        return "Account{" +
+                "studentId='" + studentId + '\'' +
+                ", username='" + username + '\'' +
+                ", sex=" + sex +
+                ", clazz='" + clazz + '\'' +
+                ", grade=" + grade +
+                ", major='" + major + '\'' +
+                ", college='" + college + '\'' +
+                ", delFlag=" + delFlag +
+                '}';
     }
 }

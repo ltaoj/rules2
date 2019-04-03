@@ -179,4 +179,34 @@ public class AccountServiceimpl implements AccountService {
         }
     }
 
+    public Signon getSignon(String accountId) throws AccountServiceException{
+        try {
+            return accountDAO.getSignon(accountId);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public void updateSignon(Signon signon) throws AccountServiceException{
+        try {
+            accountDAO.updateSignon(signon);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public void updateUser(Account account) throws AccountServiceException{
+        try {
+            accountDAO.updateUser(account);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
 }
