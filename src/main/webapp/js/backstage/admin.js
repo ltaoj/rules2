@@ -203,12 +203,13 @@ function getUserName() {
         success: function (data) {
             if (data.Msg == "success") {
                 $('#user_username').val(data.username);
+                $('#submit_info').html("");
             } else {
-                $('#user_username').val("未找到用户名");
+                $('#submit_info').html("未找到用户!");
             }
         },
         error: function (xhr) {
-            alert("Error!\n" + xhr.responseText)
+            alert("Error!\n")
         }
     }).done(function (data) {
         // 请求成功后要做的工作
@@ -232,12 +233,18 @@ function saveUser() {
         data: {
             ajax: true,
             accountId: accountId,
+            username: $('#user_username').val(),
             type: type
         },
         success: function (data) {
+            if(data.Msg == "success") {
+                $('#submit_info').html("操作成功！");
+            } else {
+                $('#submit_info').html("操作失败！");
+            }
         },
         error: function (xhr) {
-
+            alert("Error!\n");
         }
     }).done(function (data) {
         // 请求成功后要做的工作

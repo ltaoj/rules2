@@ -9,7 +9,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.request.SessionScope;
 
 import javax.security.sasl.SaslException;
 import java.util.ArrayList;
@@ -87,6 +89,57 @@ public class AccountDAOimpl extends AbstractDAO implements AccountDAO {
             session.flush();
             transaction.commit();
             return list;
+        } catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        } finally {
+            session.close();
+        }
+    }
+
+    public Signon getSignon(String accountId) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
+        try {
+            String hql = "from Signon as signon where studentId=?";
+            Signon signon = (Signon) session.createQuery(hql).setParameter(0, accountId).uniqueResult();
+            session.flush();
+            transaction.commit();
+            return signon;
+        } catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        } finally {
+            session.close();
+        }
+    }
+
+    public void updateSignon(Signon signon) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
+        try {
+            String hql = "update Signon set password=? where studentId=?";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, signon.getPassword());
+            query.setParameter(1, signon.getStudentId());
+            query.executeUpdate();
+            session.flush();
+            transaction.commit();
+        } catch (RuntimeException e) {
+            transaction.rollback();
+            throw new PersistenceException(e);
+        } finally {
+            session.close();
+        }
+    }
+
+    public void updateUser(Account account) throws PersistenceException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = getTransation(session);
+        try {
+            session.update(account);
+            session.flush();
+            transaction.commit();
         } catch (RuntimeException e) {
             transaction.rollback();
             throw new PersistenceException(e);
