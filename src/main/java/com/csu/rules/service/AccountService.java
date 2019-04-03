@@ -122,5 +122,24 @@ public interface AccountService {
      * @throws AccountServiceException
      */
     List<Account> getAccountListByCondition(String college)throws AccountServiceException;
+
+    /**
+     * 根据 账户Id获取密码信息
+     * @param accountId
+     * @return
+     */
+    Signon getSignon(String accountId) throws AccountServiceException;
+
+    /**
+     * 更新密码信息
+     * @param signon
+     */
+    void updateSignon(Signon signon) throws AccountServiceException;
+
+    /**
+     * 更新用户信息
+     * @param account
+     */
+    void updateUser(Account account) throws AccountServiceException;
 }
 
