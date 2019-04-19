@@ -34,15 +34,15 @@ function register() {
         // 一定要先插入信息，因为账户密码是以userfinfo里的学号为外键的
         var userInfoString = {studentId: studentId, username: userName, sex: 0, clazz: clazz,  college: college, grade:9999,major:'' };
         var userInfoJson = $.toJSON(userInfoString);
-        registerInfoForJson(userInfoJson);
+
         var accountInfoString = {studentId: studentId, password: password};
         var accountInfoJson = $.toJSON(accountInfoString);
-        registerAccountForJson(accountInfoJson);
+        registerInfoForJson(userInfoJson, accountInfoJson);
     }
 }
 
 // 存入用户信息
-function registerInfoForJson(userInfoJson) {
+function registerInfoForJson(userInfoJson, accountInfoJson) {
     $.ajaxSetup({contentType: 'application/json'});
     $.ajax({
         url: 'account/registerForInfo',
@@ -51,6 +51,7 @@ function registerInfoForJson(userInfoJson) {
         data: userInfoJson,
         async: false,
         success: function (data) {
+            registerAccountForJson(accountInfoJson);
         /*    if (data.code === undefined) {
                 $('#registerModal').modal('hide');
             } else {
