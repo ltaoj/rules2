@@ -16,7 +16,7 @@ public class Testrecord implements Serializable {
     @Column(name = "record_id")
     private int recordId;
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Column(name = "test_id")
     private int testId;
     @Column(name = "start_time")
@@ -40,11 +40,11 @@ public class Testrecord implements Serializable {
         this.recordId = recordId;
     }
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -93,7 +93,7 @@ public class Testrecord implements Serializable {
     public int hashCode() {
         int result = score != null ? score.hashCode() : 0;
         result = 31 * result + recordId;
-        result = 31 * result + (int) (studentId ^ (studentId >>> 32));
+        result = 31 * result + studentId.hashCode();
         result = 31 * result + testId;
         result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
         result = 31 * result + (submitTime != null ? submitTime.hashCode() : 0);

@@ -1,6 +1,7 @@
 package com.csu.rules.persistence;
 
 import com.csu.rules.domain.Account;
+import com.csu.rules.domain.Signon;
 import com.csu.rules.exception.PersistenceException;
 
 import java.util.List;
@@ -42,4 +43,26 @@ public interface AccountDAO {
      * @throws PersistenceException
      */
     List<Account> getAccountListByCondition(String college)throws PersistenceException;
+
+    /**
+     * 根据账户Id获取密码信息
+     * @param accountId
+     * @return
+     * @throws PersistenceException
+     */
+    Signon getSignon(String accountId) throws PersistenceException;
+
+    /**
+     * 更新密码信息
+     * @param signon
+     * @throws PersistenceException
+     */
+    void updateSignon(Signon signon ) throws PersistenceException;
+
+    /**
+     * 更新用户信息
+     * @param account
+     * @throws PersistenceException
+     */
+    void updateUser(Account account) throws PersistenceException;
 }

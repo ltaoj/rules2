@@ -276,7 +276,7 @@ public interface TestService {
      * @param studentId
      * @throws TestServiceException
      */
-    void deletePaperrecordByStudentId(long studentId) throws TestServiceException;
+    void deletePaperrecordByStudentId(String studentId) throws TestServiceException;
 
     /**
      * 通过考试编号删除所有试卷
@@ -291,7 +291,7 @@ public interface TestService {
      * @param testId
      * @throws TestServiceException
      */
-    void deletePaperrecordByStudentIdAndTestId(long studentId, int testId) throws TestServiceException;
+    void deletePaperrecordByStudentIdAndTestId(String studentId, int testId) throws TestServiceException;
 
     /**
      * 通过试卷编号获取试卷
@@ -308,7 +308,7 @@ public interface TestService {
      * @return
      * @throws TestServiceException
      */
-    Paperrecord getPaperrecordByStudentIdAndTestId(long studentId, int testId) throws TestServiceException;
+    Paperrecord getPaperrecordByStudentIdAndTestId(String studentId, int testId) throws TestServiceException;
 
     /**
      * 通过学号获取所有试卷
@@ -316,7 +316,7 @@ public interface TestService {
      * @return
      * @throws TestServiceException
      */
-    List<Paperrecord> getPaperrecordByStudentId(long studentId) throws TestServiceException;
+    List<Paperrecord> getPaperrecordByStudentId(String studentId) throws TestServiceException;
 
     /**
      * 通过试卷编号更新提交的试卷
@@ -333,7 +333,7 @@ public interface TestService {
      * @param paperrecord
      * @throws TestServiceException
      */
-    void updatePaperrecordBy(long studentId, int testId, Paperrecord paperrecord) throws TestServiceException;
+    void updatePaperrecordBy(String studentId, int testId, Paperrecord paperrecord) throws TestServiceException;
 
     /**
      * 通过考试id获取所有试卷

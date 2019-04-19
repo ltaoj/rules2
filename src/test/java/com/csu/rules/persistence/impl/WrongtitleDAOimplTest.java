@@ -25,7 +25,7 @@ public class WrongtitleDAOimplTest {
     @Test
     public void testGetWrongTitleIdList() throws Exception {
         Account account = new Account();
-        account.setStudentId(3903150326L);
+        account.setStudentId("3903150326");
         WrongtitleDAO wrongtitleDAO = new WrongtitleDAOimpl();
         List<Wrongtitle> wrongtitleList = wrongtitleDAO.getWrongTitleIdList(account);
         assertTrue(wrongtitleList.size() == 1);
@@ -35,7 +35,7 @@ public class WrongtitleDAOimplTest {
     @Test
     public void testInsertWrongTitle() throws Exception {
         Wrongtitle wrongtitle = new Wrongtitle();
-        wrongtitle.setStudentId(3903150327L);
+        wrongtitle.setStudentId("3903150327");
         wrongtitle.setTitleId(2);
         wrongtitleDAO.insertWrongTitle(wrongtitle);
     }
@@ -43,7 +43,7 @@ public class WrongtitleDAOimplTest {
     @Test
     public void testDeleteWrongTitle() throws Exception {
         Wrongtitle wrongtitle = new Wrongtitle();
-        wrongtitle.setStudentId(3903150327L);
+        wrongtitle.setStudentId("3903150327");
         wrongtitle.setTitleId(2);
         wrongtitleDAO.deleteWrongTitle(wrongtitle);
     }

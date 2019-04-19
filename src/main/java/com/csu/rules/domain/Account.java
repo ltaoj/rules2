@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Account implements Serializable {
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Column(name = "username")
     private String username;
     @Column(name = "sex")
@@ -27,10 +27,12 @@ public class Account implements Serializable {
     private String major;
     @Column(name = "college")
     private String college;
+    @Column(name = "del_flag")
+    private int delFlag = 0;
 
     public Account() {}
 
-    public Account(long studentId, String username, byte sex, String clazz, int grade, String college) {
+    public Account(String studentId, String username, byte sex, String clazz, int grade, String college) {
         this.studentId = studentId;
         this.username = username;
         this.sex = sex;
@@ -39,7 +41,7 @@ public class Account implements Serializable {
         this.college = college;
     }
 
-    public Account(long studentId, String username, byte sex, String clazz, int grade, String major, String college) {
+    public Account(String studentId, String username, byte sex, String clazz, int grade, String major, String college) {
         this.studentId = studentId;
         this.username = username;
         this.sex = sex;
@@ -49,11 +51,11 @@ public class Account implements Serializable {
         this.college = college;
     }
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -105,13 +107,25 @@ public class Account implements Serializable {
         this.major = major;
     }
 
+    public int getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(int delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    @Override
     public String toString() {
-        return "studentId:" + this.getStudentId() + "\n" +
-                "username:" + this.getUsername() + "\n" +
-                "sex:" + this.getSex() + "\n" +
-                "clazz:" + this.getClazz() + "\n" +
-                "grade:" + this.getGrade() + "\n" +
-                "college:" + this.getCollege() + "\n" +
-                "school:" + this.getMajor();
+        return "Account{" +
+                "studentId='" + studentId + '\'' +
+                ", username='" + username + '\'' +
+                ", sex=" + sex +
+                ", clazz='" + clazz + '\'' +
+                ", grade=" + grade +
+                ", major='" + major + '\'' +
+                ", college='" + college + '\'' +
+                ", delFlag=" + delFlag +
+                '}';
     }
 }

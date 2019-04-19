@@ -4,7 +4,7 @@ package com.csu.rules.domain;
  * Created by ltaoj on 17-7-6.
  */
 public class AccountTestRecord {
-    private long studentId;
+    private String studentId;
     private String username;
     private String clazz;
     private int grade;
@@ -12,7 +12,7 @@ public class AccountTestRecord {
     private String college;
     private Integer score;
 
-    public AccountTestRecord(long studentId, String username, String clazz, int grade, String major, String college, Integer score) {
+    public AccountTestRecord(String studentId, String username, String clazz, int grade, String major, String college, Integer score) {
         this.studentId = studentId;
         this.username = username;
         this.clazz = clazz;
@@ -22,11 +22,11 @@ public class AccountTestRecord {
         this.score = score;
     }
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

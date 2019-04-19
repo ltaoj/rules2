@@ -36,7 +36,7 @@ public class AccountServiceimpl implements AccountService {
         this.feedbackDAO=feedbackDAO;
     }
 
-    public Account login(long studentId, String password) throws AccountServiceException {
+    public Account login(String studentId, String password) throws AccountServiceException {
         try {
             AccountServiceException ae = new AccountServiceException();
             // 字段验证
@@ -44,7 +44,8 @@ public class AccountServiceimpl implements AccountService {
             // 如果学号以多个0开头，那么后台转换成long值后会将0去除
             // 所以学号的位数可能小于10
             // 2018-04-22 14:11:38
-            int len = Long.toString(studentId).length();
+//            int len = Long.toString(studentId).length();
+            int len = studentId.length();
             if (len > 15 || len < 6) {
                 ae.setErrorCode(0);
                 throw ae;
@@ -101,7 +102,7 @@ public class AccountServiceimpl implements AccountService {
         return account1;
     }
 
-    public void submitProposals(Long studentId, String mail, String content) throws AccountServiceException {
+    public void submitProposals(String studentId, String mail, String content) throws AccountServiceException {
 
     }
 
@@ -171,6 +172,36 @@ public class AccountServiceimpl implements AccountService {
             String[] rolerange=college.split(";");
             List<Account> list=accountDAO.getAccountListByCondition(rolerange[0]);
             return list;
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public Signon getSignon(String accountId) throws AccountServiceException{
+        try {
+            return accountDAO.getSignon(accountId);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public void updateSignon(Signon signon) throws AccountServiceException{
+        try {
+            accountDAO.updateSignon(signon);
+        } catch (PersistenceException pe) {
+            AccountServiceException ae = new AccountServiceException(pe);
+            ae.setErrorCode(100);
+            throw ae;
+        }
+    }
+
+    public void updateUser(Account account) throws AccountServiceException{
+        try {
+            accountDAO.updateUser(account);
         } catch (PersistenceException pe) {
             AccountServiceException ae = new AccountServiceException(pe);
             ae.setErrorCode(100);

@@ -60,6 +60,7 @@
     <script>
         window.onload = function () {
             tab("tab_t", "li", "tab_c", "li", "onmousedown")
+
             function tab(tab_t, tab_t_tag, tab_c, tag_c_tag, evt) {
                 var tab_t = document.getElementById(tab_t);
                 var tab_t_li = tab_t.getElementsByTagName(tab_t_tag);
@@ -126,7 +127,8 @@
             <div class="modal-body" style="overflow-y: scroll; height: 800px;">
                 <form class="bs-example bs-example-form" method="post">
                     <div id="paper_stu"><span>学号:</span><span id="paper_stuId"></span><span>&nbsp;&nbsp;姓名:</span><span
-                            id="paper_stuName"></span><span>&nbsp;&nbsp;二级培养单位:</span><span id="paper_stuCollege"></span>
+                            id="paper_stuName"></span><span>&nbsp;&nbsp;二级培养单位:</span><span
+                            id="paper_stuCollege"></span>
                         <span>&nbsp;&nbsp;专业:</span><span id="paper_stuMajor"></span><span>&nbsp;&nbsp;班级:</span><span
                                 id="paper_stuClass"></span></div>
                     <br>
@@ -136,8 +138,8 @@
                     <div style="text-align: center;">
                         <button type="button" class="btn btn-primary"
                                 style="width: 100px; text-align: center" onclick="correctPaper()"
-                                <%--id="correct_submit" disabled="disabled">提交--%>
-                                id="correct_submit" >提交
+                        <%--id="correct_submit" disabled="disabled">提交--%>
+                                id="correct_submit">提交
                         </button>
                     </div>
                 </form>
@@ -255,6 +257,7 @@
                         <li id="3" href="#"><i class="fa fa-gg"></i>&nbsp;&nbsp;学生成绩</li>
                         <li id="4" href="#"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;考试通知</li>
                         <li id="5" href="#"><i class="fa fa-user-o"></i>&nbsp;&nbsp;管理员</li>
+                        <li id="6" href="#"><i class="fa fa-user-o"></i>&nbsp;&nbsp;账号管理</li>
                     </ul>
                 </div>
             </div>
@@ -289,7 +292,8 @@
                                 <h3>添加试题</h3><br>
                                 <div>
                                     <label for="titleName">题目内容</label>
-                                    <textarea id="titleName" type="text" class="form-control" placeholder="请输入题目内容"></textarea>
+                                    <textarea id="titleName" type="text" class="form-control"
+                                              placeholder="请输入题目内容"></textarea>
                                 </div>
                                 <div>
                                     <label for="titleAnswer">题目答案</label>
@@ -318,7 +322,8 @@
                                 <div id="addTitleMsg"></div>
                                 <br/>
                                 <div>
-                                    <button class="form-control btn btn-info" id="addTitle" onclick="addTitle()">确认添加</button>
+                                    <button class="form-control btn btn-info" id="addTitle" onclick="addTitle()">确认添加
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -351,8 +356,8 @@
                                             <%--<label>考试年级：</label>--%>
                                             <%--<br>--%>
                                             <%--<div class="input-group">--%>
-                                                <%--<input type="text" class="form-control" id="contest_grade" value="">--%>
-                                                <%--<span class="input-group-addon">级</span>--%>
+                                            <%--<input type="text" class="form-control" id="contest_grade" value="">--%>
+                                            <%--<span class="input-group-addon">级</span>--%>
                                             <%--</div>--%>
                                             <%--<br>--%>
                                             <label>开始时间：</label>
@@ -436,8 +441,8 @@
                                             <%--<label>考试年级：</label>--%>
                                             <%--<br>--%>
                                             <%--<div class="input-group">--%>
-                                                <%--<input type="text" class="form-control" id="test_grade" value="">--%>
-                                                <%--<span class="input-group-addon">级</span>--%>
+                                            <%--<input type="text" class="form-control" id="test_grade" value="">--%>
+                                            <%--<span class="input-group-addon">级</span>--%>
                                             <%--</div>--%>
                                             <%--<br>--%>
                                             <label>开始时间：</label>
@@ -558,20 +563,20 @@
                                     </select>
                                     <%--<span>专业:</span>--%>
                                     <%--<select id="major" onchange="getClazz(this.value, $('#clazz'))">--%>
-                                        <%--<option value=""></option>--%>
+                                    <%--<option value=""></option>--%>
                                     <%--</select>--%>
                                     <%--<span>年级:</span>--%>
                                     <%--<select id="grade">--%>
-                                        <%--<option value="2015">2015</option>--%>
-                                        <%--<option value="2016">2016</option>--%>
-                                        <%--<option value="2017">2017</option>--%>
-                                        <%--<option value="2018">2018</option>--%>
-                                        <%--<option value="2019">2019</option>--%>
-                                        <%--<option value="2020">2020</option>--%>
+                                    <%--<option value="2015">2015</option>--%>
+                                    <%--<option value="2016">2016</option>--%>
+                                    <%--<option value="2017">2017</option>--%>
+                                    <%--<option value="2018">2018</option>--%>
+                                    <%--<option value="2019">2019</option>--%>
+                                    <%--<option value="2020">2020</option>--%>
                                     <%--</select>--%>
                                     <%--<span>班级:</span>--%>
                                     <%--<select id="clazz">--%>
-                                        <%--<option value=""></option>--%>
+                                    <%--<option value=""></option>--%>
                                     <%--</select>--%>
                                     <span>分数线</span>
                                     <select id="score">
@@ -612,8 +617,8 @@
                                 <button
                                         class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         id="test_correct_paper" data-toggle="" data-target=""
-                                        <%--onclick="showPaper()" style="display: none">审批试卷--%>
-                                        onclick="showPaper()" >审批试卷
+                                <%--onclick="showPaper()" style="display: none">审批试卷--%>
+                                        onclick="showPaper()">审批试卷
                                 </button>
                             </div>
 
@@ -624,7 +629,7 @@
                                 <button
                                         class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
                                         id="contest_correct_paper" data-toggle="" data-target=""
-                                        onclick="showContestPaper()" style="display: none" >审批试卷
+                                        onclick="showContestPaper()" style="display: none">审批试卷
                                 </button>
                             </div>
 
@@ -729,17 +734,21 @@
                                     <label><input name="role" type="radio" value="4" onclick="roleCheck()"/>教师 </label>
                                     <br>
                                     <span>二级培养单位:</span>
-                                    <select class="form-control" id="role_college" onclick="getColleges(this)" onchange="getMajor(this.value, $('#role_major'), $('#role_class'))" style="display: none">
+                                    <select class="form-control" id="role_college" onclick="getColleges(this)"
+                                            onchange="getMajor(this.value, $('#role_major'), $('#role_class'))"
+                                            style="display: none">
                                         <option value="二级培养单位">请选择二级培养单位(默认全校)</option>
                                     </select>
                                     <span>专业:</span>
 
-                                    <select class="form-control" id="role_major" onchange="getClazz(this.value, $('#role_class'))" style="display: none">
+                                    <select class="form-control" id="role_major"
+                                            onchange="getClazz(this.value, $('#role_class'))" style="display: none">
 
                                         <option value=""></option>
                                     </select>
                                     <span>年级:</span>
-                                    <select class="form-control" id="role_grade" style="display: none" multiple="multiple" size="1">
+                                    <select class="form-control" id="role_grade" style="display: none"
+                                            multiple="multiple" size="1">
                                         <option value="2015">2015</option>
                                         <option value="2016">2016</option>
                                         <option value="2017">2017</option>
@@ -748,7 +757,8 @@
                                         <option value="2020">2020</option>
                                     </select>
                                     <span>班级:</span>
-                                    <select class="form-control" id="role_class" style="display: none" multiple="multiple" size="1">
+                                    <select class="form-control" id="role_class" style="display: none"
+                                            multiple="multiple" size="1">
                                         <option value=""></option>
                                     </select>
                                     <br><br>
@@ -756,6 +766,39 @@
                                             onclick="insertAdmin()">添加
                                     </button>
                                     <label id="insertAdmin_msg" class="g-color-red"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="hide">
+                        <div class="main_bd">
+                            <div class="box">
+                                <h3>账号管理</h3>
+                                <br>
+                                <div style="width: 40%">
+                                    <div class="input-group input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user-o"></i></span>
+                                        <input type="text" class="form-control" placeholder="账号"
+                                               onchange="displayInsertMsg()" onblur="getUserName()" id="user_account">
+                                    </div>
+                                    <br>
+                                    <div class="input-group input-group">
+                                        <span class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" placeholder="用户名" id="user_username"
+                                               onchange="displayInsertMsg()">
+                                    </div>
+                                    <br>
+                                    <label><input name="operate" type="radio" value="reset" />重置</label>&nbsp;
+                                    <label><input name="operate" type="radio" value="delete"/>删除</label>&nbsp;
+                                    <label><input name="operate" type="radio" value="change" />改名</label>&nbsp;
+                                    <br>
+                                    <div>
+                                        <button class="btn-u btn-u-primary btn-u-green btn-u-upper rounded-2x"
+                                                onclick="saveUser()">保存
+                                        </button>
+                                        <label id="submit_info"></label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -20,7 +20,7 @@ public class ClockDAOimplTest {
     @Test
     public void testInsertClock() throws Exception {
         Clockin clockin = new Clockin();
-        clockin.setStudentId(3903150326l);
+        clockin.setStudentId("3903150326l");
         clockin.setClockDay(new Timestamp(new Date().getTime()));
         clockin.setComment("李涛江测试打卡");
         clockin.setDuration(50);
@@ -30,20 +30,20 @@ public class ClockDAOimplTest {
 
     @Test
     public void testGetAllClocks() throws Exception {
-        List<Clockin> clockinList = clockDAO.getAllClocks(3903150326l);
+        List<Clockin> clockinList = clockDAO.getAllClocks("3903150326l");
         assertTrue(clockinList.size() > 0);
     }
 
     @Test
     public void testGetClockByDay() throws Exception {
-        assertTrue(clockDAO.getClockByDay(3903150326l, new Timestamp(new Date().getTime())) != null);
-        assertFalse(clockDAO.getClockByDay(3903150327l, new Timestamp(new Date().getTime())) != null);
+        assertTrue(clockDAO.getClockByDay("3903150326l", new Timestamp(new Date().getTime())) != null);
+        assertFalse(clockDAO.getClockByDay("3903150327l", new Timestamp(new Date().getTime())) != null);
     }
 
     @Test
     public void testUpdateClock() throws Exception {
         Clockin clockin = new Clockin();
-        clockin.setStudentId(3903150326l);
+        clockin.setStudentId("3903150326l");
         clockin.setClockDay(new Timestamp(new Date().getTime()));
         clockin.setComment("李涛江测试打卡update");
         clockin.setDuration(50);

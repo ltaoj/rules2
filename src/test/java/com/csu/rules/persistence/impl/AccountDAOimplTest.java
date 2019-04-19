@@ -23,7 +23,7 @@ public class AccountDAOimplTest {
     @Test
     public void testGetUserInfo() throws Exception {
         Account account = new Account();
-        account.setStudentId(3903150327l);
+        account.setStudentId("3903150327l");
         account = accountDAO.getUserInfo(account);
         assertEquals(account.getCollege(), "软件工程");
     }

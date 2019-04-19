@@ -55,7 +55,7 @@ public class LearnActionBean extends AbstractActionBean{
     }
 
     @RequestMapping(value = "clockDetail", method = RequestMethod.GET)
-    public ResponseEntity<Result> clockDetail(@RequestParam(value = "studentId") long studentId,
+    public ResponseEntity<Result> clockDetail(@RequestParam(value = "studentId") String studentId,
                                                   @RequestParam(value = "username") String username,
                                                   @RequestParam(value = "datetime") String datetime) {
         try {

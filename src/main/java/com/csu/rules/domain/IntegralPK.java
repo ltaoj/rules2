@@ -10,16 +10,16 @@ import java.io.Serializable;
 public class IntegralPK implements Serializable {
     @Id
     @Column(name = "student_id")
-    private long studentId;
+    private String studentId;
     @Id
     @Column(name = "integral_num")
     private Integer integralNum;
 
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -47,7 +47,7 @@ public class IntegralPK implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int) (studentId ^ (studentId >>> 32));
+        int result = 31 * studentId.hashCode();
         result = 31 * result + (integralNum != null ? integralNum.hashCode() : 0);
         return result;
     }
